@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интернет-приемная — Росфинмониторинг</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f4f7; color: #333; }
+        
+        /* Хедер */
+        .navbar-custom { background-color: #0a1f33; height: 85px; display: flex; align-items: center; padding: 0 30px; color: #fff; border-bottom: 4px solid #c5a059; justify-content: space-between; }
+        .logo-area { display: flex; align-items: center; gap: 15px; cursor: pointer; }
+        .emblem-img { height: 60px; width: auto; }
+        .logo-text h1 { margin: 0; font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
+        .logo-text p { margin: 0; font-size: 10px; color: #a0b2c6; text-transform: uppercase; }
+
+        /* Контейнер формы */
+        .form-container { max-width: 800px; margin: 40px auto; background: white; border: 1px solid #dce3e8; border-radius: 4px; padding: 40px; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        
+        .section-title { font-size: 20px; color: #0a1f33; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #005695; padding-bottom: 8px; }
+        .notice-box { background-color: #fff9e6; border-left: 4px solid #ffc107; padding: 15px; margin-bottom: 30px; font-size: 14px; color: #665014; line-height: 1.5; border-radius: 0 4px 4px 0; }
+        
+        /* Стили формы */
+        .form-group { margin-bottom: 22px; }
+        .form-group label { display: block; font-weight: bold; color: #0a1f33; margin-bottom: 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.3px; }
+        
+        .form-control { width: 100%; padding: 12px 15px; border: 1px solid #ced4da; border-radius: 4px; font-size: 15px; transition: border-color 0.15s ease-in-out; box-sizing: border-box; background-color: #f8fafc; }
+        .form-control:focus { border-color: #005695; outline: 0; background-color: #fff; box-shadow: 0 0 0 3px rgba(0,86,149,0.1); }
+        
+        textarea.form-control { min-height: 150px; resize: vertical; }
+        
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-top: 15px; }
+        .checkbox-group input { margin-top: 3px; }
+        .checkbox-group label { font-size: 13px; color: #555; font-weight: normal; text-transform: none; }
+
+        /* Кнопки */
+        .btn-submit { background: #005695; color: white; padding: 14px 30px; border: none; border-radius: 4px; font-size: 14px; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; transition: background 0.2s; width: 100%; margin-top: 10px; }
+        .btn-submit:hover { background: #0a1f33; }
+        .btn-submit:disabled { background: #cccccc; cursor: not-allowed; }
+        
+        .btn-back { display: inline-block; background: #556677; color: white; padding: 12px 24px; border-radius: 4px; font-size: 13px; font-weight: bold; text-decoration: none; margin-top: 20px; transition: background 0.2s; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-back:hover { background: #334455; }
+
+        /* Всплывашка об успешной отправке */
+        .modal-success { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,31,51,0.6); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 40px; border-radius: 4px; border-top: 6px solid #28a745; text-align: center; max-width: 450px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .modal-content h3 { color: #0a1f33; margin-top: 0; }
+        .modal-content p { color: #555; font-size: 14px; line-height: 1.5; }
+        .btn-close { background: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 20px; text-transform: uppercase; font-size: 12px; }
+
+        /* Подвал */
+        .footer-profile { background-color: #0a1f33; color: #fff; padding: 30px 0; margin-top: 60px; font-size: 12px; border-top: 4px solid #c5a059; }
+        .footer-container { max-width: 800px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; box-sizing: border-box; }
+        .footer-emblem { height: 60px; width: auto; object-fit: contain; flex-shrink: 0; }
+        .footer-disclaimer { color: #cedbe7; line-height: 1.6; text-align: justify; font-style: italic; max-width: 450px; }
+        .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; white-space: nowrap; flex-shrink: 0; }
+
+        /* Адаптивные стили для мобилок (Исправление косяков верстки) */
+        @media screen and (max-width: 768px) {
+            .navbar-custom { height: auto; padding: 15px 20px; flex-direction: column; gap: 10px; text-align: center; }
+            .navbar-custom div:last-child { margin-top: 5px; }
+            .form-container { margin: 20px 10px; padding: 20px; }
+            .footer-container { flex-direction: column; gap: 20px; text-align: center; }
+            .footer-disclaimer { text-align: center; max-width: 100%; }
+            .footer-copyright { text-align: center; white-space: normal; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-custom">
+        <div class="logo-area" onclick="window.location.href='index.html'">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Официальный модуль отправки обращений</p>
+            </div>
+        </div>
+        <div style="font-size: 12px; font-weight: bold; color: #a0b2c6;">УЗЕЛ СВЯЗИ: ЗАЩИЩЕН</div>
+    </nav>
+
+    <div class="form-container">
+        <div class="section-title">Прием обращений граждан и организаций</div>
+        
+        <div class="notice-box">
+            <strong>Внимание!</strong> Обращения, направленные через настоящий электронный портал, регистрируются в установленном порядке в соответствии с Федеральным законом № 59-ФЗ «О порядке рассмотрения обращений граждан Российской Федерации».
+        </div>
+
+        <form action="https://formspree.io/f/xqeooejl" method="POST" id="appealForm" onsubmit="sendForm(event)" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="fullName">ФИО заявителя / Наименование организации *</label>
+                <input type="text" id="fullName" name="name" class="form-control" placeholder="Иванов Иван Иванович" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Электронная почта для ответа *</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="example@mail.ru" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Номер телефона для связи *</label>
+                <input type="tel" id="phone" name="phone" class="form-control" placeholder="+7 (999) 123-45-67" required>
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Тема обращения *</label>
+                <select id="subject" name="subject" class="form-control" required>
+                    <option value="" disabled selected>Выберите тему...</option>
+                    <option value="Сообщение о сомнительных операциях">Сообщение о сомнительных операциях / антифрод</option>
+                    <option value="Вопросы исполнения 115-ФЗ">Вопросы исполнения требований Федерального закона № 115-ФЗ</option>
+                    <option value="Техподдержка ЛК">Запрос технической поддержки Личного Кабинета</option>
+                    <option value="Жалобы и предложения">Жалобы и предложения</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Текст обращения *</label>
+                <textarea id="message" name="message" class="form-control" placeholder="Подробно изложите суть вашего вопроса или заявления..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="file">Прикрепить подтверждающие документы (PDF, PNG, JPG)</label>
+                <input type="file" id="file" name="attachment" class="form-control" style="padding: 8px;">
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="agreement" required>
+                <label for="agreement">Я подтверждаю свое согласие на обработку персональных данных Федеральной службой по финансовому мониторингу в рамках рассмотрения настоящего обращения.</label>
+            </div>
+
+            <button type="submit" class="btn-submit">Отправить официальное обращение</button>
+        </form>
+
+        <a href="index.html" class="btn-back">← Назад на главную</a>
+    </div>
+
+    <div id="successModal" class="modal-success">
+        <div class="modal-content">
+            <div style="font-size: 40px; margin-bottom: 15px;">✉️</div>
+            <h3>Обращение успешно отправлено!</h3>
+            <p>Вашему заявлению присвоен временный входящий номер:</p>
+            <p style="font-family: monospace; font-size: 16px; font-weight: bold; color: #005695; background: #eef2f5; padding: 8px; margin: 15px 0; border-radius: 4px;">
+                РФМ-ОБ-<span id="ticketNumber">000000</span>
+            </p>
+            <p>Официальный ответ будет направлен на указанный вами Email в течение установленного законом срока.</p>
+            <button class="btn-close" onclick="closeModal()">Закрыть окно</button>
+        </div>
+    </div>
+
+    <footer class="footer-profile">
+        <div class="footer-container">
+            <img src="emblem.png" class="footer-emblem" alt="Герб Росфинмониторинга">
+            <div class="footer-disclaimer">
+                «Поступающие обращения обрабатываются в строгом соответствии с регламентами информационной безопасности Федеральной службы».
+            </div>
+            <div class="footer-copyright">
+                © 2001-2026 Федеральная служба<br>по финансовому мониторингу.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function sendForm(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const button = form.querySelector('.btn-submit');
+            
+            button.innerText = "Отправка в Узел Связи...";
+            button.disabled = true;
+
+            // === НАСТРОЙКИ ТЕЛЕГРАМА ===
+            const TELEGRAM_TOKEN = '8831492348:AAFs0KG_u8dxfPbTO1yboU-TrGJt0NJDvmk'; 
+            const TELEGRAM_CHAT_ID = '7386406575';
+            // ===========================
+
+            // Собираем текстовые данные из полей
+            const name = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const fileInput = document.getElementById('file');
+
+            // Форматируем текст сообщения
+            const textMessage = `📩 *Новое обращение в приемную* \n\n` +
+                                `👤 *ФИО:* ${name}\n` +
+                                `📞 *Телефон:* ${phone}\n` +
+                                `📧 *Email:* ${email}\n` +
+                                `📁 *Тема:* ${subject}\n\n` +
+                                `📝 *Текст:* \n${message}`;
+
+            // 1. Сначала отправляем текстовую информацию
+            fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: textMessage,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Ошибка отправки текста');
+                
+                // 2. Если пользователь прикрепил файл — отправляем его следом
+                if (fileInput.files.length > 0) {
+                    const formData = new FormData();
+                    formData.append('chat_id', TELEGRAM_CHAT_ID);
+                    formData.append('document', fileInput.files[0]); 
+                    formData.append('caption', `📁 Файл к обращению от: ${name}`);
+
+                    return fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                }
+                return response;
+            })
+            .then(res => {
+                if (res.ok) {
+                    // Генерируем номер РФМ-ОБ и показываем модалку успеха
+                    const randomTicket = Math.floor(100000 + Math.random() * 900000);
+                    document.getElementById('ticketNumber').innerText = randomTicket;
+                    document.getElementById('successModal').style.display = 'flex';
+                    form.reset(); // Очищаем поля формы
+                } else {
+                    alert("Текст ушел, но возникла ошибка при передаче файла в Telegram.");
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert("Ошибка сервера при отправке. Убедитесь, что бот запущен и ключи указаны верно.");
+            })
+            .finally(() => {
+                button.innerText = "Отправить официальное обращение";
+                button.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>

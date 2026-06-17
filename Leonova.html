@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Леонова Виктория Сергеевна — Служебная база верификации</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f4f7f9; 
+            color: #333; 
+        }
+
+        /* ТОЧНАЯ СЛУЖЕБНАЯ ШАПКА */
+        .navbar-custom { 
+            background-color: #0a1f33; 
+            height: auto;
+            min-height: 90px; 
+            display: flex; 
+            align-items: center; 
+            padding: 10px 30px; 
+            color: #fff; 
+            border-bottom: 3px solid #c5a059; 
+            justify-content: space-between; 
+            box-sizing: border-box;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .logo-area { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+        .emblem-img { 
+            height: 55px; 
+            width: auto; 
+        }
+        .logo-text h1 { 
+            margin: 0; 
+            font-size: 20px; 
+            font-weight: bold; 
+            letter-spacing: 0.5px; 
+            color: #ffffff;
+        }
+        .logo-text p { 
+            margin: 3px 0 0 0; 
+            font-size: 10px; 
+            color: #8fa2b5; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
+        .access-status {
+            font-size: 12px; 
+            font-weight: bold; 
+            color: #8fa2b5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* ГЛАВНЫЙ КОНТЕЙНЕР ЛИЧНОГО ДЕЛА */
+        .profile-card {
+            max-width: 750px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            box-sizing: border-box;
+        }
+
+        /* КАРТОЧКА ИНФОРМАЦИИ (ВЕРХНИЙ БЛОК) */
+        .header-block {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: start;
+        }
+
+        /* ГЛАВНОЕ ФОТО ВЕРХУ */
+        .main-photo {
+            width: 240px;
+            height: 300px;
+            border: 1px solid #cbd5e1;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ЗЕЛЕНЫЙ СТАТУС */
+        .status-badge {
+            display: inline-block;
+            background-color: #e6f4ea;
+            color: #137333;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 6px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            border: 1px solid #ceead6;
+            width: fit-content;
+        }
+
+        /* ФИО И ДОЛЖНОСТЬ */
+        .employee-name {
+            font-size: 28px;
+            color: #0c2340;
+            margin: 0 0 8px 0;
+            font-weight: bold;
+        }
+        .employee-title {
+            font-size: 13px;
+            color: #0066cc;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+
+        /* ТАБЛИЦА С ХАРАКТЕРИСТИКАМИ */
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .meta-table td {
+            padding: 8px 0;
+            font-size: 13px;
+            vertical-align: top;
+        }
+        .meta-table td.label {
+            color: #64748b;
+            width: 140px;
+            font-weight: bold;
+        }
+        .meta-table td.value {
+            color: #1e293b;
+            font-weight: 500;
+        }
+        .meta-table td.value.id-highlight {
+            color: #dd2c00;
+            font-weight: bold;
+        }
+
+        /* ЗАГОЛОВКИ РАЗДЕЛОВ */
+        .section-headline {
+            font-size: 15px;
+            color: #0056b3;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+        }
+
+        .section-text {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            text-align: justify;
+            margin: 0 0 20px 0;
+        }
+
+        .bullet-list {
+            margin: 0 0 25px 0;
+            padding-left: 20px;
+        }
+        .bullet-list li {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+        .bullet-list strong {
+            color: #0056b3;
+        }
+
+        /* БЛОК ПМЭФ (ИСПРАВЛЕННЫЙ) */
+        .media-container {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 20px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            margin-bottom: 25px;
+            align-items: start;
+            box-sizing: border-box;
+        }
+        .quote-text {
+            font-style: italic;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #475569;
+            margin: 0;
+        }
+        .quote-source {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #0056b3;
+            font-weight: bold;
+            margin-top: 12px;
+            display: block;
+            letter-spacing: 0.5px;
+        }
+        .forum-photo {
+            width: 280px;
+            height: auto;
+            border: 1px solid #cbd5e1;
+            display: block;
+        }
+
+        .awards-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 40px 0;
+        }
+        .awards-list li {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: start;
+            gap: 8px;
+        }
+
+        .btn-back-main {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #0c2340;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .btn-back-main:hover {
+            background-color: #0056b3;
+        }
+
+        /* ПОДВАЛ БЕЗ ИНЛАЙН СТИЛЕЙ */
+        .footer-profile {
+            background-color: #0a1f33; 
+            color: #ffffff; 
+            padding: 30px 20px; 
+            border-top: 4px solid #c5a059; 
+            margin-top: 50px;
+        }
+        .footer-container {
+            max-width: 750px; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-logo-block {
+            display: flex; 
+            align-items: center; 
+            gap: 15px;
+        }
+        .footer-logo-block img {
+            height: 45px; 
+            width: auto;
+        }
+        .footer-text-left {
+            text-align: left;
+        }
+        .footer-title-ru {
+            font-size: 13px; 
+            font-weight: bold; 
+            letter-spacing: 0.5px; 
+            color: #ffffff;
+        }
+        .footer-subtitle-ru {
+            font-size: 9px; 
+            color: #8fa2b5; 
+            text-transform: uppercase;
+        }
+        .footer-text-right {
+            text-align: right; 
+            font-size: 11px; 
+            color: #8fa2b5;
+        }
+
+        /* ==========================================================================
+           ПОЛНЫЙ АДАПТИВ ДЛЯ МОБИЛЬНЫХ ЭКРАНОВ СМАРТФОНОВ
+           ========================================================================== */
+        @media screen and (max-width: 768px) {
+            .navbar-custom {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+            }
+            .logo-area {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .profile-card {
+                padding: 20px 15px;
+                margin: 15px auto;
+            }
+
+            /* Разворачиваем Фото + ФИО в одну колонку */
+            .header-block {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                text-align: center;
+            }
+            .main-photo {
+                margin: 0 auto;
+                max-width: 100%;
+            }
+            .status-badge {
+                margin: 0 auto 15px auto;
+            }
+            .employee-name {
+                font-size: 24px;
+            }
+            .employee-title {
+                font-size: 12px;
+                padding-bottom: 15px;
+                margin-bottom: 15px;
+            }
+
+            /* Делаем таблицу мета-данных адаптивной */
+            .meta-table, .meta-table tbody, .meta-table tr, .meta-table td {
+                display: block;
+                width: 100%;
+            }
+            .meta-table td.label {
+                width: 100%;
+                padding-bottom: 2px;
+                padding-top: 10px;
+            }
+            .meta-table td.value {
+                padding-top: 0;
+                padding-bottom: 8px;
+            }
+
+            /* ИСПРАВЛЕНИЕ БЛОКА С ПМЭФ (Цитата + Фотка) */
+            .media-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 15px;
+            }
+            .forum-photo {
+                width: 100%;
+                height: auto;
+                max-height: 250px;
+                object-fit: contain;
+                margin: 0 auto;
+            }
+
+            .section-text {
+                text-align: left; /* Убираем выравнивание по ширине */
+            }
+
+            /* Адаптивный подвал */
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            .footer-logo-block {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .footer-text-left {
+                text-align: center;
+            }
+            .footer-text-right {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ВЕРХНЯЯ ВЕДОМСТВЕННАЯ ШАПКА -->
+    <nav class="navbar-custom">
+        <div class="logo-area">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Служебная база верификации сотрудников</p>
+            </div>
+        </div>
+        <div class="access-status">Доступ: Служебный</div>
+    </nav>
+
+    <!-- СТРАНИЦА ИЗ БАЗЫ ДАННЫХ -->
+    <div class="profile-card">
+        
+        <!-- ВЕРХНИЙ БЛОК: ОФИЦИАЛЬНЫЙ ПОРТРЕТ И МЕТА -->
+        <div class="header-block">
+            <img src="lex.png" class="main-photo" alt="Леонова В. С.">
+            
+            <div>
+                <div class="status-badge">✓ Действующий сотрудник ведомства</div>
+                <h1 class="employee-name">Леонова Виктория Сергеевна</h1>
+                <div class="employee-title">Ведущий специалист-эксперт ФЭУ / Международник</div>
+                
+                <table class="meta-table">
+                    <tr>
+                        <td class="label">ID Удостоверения:</td>
+                        <td class="value id-highlight">ФС-270038</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Подразделение:</td>
+                        <td class="value">Финансово-экономическое управление Росфинмониторинга</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Специализация:</td>
+                        <td class="value">Финансовое сопровождение программ международного сотрудничества и аудит рисков</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- РАЗДЕЛЫ ХАРАКТЕРИСТИКИ -->
+        <div class="section-headline">На страже финансовой безопасности</div>
+        <p class="section-text">
+            Профессиональный путь Виктории Сергеевны Леоновой неразрывно связан с обеспечением стабильности финансово-экономического блока ведомства. В рамках работы в Финансово-экономическом управлении Центрального аппарата Росфинмониторинга она отвечает за аналитическое сопровождение и аудит бюджетирования ключевых программ. Благодаря высокому уровню квалификации и системному подходу к контролю финансовых потоков, Виктория Сергеевна выступает надежным щитом на пути нецелевого распределения государственных активов и обеспечивает легитимность международных соглашений.
+        </p>
+
+        <div class="section-headline">Образование и становление</div>
+        <p class="section-text">
+            Виктория Сергеевна получила профильное высшее экономическое образование, специализируясь на государственном аудите, международном финансовом контроле и анализе рисков. Обучение и глубокое освоение нормативно-правовой базы заложили мощный фундамент экспертных знаний в области финансовой прозрачности целевых фондов, анализа транзакций и современных методов выявления скрытых экономических угроз.
+        </p>
+
+        <div class="section-headline">Экспертная работа и международный статус</div>
+        <p class="section-text">
+            Ключевой особенностью деятельности Виктории Леоновой является координация и финансовое обеспечение программ в рамках международного взаимодействия. Она принимает активное участие в аналитическом обеспечении работы ведомства с крупнейшими глобальными институтами:
+        </p>
+        <ul class="bullet-list">
+            <li><strong>Взаимодействие с FATF:</strong> Сопровождение и аудит финансово-экономической отчетности по совместным межгосударственным проектам и инициативам.</li>
+            <li><strong>Интеграция с ЕАГ и Группой Эгмонт:</strong> Контроль исполнения обязательств по международным соглашениям в сфере обмена аналитическими данными.</li>
+            <li><strong>Мониторинг трансграничных рисков:</strong> Участие в формировании комплексных стратегий экономической прозрачности совместных фондов.</li>
+        </ul>
+
+        <!-- БЛОК С ФОТО С ПМЭФ -->
+        <div class="section-headline">Профессиональный итог и медиа</div>
+        <div class="media-container">
+            <div class="quote-text">
+                «Эффективное финансово-экономическое планирование внутри ведомства — это фундамент, на котором строится вся оперативная и международная деятельность службы. Контроль каждой бюджетной единицы, задействованной в программах финансовой разведки, гарантирует общую экономическую безопасность и авторитет ведомства на мировой арене.»
+                <span class="quote-source">из официального доклада на панельной сессии ПМЭФ, 2026 г.</span>
+            </div>
+            <img src="lex_pmef.png" class="forum-photo" alt="Леонова В. С. на ПМЭФ">
+        </div>
+
+        <div class="section-headline">Государственные и ведомственные награды</div>
+        <ul class="awards-list">
+            <li>🎖️ Благодарность Руководителя Росфинмониторинга за успешное представление ведомственных интересов и высокий уровень экспертных докладов на международной арене.</li>
+            <li>🎖️ Благодарность Начальника управления за безупречную службу и высокие показатели в организации financial контроля.</li>
+            <li>🎖️ Нагрудный знак отличия «За вклад в обеспечение финансовой безопасности» II степени.</li>
+        </ul>
+
+        <!-- БЛОК КОНФИДЕНЦИАЛЬНОСТИ -->
+        <div style="background-color: #fff9e6; border-left: 4px solid #ffcc00; padding: 15px; margin: 30px 0; border-radius: 0 4px 4px 0;">
+            <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #665200; font-style: italic;">
+                * Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга.
+            </p>
+        </div>
+
+        <!-- КНОПКА ВОЗВРАТА -->
+        <div style="margin-bottom: 10px;">
+            <a href="index.html" class="btn-back-main">← На главную страницу</a>
+        </div>
+
+    </div> <!-- Конец .profile-card -->
+
+    <!-- ВЕДОМСТВЕННЫЙ ПОДВАЛ -->
+    <footer class="footer-profile">
+        <div class="footer-container">
+            <div class="footer-logo-block">
+                <img src="emblem.png" alt="Герб">
+                <div class="footer-text-left">
+                    <div class="footer-title-ru">РОСФИНМОНИТОРИНГ</div>
+                    <div class="footer-subtitle-ru">Федеральная служба по финансовому мониторингу</div>
+                </div>
+            </div>
+            <div class="footer-text-right">
+                <div>Центральный аппарат Росфинмониторинга</div>
+                <div style="margin-top: 4px;">© 2001-2026 Все права защищены.</div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
