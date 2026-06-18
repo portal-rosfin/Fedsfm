@@ -11,6 +11,8 @@
             padding: 0; 
             background-color: #f0f4f7; 
             color: #333; 
+            /* Предотвращает горизонтальный скролл на мобильных из-за вылетов элементов */
+            overflow-x: hidden; 
         }
         
         /* Хедер с фиксацией */
@@ -26,6 +28,7 @@
             position: fixed;
             top: 0;
             left: 0;
+            right: 0; /* Гарантирует привязку по краям */
             width: 100%;
             z-index: 1000;
             box-sizing: border-box;
@@ -56,6 +59,7 @@
             font-size: 12px; 
             font-weight: bold; 
             color: #a0b2c6;
+            white-space: nowrap;
         }
 
         /* БАННЕР С КАРТИНКОЙ */
@@ -66,7 +70,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            margin-top: 85px; /* Отступ под шапку */
+            margin-top: 85px; /* Отступ под десктопную шапку */
         }
         .hero-banner img {
             width: 100%;
@@ -116,6 +120,16 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+        }
+
+        /* ИСПРАВЛЕНИЕ РАЗМЫТИЯ И КРИВИЗНЫ ФОТОГРАФИЙ В ДИНАМИЧЕСКИХ НОВОСТЯХ */
+        .news-card-wrapper img {
+            width: 100% !important;
+            max-width: 100% !important;
+            height: auto !important;
+            object-fit: cover; /* Сохраняет пропорции без растягивания */
+            border-radius: 4px;
+            display: block;
         }
 
         .verification-box {
@@ -199,6 +213,7 @@
             width: 100%;
             height: auto;
             display: block;
+            object-fit: cover;
         }
         .card-title {
             padding: 18px 15px;
@@ -336,18 +351,24 @@
                 justify-content: space-between;
                 padding: 0 15px;
                 height: 70px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
             }
             .hero-banner {
-                margin-top: 70px; /* Корректный уменьшенный отступ */
+                margin-top: 70px; /* Корректный уменьшенный отступ для мобилок под фиксированную шапку */
             }
             .emblem-img {
-                height: 45px;
+                height: 40px;
             }
             .logo-text h1 {
-                font-size: 14px;
+                font-size: 13px;
+                line-height: 1.2;
             }
             .logo-text p {
-                font-size: 8px;
+                font-size: 7.5px;
+                line-height: 1.2;
             }
             .portal-status {
                 display: none; /* Скрываем статус на мобилках ради свободного места */
