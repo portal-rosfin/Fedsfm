@@ -5,17 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Досье сотрудника — Росфинмониторинг</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f4f7; color: #333; }
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f0f4f7; 
+            color: #333; 
+        }
         
-        /* Хедер досье */
-        .navbar-custom { background-color: #0a1f33; height: 85px; display: flex; align-items: center; padding: 0 30px; color: #fff; border-bottom: 4px solid #c5a059; justify-content: space-between; }
-        .logo-area { display: flex; align-items: center; gap: 15px; cursor: pointer; }
-        .emblem-img { height: 60px; width: auto; }
-        .logo-text h1 { margin: 0; font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
-        .logo-text p { margin: 0; font-size: 10px; color: #a0b2c6; text-transform: uppercase; }
+        /* Хедер с фиксацией */
+        .navbar-custom { 
+            background-color: #0a1f33; 
+            height: 85px; 
+            display: flex; 
+            align-items: center; 
+            padding: 0 30px; 
+            color: #fff; 
+            border-bottom: 4px solid #c5a059; 
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
 
-        /* Контейнер */
-        .profile-container { max-width: 1000px; margin: 40px auto; background: white; border: 1px solid #dce3e8; border-radius: 4px; padding: 40px; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+        .emblem-img {
+            height: 60px;
+            width: auto;
+        }
+        .logo-text h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .logo-text p {
+            margin: 0;
+            font-size: 10px;
+            color: #a0b2c6;
+            text-transform: uppercase;
+        }
+
+        /* Контейнер профиля с правильным отступом сверху под шапку */
+        .profile-container { 
+            max-width: 1000px; 
+            margin: 125px auto 40px auto; /* 125px сверху спасают от наложения шапки */
+            background: white; 
+            border: 1px solid #dce3e8; 
+            border-radius: 4px; 
+            padding: 40px; 
+            box-sizing: border-box; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02); 
+        }
         
         /* Главный блок: Фото + Имя */
         .profile-header { display: grid; grid-template-columns: 280px 1fr; gap: 40px; border-bottom: 2px solid #edf1f4; padding-bottom: 35px; margin-bottom: 30px; }
@@ -66,108 +115,105 @@
         .footer-emblem { height: 60px; width: auto; object-fit: contain; flex-shrink: 0; }
         .footer-disclaimer { color: #cedbe7; line-height: 1.6; text-align: justify; font-style: italic; max-width: 600px; }
         .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; white-space: nowrap; flex-shrink: 0; }
-    /* ==========================================================================
-   АДАПТИВНАЯ ВЕРСТКА ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ (СТРАНИЦА СОТРУДНИКА)
-   ========================================================================== */
-@media screen and (max-width: 768px) {
-    
-    /* 1. Навбар (Шапка с гербом) */
-    .navbar-custom {
-        height: auto !important;
-        flex-direction: row !important;
-        justify-content: space-between !important;
-        padding: 10px 15px !important;
-    }
-    .logo-area {
-        gap: 10px !important;
-    }
-    .emblem-img {
-        height: 45px !important; /* Делаем герб чуть компактнее */
-    }
-    .logo-text h1 {
-        font-size: 13px !important;
-    }
-    .logo-text p {
-        font-size: 8px !important;
-    }
 
-    /* 2. Основной контейнер страницы */
-    .profile-container {
-        margin: 10px !important;
-        padding: 15px !important;
-        width: auto !important;
-    }
+        /* АДАПТИВНАЯ ВЕРСТКА ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
+        @media screen and (max-width: 768px) {
+            
+            /* Навбар на мобилках */
+            .navbar-custom {
+                height: auto !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                padding: 10px 15px !important;
+            }
+            .logo-area {
+                gap: 10px !important;
+            }
+            .emblem-img {
+                height: 45px !important;
+            }
+            .logo-text h1 {
+                font-size: 13px !important;
+            }
+            .logo-text p {
+                font-size: 8px !important;
+            }
 
-    /* 3. Главный блок (Фото + Имя) — переводим из Grid в Flex одну колонку */
-    .profile-header {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 20px !important;
-        padding-bottom: 20px !important;
-        margin-bottom: 20px !important;
-        text-align: center !important;
-    }
+            /* Контейнер страницы с учетом высоты шапки на мобилках */
+            .profile-container {
+                margin: 110px 10px 20px 10px !important; /* Безопасный отступ сверху на телефонах */
+                padding: 15px !important;
+                width: auto !important;
+            }
 
-    /* Контейнер для фото */
-    .photo-box {
-        width: 200px !important; /* Ужимаем фотку, чтобы она не была на весь экран */
-        height: 250px !important;
-    }
+            /* Главный блок в одну колонку */
+            .profile-header {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 20px !important;
+                padding-bottom: 20px !important;
+                margin-bottom: 20px !important;
+                text-align: center !important;
+            }
 
-    /* Блок с ФИО и статусом */
-    .info-box {
-        align-items: center !important;
-    }
-    .profile-name {
-        font-size: 24px !important;
-    }
-    .profile-rank {
-        font-size: 14px !important;
-    }
-    .status-badge {
-        margin: 0 auto 15px auto !important; /* Центрируем зеленую плашку */
-    }
+            .photo-box {
+                width: 200px !important;
+                height: 250px !important;
+            }
 
-    /* 4. Личные данные (ID, Подразделение, Специализация) */
-    .meta-grid {
-        display: flex !important;
-        flex-direction: column !important; /* Выстраиваем пункты друг под друга */
-        gap: 12px !important;
-        padding-top: 15px !important;
-    }
-    .meta-label {
-        margin-bottom: 2px !important;
-        color: #708090 !important;
-    }
-    .meta-value {
-        margin-bottom: 10px !important;
-        padding-left: 5px !important;
-    }
+            .info-box {
+                align-items: center !important;
+            }
+            .profile-name {
+                font-size: 24px !important;
+            }
+            .profile-rank {
+                font-size: 14px !important;
+            }
+            .status-badge {
+                margin: 0 auto 15px auto !important;
+            }
 
-    /* 5. Двухколоночный блок (Интервью + Пресс-фото) */
-    .media-block {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 20px !important;
-    }
-    .press-photo-box {
-        width: 100% !important;
-        height: auto !important;
-    }
+            /* Личные данные списком */
+            .meta-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 12px !important;
+                padding-top: 15px !important;
+            }
+            .meta-label {
+                margin-bottom: 2px !important;
+                color: #708090 !important;
+            }
+            .meta-value {
+                margin-bottom: 10px !important;
+                padding-left: 5px !important;
+            }
 
-    /* 6. Подвал (Footer) */
-    .footer-profile .footer-container {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 15px !important;
-        text-align: center !important;
-    }
-    .footer-disclaimer, .footer-copyright {
-        text-align: center !important;
-        white-space: normal !important; /* Разрешаем тексту переноситься */
-    }
-}
+            /* Двухколоночный медиа-блок */
+            .media-block {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+            .press-photo-box {
+                width: 100% !important;
+                height: auto !important;
+            }
+
+            /* Подвал */
+            .footer-profile .footer-container {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 15px !important;
+                text-align: center !important;
+            }
+            .footer-disclaimer, .footer-copyright {
+                text-align: center !important;
+                white-space: normal !important;
+            }
+        }
     </style>
 </head>
 <body>

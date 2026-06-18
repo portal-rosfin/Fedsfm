@@ -13,21 +13,24 @@
             color: #333; 
         }
         
-        /* ХЕДЕР САЙТА */
+        /* Хедер с фиксацией */
         .navbar-custom { 
             background-color: #0a1f33; 
-            height: auto;
-            min-height: 85px; 
+            height: 85px; 
             display: flex; 
             align-items: center; 
-            padding: 10px 30px; 
+            padding: 0 30px; 
             color: #fff; 
             border-bottom: 4px solid #c5a059; 
-            justify-content: space-between; 
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
             box-sizing: border-box;
-            flex-wrap: wrap;
-            gap: 15px;
         }
+
         .logo-area { 
             display: flex; 
             align-items: center; 
@@ -63,6 +66,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            margin-top: 85px; /* Отступ под шапку */
         }
         .hero-banner img {
             width: 100%;
@@ -88,7 +92,6 @@
             align-items: start;
         }
 
-        /* Блок новостей */
         .news-box {
             background: white;
             border: 1px solid #dce3e8;
@@ -114,54 +117,7 @@
             flex-direction: column;
             gap: 20px;
         }
-        .news-card-item {
-            display: grid;
-            grid-template-columns: 140px 1fr; 
-            gap: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #edf1f4;
-            align-items: start;
-            text-decoration: none; 
-            color: inherit;
-            transition: background-color 0.2s;
-        }
-        .news-card-item:hover {
-            background-color: #f8f9fa; 
-        }
-        .news-card-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-        .news-img-box {
-            width: 140px;
-            height: 95px;
-            background-color: #e5eef5;
-            border-radius: 4px;
-            overflow: hidden;
-            border: 1px solid #dce3e8;
-        }
-        .news-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .news-content-box h4 {
-            margin: 0 0 8px 0;
-            font-size: 14px;
-            color: #222;
-            line-height: 1.4;
-            transition: color 0.2s;
-        }
-        .news-card-item:hover .news-content-box h4 {
-            color: #005695; 
-        }
-        .news-content-box span {
-            font-size: 11px;
-            color: #8fa2b5;
-            display: block;
-        }
 
-        /* Форма проверки сотрудника */
         .verification-box {
             background: white;
             border: 1px solid #dce3e8;
@@ -352,9 +308,7 @@
             text-align: right; 
         }
 
-        /* ==========================================================================
-           РЕАЛЬНАЯ АДАПТИВНАЯ ВЕРСТКА ДЛЯ ВСЕХ ЭКРАНОВ
-           ========================================================================== */
+        /* АДАПТИВНАЯ ВЕРСТКА */
         @media screen and (max-width: 992px) {
             .cards-grid-container {
                 grid-template-columns: repeat(2, 1fr);
@@ -373,6 +327,10 @@
                 flex-direction: column;
                 text-align: center;
                 padding: 15px;
+                height: auto;
+            }
+            .hero-banner {
+                margin-top: 140px;
             }
             .logo-area {
                 flex-direction: column;
@@ -392,10 +350,6 @@
             .cards-grid-container {
                 grid-template-columns: 1fr;
                 gap: 15px;
-            }
-            .news-card-item {
-                grid-template-columns: 1fr;
-                gap: 10px;
             }
             .news-img-box {
                 width: 100%;
@@ -439,12 +393,10 @@
     <div class="main-content-container">
 
         <div class="top-grid">
-            
             <div class="news-box">
                 <div class="section-title">Новости ведомства</div>
                 <div id="dynamic-news-wrapper" class="news-card-wrapper">
-                    <!-- Сюда скрипт news_data.js сам вставит карточки -->
-                </div>
+                    </div>
             </div>
 
             <div class="verification-box">
@@ -453,7 +405,6 @@
                 <input type="text" id="id-input" class="input-style" placeholder="Например: ФС-123456">
                 <button onclick="checkEmployee()" class="btn-verify">Проверить</button>
             </div>
-
         </div>
 
         <div class="internet-priemnaya-banner">
@@ -497,7 +448,7 @@
                 <img src="eag_logo.png" class="coop-logo" alt="EAG">
             </div>
             <p class="coop-text">
-                Росфинмониторинг осуществляет взаимодействие и ведет информационный обмен с компетентными органами ряда государств и международных организаций. Первоочередное внимание при этом уделяется обеспечению участия Российской Федерации в мероприятиях, направленных на разработку и совершенствование международных стандартов противодействия отмыванию денежных средств и финансированию терроризма...
+                Росфинмониторинг осуществляет взаимодействие и ведет информационный обмен с компетентными органами ряда государств и международных организаций...
             </p>
         </div>
 
@@ -541,7 +492,6 @@
     <script src="news_data.js"></script>
 
     <script>
-        // Инициализация Яндекс Карты
         ymaps.ready(initMap);
         function initMap() {
             var map = new ymaps.Map("rosfin-map", {
@@ -562,7 +512,6 @@
             map.behaviors.disable('scrollZoom');
         }
 
-        // Функция проверки сотрудника
         function checkEmployee() {
             var val = document.getElementById('id-input').value.trim().toUpperCase();
             

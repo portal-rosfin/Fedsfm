@@ -5,17 +5,66 @@
     <meta charset="UTF-8">
     <title>Досье сотрудника — Росфинмониторинг</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f4f7; color: #333; }
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f0f4f7; 
+            color: #333; 
+        }
         
-        /* Хедер досье */
-        .navbar-custom { background-color: #0a1f33; height: auto; min-height: 85px; display: flex; align-items: center; padding: 10px 30px; color: #fff; border-bottom: 4px solid #c5a059; justify-content: space-between; box-sizing: border-box; flex-wrap: wrap; gap: 15px; }
-        .logo-area { display: flex; align-items: center; gap: 15px; cursor: pointer; }
-        .emblem-img { height: 60px; width: auto; }
-        .logo-text h1 { margin: 0; font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
-        .logo-text p { margin: 0; font-size: 10px; color: #a0b2c6; text-transform: uppercase; }
+        /* Хедер с фиксацией */
+        .navbar-custom { 
+            background-color: #0a1f33; 
+            height: 85px; 
+            display: flex; 
+            align-items: center; 
+            padding: 0 30px; 
+            color: #fff; 
+            border-bottom: 4px solid #c5a059; 
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
 
-        /* Контейнер */
-        .profile-container { max-width: 1000px; margin: 40px auto; background: white; border: 1px solid #dce3e8; border-radius: 4px; padding: 40px; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+        .emblem-img {
+            height: 60px;
+            width: auto;
+        }
+        .logo-text h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .logo-text p {
+            margin: 0;
+            font-size: 10px;
+            color: #a0b2c6;
+            text-transform: uppercase;
+        }
+
+        /* Контейнер профиля с правильным отступом сверху под фиксированную шапку */
+        .profile-container { 
+            max-width: 1000px; 
+            margin: 125px auto 40px auto; /* 125px сверху спасают от наложения шапки */
+            background: white; 
+            border: 1px solid #dce3e8; 
+            border-radius: 4px; 
+            padding: 40px; 
+            box-sizing: border-box; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02); 
+        }
         
         /* Главный блок: Фото + Имя */
         .profile-header { display: grid; grid-template-columns: 280px 1fr; gap: 40px; border-bottom: 2px solid #edf1f4; padding-bottom: 35px; margin-bottom: 30px; }
@@ -67,99 +116,123 @@
         .footer-disclaimer { color: #cedbe7; line-height: 1.6; text-align: justify; font-style: italic; max-width: 600px; }
         .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; white-space: nowrap; flex-shrink: 0; }
 
-        /* ==========================================================================
-           ПОЛНЫЙ АДАПТИВ ДЛЯ СМАРТФОНОВ (ИСПРАВЛЕНИЕ ОШИБОК)
-           ========================================================================== */
+        /* АДАПТИВНАЯ ВЕРСТКА ДЛЯ СМАРТФОНОВ */
         @media screen and (max-width: 768px) {
             .navbar-custom {
-                flex-direction: column;
-                text-align: center;
-                padding: 15px;
+                height: auto !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                padding: 10px 15px !important;
             }
             .logo-area {
-                flex-direction: column;
-                gap: 10px;
+                gap: 10px !important;
+            }
+            .emblem-img {
+                height: 45px !important;
+            }
+            .logo-text h1 {
+                font-size: 13px !important;
+            }
+            .logo-text p {
+                font-size: 8px !important;
             }
 
+            /* Безопасный отступ для карточки профиля на мобилках */
             .profile-container {
-                padding: 20px 15px;
-                margin: 15px auto;
+                padding: 15px !important;
+                margin: 110px 10px 20px 10px !important;
+                width: auto !important;
             }
 
-            /* Перестраиваем Фото + ФИО */
+            /* Перестраиваем Фото + ФИО в одну колонку */
             .profile-header {
-                grid-template-columns: 1fr;
-                gap: 25px;
-                text-align: center;
-                padding-bottom: 25px;
-                margin-bottom: 20px;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 20px !important;
+                text-align: center !important;
+                padding-bottom: 20px !important;
+                margin-bottom: 20px !important;
             }
             .photo-box {
-                margin: 0 auto; /* Центрируем главное фото */
-                max-width: 100%;
+                margin: 0 auto;
+                width: 200px !important;
+                height: 250px !important;
+            }
+            .info-box {
+                align-items: center !important;
             }
             .status-badge {
-                margin: 0 auto 15px auto; /* Центрируем бейдж */
+                margin: 0 auto 15px auto !important;
             }
             .profile-name {
-                font-size: 24px;
+                font-size: 24px !important;
             }
             .profile-rank {
-                font-size: 14px;
-                margin-bottom: 15px;
+                font-size: 14px !important;
+                margin-bottom: 15px !important;
             }
 
-            /* Лечим таблицу личных данных */
+            /* Списки личных данных */
             .meta-grid {
-                grid-template-columns: 1fr;
-                gap: 5px;
-                text-align: left;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 12px !important;
+                text-align: left !important;
+                padding-top: 15px !important;
             }
             .meta-label {
-                margin-top: 8px;
+                margin-top: 0 !important;
+                margin-bottom: 2px !important;
+                color: #708090 !important;
+            }
+            .meta-value {
+                margin-bottom: 10px !important;
+                padding-left: 5px !important;
             }
 
-            /* ИСПРАВЛЕНИЕ ИЗ image_88f23b.jpg (Цитата + kasp.png) */
+            /* Цитата + фото СМИ */
             .media-block {
-                grid-template-columns: 1fr; /* Переключаем в 1 колонку */
-                gap: 20px;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 20px !important;
             }
             .press-photo-box {
-                width: 100%;
-                height: auto; /* Сбрасываем жесткую высоту */
-                max-height: 250px;
+                width: 100% !important;
+                height: auto !important;
+                max-height: 250px !important;
             }
             .press-photo-box img {
-                width: 100%;
-                height: auto;
-                object-fit: contain;
+                width: 100% !important;
+                height: auto !important;
+                object-fit: contain !important;
             }
 
             /* Текст био */
             .bio-text {
-                text-align: left; /* Убираем justify на мелких экранах */
+                text-align: left !important;
             }
 
             /* Подвал */
             .footer-container {
-                flex-direction: column;
-                text-align: center;
-                gap: 20px;
+                display: flex !important;
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 15px !important;
             }
             .footer-disclaimer {
-                text-align: center;
-                font-size: 11px;
+                text-align: center !important;
+                font-size: 11px !important;
             }
             .footer-copyright {
-                text-align: center;
-                white-space: normal;
+                text-align: center !important;
+                white-space: normal !important;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- НАВБАР -->
     <nav class="navbar-custom">
         <div class="logo-area" onclick="window.location.href='index.html'">
             <img src="emblem.png" class="emblem-img" alt="Герб">
@@ -171,7 +244,6 @@
         <div style="font-size: 12px; font-weight: bold; color: #a0b2c6;">ДОСТУП: СЛУЖЕБНЫЙ</div>
     </nav>
 
-    <!-- КАРТОЧКА ПРОФИЛЯ -->
     <div class="profile-container">
         
         <div class="profile-header">
@@ -197,44 +269,38 @@
             </div>
         </div>
 
-        <!-- НА СТРАЖЕ БЕЗОПАСНОСТИ -->
-        <div class="section-title">На страже финансовой безопасности</div>
+        <div class="section-title">На страже financial безопасности</div>
         <p class="bio-text">
-            Профессиональная деятельность Романа Александровича Рябова неразрывно связана с аналитическим сопровождением масштабных мероприятий по противодействию легализации преступных доходов. В рамках работы в центральном аппарате ведомства он зарекомендовал себя как высококлассный специалист, способный эффективно распутывать самые сложные и скрытые цепочки финансовых транзакций.
+            Профессиональная деятельность Романа Александровича Рябова неразрывно связанна с аналитическим сопровождением масштабных мероприятий по противодействию легализации преступных доходов. В рамках работы в центральном аппарате ведомства он зарекомендовал себя как высококлассный специалист, способный эффективно распутывать самые сложные и скрытые цепочки финансовых транзакций.
         </p>
 
-        <!-- ОБРАЗОВАНИЕ -->
         <div class="section-title">Образование и становление</div>
         <p class="bio-text">
-            Роман Александрович получил профильное высшее экономическое образование по направлению <strong>«Финансы и кредит»</strong> со специальной подготовкой в сфере экономической безопасности. В рамках последующего профессионального развития он успешно завершил циклы специализированного обучения, сфокусированные на международных стандартах финансовой разведки, банковском комплаенсе и передовых методах детекции теневых финансовых flows.
+            Роман Александрович получил профильное высшее экономическое образование по направлению <strong>«Финансы и кредит»</strong> со специальной подготовкой в сфере экономической безопасности. В рамках последующего профессионального развития он успешно завершил циклы специализированного обучения, сфокусированные на международных стандартах финансовой разведки, банковском комплаенсе и передовых методах детекции теневых финансовых процессов.
         </p>
 
-        <!-- СЛУЖЕБНАЯ ЭКСПЕРТИЗА -->
         <div class="section-title">Ключевые направления экспертизы</div>
         <p class="bio-text">
             Ежедневные обязанности Романа Александровича охватывают стратегически важные направления работы Управления финансовых расследований, требующие ювелирной точности и системного мышления:
         </p>
         <ul class="features-list">
-            <li><strong>Анализ подозрительных операций:</strong> Глубокая оценка крупных финансовых потоков и оперативное выявление признаков легализации доходовов, полученных незаконным путем.</li>
+            <li><strong>Анализ подозрительных операций:</strong> Глубокая оценка крупных финансовых потоков и оперативное выявление признаков легализации доходов, полученных незаконным путем.</li>
             <li><strong>Противодействие финансированию терроризма:</strong> Сбор, верификация и подготовка важнейших аналитических материалов для перекрытия и блокирования каналов подпитки экстремистских структур.</li>
             <li><strong>Межведомственный трек:</strong> Координация и техническое сопровождение безопасного информационного обмена с государственными органами и ведущими кредитными организациями.</li>
             <li><strong>Моделирование рисков:</strong> Участие в проектировании современных аналитических моделей оценки рисков и совершенствовании механизмов национального финансового мониторинга.</li>
         </ul>
 
-        <!-- ИТОГ / ЦИТАТА + ВТОРОЕ ФОТО (KASP.PNG) -->
         <div class="section-title">Профессиональный итог и международный трек</div>
         <div class="media-block">
             <div class="quote-block">
                 «Современная финансовая безопасность основывается не только на контроле денежных потоков, но и на способности своевременно выявлять скрытые взаимосвязи между финансовыми операциями. Эффективный финансовый мониторинг является важнейшим инструментом защиты экономических интересов государства.»
                 <div class="quote-source">Из доклада на международном экспертном мероприятии, 2026 г.</div>
             </div>
-            <!-- Вторая фотка kasp.png идеально встала на место пресс-фото -->
             <div class="press-photo-box">
                 <img src="kasp.png" alt="Рябов Р. А. — Выступление с докладом">
             </div>
         </div>
 
-        <!-- НАГРАДЫ -->
         <div class="section-title">Государственные и ведомственные награды</div>
         <ul class="awards-list">
             <li>Благодарность руководства Росфинмониторинга за высокий профессионализм и развитие аналитических инструментов.</li>
@@ -246,7 +312,6 @@
 
     </div>
 
-    <!-- УНИВЕРСАЛЬНЫЙ ПОДВАЛ С ДИСКЛЕЙМЕРОМ И ГЕРБОМ -->
     <footer class="footer-profile">
         <div class="footer-container">
             <img src="emblem.png" class="footer-emblem" alt="Герб Росфинмониторинга">
