@@ -54,10 +54,10 @@
             text-transform: uppercase;
         }
 
-        /* Очищенный и исправленный контейнер формы с отступом под шапку */
+        /* Контейнер формы с отступом под шапку */
         .form-container { 
             max-width: 800px; 
-            margin: 125px auto 40px auto; /* 125px сверху спасают от наложения фиксированной шапки */
+            margin: 125px auto 40px auto; 
             background: white; 
             border: 1px solid #dce3e8; 
             border-radius: 4px; 
@@ -105,7 +105,7 @@
         .footer-disclaimer { color: #cedbe7; line-height: 1.6; text-align: justify; font-style: italic; max-width: 450px; }
         .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; white-space: nowrap; flex-shrink: 0; }
 
-        /* АДАПТИВНАЯ ВЕРСТКА ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
+        /* АДАПТИВНАЯ ВЕРСТКА */
         @media screen and (max-width: 768px) {
             .navbar-custom {
                 height: auto !important;
@@ -113,51 +113,21 @@
                 justify-content: space-between !important;
                 padding: 10px 15px !important;
             }
-            .logo-area {
-                gap: 10px !important;
-            }
-            .emblem-img {
-                height: 45px !important;
-            }
-            .logo-text h1 {
-                font-size: 13px !important;
-            }
-            .logo-text p {
-                font-size: 8px !important;
-            }
-            .navbar-custom div:last-child {
-                display: none; /* Прячем текст "УЗЕЛ СВЯЗИ" на мелких экранах для компактности */
-            }
-
-            /* Корректный отступ формы на мобилках */
+            .logo-area { gap: 10px !important; }
+            .emblem-img { height: 45px !important; }
+            .logo-text h1 { font-size: 13px !important; }
+            .logo-text p { font-size: 8px !important; }
+            .navbar-custom div:last-child { display: none; }
             .form-container { 
                 margin: 110px 10px 20px 10px !important; 
                 padding: 20px 15px !important; 
                 width: auto !important;
             }
-            
-            .section-title {
-                font-size: 16px !important;
-            }
-
-            .modal-content {
-                padding: 25px 15px !important;
-            }
-
-            /* Подвал */
-            .footer-container { 
-                flex-direction: column !important; 
-                gap: 20px !important; 
-                text-align: center !important; 
-            }
-            .footer-disclaimer { 
-                text-align: center !important; 
-                max-width: 100% !important; 
-            }
-            .footer-copyright { 
-                text-align: center !important; 
-                white-space: normal !important; 
-            }
+            .section-title { font-size: 16px !important; }
+            .modal-content { padding: 25px 15px !important; }
+            .footer-container { flex-direction: column !important; gap: 20px !important; text-align: center !important; }
+            .footer-disclaimer { text-align: center !important; max-width: 100% !important; }
+            .footer-copyright { text-align: center !important; white-space: normal !important; }
         }
     </style>
 </head>
@@ -267,8 +237,7 @@ function sendForm(event) {
     button.disabled = true;
 
     // === НАСТРОЙКИ КАНАЛА СВЯЗИ ===
-    // Твой новый Cloudflare Worker, который мы только что настроили
-    const workerUrl = 'https://round-band-482a.portal-rosfin.workers.dev/sendMessage';
+    const workerBaseUrl = 'https://round-band-482a.portal-rosfin.workers.dev';
     const TELEGRAM_CHAT_ID = '7386406575';
     // ==============================
 
@@ -287,8 +256,12 @@ function sendForm(event) {
                         `📌 *Тема:* ${subject}\n\n` +
                         `📝 *Текст сообщения:* ${message}`;
 
-    // Отправляем POST-запрос на твой воркер
-    fetch(workerUrl, {
+    // Проверяем наличие файла
+    const fileInput = document.getElementById('file');
+    const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+
+    // 1. Отправляем текстовое сообщение на /sendMessage
+    fetch(`${workerBaseUrl}/sendMessage`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -300,23 +273,61 @@ function sendForm(event) {
         })
     })
     .then(response => response.json())
-    .then(data => {
-        if (data.ok) {
-            alert("Обращение успешно отправлено в Узел Связи ведомства!");
-            form.reset(); // Очищаем форму после успешной отправки
+    .then(textData => {
+        if (!textData.ok) {
+            throw new Error('Ошибка при отправке текстовых данных.');
+        }
+
+        // 2. Если текст успешно ушел и пользователь прикрепил файл
+        if (file) {
+            const formData = new FormData();
+            formData.append('chat_id', TELEGRAM_CHAT_ID);
+
+            // Определяем метод отправки в зависимости от типа файла
+            let method = '/sendDocument'; // По умолчанию шлем как документ
+            if (file.type.startsWith('image/')) {
+                method = '/sendPhoto';
+                formData.append('photo', file);
+            } else {
+                formData.append('document', file);
+            }
+
+            // Шлем файл вторым запросом
+            return fetch(`${workerBaseUrl}${method}`, {
+                method: 'POST',
+                body: formData // Content-Type браузер выставит сам, как multipart/form-data
+            }).then(fileResponse => fileResponse.json());
+        }
+
+        // Если файла не было, возвращаем имитацию успешного ответа
+        return { ok: true };
+    })
+    .then(finalData => {
+        if (finalData.ok) {
+            // Генерируем красивый случайный шестизначный номер тикета
+            const generatedNumber = Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('ticketNumber').innerText = generatedNumber;
+            
+            // Показываем красивое модальное окно вместо alert
+            document.getElementById('successModal').style.display = 'flex';
+            form.reset(); 
         } else {
-            alert("Ошибка сервера при отправке. Проверьте статус Воркера.");
+            alert("Основной текст получен, но вложенный файл отклонен сервером Telegram.");
         }
     })
     .catch(error => {
         console.error('Ошибка:', error);
-        alert("Ошибка сети при отправке обращения.");
+        alert("Не удалось установить защищенное соединение. Проверьте Cloudflare Worker.");
     })
     .finally(() => {
-        // Возвращаем кнопку в исходное состояние
-        button.innerText = "Отправить обращение";
+        button.innerText = "Отправить официальное обращение";
         button.disabled = false;
     });
+}
+
+// Функции управления модальным окном
+function closeModal() {
+    document.getElementById('successModal').style.display = 'none';
 }
 </script>
 
