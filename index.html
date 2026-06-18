@@ -294,12 +294,20 @@
             align-items: center; 
             justify-content: space-between; 
             box-sizing: border-box; 
-            flex-wrap: wrap;
             gap: 20px;
+        }
+        .footer-logo-block {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         .footer-emblem { 
             height: 50px; 
             width: auto; 
+        }
+        .footer-text-block {
+            max-width: 600px;
+            text-align: right;
         }
         .footer-copyright { 
             color: #8fa2b5; 
@@ -324,20 +332,25 @@
 
         @media screen and (max-width: 768px) {
             .navbar-custom {
-                flex-direction: column;
-                text-align: center;
-                padding: 15px;
-                height: auto;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 0 15px;
+                height: 70px;
             }
             .hero-banner {
-                margin-top: 140px;
+                margin-top: 70px; /* Корректный уменьшенный отступ */
             }
-            .logo-area {
-                flex-direction: column;
-                gap: 10px;
+            .emblem-img {
+                height: 45px;
             }
             .logo-text h1 {
-                font-size: 16px;
+                font-size: 14px;
+            }
+            .logo-text p {
+                font-size: 8px;
+            }
+            .portal-status {
+                display: none; /* Скрываем статус на мобилках ради свободного места */
             }
             .main-content-container {
                 margin: 20px auto;
@@ -351,21 +364,26 @@
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
-            .news-img-box {
-                width: 100%;
-                height: 160px;
-            }
             .coop-logo {
                 height: 80px;
             }
+            
+            /* Исправление подвала на мобильных */
             .footer-container {
                 flex-direction: column;
                 text-align: center;
+                gap: 25px;
             }
-            .footer-container div {
-                text-align: center !important;
-                align-items: center !important;
+            .footer-logo-block {
                 flex-direction: column;
+                text-align: center;
+            }
+            .footer-logo-block div {
+                text-align: center !important;
+            }
+            .footer-text-block {
+                text-align: center;
+                max-width: 100%;
             }
             .footer-copyright {
                 text-align: center;
@@ -376,7 +394,7 @@
 <body>
 
     <nav class="navbar-custom">
-        <div class="logo-area">
+        <div class="logo-area" style="cursor: pointer;" onclick="window.location.href='index.html'">
             <img src="emblem.png" class="emblem-img" alt="Герб">
             <div class="logo-text">
                 <h1>РОСФИНМОНИТОРИНГ</h1>
@@ -470,14 +488,14 @@
 
     <footer class="footer-profile">
         <div class="footer-container">
-            <div style="display: flex; align-items: center; gap: 15px;">
+            <div class="footer-logo-block">
                 <img src="emblem.png" alt="Герб" class="footer-emblem">
-                <div style="text-align: left;">
+                <div>
                     <div style="font-size: 14px; font-weight: bold; letter-spacing: 0.5px;">РОСФИНМОНИТОРИНГ</div>
                     <div style="font-size: 9px; color: #8fa2b5; text-transform: uppercase;">Федеральная служба по финансовому мониторингу</div>
                 </div>
             </div>
-            <div style="max-width: 600px; text-align: right;">
+            <div class="footer-text-block">
                 <p style="margin: 0 0 10px 0; font-size: 11px; line-height: 1.4; color: #a0b2c6; font-style: italic;">
                     Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга.
                 </p>
@@ -501,7 +519,7 @@
             });
 
             var placemark = new ymaps.Placemark([55.767663, 37.640948], {
-                balloonContentHeader: "Росфинмониторинг",
+                balloonContentHeader: "Rosfinmonitoring",
                 balloonContentBody: "Центральный аппарат ведомства<br>г. Москва, ул. Мясницкая, д. 39, стр. 1",
                 hintContent: "Здание Федеральной службы"
             }, {
