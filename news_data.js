@@ -51,24 +51,23 @@ const current_news = [
     },
     ];
 
-/* Техническая часть: не трогай это, она автоматически обновляет сайт */
+/* news_data.js */
+// ... твои данные current_news оставляем как есть ...
+
 const buildNews = (data) => {
     const newsGrid = document.getElementById('dynamic-news-wrapper');
     if (!newsGrid) return;
     newsGrid.innerHTML = ''; 
 
     data.forEach(item => {
+        // Добавляем класс .news-item для связи с CSS
         const newsCard = `
-            <div class="news-card-item">
-                <div class="news-img-box">
-                    <img src="${item.image}" alt="${item.title}">
-                </div>
-                <div class="news-content-box">
+            <div class="news-item">
+                <img src="${item.image}" alt="${item.title}">
+                <div class="news-info">
                     <h4>${item.title}</h4>
-                    <p style="font-size: 12px; color: #555; margin: 5px 0 10px 0; line-height: 1.4;">
-                        ${item.text.length > 140 ? item.text.substring(0, 140) + '...' : item.text}
-                    </p>
-                    <a href="${item.link}" style="font-size: 12px; color: #005695; font-weight: bold; text-decoration: none;">Подробнее →</a>
+                    <p>${item.text.length > 140 ? item.text.substring(0, 140) + '...' : item.text}</p>
+                    <a href="${item.link}" class="news-link">Подробнее →</a>
                 </div>
             </div>
         `;

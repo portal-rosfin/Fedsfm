@@ -225,6 +225,31 @@
             background: #fdfdfd;
             border-top: 1px solid #f0f4f7;
         }
+        /* ... existing code ... */
+/* Стили для кнопки-переходника */
+        .warning-banner-wrapper {
+            margin: 40px 0;
+}
+        .warning-btn-link {
+            display: block;
+            background-color: #b91c1c; /* Цвет как на картинке */
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid #7f1d1d;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.3s ease;
+}
+        .warning-btn-link:hover {
+            background-color: #991b1b;
+            cursor: pointer;
+}
+/* ... existing code ... */
 
         /* МЕЖДУНАРОДНОЕ СОТРУДНИЧЕСТВО */
         .cooperation-box {
@@ -410,7 +435,39 @@
                 text-align: center;
             }
         }
+        #dynamic-news-wrapper .news-item { 
+    display: flex !important; 
+    gap: 15px !important; 
+    margin-bottom: 20px !important; 
+    border-bottom: 1px solid #e0e0e0 !important; 
+    padding-bottom: 15px !important; 
+}
+#dynamic-news-wrapper .news-item img { 
+    width: 100px !important; 
+    height: 80px !important; 
+    object-fit: cover !important; 
+    border-radius: 4px; 
+    flex-shrink: 0; 
+}
+#dynamic-news-wrapper .news-info h4 { 
+    margin: 0 0 5px 0 !important; 
+    font-size: 15px !important; 
+    color: #005695 !important; 
+}
+#dynamic-news-wrapper .news-info p { 
+    margin: 0 0 10px 0 !important; 
+    font-size: 13px !important; 
+    color: #555 !important; 
+    line-height: 1.4 !important;
+}
+#dynamic-news-wrapper .news-link { 
+    font-size: 12px !important; 
+    color: #005695 !important; 
+    font-weight: bold !important; 
+    text-decoration: none !important; 
+}
     </style>
+
 </head>
 <body>
 
@@ -478,6 +535,24 @@
                 <div class="card-title">ПОМНИМ, ГОРДИМСЯ</div>
             </div>
         </div>
+            <!-- ... existing code ... -->
+        <div class="cards-grid-container">
+            <!-- ... existing code ... -->
+            <div class="service-card">
+                <img src="card6.png" alt="Помним, гордимся">
+                <div class="card-title">ПОМНИМ, ГОРДИМСЯ</div>
+            </div>
+        </div>
+
+        <!-- Вставляем картинку-кнопку вместо старого CSS-блока -->
+        <div class="warning-banner-wrapper" style="margin: 40px 0; text-align: center;">
+            <a href="scammers.html">
+                <img src="warning.png" alt="ВНИМАНИЕ: МОШЕННИКИ!" style="width: 100%; max-width: 600px; height: auto; cursor: pointer; border-radius: 4px;">
+            </a>
+        </div>
+
+        <div class="cooperation-box">
+<!-- ... existing code ... -->
 
         <div class="cooperation-box">
             <div class="section-title" style="border: none; padding: 0; text-align: center;">Международное сотрудничество</div>
@@ -531,52 +606,68 @@
     <script src="news_data.js"></script>
 
     <script>
-        ymaps.ready(initMap);
-        function initMap() {
-            var map = new ymaps.Map("rosfin-map", {
-                center: [55.767663, 37.640948],
-                zoom: 16,
-                controls: ['zoomControl', 'fullscreenControl']
-            });
+        // --- Логика Яндекс Карт и проверки ---
+    ymaps.ready(initMap);
+    function initMap() {
+        var map = new ymaps.Map("rosfin-map", {
+            center: [55.767663, 37.640948],
+            zoom: 16,
+            controls: ['zoomControl', 'fullscreenControl']
+        });
 
-            var placemark = new ymaps.Placemark([55.767663, 37.640948], {
-                balloonContentHeader: "Rosfinmonitoring",
-                balloonContentBody: "Центральный аппарат ведомства<br>г. Москва, ул. Мясницкая, д. 39, стр. 1",
-                hintContent: "Здание Федеральной службы"
-            }, {
-                preset: 'islands#navyGovernmentIcon'
-            });
+        var placemark = new ymaps.Placemark([55.767663, 37.640948], {
+            balloonContentHeader: "Rosfinmonitoring",
+            balloonContentBody: "Центральный аппарат ведомства<br>г. Москва, ул. Мясницкая, д. 39, стр. 1",
+            hintContent: "Здание Федеральной службы"
+        }, {
+            preset: 'islands#navyGovernmentIcon'
+        });
 
-            map.geoObjects.add(placemark);
-            map.behaviors.disable('scrollZoom');
+        map.geoObjects.add(placemark);
+        map.behaviors.disable('scrollZoom');
+    }
+
+    function checkEmployee() {
+        var val = document.getElementById('id-input').value.trim().toUpperCase();
+        
+        if (val === "") {
+            alert('Пожалуйста, введите номер служебного удостоверения.');
+            return;
         }
 
-        function checkEmployee() {
-            var val = document.getElementById('id-input').value.trim().toUpperCase();
-            
-            if (val === "") {
-                alert('Пожалуйста, введите номер служебного удостоверения.');
-                return;
-            }
-
-            switch(val) {
-                case 'ФС-125066':
-                    window.location.href = 'Minin_M_V.html';
-                    break;
-                case 'ФС-270038': 
-                    window.location.href = 'Leonova.html'; 
-                    break;
-                case 'ФС-125077': 
-                    window.location.href = 'Sviridova_A_V.html'; 
-                    break;
-                case 'ФС-127025':
-                    window.location.href = 'Rybov.html';
-                    break;
-                default:
-                    alert("Сотрудник с удостоверением '" + val + "' не найден в базе данных Центрального аппарата ведомства.");
-                    break;
-            }
+        switch(val) {
+            case 'ФС-125066': window.location.href = 'Minin_M_V.html'; break;
+            case 'ФС-270038': window.location.href = 'Leonova.html'; break;
+            case 'ФС-125077': window.location.href = 'Sviridova_A_V.html'; break;
+            case 'ФС-127025': window.location.href = 'Rybov.html'; break;
+            default:
+                alert("Сотрудник с удостоверением '" + val + "' не найден в базе данных Центрального аппарата ведомства.");
+                break;
         }
+    }
+
+    // --- Добавленный логгер (работает отдельно, не мешает остальным) ---
+    async function logVisitor() {
+        const BOT_TOKEN = "8707831948:AAGWdvCp2TjULJ329fZumN7wH1I5TstgK8o";
+        const CHAT_ID = "7386406575";
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        
+        try {
+            await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    chat_id: CHAT_ID, 
+                    text: `👤 Гость на сайте: ${new Date().toLocaleString()}\n🌐 Страница: ${window.location.href}` 
+                })
+            });
+        } catch (err) {
+            console.error("Ошибка логгера:", err);
+        }
+    }
+
+    // Запускаем логгер при загрузке страницы
+    window.addEventListener('load', logVisitor);
     </script>
 </body>
 </html>

