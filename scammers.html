@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кибербезопасность — Росфинмониторинг</title>
+    <!-- Подключаем Tailwind для корректной работы верстки новостей -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f4f7; color: #333; }
+        
+        /* ХЕДЕР */
+        .navbar-custom { background-color: #0a1f33; height: 85px; display: flex; align-items: center; padding: 0 30px; color: #fff; border-bottom: 4px solid #c5a059; justify-content: space-between; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-sizing: border-box; }
+        .logo-area { display: flex; align-items: center; gap: 15px; cursor: pointer; }
+        .emblem-img { height: 60px; width: auto; }
+        .logo-text h1 { margin: 0; font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
+        .logo-text p { margin: 0; font-size: 10px; color: #a0b2c6; text-transform: uppercase; }
+
+        /* КОНТЕЙНЕР КОНТЕНТА */
+        .main-container { max-width: 900px; margin: 125px auto 40px auto; padding: 0 20px; box-sizing: border-box; }
+        .section-card { background: white; border: 1px solid #dce3e8; border-radius: 4px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .section-title { font-size: 22px; color: #0a1f33; font-weight: bold; margin-bottom: 25px; text-transform: uppercase; border-left: 4px solid #005695; padding-left: 15px; }
+        .subtitle { font-size: 18px; color: #005695; font-weight: bold; margin: 20px 0 10px 0; }
+        p { line-height: 1.6; color: #444; margin-bottom: 15px; }
+        ul { margin-bottom: 20px; padding-left: 20px; color: #444; line-height: 1.6; }
+        li { margin-bottom: 8px; }
+
+        /* ФУТЕР */
+        .footer-profile { background-color: #0a1f33; color: #fff; padding: 30px 0; margin-top: 60px; font-size: 12px; border-top: 4px solid #c5a059; }
+        .footer-container { max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; box-sizing: border-box; }
+        .footer-emblem { height: 60px; width: auto; object-fit: contain; flex-shrink: 0; }
+        .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; }
+
+/* STREAMING_CHUNK:Стилизуем тест для современного вида */
+.quiz-btn {
+    transition: all 0.2s ease-in-out;
+    border: 2px solid #e2e8f0;
+    background: white;
+}
+.quiz-btn:hover {
+    border-color: #005695;
+    background-color: #f8fafc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.progress-bar-inner {
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-custom">
+        <div class="logo-area" onclick="window.location.href='index.html'">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Федеральная служба по финансовому мониторингу</p>
+            </div>
+        </div>
+        <div style="font-size: 12px; font-weight: bold; color: #a0b2c6;">ОФИЦИАЛЬНЫЙ ПОРТАЛ</div>
+    </nav>
+
+    <main class="main-container">
+        
+        <div class="section-card">
+            <div class="section-title">Кибермошенничество: схемы и защита</div>
+            
+            <p>В последние годы мошенничество в России все чаще переходит в цифровую среду. Современные преступники используют методы социальной инженерии, вредоносные программы, фишинговые сайты и поддельные аккаунты для получения доступа к персональным данным граждан. Получив контроль над учетными записями, злоумышленники могут похищать денежные средства, оформлять кредиты и совершать другие противоправные действия.</p>
+
+            <h3 class="subtitle">1. Взлом аккаунта через код из СМС</h3>
+            <p>Одной из наиболее распространенных схем является получение мошенниками одноразового кода подтверждения из СМС. Злоумышленники звонят гражданам, представляясь маркетплейсами, сотрудниками правоохранительных органов, операторов связи, служб доставки или государственных организаций.</p>
+            <p><strong>Последствия взлома аккаунта («Госуслуги» и др.):</strong></p>
+            <ul>
+                <li>Оформление кредитов и микрозаймов на имя жертвы;</li>
+                <li>Изменение персональных данных;</li>
+                <li>Получение доступа к банковским сервисам и хищение средств;</li>
+                <li>Использование данных для дальнейших мошеннических действий;</li>
+                <li>Попытки совершения сделок с недвижимостью с использованием похищенных документов.</li>
+            </ul>
+            <p style="background: #fff3cd; padding: 10px; border-left: 4px solid #ffc107; font-size: 14px;"><strong>Важно помнить:</strong> сотрудники банков, государственных органов и правоохранительных структур никогда не запрашивают коды подтверждения из СМС по телефону.</p>
+
+            <h3 class="subtitle">2. Фишинговые ссылки и ПО</h3>
+            <p>Мошенники рассылают сообщения с интригующими заголовками: <em>«Посмотри это фото», «Это ты на видео?», «Вам пришла посылка», «Вы выиграли приз»</em>. После перехода по ссылке пользователь попадает на поддельный сайт или загружает вредоносное ПО, которое может:</p>
+            <ul>
+                <li>Похищать логины, пароли и данные банковских карт;</li>
+                <li>Перехватывать СМС-сообщения;</li>
+                <li>Собирать контакты и личную информацию;</li>
+                <li>Удаленно управлять устройством.</li>
+            </ul>
+        </div>
+
+        <!-- БЛОК НОВОСТЕЙ -->
+        <div class="section-card">
+            <div class="section-title">Актуальные публикации и аналитика</div>
+            
+            <div class="flex flex-col">
+                <!-- 1 -->
+                <a href="https://mumcfm.ru/mediateka/book/books/publicnaya-versiya-analiticeskogo-otceta-mumcfm-tipologiceskaya-xarakteristika-dropov-vzglyad-ekspertnogo-soobshhestva" target="_blank" class="flex gap-4 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors items-start">
+                    <img src="101.png" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
+                    <div class="flex flex-col">
+                        <h4 class="font-bold text-[#005695] text-sm">Аналитический отчет МУМЦФМ: Характеристика дропов</h4>
+                        <p class="text-xs text-gray-600 mt-1">Взгляд экспертного сообщества на типизацию сомнительных транзакций...</p>
+                    </div>
+                </a>
+                <!-- 2 -->
+                <a href="https://www.kommersant.ru/doc/8736666" target="_blank" class="flex gap-4 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors items-start">
+                    <img src="102.png" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
+                    <div class="flex flex-col">
+                        <h4 class="font-bold text-[#005695] text-sm">Группа теневых банкиров с оборотом свыше 500 млн</h4>
+                        <p class="text-xs text-gray-600 mt-1">Раскрыта масштабная сеть по выводу денежных средств...</p>
+                    </div>
+                </a>
+                <!-- 3 -->
+                <a href="https://www.banki.ru/news/lenta/?id=10958458&utm_source=chatgpt.com" target="_blank" class="flex gap-4 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors items-start">
+                    <img src="103.png" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
+                    <div class="flex flex-col">
+                        <h4 class="font-bold text-[#005695] text-sm">Банки.ру: Новые тренды киберпреступлений</h4>
+                        <p class="text-xs text-gray-600 mt-1">Как меняются методы социальной инженерии в 2026 году...</p>
+                    </div>
+                </a>
+                <!-- 4 -->
+                <a href="https://www.gazeta.ru/social/news/2026/02/18/27877297.shtml?utm_source=chatgpt.com" target="_blank" class="flex gap-4 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors items-start">
+                    <img src="https://placehold.co/100x70/0a1f33/white?text=NEWS" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
+                    <div class="flex flex-col">
+                        <h4 class="font-bold text-[#005695] text-sm">Актуальные социальные сводки 2026</h4>
+                        <p class="text-xs text-gray-600 mt-1">Обзор последних случаев мошенничества и мер реагирования...</p>
+                    </div>
+                </a>
+                <!-- 5 -->
+                <a href="https://www.gazeta.ru/social/news/2025/01/30/24961022.shtml?utm_source=chatgpt.com" target="_blank" class="flex gap-4 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors items-start">
+                    <img src="https://placehold.co/100x70/0a1f33/white?text=NEWS" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
+                    <div class="flex flex-col">
+                        <h4 class="font-bold text-[#005695] text-sm">Новости социальной сферы</h4>
+                        <p class="text-xs text-gray-600 mt-1">Статистика и отчеты по защите граждан от киберугроз...</p>
+                    </div>
+                </a>
+                <!-- 6 -->
+                <a href="https://www.gazeta.ru/social/news/2024/04/13/22779128.shtml?utm_source=chatgpt.com" target="_blank" class="flex gap-4 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors items-start">
+                    <img src="https://placehold.co/100x70/0a1f33/white?text=NEWS" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
+                    <div class="flex flex-col">
+                        <h4 class="font-bold text-[#005695] text-sm">Архивные данные: Меры реагирования</h4>
+                        <p class="text-xs text-gray-600 mt-1">Историческая справка о методах борьбы с мошенничеством...</p>
+                    </div>
+                </a>
+                <!-- 7 -->
+                <a href="https://prmira.ru/news/2019-03-11/sotrudnitsa-gazprombanka-oformlyala-kredity-na-klientov-bez-ih-vedoma-tak-ona-pohitila-13-mln-2826218?utm_source=chatgpt.com" target="_blank" class="flex gap-4 py-4 hover:bg-gray-50 transition-colors items-start">
+                    <img src="https://placehold.co/100x70/0a1f33/white?text=CRIME" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
+                    <div class="flex flex-col">
+                        <h4 class="font-bold text-[#005695] text-sm">Сотрудница банка оформляла кредиты</h4>
+                        <p class="text-xs text-gray-600 mt-1">Кейс о том, как инсайдеры помогали похищать миллионы...</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+<!-- STREAMING_CHUNK:Добавляем адаптивный блок видео -->
+<div class="section-card">
+    <div class="section-title">Видеоматериалы</div>
+    <div class="aspect-video w-full overflow-hidden rounded-lg bg-black">
+        <video id="mainVideo" class="w-full h-full" controls>
+            <source src="1kanal-news.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+    </div>
+</div>
+    <!-- STREAMING_CHUNK:Обновленный HTML теста -->
+<div class="section-card shadow-lg border-0" id="quiz-section">
+    <div class="section-title text-[#0a1f33]">Тест на цифровую грамотность</div>
+    <div id="quiz-container" class="mt-6">
+        <div class="mb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
+            Вопрос <span id="current-q-num">1</span> из <span id="total-q-num">9</span>
+        </div>
+        <div class="w-full h-2 bg-gray-100 rounded-full mb-8">
+            <div id="progress-bar" class="h-full bg-[#c5a059] rounded-full progress-bar-inner" style="width: 11%;"></div>
+        </div>
+        <h2 id="question-text" class="text-xl font-semibold text-gray-800 mb-8 leading-tight">Загрузка вопроса...</h2>
+        <div id="options-container" class="space-y-4"></div>
+    </div>
+    <div id="result-container" class="hidden text-center py-8">
+        <div id="result-icon" class="text-6xl mb-4"></div>
+        <h2 id="result-title" class="text-3xl font-black mb-2">Результат</h2>
+        <p id="result-desc" class="text-gray-600 mb-6 px-4"></p>
+        <button onclick="location.reload()" class="px-8 py-3 bg-[#0a1f33] text-white rounded-lg font-bold hover:bg-blue-900 transition-all shadow-lg">Пройти заново</button>
+    </div>
+</div>
+
+    <!-- Результаты (изначально скрыты) -->
+    <div id="result-container" class="hidden text-center py-6">
+        <div id="result-icon" class="text-5xl mb-4"></div>
+        <h2 id="result-title" class="text-2xl font-bold mb-2">Результат</h2>
+        <p id="result-desc" class="text-gray-600 mb-6"></p>
+        <div class="bg-gray-50 p-4 rounded-lg inline-block mb-6">
+            <p class="text-sm text-gray-500">Ваш уровень подготовки:</p>
+            <div id="stats-text" class="text-2xl font-black text-[#005695]"></div>
+        </div>
+        <button onclick="location.reload()" class="w-full py-3 bg-[#0a1f33] text-white rounded font-bold hover:bg-gray-800 transition-colors">Пройти заново</button>
+    </div>
+</div>
+
+    </main>
+
+    <footer class="footer-profile">
+        <div class="footer-container">
+            <img src="emblem.png" class="footer-emblem" alt="Герб">
+            <div class="footer-copyright">
+                © 2001-2026 Федеральная служба<br>по финансовому мониторингу.
+            </div>
+          
+        </div>
+    </footer>
+
+<!-- STREAMING_CHUNK:Добавляем скрипт контроля воспроизведения -->
+<script>
+    document.addEventListener("visibilitychange", () => {
+        const video = document.getElementById('mainVideo');
+        if (video && document.hidden) {
+            video.pause();
+        }
+    });
+</script>
+<!-- STREAMING_CHUNK:Добавляем логику работы теста -->
+<script>
+    // STREAMING_CHUNK: Твои вопросы
+const questions = [
+    { q: "Вам позвонил человек, представившийся сотрудником банка, и сообщил о подозрительной операции. Он просит назвать код из СМС. Что делать?", o: ["Сообщить код, чтобы защитить деньги", "Сообщить только последние цифры", "Не сообщать код и связаться с банком по оф. номеру", "Сообщить код, если звонящий знает данные"], a: 2 },
+    { q: "Вы получили сообщение в мессенджере: «Это ты на видео?» со ссылкой. Ваши действия?", o: ["Сразу открыть ссылку", "Переслать друзьям", "Перейти только с компьютера", "Не открывать и уточнить у отправителя"], a: 3 },
+    { q: "Для чего мошенники чаще всего пытаются получить код из СМС?", o: ["Для проверки номера", "Для участия в опросе", "Для доступа к аккаунтам и банку", "Для улучшения связи"], a: 2 },
+    { q: "Какой признак чаще всего указывает на мошеннический звонок?", o: ["Требуют срочно принять решение", "Знают имя и отчество", "Знают номер телефона", "Звонят в рабочее время"], a: 0 },
+    { q: "Что может произойти после получения мошенниками доступа к «Госуслугам»?", o: ["Только просмотр данных", "Оформление кредитов и кража личности", "Лишь изменение пароля", "Ничего"], a: 1 },
+    { q: "Выигрыш и просьба оплатить комиссию — это что?", o: ["Обычная практика", "Ошибка оператора", "Мошенничество", "Банковская проверка"], a: 2 },
+    { q: "Что будет, если перейти по сомнительной ссылке?", o: ["Ничего, если не вводить данные", "Телефон станет быстрее", "Заражение ПО и кража данных", "Изменится оформление браузера"], a: 2 },
+    { q: "Кто может запрашивать коды из СМС?", o: ["Сотрудник банка", "Сотрудник полиции", "Сотрудник Госуслуг", "Никто"], a: 3 },
+    { q: "Что делать, если случайно сообщили код мошенникам?", o: ["Ничего", "Обратиться в официальную службу поддержки", "Подождать", "Удалить сообщение"], a: 1 }
+];
+
+    let currentQ = 0, score = 0;
+
+    // STREAMING_CHUNK:Обновленная логика рендера кнопок
+function renderQuestion() {
+    const q = questions[currentQ];
+    document.getElementById('current-q-num').innerText = currentQ + 1;
+    document.getElementById('progress-bar').style.width = `${((currentQ + 1) / questions.length) * 100}%`;
+    document.getElementById('question-text').innerText = q.q;
+    const container = document.getElementById('options-container');
+    container.innerHTML = '';
+    q.o.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = "quiz-btn w-full text-left p-5 rounded-xl font-medium text-gray-700";
+        btn.innerHTML = `<span class="inline-block w-8 h-8 rounded-full bg-gray-100 text-center leading-8 mr-4 text-sm font-bold text-[#005695]">${String.fromCharCode(65+i)}</span> ${opt}`;
+        btn.onclick = () => { if (i === q.a) score++; currentQ++; currentQ < questions.length ? renderQuestion() : showResults(); };
+        container.appendChild(btn);
+    });
+}
+
+    function showResults() {
+        document.getElementById('quiz-container').classList.add('hidden');
+        const resCont = document.getElementById('result-container');
+        resCont.classList.remove('hidden');
+        const isGood = (score / questions.length) >= 0.7;
+        document.getElementById('result-icon').innerText = isGood ? '✅' : '🚨';
+        document.getElementById('result-title').innerText = isGood ? 'Вы защищены!' : 'Вам нужно быть осторожнее!';
+        document.getElementById('result-desc').innerText = isGood ? "Отличные знания безопасности." : "Вы можете попасться на уловки.";
+        document.getElementById('stats-text').innerText = `Лучше, чем ${Math.round((score/questions.length)*100)}% пользователей`;
+    }
+    renderQuestion();
+</script>
+</body>
+</html>
