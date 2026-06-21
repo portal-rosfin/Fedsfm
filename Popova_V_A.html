@@ -1,105 +1,134 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <title>Досье: Попова В.А. — Росфинмониторинг</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Досье: Попова В. А. — Росфинмониторинг</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f7f9; color: #333; }
-        .navbar-custom { background-color: #0a1f33; height: auto; min-height: 90px; display: flex; align-items: center; padding: 10px 30px; color: #fff; border-bottom: 3px solid #c5a059; justify-content: space-between; box-sizing: border-box; flex-wrap: wrap; gap: 15px; }
-        .logo-area { display: flex; align-items: center; gap: 15px; }
-        .emblem-img { height: 55px; }
-        .logo-text h1 { margin: 0; font-size: 20px; font-weight: bold; color: #ffffff; }
-        .logo-text p { margin: 3px 0 0 0; font-size: 10px; color: #8fa2b5; text-transform: uppercase; }
-        .profile-card { max-width: 750px; margin: 40px auto; background: #ffffff; padding: 40px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); }
-        .header-block { display: grid; grid-template-columns: 240px 1fr; gap: 30px; margin-bottom: 40px; }
-        .main-photo { width: 240px; height: 300px; border: 1px solid #cbd5e1; object-fit: cover; background-color: #e5eef5; }
-        .status-badge { display: inline-block; background-color: #e6f4ea; color: #137333; font-size: 11px; font-weight: bold; padding: 6px 16px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #ceead6; }
-        .employee-name { font-size: 28px; color: #0c2340; margin: 0 0 8px 0; font-weight: bold; }
-        .employee-title { font-size: 13px; color: #0066cc; font-weight: bold; text-transform: uppercase; margin-bottom: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; }
-        .section-headline { font-size: 15px; color: #0056b3; font-weight: bold; text-transform: uppercase; margin-top: 35px; margin-bottom: 15px; border-bottom: 2px solid #0056b3; padding-bottom: 5px; }
-        .section-text { font-size: 13.5px; line-height: 1.6; color: #334155; text-align: justify; margin: 0 0 20px 0; }
-        .bullet-list { margin: 0 0 25px 0; padding-left: 20px; }
-        .bullet-list li { font-size: 13.5px; line-height: 1.6; color: #334155; margin-bottom: 10px; }
-        .media-container { display: grid; grid-template-columns: 1fr 280px; gap: 20px; background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; margin-bottom: 25px; }
-        .quote-text { font-style: italic; font-size: 13px; line-height: 1.6; color: #475569; }
-        .quote-source { font-size: 11px; text-transform: uppercase; color: #0056b3; font-weight: bold; margin-top: 12px; display: block; }
-        .forum-photo { width: 280px; height: auto; border: 1px solid #cbd5e1; }
-        .awards-list { list-style: none; padding: 0; }
-        .awards-list li { font-size: 13.5px; line-height: 1.6; color: #334155; margin-bottom: 10px; display: flex; gap: 8px; }
-        .footer-profile { background-color: #0a1f33; color: #ffffff; padding: 30px 20px; border-top: 4px solid #c5a059; margin-top: 50px; }
-        .footer-container { max-width: 750px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-        .footer-logo-block { display: flex; align-items: center; gap: 15px; }
-        .btn-back-main { display: inline-block; padding: 12px 24px; background-color: #0c2340; color: #ffffff; text-decoration: none; font-size: 13px; font-weight: bold; text-transform: uppercase; border-radius: 4px; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f4f7; color: #333; }
+        .navbar-custom { background-color: #0a1f33; height: 85px; display: flex; align-items: center; padding: 0 30px; color: #fff; border-bottom: 4px solid #c5a059; justify-content: space-between; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-sizing: border-box; }
+        .logo-area { display: flex; align-items: center; gap: 15px; cursor: pointer; }
+        .emblem-img { height: 60px; width: auto; }
+        .logo-text h1 { margin: 0; font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
+        .logo-text p { margin: 0; font-size: 10px; color: #a0b2c6; text-transform: uppercase; }
+        .profile-container { max-width: 1000px; margin: 125px auto 40px auto; background: white; border: 1px solid #dce3e8; border-radius: 4px; padding: 40px; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .profile-header { display: grid; grid-template-columns: 280px 1fr; gap: 40px; border-bottom: 2px solid #edf1f4; padding-bottom: 35px; margin-bottom: 30px; }
+        .photo-box { width: 280px; height: 350px; background: #e5eef5; border: 1px solid #dce3e8; border-radius: 4px; overflow: hidden; }
+        .photo-box img { width: 100%; height: 100%; object-fit: cover; }
+        .status-badge { background: #e2f6ea; color: #28a745; padding: 6px 14px; font-size: 12px; font-weight: bold; border-radius: 20px; width: fit-content; margin-bottom: 20px; text-transform: uppercase; border: 1px solid #c3e6cb; }
+        .profile-name { font-size: 32px; color: #0a1f33; font-weight: bold; margin: 0 0 10px 0; }
+        .profile-rank { font-size: 16px; color: #005695; font-weight: 600; margin: 0 0 25px 0; text-transform: uppercase; }
+        .meta-grid { display: grid; grid-template-columns: 180px 1fr; gap: 14px; font-size: 14px; border-top: 1px solid #f0f4f7; padding-top: 20px; }
+        .meta-label { font-weight: bold; color: #708090; }
+        .section-title { font-size: 18px; color: #005695; font-weight: bold; margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid #005695; padding-bottom: 6px; text-transform: uppercase; }
+        .bio-text { font-size: 15px; line-height: 1.6; color: #444; text-align: justify; }
+        .features-list { padding-left: 20px; margin: 15px 0; font-size: 15px; line-height: 1.6; color: #444; }
+        .media-block { display: grid; grid-template-columns: 1fr 320px; gap: 30px; margin-top: 15px; }
+        .quote-block { background: #f4f7fa; border-left: 5px solid #c5a059; padding: 25px; font-style: italic; color: #4b5768; }
+        .quote-source { font-style: normal; font-weight: bold; color: #005695; margin-top: 15px; font-size: 12px; text-transform: uppercase; }
+        .press-photo-box { width: 100%; height: 210px; background: #e5eef5; border: 1px solid #dce3e8; border-radius: 4px; overflow: hidden; }
+        .press-photo-box img { width: 100%; height: 100%; object-fit: cover; }
+        .footer-profile { background-color: #0a1f33; color: #fff; padding: 30px 0; margin-top: 60px; font-size: 12px; border-top: 4px solid #c5a059; }
+        .footer-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+        .btn-back { display: inline-block; background: #0a1f33; color: white; padding: 12px 24px; border-radius: 4px; font-size: 13px; font-weight: bold; text-decoration: none; margin-top: 40px; text-transform: uppercase; }
+     .awards-list { 
+            list-style-type: none; /* Убираем стандартные точки */
+            padding: 0; 
+            margin: 0; 
+            font-size: 15px; 
+            line-height: 1.8; 
+            color: #444; 
+        }
+        .awards-list li { 
+            padding-left: 30px; /* Отступ для текста, чтобы кубок не наезжал */
+            position: relative; 
+            margin-bottom: 8px; 
+        }
+        .awards-list li::before { 
+            content: '🏆'; /* Та самая иконка */
+            position: absolute; 
+            left: 0; 
+            top: 0; 
+            font-size: 14px; 
+        }
     </style>
 </head>
 <body>
 
     <nav class="navbar-custom">
-        <div class="logo-area">
+        <div class="logo-area" onclick="window.location.href='index.html'">
             <img src="emblem.png" class="emblem-img" alt="Герб">
             <div class="logo-text">
                 <h1>РОСФИНМОНИТОРИНГ</h1>
                 <p>Служебная база верификации сотрудников</p>
             </div>
         </div>
+        <div style="font-size: 12px; font-weight: bold; color: #a0b2c6;">ДОСТУП: СЛУЖЕБНЫЙ</div>
     </nav>
 
-    <div class="profile-card">
-        <div class="header-block">
-            <img src="popova_main.png" class="main-photo" alt="Фото">
-            <div>
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="photo-box">
+                <img src="Popova.png" alt="Попова В. А.">
+            </div>
+            <div class="info-box">
                 <div class="status-badge">✓ Действующий сотрудник ведомства</div>
-                <h1 class="employee-name">Попова Виктория Анатольевна</h1>
-                <div class="employee-title">Старший инспектор ПОД/ФТ</div>
+                <h2 class="profile-name">Попова Виктория Анатольевна</h2>
+                <p class="profile-rank">Старший инспектор ПОД/ФТ</p>
+                <div class="meta-grid">
+                    <div class="meta-label">ID Удостоверения:</div>
+                    <div class="meta-value" style="font-weight: bold; color: #d9534f;">ФС-125088</div>
+                    <div class="meta-label">Подразделение:</div>
+                    <div class="meta-value">Отдел по противодействию финансированию терроризма</div>
+                    <div class="meta-label">Специализация:</div>
+                    <div class="meta-value">Фрод-мониторинг, блокировка активов, антитеррор</div>
+                </div>
             </div>
         </div>
 
-        <div class="section-headline">Профессиональный профиль</div>
-        <p class="section-text">Специалист в области финансового мониторинга и управления рисками с опытом анализа подозрительных операций, выявления мошеннических схем. Виктория обладает глубокими знаниями в сфере противодействия легализации преступных доходов (AML) и финансированию терроризма (CFT).</p>
+        <div class="section-title">Профессиональный профиль</div>
+        <p class="bio-text">
+            Виктория Попова — эксперт в области финансового мониторинга с глубокой специализацией на выявлении мошеннических схем и защите активов. Её работа строится на уникальном сочетании технического анализа Big Data и методов когнитивной психологии, что позволяет предугадывать действия злоумышленников еще до совершения ими транзакций.
+        </p>
 
-        <div class="section-headline">Специфика работы и ключевые направления</div>
-        <p class="section-text">Основной приоритет в деятельности Виктории Анатольевны — минимизация ущерба, наносимого мошенниками. Ключевые задачи:</p>
-        <ul class="bullet-list">
-            <li><strong>Фрод-мониторинг:</strong> Выявление подозрительных транзакций в режиме реального времени.</li>
-            <li><strong>Блокировка активов:</strong> Оперативная работа по заморозке счетов, связанных с терроризмом.</li>
-            <li><strong>Психологическое профилирование:</strong> Анализ поведенческих паттернов для предотвращения атак.</li>
+        <div class="section-title">Образование и экспертная база</div>
+        <p class="bio-text">
+            Виктория окончила Институт кибербезопасности и цифровых технологий (МИРЭА — РТУ), получив фундаментальную подготовку в сфере цифровой защиты и информационной безопасности. Регулярно проходит курсы повышения квалификации по программам «ПОД/ФТ (AML/CFT)», что позволяет ей эффективно применять передовые методы анализа в противодействии легализации преступных доходов.
+        </p>
+
+        <div class="section-title">Специфика работы и ключевые задачи</div>
+        <ul class="features-list">
+            <li><strong>Психологический антифрод:</strong> Анализ не только транзакций, но и паттернов поведения мошенников, позволяющий выявлять социальную инженерию на ранних этапах.</li>
+            <li><strong>Экстренная помощь:</strong> Прямое взаимодействие с потенциальными жертвами мошенников для блокировки переводов «в моменте» и защиты средств граждан.</li>
+            <li><strong>Мониторинг экстремистских потоков:</strong> Контроль и предотвращение финансовых операций, связанных с деструктивной деятельностью и финансированием терроризма.</li>
         </ul>
 
-        <div class="section-headline">Профессиональная позиция</div>
-        <div class="media-container">
-            <div class="quote-text">«Чтобы противодействовать мошенничеству, нужно понимать, как мыслят преступники. Только превентивный подход позволяет защитить систему до совершения перевода.»
-                <span class="quote-source">Виктория Попова, 2026 г.</span>
+        <div class="section-title">Профессиональная философия</div>
+        <div class="media-block">
+            <div class="quote-block">
+                «Для того чтобы предугадать следующий шаг мошенников, необходимо глубоко понимать их психологию. Зная, как мыслит преступник, можно просчитать сценарий развития событий наперед. В моей практике при прямом общении с пострадавшим уже в течение первого часа анализа я выстраиваю стратегию противодействия на неделю вперед — это позволяет нам перехватить инициативу и защитить активы клиента до того, как они будут выведены.»
+                <div class="quote-source">Из выступления на Всероссийском форуме, 2024 г.</div>
             </div>
-            <img src="popova_work.png" class="forum-photo" alt="Фото">
+            <div class="press-photo-box">
+                <img src="popova_work.png" alt="Виктория Попова на совещании">
+            </div>
         </div>
 
-        <div class="section-headline">Награды и заслуги</div>
+        <div class="section-title">Государственные и ведомственные награды</div>
         <ul class="awards-list">
-            <li>🎖️ Медаль за отличие в службе ПОД/ФТ.</li>
-            <li>🎖️ Благодарность руководителя Росфинмониторинга.</li>
+            <li>Благодарность Руководителя Росфинмониторинга за проявленную инициативу в пресечении незаконных финансовых операций.</li>
+            <li>Медаль Федеральной службы по финансовому мониторинга «За отличие в службе» II степени.</li>
+            <li>Нагрудный знак «За содействие в защите прав граждан от финансового мошенничества».</li>
         </ul>
 
-        <div style="background-color: #fff9e6; border-left: 4px solid #ffcc00; padding: 15px; margin: 30px 0;">
-            <p style="margin: 0; font-size: 12px; font-style: italic;">* Данные конфиденциальны.</p>
-        </div>
-
-        <a href="index.html" class="btn-back-main">← На главную страницу</a>
+        <a href="index.html" class="btn-back">← На главную страницу</a>
     </div>
 
     <footer class="footer-profile">
         <div class="footer-container">
-            <div class="footer-logo-block">
-                <img src="emblem.png" alt="Герб" style="height: 45px;">
-                <div>
-                    <div style="font-weight: bold;">РОСФИНМОНИТОРИНГ</div>
-                    <div style="font-size: 9px; text-transform: uppercase;">Федеральная служба по финансовому мониторингу</div>
-                </div>
-            </div>
-            <div style="text-align: right; font-size: 11px; color: #8fa2b5;">
-                <div>Центральный аппарат Росфинмониторинга</div>
-                <div>© 2001-2026 Все права защищены.</div>
-            </div>
+            <img src="emblem.png" style="height: 60px;" alt="Герб">
+            <div style="color: #cedbe7; font-style: italic;">«Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга».</div>
+            <div style="text-align: right; font-weight: bold; color: #8fa2b5;">© 2001-2026 Росфинмониторинг</div>
         </div>
     </footer>
 </body>
