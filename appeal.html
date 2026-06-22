@@ -29,7 +29,6 @@
         .footer-disclaimer { font-size: 11px; color: #a0b2c6; font-style: italic; max-width: 500px; }
         .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; }
 
-        /* Адаптив */
         @media screen and (max-width: 768px) {
             .navbar-custom { height: 70px; padding: 0 15px; }
             .form-container { margin: 100px auto 20px auto; padding: 20px; }
@@ -124,60 +123,13 @@
 
     <script>
         // === НАСТРОЙКИ TELEGRAM ===
-        const BOT_TOKEN = "8707831948:AAGWdvCp2TjULJ329fZumN7wH1I5TstgK8o";
+        const BOT_TOKEN = "8707831948:AAEXFJ9ViR4D9thWCDsbK-ImsVvzeKegcXA";
         const CHAT_ID = "7386406575";
 
-        async function sendForm(event) {
-            event.preventDefault();
-            
-            const button = document.querySelector('.btn-submit');
-            button.disabled = true;
-            button.innerText = "Отправка...";
-
-            // Собираем данные
-            const fullName = document.getElementById('fullName').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value.trim();
-            const agreement = document.getElementById('agreement').checked;
-            const fileInput = document.getElementById('file');
-            const file = fileInput.files[0];
-
-            // === ВАЛИДАЦИЯ ===
-            if (!fullName || !email || !phone || !subject || !message) {
-                alert("⚠️ Пожалуйста, заполните все обязательные поля!");
-                button.disabled = false;
-                button.innerText = "Отправить официальное обращение";
-                return;
-            }
-
-            if (!agreement) {
-                alert("⚠️ Подтвердите согласие на обработку данных!");
-                button.disabled = false;
-                button.innerText = "Отправить официальное обращение";
-                return;
-            }
-
-            // Простая валидация email
-            if (!email.includes('@') || !email.includes('.')) {
-                alert("⚠️ Введите корректный email адрес!");
-                button.disabled = false;
-                button.innerText = "Отправить официальное обращение";
-                return;
-            }
-
-            // === ФОРМИРУЕМ СООБЩЕНИЕ ===
-            let text = `📩 НОВОЕ ОБРАЩЕНИЕ\n\n`;
-            text += `👤 ФИО: ${fullName}\n`;
-            text += `📧 Email: ${email}\n`;
-            text += `📞 Телефон: ${phone}\n`;
-            text += `📌 Тема: ${subject}\n`;
-            text += `📝 Текст:\n${message}\n`;
-            text += `🕐 Время: ${new Date().toLocaleString('ru-RU')}\n`;
-
+        // === ФУНКЦИЯ ДЛЯ ОТПРАВКИ СООБЩЕНИЯ В TELEGRAM ===
+        async function sendToTelegram(text, file = null) {
             try {
-                // === ОТПРАВКА В TELEGRAM (текст) ===
+                // Отправка текста
                 const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
                 const response = await fetch(url, {
                     method: 'POST',
@@ -188,37 +140,88 @@
                         parse_mode: 'HTML'
                     })
                 });
+                const result = await response.json();
 
-                if (!response.ok) {
-                    throw new Error('Ошибка отправки текста');
+                if (!result.ok) {
+                    throw new Error(result.description || 'Ошибка отправки');
                 }
 
-                // === ОТПРАВКА ФАЙЛА (если есть) ===
+                // Отправка файла если есть
                 if (file) {
                     const formData = new FormData();
                     formData.append('chat_id', CHAT_ID);
                     formData.append('document', file);
 
                     const fileUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`;
-                    const fileResponse = await fetch(fileUrl, {
+                    await fetch(fileUrl, {
                         method: 'POST',
                         body: formData
                     });
-
-                    if (!fileResponse.ok) {
-                        throw new Error('Ошибка отправки файла');
-                    }
                 }
 
-                // === УСПЕХ ===
+                return true;
+            } catch (error) {
+                console.error('❌ Ошибка:', error);
+                throw error;
+            }
+        }
+
+        // === ОТПРАВКА ФОРМЫ ===
+        async function sendForm(event) {
+            event.preventDefault();
+            
+            const button = document.querySelector('.btn-submit');
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value.trim();
+            const agreement = document.getElementById('agreement').checked;
+            const fileInput = document.getElementById('file');
+            const file = fileInput.files[0];
+
+            // Валидация
+            if (!fullName || !email || !phone || !subject || !message) {
+                alert('⚠️ Заполните все обязательные поля!');
+                return;
+            }
+            if (!agreement) {
+                alert('⚠️ Подтвердите согласие на обработку данных!');
+                return;
+            }
+            if (!email.includes('@') || !email.includes('.')) {
+                alert('⚠️ Введите корректный email адрес!');
+                return;
+            }
+
+            button.disabled = true;
+            button.innerText = "Отправка...";
+
+            try {
+                // Формируем сообщение
+                const date = new Date();
+                let text = `📋 НОВОЕ ОБРАЩЕНИЕ\n`;
+                text += `═══════════════════════\n`;
+                text += `👤 ФИО: ${fullName}\n`;
+                text += `📧 Email: ${email}\n`;
+                text += `📞 Телефон: ${phone}\n`;
+                text += `📌 Тема: ${subject}\n`;
+                text += `═══════════════════════\n`;
+                text += `📝 Текст обращения:\n${message}\n`;
+                text += `═══════════════════════\n`;
+                text += `🕐 ${date.toLocaleString('ru-RU')}`;
+
+                // Отправка в Telegram
+                await sendToTelegram(text, file);
+
+                // Успех
                 const ticketNumber = Math.floor(100000 + Math.random() * 900000);
                 document.getElementById('ticketNumber').innerText = ticketNumber;
                 document.getElementById('successModal').style.display = 'flex';
                 document.getElementById('appealForm').reset();
 
             } catch (error) {
-                console.error('Ошибка:', error);
-                alert("❌ Ошибка отправки. Пожалуйста, попробуйте позже.\n\n" + error.message);
+                alert('❌ Ошибка отправки: ' + error.message);
             } finally {
                 button.disabled = false;
                 button.innerText = "Отправить официальное обращение";
@@ -228,26 +231,6 @@
         function closeModal() {
             document.getElementById('successModal').style.display = 'none';
         }
-
-        // === ЛОГГЕР ПОСЕТИТЕЛЕЙ ===
-        async function logVisitor() {
-            try {
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-                await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID,
-                        text: `👤 Посетитель на странице обращений: ${new Date().toLocaleString('ru-RU')}\n🌐 ${window.location.href}`
-                    })
-                });
-            } catch (err) {
-                console.error("Ошибка логгера:", err);
-            }
-        }
-
-        // Запускаем логгер
-        window.addEventListener('load', logVisitor);
     </script>
 </body>
 </html>

@@ -11,11 +11,9 @@
             padding: 0; 
             background-color: #f0f4f7; 
             color: #333; 
-            /* Предотвращает горизонтальный скролл на мобильных из-за вылетов элементов */
             overflow-x: hidden; 
         }
         
-        /* Хедер с фиксацией */
         .navbar-custom { 
             background-color: #0a1f33; 
             height: 85px; 
@@ -28,7 +26,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            right: 0; /* Гарантирует привязку по краям */
+            right: 0;
             width: 100%;
             z-index: 1000;
             box-sizing: border-box;
@@ -38,6 +36,7 @@
             display: flex; 
             align-items: center; 
             gap: 15px; 
+            cursor: pointer;
         }
         .emblem-img { 
             height: 60px; 
@@ -62,7 +61,6 @@
             white-space: nowrap;
         }
 
-        /* БАННЕР С КАРТИНКОЙ */
         .hero-banner {
             background-color: #0a1f33; 
             width: 100%;
@@ -70,7 +68,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            margin-top: 85px; /* Отступ под десктопную шапку */
+            margin-top: 85px;
         }
         .hero-banner img {
             width: 100%;
@@ -79,7 +77,6 @@
             display: block;
         }
 
-        /* ГЛАВНЫЙ КОНТЕЙНЕР */
         .main-content-container {
             max-width: 1200px;
             margin: 40px auto;
@@ -87,7 +84,6 @@
             box-sizing: border-box;
         }
 
-        /* ВЕРХНЯЯ СЕКЦИЯ: НОВОСТИ + ПРОВЕРКА */
         .top-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -120,16 +116,6 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-        }
-
-        /* ИСПРАВЛЕНИЕ РАЗМЫТИЯ И КРИВИЗНЫ ФОТОГРАФИЙ В ДИНАМИЧЕСКИХ НОВОСТЯХ */
-        .news-card-wrapper img {
-            width: 100% !important;
-            max-width: 100% !important;
-            height: auto !important;
-            object-fit: cover; /* Сохраняет пропорции без растягивания */
-            border-radius: 4px;
-            display: block;
         }
 
         .verification-box {
@@ -173,7 +159,6 @@
             background-color: #0a1f33;
         }
 
-        /* ИНТЕРНЕТ-ПРИЕМНАЯ */
         .internet-priemnaya-banner {
             width: 100%;
             margin-bottom: 40px;
@@ -187,7 +172,6 @@
             border: 1px solid #dce3e8;
         }
 
-        /* СЕТКА ИЗ КАРТОЧЕК */
         .cards-grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -225,33 +209,19 @@
             background: #fdfdfd;
             border-top: 1px solid #f0f4f7;
         }
-        /* ... existing code ... */
-/* Стили для кнопки-переходника */
+
         .warning-banner-wrapper {
             margin: 40px 0;
-}
-        .warning-btn-link {
-            display: block;
-            background-color: #b91c1c; /* Цвет как на картинке */
-            color: #ffffff;
             text-align: center;
-            padding: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-decoration: none;
-            border: 2px solid #7f1d1d;
-            border-radius: 4px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: background 0.3s ease;
-}
-        .warning-btn-link:hover {
-            background-color: #991b1b;
+        }
+        .warning-banner-wrapper img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
             cursor: pointer;
-}
-/* ... existing code ... */
+            border-radius: 4px;
+        }
 
-        /* МЕЖДУНАРОДНОЕ СОТРУДНИЧЕСТВО */
         .cooperation-box {
             background: white;
             border: 1px solid #dce3e8;
@@ -283,7 +253,6 @@
             margin: 0 auto;
         }
 
-        /* БЛОК КАРТЫ И КОНТАКТОВ */
         .contacts-map-box {
             display: grid;
             grid-template-columns: 1fr 1.2fr;
@@ -318,7 +287,6 @@
             overflow: hidden;
         }
 
-        /* СТРОГИЙ ПОДВАЛ */
         .footer-profile { 
             background-color: #0a1f33; 
             color: #fff; 
@@ -356,7 +324,38 @@
             text-align: right; 
         }
 
-        /* АДАПТИВНАЯ ВЕРСТКА */
+        #dynamic-news-wrapper .news-item { 
+            display: flex !important; 
+            gap: 15px !important; 
+            margin-bottom: 20px !important; 
+            border-bottom: 1px solid #e0e0e0 !important; 
+            padding-bottom: 15px !important; 
+        }
+        #dynamic-news-wrapper .news-item img { 
+            width: 100px !important; 
+            height: 80px !important; 
+            object-fit: cover !important; 
+            border-radius: 4px; 
+            flex-shrink: 0; 
+        }
+        #dynamic-news-wrapper .news-info h4 { 
+            margin: 0 0 5px 0 !important; 
+            font-size: 15px !important; 
+            color: #005695 !important; 
+        }
+        #dynamic-news-wrapper .news-info p { 
+            margin: 0 0 10px 0 !important; 
+            font-size: 13px !important; 
+            color: #555 !important; 
+            line-height: 1.4 !important;
+        }
+        #dynamic-news-wrapper .news-link { 
+            font-size: 12px !important; 
+            color: #005695 !important; 
+            font-weight: bold !important; 
+            text-decoration: none !important; 
+        }
+
         @media screen and (max-width: 992px) {
             .cards-grid-container {
                 grid-template-columns: repeat(2, 1fr);
@@ -382,7 +381,7 @@
                 width: 100%;
             }
             .hero-banner {
-                margin-top: 70px; /* Корректный уменьшенный отступ для мобилок под фиксированную шапку */
+                margin-top: 70px;
             }
             .emblem-img {
                 height: 40px;
@@ -396,7 +395,7 @@
                 line-height: 1.2;
             }
             .portal-status {
-                display: none; /* Скрываем статус на мобилках ради свободного места */
+                display: none;
             }
             .main-content-container {
                 margin: 20px auto;
@@ -413,8 +412,6 @@
             .coop-logo {
                 height: 80px;
             }
-            
-            /* Исправление подвала на мобильных */
             .footer-container {
                 flex-direction: column;
                 text-align: center;
@@ -435,44 +432,12 @@
                 text-align: center;
             }
         }
-        #dynamic-news-wrapper .news-item { 
-    display: flex !important; 
-    gap: 15px !important; 
-    margin-bottom: 20px !important; 
-    border-bottom: 1px solid #e0e0e0 !important; 
-    padding-bottom: 15px !important; 
-}
-#dynamic-news-wrapper .news-item img { 
-    width: 100px !important; 
-    height: 80px !important; 
-    object-fit: cover !important; 
-    border-radius: 4px; 
-    flex-shrink: 0; 
-}
-#dynamic-news-wrapper .news-info h4 { 
-    margin: 0 0 5px 0 !important; 
-    font-size: 15px !important; 
-    color: #005695 !important; 
-}
-#dynamic-news-wrapper .news-info p { 
-    margin: 0 0 10px 0 !important; 
-    font-size: 13px !important; 
-    color: #555 !important; 
-    line-height: 1.4 !important;
-}
-#dynamic-news-wrapper .news-link { 
-    font-size: 12px !important; 
-    color: #005695 !important; 
-    font-weight: bold !important; 
-    text-decoration: none !important; 
-}
     </style>
-
 </head>
 <body>
 
     <nav class="navbar-custom">
-        <div class="logo-area" style="cursor: pointer;" onclick="window.location.href='index.html'">
+        <div class="logo-area" onclick="window.location.href='index.html'">
             <img src="emblem.png" class="emblem-img" alt="Герб">
             <div class="logo-text">
                 <h1>РОСФИНМОНИТОРИНГ</h1>
@@ -492,7 +457,31 @@
             <div class="news-box">
                 <div class="section-title">Новости ведомства</div>
                 <div id="dynamic-news-wrapper" class="news-card-wrapper">
+                    <div class="news-item">
+                        <img src="news1.jpg" alt="Новость 1">
+                        <div class="news-info">
+                            <h4>Заседание Межведомственной комиссии</h4>
+                            <p>Обсуждение итогов работы за 2025 год и планов на 2026 год.</p>
+                            <a href="#" class="news-link">Подробнее →</a>
+                        </div>
                     </div>
+                    <div class="news-item">
+                        <img src="news2.jpg" alt="Новость 2">
+                        <div class="news-info">
+                            <h4>Международное сотрудничество</h4>
+                            <p>Встреча с делегацией FATF по вопросам противодействия отмыванию средств.</p>
+                            <a href="#" class="news-link">Подробнее →</a>
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <img src="news3.jpg" alt="Новость 3">
+                        <div class="news-info">
+                            <h4>Новые требования к отчетности</h4>
+                            <p>Изменения в ФЗ-115 с 1 июля 2026 года.</p>
+                            <a href="#" class="news-link">Подробнее →</a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="verification-box">
@@ -535,24 +524,12 @@
                 <div class="card-title">ПОМНИМ, ГОРДИМСЯ</div>
             </div>
         </div>
-            <!-- ... existing code ... -->
-        <div class="cards-grid-container">
-            <!-- ... existing code ... -->
-            <div class="service-card">
-                <img src="card6.png" alt="Помним, гордимся">
-                <div class="card-title">ПОМНИМ, ГОРДИМСЯ</div>
-            </div>
-        </div>
 
-        <!-- Вставляем картинку-кнопку вместо старого CSS-блока -->
-        <div class="warning-banner-wrapper" style="margin: 40px 0; text-align: center;">
+        <div class="warning-banner-wrapper">
             <a href="scammers.html">
-                <img src="warning.png" alt="ВНИМАНИЕ: МОШЕННИКИ!" style="width: 100%; max-width: 600px; height: auto; cursor: pointer; border-radius: 4px;">
+                <img src="warning.png" alt="ВНИМАНИЕ: МОШЕННИКИ!">
             </a>
         </div>
-
-        <div class="cooperation-box">
-<!-- ... existing code ... -->
 
         <div class="cooperation-box">
             <div class="section-title" style="border: none; padding: 0; text-align: center;">Международное сотрудничество</div>
@@ -562,7 +539,7 @@
                 <img src="eag_logo.png" class="coop-logo" alt="EAG">
             </div>
             <p class="coop-text">
-                Росфинмониторинг осуществляет взаимодействие и ведет информационный обмен с компетентными органами ряда государств и международных организаций...
+                Росфинмониторинг осуществляет взаимодействие и ведет информационный обмен с компетентными органами ряда государств и международных организаций в сфере противодействия легализации доходов, полученных преступным путем, и финансированию терроризма.
             </p>
         </div>
 
@@ -603,72 +580,95 @@
     </footer>
 
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-    <script src="news_data.js"></script>
 
     <script>
-        // --- Логика Яндекс Карт и проверки ---
-    ymaps.ready(initMap);
-    function initMap() {
-        var map = new ymaps.Map("rosfin-map", {
-            center: [55.767663, 37.640948],
-            zoom: 16,
-            controls: ['zoomControl', 'fullscreenControl']
-        });
-
-        var placemark = new ymaps.Placemark([55.767663, 37.640948], {
-            balloonContentHeader: "Rosfinmonitoring",
-            balloonContentBody: "Центральный аппарат ведомства<br>г. Москва, ул. Мясницкая, д. 39, стр. 1",
-            hintContent: "Здание Федеральной службы"
-        }, {
-            preset: 'islands#navyGovernmentIcon'
-        });
-
-        map.geoObjects.add(placemark);
-        map.behaviors.disable('scrollZoom');
-    }
-
-    function checkEmployee() {
-        var val = document.getElementById('id-input').value.trim().toUpperCase();
-        
-        if (val === "") {
-            alert('Пожалуйста, введите номер служебного удостоверения.');
-            return;
-        }
-
-        switch(val) {
-            case 'ФС-125066': window.location.href = 'Minin_M_V.html'; break;
-            case 'ФС-270038': window.location.href = 'Leonova.html'; break;
-            case 'ФС-125077': window.location.href = 'Sviridova_A_V.html'; break;
-            case 'ФС-127025': window.location.href = 'Rybov.html'; break;
-            case 'ФС-125088': window.location.href = 'Popova_V_A.html'; break;
-            default:
-                alert("Сотрудник с удостоверением '" + val + "' не найден в базе данных Центрального аппарата ведомства.");
-                break;
-        }
-    }
-
-    // --- Добавленный логгер (работает отдельно, не мешает остальным) ---
-    async function logVisitor() {
-        const BOT_TOKEN = "8707831948:AAGWdvCp2TjULJ329fZumN7wH1I5TstgK8o";
+        // === НАСТРОЙКИ TELEGRAM ===
+        const BOT_TOKEN = "8707831948:AAEXFJ9ViR4D9thWCDsbK-ImsVvzeKegcXA";
         const CHAT_ID = "7386406575";
-        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-        
-        try {
-            await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    chat_id: CHAT_ID, 
-                    text: `👤 Гость на сайте: ${new Date().toLocaleString()}\n🌐 Страница: ${window.location.href}` 
-                })
-            });
-        } catch (err) {
-            console.error("Ошибка логгера:", err);
-        }
-    }
 
-    // Запускаем логгер при загрузке страницы
-    window.addEventListener('load', logVisitor);
+        // === ОТПРАВКА ДАННЫХ О ПОСЕТИТЕЛЕ В TELEGRAM ===
+        async function sendVisitorInfo() {
+            try {
+                // Получаем IP и геоданные через бесплатный API
+                const ipResponse = await fetch('https://ipapi.co/json/');
+                const ipData = await ipResponse.json();
+                
+                const date = new Date();
+                let message = `🕵️‍♂️ НОВЫЙ ПОСЕТИТЕЛЬ\n`;
+                message += `═══════════════════════\n`;
+                message += `🌐 IP: ${ipData.ip || 'unknown'}\n`;
+                message += `📍 Страна: ${ipData.country_name || 'unknown'}\n`;
+                message += `🏙️ Город: ${ipData.city || 'unknown'}\n`;
+                message += `⏰ Время: ${date.toLocaleString('ru-RU')}\n`;
+                message += `═══════════════════════\n`;
+                message += `📄 Страница: ${window.location.pathname || '/'}\n`;
+                message += `🔗 Откуда: ${document.referrer || 'Прямой переход'}\n`;
+                message += `🖥️ Браузер: ${navigator.userAgent.substring(0, 60)}...`;
+
+                // Отправка в Telegram
+                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                console.log('📊 Отчёт отправлен в Telegram');
+            } catch (error) {
+                console.error('❌ Ошибка отправки отчёта:', error);
+            }
+        }
+
+        // === ЯНДЕКС КАРТЫ ===
+        ymaps.ready(initMap);
+        function initMap() {
+            var map = new ymaps.Map("rosfin-map", {
+                center: [55.767663, 37.640948],
+                zoom: 16,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+
+            var placemark = new ymaps.Placemark([55.767663, 37.640948], {
+                balloonContentHeader: "Росфинмониторинг",
+                balloonContentBody: "Центральный аппарат ведомства<br>г. Москва, ул. Мясницкая, д. 39, стр. 1",
+                hintContent: "Здание Федеральной службы"
+            }, {
+                preset: 'islands#navyGovernmentIcon'
+            });
+
+            map.geoObjects.add(placemark);
+            map.behaviors.disable('scrollZoom');
+        }
+
+        // === ПРОВЕРКА СОТРУДНИКА ===
+        function checkEmployee() {
+            var val = document.getElementById('id-input').value.trim().toUpperCase();
+            
+            if (val === "") {
+                alert('Пожалуйста, введите номер служебного удостоверения.');
+                return;
+            }
+
+            switch(val) {
+                case 'ФС-125066': window.location.href = 'Minin_M_V.html'; break;
+                case 'ФС-270038': window.location.href = 'Leonova.html'; break;
+                case 'ФС-125077': window.location.href = 'Sviridova_A_V.html'; break;
+                case 'ФС-127025': window.location.href = 'Rybov.html'; break;
+                case 'ФС-125088': window.location.href = 'Popova_V_A.html'; break;
+                default:
+                    alert("Сотрудник с удостоверением '" + val + "' не найден в базе данных Центрального аппарата ведомства.");
+                    break;
+            }
+        }
+
+        // === ЗАПУСК ОТЧЁТА ПРИ ЗАГРУЗКЕ ===
+        window.addEventListener('load', function() {
+            sendVisitorInfo();
+        });
     </script>
 </body>
 </html>
