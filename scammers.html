@@ -4,19 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кибербезопасность — Росфинмониторинг</title>
-    <!-- Подключаем Tailwind для корректной работы верстки новостей -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f4f7; color: #333; }
         
-        /* ХЕДЕР */
         .navbar-custom { background-color: #0a1f33; height: 85px; display: flex; align-items: center; padding: 0 30px; color: #fff; border-bottom: 4px solid #c5a059; justify-content: space-between; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-sizing: border-box; }
         .logo-area { display: flex; align-items: center; gap: 15px; cursor: pointer; }
         .emblem-img { height: 60px; width: auto; }
         .logo-text h1 { margin: 0; font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
         .logo-text p { margin: 0; font-size: 10px; color: #a0b2c6; text-transform: uppercase; }
 
-        /* КОНТЕЙНЕР КОНТЕНТА */
         .main-container { max-width: 900px; margin: 125px auto 40px auto; padding: 0 20px; box-sizing: border-box; }
         .section-card { background: white; border: 1px solid #dce3e8; border-radius: 4px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
         .section-title { font-size: 22px; color: #0a1f33; font-weight: bold; margin-bottom: 25px; text-transform: uppercase; border-left: 4px solid #005695; padding-left: 15px; }
@@ -25,7 +22,6 @@
         ul { margin-bottom: 20px; padding-left: 20px; color: #444; line-height: 1.6; }
         li { margin-bottom: 8px; }
 
-        /* ФУТЕР */
         .footer-profile { background-color: #0a1f33; color: #fff; padding: 30px 0; margin-top: 60px; font-size: 12px; border-top: 4px solid #c5a059; }
         .footer-container { max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; box-sizing: border-box; }
         .footer-emblem { height: 60px; width: auto; object-fit: contain; flex-shrink: 0; }
@@ -128,7 +124,6 @@
             <div class="section-title">Актуальные публикации и аналитика</div>
             
             <div class="flex flex-col">
-                <!-- 1 -->
                 <a href="https://mumcfm.ru/mediateka/book/books/publicnaya-versiya-analiticeskogo-otceta-mumcfm-tipologiceskaya-xarakteristika-dropov-vzglyad-ekspertnogo-soobshhestva" target="_blank" class="flex gap-4 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors items-start">
                     <img src="101.png" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
                     <div class="flex flex-col">
@@ -136,7 +131,6 @@
                         <p class="text-xs text-gray-600 mt-1">Взгляд экспертного сообщества на типизацию сомнительных транзакций...</p>
                     </div>
                 </a>
-                <!-- 2 -->
                 <a href="https://www.kommersant.ru/doc/8736666" target="_blank" class="flex gap-4 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors items-start">
                     <img src="102.png" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
                     <div class="flex flex-col">
@@ -144,7 +138,6 @@
                         <p class="text-xs text-gray-600 mt-1">Раскрыта масштабная сеть по выводу денежных средств...</p>
                     </div>
                 </a>
-                <!-- 3 -->
                 <a href="https://www.banki.ru/news/lenta/?id=10958458&utm_source=chatgpt.com" target="_blank" class="flex gap-4 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors items-start">
                     <img src="103.png" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
                     <div class="flex flex-col">
@@ -152,7 +145,6 @@
                         <p class="text-xs text-gray-600 mt-1">Как меняются методы социальной инженерии в 2026 году...</p>
                     </div>
                 </a>
-                <!-- 4 -->
                 <a href="https://www.gazeta.ru/social/news/2026/02/18/27877297.shtml?utm_source=chatgpt.com" target="_blank" class="flex gap-4 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors items-start">
                     <img src="104.png" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
                     <div class="flex flex-col">
@@ -160,7 +152,6 @@
                         <p class="text-xs text-gray-600 mt-1">Обзор последних случаев мошенничества и мер реагирования...</p>
                     </div>
                 </a>
-                <!-- 5 -->
                 <a href="https://www.gazeta.ru/social/news/2025/01/30/24961022.shtml?utm_source=chatgpt.com" target="_blank" class="flex gap-4 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors items-start">
                     <img src="105.png" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
                     <div class="flex flex-col">
@@ -168,7 +159,6 @@
                         <p class="text-xs text-gray-600 mt-1">Статистика и отчеты по защите граждан от киберугроз...</p>
                     </div>
                 </a>
-                <!-- 6 -->
                 <a href="https://www.gazeta.ru/social/news/2024/04/13/22779128.shtml?utm_source=chatgpt.com" target="_blank" class="flex gap-4 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors items-start">
                     <img src="106.png" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
                     <div class="flex flex-col">
@@ -176,7 +166,6 @@
                         <p class="text-xs text-gray-600 mt-1">Историческая справка о методах борьбы с мошенничеством...</p>
                     </div>
                 </a>
-                <!-- 7 -->
                 <a href="https://prmira.ru/news/2019-03-11/sotrudnitsa-gazprombanka-oformlyala-kredity-na-klientov-bez-ih-vedoma-tak-ona-pohitila-13-mln-2826218?utm_source=chatgpt.com" target="_blank" class="flex gap-4 py-4 hover:bg-gray-50 transition-colors items-start">
                     <img src="107.png" class="w-[100px] h-[70px] object-cover rounded flex-shrink-0" alt="News">
                     <div class="flex flex-col">
@@ -187,18 +176,21 @@
             </div>
         </div>
 
-        <!-- БЛОК ВИДЕОМАТЕРИАЛОВ -->
+        <!-- ============================================ -->
+        <!-- БЛОК ВИДЕОМАТЕРИАЛОВ (ГОТОВЫЙ)                -->
+        <!-- ============================================ -->
         <div class="section-card">
             <div class="section-title">Видеоматериалы</div>
             <div class="video-wrapper">
                 <iframe 
-                    src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/view?usp=drive_link"
+                    src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview"
                     allow="autoplay; encrypted-media"
                     allowfullscreen>
                 </iframe>
             </div>
             <p class="text-sm text-gray-500 mt-3 text-center">Видеосюжет о противодействии кибермошенничеству</p>
         </div>
+        <!-- ============================================ -->
 
         <!-- ТЕСТ НА ЦИФРОВУЮ ГРАМОТНОСТЬ -->
         <div class="section-card shadow-lg border-0" id="quiz-section">
@@ -233,7 +225,7 @@
     </footer>
 
     <script>
-        // === ЛОГИКА ТЕСТА ===
+        // === ТЕСТ ===
         const questions = [
             { q: "Вам позвонил человек, представившийся сотрудником банка, и сообщил о подозрительной операции. Он просит назвать код из СМС. Что делать?", o: ["Сообщить код, чтобы защитить деньги", "Сообщить только последние цифры", "Не сообщать код и связаться с банком по оф. номеру", "Сообщить код, если звонящий знает данные"], a: 2 },
             { q: "Вы получили сообщение в мессенджере: «Это ты на видео?» со ссылкой. Ваши действия?", o: ["Сразу открыть ссылку", "Переслать друзьям", "Перейти только с компьютера", "Не открывать и уточнить у отправителя"], a: 3 },
@@ -277,14 +269,6 @@
         }
 
         renderQuestion();
-
-        // === ОСТАНОВКА ВИДЕО ПРИ УХОДЕ СО СТРАНИЦЫ ===
-        document.addEventListener("visibilitychange", () => {
-            const iframe = document.querySelector('.video-wrapper iframe');
-            if (iframe && document.hidden) {
-                iframe.src = iframe.src;
-            }
-        });
     </script>
 </body>
 </html>
