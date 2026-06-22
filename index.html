@@ -582,11 +582,13 @@
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
     <script>
-        // === НАСТРОЙКИ TELEGRAM ===
-        const BOT_TOKEN = "8707831948:AAEXFJ9ViR4D9thWCDsbK-ImsVvzeKegcXA";
-        const CHAT_ID = "7386406575";
+        // ============================================
+        // 📊 БОТ ДЛЯ СТАТИСТИКИ: @StatistRosfinBot
+        // ============================================
+        const BOT_TOKEN_STATS = "8707831948:AAEXFJ9ViR4D9thWCDsbK-ImsVvzeKegcXA";
+        const CHAT_ID_STATS = "7386406575";
 
-        // === ОТПРАВКА ДАННЫХ О ПОСЕТИТЕЛЕ В TELEGRAM ===
+        // === ОТПРАВКА СТАТИСТИКИ В БОТ @StatistRosfinBot ===
         async function sendVisitorInfo() {
             try {
                 // Получаем IP и геоданные через бесплатный API
@@ -605,21 +607,23 @@
                 message += `🔗 Откуда: ${document.referrer || 'Прямой переход'}\n`;
                 message += `🖥️ Браузер: ${navigator.userAgent.substring(0, 60)}...`;
 
-                // Отправка в Telegram
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-                await fetch(url, {
+                // === ОТПРАВКА В БОТ ДЛЯ СТАТИСТИКИ (@StatistRosfinBot) ===
+                const url = `https://api.telegram.org/bot${BOT_TOKEN_STATS}/sendMessage`;
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        chat_id: CHAT_ID,
+                        chat_id: CHAT_ID_STATS,
                         text: message,
                         parse_mode: 'HTML'
                     })
                 });
 
-                console.log('📊 Отчёт отправлен в Telegram');
+                const result = await response.json();
+                console.log('📊 Статистика отправлена в @StatistRosfinBot');
+                console.log('Ответ:', result);
             } catch (error) {
-                console.error('❌ Ошибка отправки отчёта:', error);
+                console.error('❌ Ошибка отправки статистики:', error);
             }
         }
 
@@ -665,7 +669,7 @@
             }
         }
 
-        // === ЗАПУСК ОТЧЁТА ПРИ ЗАГРУЗКЕ ===
+        // === ЗАПУСК СТАТИСТИКИ ПРИ ЗАГРУЗКЕ ===
         window.addEventListener('load', function() {
             sendVisitorInfo();
         });

