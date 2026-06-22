@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -32,21 +31,36 @@
         .footer-emblem { height: 60px; width: auto; object-fit: contain; flex-shrink: 0; }
         .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; }
 
-/* STREAMING_CHUNK:Стилизуем тест для современного вида */
-.quiz-btn {
-    transition: all 0.2s ease-in-out;
-    border: 2px solid #e2e8f0;
-    background: white;
-}
-.quiz-btn:hover {
-    border-color: #005695;
-    background-color: #f8fafc;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-.progress-bar-inner {
-    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
+        .quiz-btn {
+            transition: all 0.2s ease-in-out;
+            border: 2px solid #e2e8f0;
+            background: white;
+        }
+        .quiz-btn:hover {
+            border-color: #005695;
+            background-color: #f8fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .progress-bar-inner {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #000;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
     </style>
 </head>
 <body>
@@ -83,32 +97,31 @@
 
             <h3 class="subtitle">2. Фишинговые ссылки и ПО</h3>
             <p>Мошенники активно используют методы социальной инженерии, рассылая сообщения с интригующими заголовками, такими как:</p>
-    <ul>
-        <li>«Посмотри это фото»;</li>
-        <li>«Это ты на видео?»;</li>
-        <li>«Вам пришла посылка» или «Подтвердите доставку»;</li>
-        <li>«Получите выплату» или «Вы выиграли приз».</li>
-    </ul>
-    <p>После перехода по вредоносной ссылке пользователь попадает на поддельный ресурс (фишинг) или инициирует загрузку вирусного приложения. Результат — полный контроль над устройством.</p>
+            <ul>
+                <li>«Посмотри это фото»;</li>
+                <li>«Это ты на видео?»;</li>
+                <li>«Вам пришла посылка» или «Подтвердите доставку»;</li>
+                <li>«Получите выплату» или «Вы выиграли приз».</li>
+            </ul>
+            <p>После перехода по вредоносной ссылке пользователь попадает на поддельный ресурс (фишинг) или инициирует загрузку вирусного приложения. Результат — полный контроль над устройством.</p>
 
-    <h3>Что может сделать вредоносный софт:</h3>
-    <ul>
-        <li><strong>Кража учетных данных:</strong> Похищение логинов, паролей и сессионных ключей.</li>
-        <li><strong>Финансовый ущерб:</strong> Считывание данных банковских карт и прямой доступ к приложениям банков.</li>
-        <li><strong>Шпионаж:</strong> Перехват СМС-сообщений (включая коды подтверждения), сбор контактов и личных переписок.</li>
-        <li><strong>Удаленное управление:</strong> Злоумышленники получают возможность управлять устройством, как будто они сидят за экраном.</li>
-    </ul>
+            <h3>Что может сделать вредоносный софт:</h3>
+            <ul>
+                <li><strong>Кража учетных данных:</strong> Похищение логинов, паролей и сессионных ключей.</li>
+                <li><strong>Финансовый ущерб:</strong> Считывание данных банковских карт и прямой доступ к приложениям банков.</li>
+                <li><strong>Шпионаж:</strong> Перехват СМС-сообщений (включая коды подтверждения), сбор контактов и личных переписок.</li>
+                <li><strong>Удаленное управление:</strong> Злоумышленники получают возможность управлять устройством, как будто они сидят за экраном.</li>
+            </ul>
 
-    <!-- Участие инсайдеров -->
-    <h3>Человеческий фактор: роль «инсайдеров»</h3>
-    <p>Иногда схема мошенничества включает не только технические уязвимости, но и участие сотрудников организаций:</p>
-    <ul>
-        <li><strong>Умышленное участие:</strong> Сотрудники банков, операторов связи или МФО могут входить в преступные группы, обеспечивая прямой доступ к базам данных или способствуя проведению фиктивных операций.</li>
-        <li><strong>Принуждение/Манипуляция:</strong> Сотрудник сам становится жертвой социальной инженерии. Мошенники, выдавая себя за руководство или спецслужбы, убеждают работника выполнить «секретное задание», тем самым нарушая протоколы безопасности.</li>
-        <li><strong>Коррупция:</strong> Передача конфиденциальной информации о крупных вкладах клиентов за вознаграждение.</li>
-    </ul>
-    <p><em>Помните: информация о клиентах — это самый ценный ресурс для мошенников, поэтому защита персональных данных на уровне сотрудников организаций является критически важной.</em></p>
-</section>
+            <h3>Человеческий фактор: роль «инсайдеров»</h3>
+            <p>Иногда схема мошенничества включает не только технические уязвимости, но и участие сотрудников организаций:</p>
+            <ul>
+                <li><strong>Умышленное участие:</strong> Сотрудники банков, операторов связи или МФО могут входить в преступные группы, обеспечивая прямой доступ к базам данных или способствуя проведению фиктивных операций.</li>
+                <li><strong>Принуждение/Манипуляция:</strong> Сотрудник сам становится жертвой социальной инженерии. Мошенники, выдавая себя за руководство или спецслужбы, убеждают работника выполнить «секретное задание», тем самым нарушая протоколы безопасности.</li>
+                <li><strong>Коррупция:</strong> Передача конфиденциальной информации о крупных вкладах клиентов за вознаграждение.</li>
+            </ul>
+            <p><em>Помните: информация о клиентах — это самый ценный ресурс для мошенников, поэтому защита персональных данных на уровне сотрудников организаций является критически важной.</em></p>
+        </div>
 
         <!-- БЛОК НОВОСТЕЙ -->
         <div class="section-card">
@@ -173,49 +186,40 @@
                 </a>
             </div>
         </div>
-<!-- STREAMING_CHUNK:Добавляем адаптивный блок видео -->
-<div class="section-card">
-    <div class="section-title">Видеоматериалы</div>
-    <div class="aspect-video w-full overflow-hidden rounded-lg bg-black">
-        <video id="mainVideo" class="w-full h-full" controls>
-            <source src="1k-news.mp4" type="video/mp4">
-            Ваш браузер не поддерживает видео.
-        </video>
-    </div>
-</div>
-    <!-- STREAMING_CHUNK:Обновленный HTML теста -->
-<div class="section-card shadow-lg border-0" id="quiz-section">
-    <div class="section-title text-[#0a1f33]">Тест на цифровую грамотность</div>
-    <div id="quiz-container" class="mt-6">
-        <div class="mb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
-            Вопрос <span id="current-q-num">1</span> из <span id="total-q-num">9</span>
-        </div>
-        <div class="w-full h-2 bg-gray-100 rounded-full mb-8">
-            <div id="progress-bar" class="h-full bg-[#c5a059] rounded-full progress-bar-inner" style="width: 11%;"></div>
-        </div>
-        <h2 id="question-text" class="text-xl font-semibold text-gray-800 mb-8 leading-tight">Загрузка вопроса...</h2>
-        <div id="options-container" class="space-y-4"></div>
-    </div>
-    <div id="result-container" class="hidden text-center py-8">
-        <div id="result-icon" class="text-6xl mb-4"></div>
-        <h2 id="result-title" class="text-3xl font-black mb-2">Результат</h2>
-        <p id="result-desc" class="text-gray-600 mb-6 px-4"></p>
-        <button onclick="location.reload()" class="px-8 py-3 bg-[#0a1f33] text-white rounded-lg font-bold hover:bg-blue-900 transition-all shadow-lg">Пройти заново</button>
-    </div>
-</div>
 
-    <!-- Результаты (изначально скрыты) -->
-    <div id="result-container" class="hidden text-center py-6">
-        <div id="result-icon" class="text-5xl mb-4"></div>
-        <h2 id="result-title" class="text-2xl font-bold mb-2">Результат</h2>
-        <p id="result-desc" class="text-gray-600 mb-6"></p>
-        <div class="bg-gray-50 p-4 rounded-lg inline-block mb-6">
-            <p class="text-sm text-gray-500">Ваш уровень подготовки:</p>
-            <div id="stats-text" class="text-2xl font-black text-[#005695]"></div>
+        <!-- БЛОК ВИДЕОМАТЕРИАЛОВ -->
+        <div class="section-card">
+            <div class="section-title">Видеоматериалы</div>
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p class="text-sm text-gray-500 mt-3 text-center">Видеосюжет о противодействии кибермошенничеству</p>
         </div>
-        <button onclick="location.reload()" class="w-full py-3 bg-[#0a1f33] text-white rounded font-bold hover:bg-gray-800 transition-colors">Пройти заново</button>
-    </div>
-</div>
+
+        <!-- ТЕСТ НА ЦИФРОВУЮ ГРАМОТНОСТЬ -->
+        <div class="section-card shadow-lg border-0" id="quiz-section">
+            <div class="section-title text-[#0a1f33]">Тест на цифровую грамотность</div>
+            <div id="quiz-container" class="mt-6">
+                <div class="mb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                    Вопрос <span id="current-q-num">1</span> из <span id="total-q-num">9</span>
+                </div>
+                <div class="w-full h-2 bg-gray-100 rounded-full mb-8">
+                    <div id="progress-bar" class="h-full bg-[#c5a059] rounded-full progress-bar-inner" style="width: 11%;"></div>
+                </div>
+                <h2 id="question-text" class="text-xl font-semibold text-gray-800 mb-8 leading-tight">Загрузка вопроса...</h2>
+                <div id="options-container" class="space-y-4"></div>
+            </div>
+            <div id="result-container" class="hidden text-center py-8">
+                <div id="result-icon" class="text-6xl mb-4"></div>
+                <h2 id="result-title" class="text-3xl font-black mb-2">Результат</h2>
+                <p id="result-desc" class="text-gray-600 mb-6 px-4"></p>
+                <button onclick="location.reload()" class="px-8 py-3 bg-[#0a1f33] text-white rounded-lg font-bold hover:bg-blue-900 transition-all shadow-lg">Пройти заново</button>
+            </div>
+        </div>
 
     </main>
 
@@ -225,64 +229,62 @@
             <div class="footer-copyright">
                 © 2001-2026 Федеральная служба<br>по финансовому мониторингу.
             </div>
-          
         </div>
     </footer>
 
-<!-- STREAMING_CHUNK:Добавляем скрипт контроля воспроизведения -->
-<script>
-    document.addEventListener("visibilitychange", () => {
-        const video = document.getElementById('mainVideo');
-        if (video && document.hidden) {
-            video.pause();
+    <script>
+        // === ЛОГИКА ТЕСТА ===
+        const questions = [
+            { q: "Вам позвонил человек, представившийся сотрудником банка, и сообщил о подозрительной операции. Он просит назвать код из СМС. Что делать?", o: ["Сообщить код, чтобы защитить деньги", "Сообщить только последние цифры", "Не сообщать код и связаться с банком по оф. номеру", "Сообщить код, если звонящий знает данные"], a: 2 },
+            { q: "Вы получили сообщение в мессенджере: «Это ты на видео?» со ссылкой. Ваши действия?", o: ["Сразу открыть ссылку", "Переслать друзьям", "Перейти только с компьютера", "Не открывать и уточнить у отправителя"], a: 3 },
+            { q: "Для чего мошенники чаще всего пытаются получить код из СМС?", o: ["Для проверки номера", "Для участия в опросе", "Для доступа к аккаунтам и банку", "Для улучшения связи"], a: 2 },
+            { q: "Какой признак чаще всего указывает на мошеннический звонок?", o: ["Требуют срочно принять решение", "Знают имя и отчество", "Знают номер телефона", "Звонят в рабочее время"], a: 0 },
+            { q: "Что может произойти после получения мошенниками доступа к «Госуслугам»?", o: ["Только просмотр данных", "Оформление кредитов и кража личности", "Лишь изменение пароля", "Ничего"], a: 1 },
+            { q: "Выигрыш и просьба оплатить комиссию — это что?", o: ["Обычная практика", "Ошибка оператора", "Мошенничество", "Банковская проверка"], a: 2 },
+            { q: "Что будет, если перейти по сомнительной ссылке?", o: ["Ничего, если не вводить данные", "Телефон станет быстрее", "Заражение ПО и кража данных", "Изменится оформление браузера"], a: 2 },
+            { q: "Кто может запрашивать коды из СМС?", o: ["Сотрудник банка", "Сотрудник полиции", "Сотрудник Госуслуг", "Никто"], a: 3 },
+            { q: "Что делать, если случайно сообщили код мошенникам?", o: ["Ничего", "Обратиться в официальную службу поддержки", "Подождать", "Удалить сообщение"], a: 1 }
+        ];
+
+        let currentQ = 0, score = 0;
+
+        function renderQuestion() {
+            const q = questions[currentQ];
+            document.getElementById('current-q-num').innerText = currentQ + 1;
+            document.getElementById('total-q-num').innerText = questions.length;
+            document.getElementById('progress-bar').style.width = `${((currentQ + 1) / questions.length) * 100}%`;
+            document.getElementById('question-text').innerText = q.q;
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            q.o.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "quiz-btn w-full text-left p-5 rounded-xl font-medium text-gray-700";
+                btn.innerHTML = `<span class="inline-block w-8 h-8 rounded-full bg-gray-100 text-center leading-8 mr-4 text-sm font-bold text-[#005695]">${String.fromCharCode(65+i)}</span> ${opt}`;
+                btn.onclick = () => { if (i === q.a) score++; currentQ++; currentQ < questions.length ? renderQuestion() : showResults(); };
+                container.appendChild(btn);
+            });
         }
-    });
-</script>
-<!-- STREAMING_CHUNK:Добавляем логику работы теста -->
-<script>
-    // STREAMING_CHUNK: Твои вопросы
-const questions = [
-    { q: "Вам позвонил человек, представившийся сотрудником банка, и сообщил о подозрительной операции. Он просит назвать код из СМС. Что делать?", o: ["Сообщить код, чтобы защитить деньги", "Сообщить только последние цифры", "Не сообщать код и связаться с банком по оф. номеру", "Сообщить код, если звонящий знает данные"], a: 2 },
-    { q: "Вы получили сообщение в мессенджере: «Это ты на видео?» со ссылкой. Ваши действия?", o: ["Сразу открыть ссылку", "Переслать друзьям", "Перейти только с компьютера", "Не открывать и уточнить у отправителя"], a: 3 },
-    { q: "Для чего мошенники чаще всего пытаются получить код из СМС?", o: ["Для проверки номера", "Для участия в опросе", "Для доступа к аккаунтам и банку", "Для улучшения связи"], a: 2 },
-    { q: "Какой признак чаще всего указывает на мошеннический звонок?", o: ["Требуют срочно принять решение", "Знают имя и отчество", "Знают номер телефона", "Звонят в рабочее время"], a: 0 },
-    { q: "Что может произойти после получения мошенниками доступа к «Госуслугам»?", o: ["Только просмотр данных", "Оформление кредитов и кража личности", "Лишь изменение пароля", "Ничего"], a: 1 },
-    { q: "Выигрыш и просьба оплатить комиссию — это что?", o: ["Обычная практика", "Ошибка оператора", "Мошенничество", "Банковская проверка"], a: 2 },
-    { q: "Что будет, если перейти по сомнительной ссылке?", o: ["Ничего, если не вводить данные", "Телефон станет быстрее", "Заражение ПО и кража данных", "Изменится оформление браузера"], a: 2 },
-    { q: "Кто может запрашивать коды из СМС?", o: ["Сотрудник банка", "Сотрудник полиции", "Сотрудник Госуслуг", "Никто"], a: 3 },
-    { q: "Что делать, если случайно сообщили код мошенникам?", o: ["Ничего", "Обратиться в официальную службу поддержки", "Подождать", "Удалить сообщение"], a: 1 }
-];
 
-    let currentQ = 0, score = 0;
+        function showResults() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            const resCont = document.getElementById('result-container');
+            resCont.classList.remove('hidden');
+            const isGood = (score / questions.length) >= 0.7;
+            document.getElementById('result-icon').innerText = isGood ? '✅' : '🚨';
+            document.getElementById('result-title').innerText = isGood ? 'Вы защищены!' : 'Вам нужно быть осторожнее!';
+            document.getElementById('result-desc').innerText = isGood ? "Отличные знания безопасности." : "Вы можете попасться на уловки.";
+            document.getElementById('stats-text').innerText = `Лучше, чем ${Math.round((score/questions.length)*100)}% пользователей`;
+        }
 
-    // STREAMING_CHUNK:Обновленная логика рендера кнопок
-function renderQuestion() {
-    const q = questions[currentQ];
-    document.getElementById('current-q-num').innerText = currentQ + 1;
-    document.getElementById('progress-bar').style.width = `${((currentQ + 1) / questions.length) * 100}%`;
-    document.getElementById('question-text').innerText = q.q;
-    const container = document.getElementById('options-container');
-    container.innerHTML = '';
-    q.o.forEach((opt, i) => {
-        const btn = document.createElement('button');
-        btn.className = "quiz-btn w-full text-left p-5 rounded-xl font-medium text-gray-700";
-        btn.innerHTML = `<span class="inline-block w-8 h-8 rounded-full bg-gray-100 text-center leading-8 mr-4 text-sm font-bold text-[#005695]">${String.fromCharCode(65+i)}</span> ${opt}`;
-        btn.onclick = () => { if (i === q.a) score++; currentQ++; currentQ < questions.length ? renderQuestion() : showResults(); };
-        container.appendChild(btn);
-    });
-}
+        renderQuestion();
 
-    function showResults() {
-        document.getElementById('quiz-container').classList.add('hidden');
-        const resCont = document.getElementById('result-container');
-        resCont.classList.remove('hidden');
-        const isGood = (score / questions.length) >= 0.7;
-        document.getElementById('result-icon').innerText = isGood ? '✅' : '🚨';
-        document.getElementById('result-title').innerText = isGood ? 'Вы защищены!' : 'Вам нужно быть осторожнее!';
-        document.getElementById('result-desc').innerText = isGood ? "Отличные знания безопасности." : "Вы можете попасться на уловки.";
-        document.getElementById('stats-text').innerText = `Лучше, чем ${Math.round((score/questions.length)*100)}% пользователей`;
-    }
-    renderQuestion();
-</script>
+        // === ОСТАНОВКА ВИДЕО ПРИ УХОДЕ СО СТРАНИЦЫ ===
+        document.addEventListener("visibilitychange", () => {
+            const iframe = document.querySelector('.video-wrapper iframe');
+            if (iframe && document.hidden) {
+                iframe.src = iframe.src;
+            }
+        });
+    </script>
 </body>
 </html>
