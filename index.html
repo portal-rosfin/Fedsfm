@@ -324,62 +324,111 @@
             text-align: right; 
         }
 
-        #dynamic-news-wrapper .news-item { 
-            display: flex !important; 
-            gap: 15px !important; 
-            margin-bottom: 20px !important; 
-            border-bottom: 1px solid #e0e0e0 !important; 
-            padding-bottom: 15px !important; 
-        }
-        #dynamic-news-wrapper .news-item img { 
-            width: 100px !important; 
-            height: 80px !important; 
-            object-fit: cover !important; 
-            border-radius: 4px; 
-            flex-shrink: 0; 
-        }
-        #dynamic-news-wrapper .news-info h4 { 
-            margin: 0 0 5px 0 !important; 
-            font-size: 15px !important; 
-            color: #005695 !important; 
-        }
-        #dynamic-news-wrapper .news-info p { 
-            margin: 0 0 10px 0 !important; 
-            font-size: 13px !important; 
-            color: #555 !important; 
-            line-height: 1.4 !important;
-        }
-        #dynamic-news-wrapper .news-link { 
-            font-size: 12px !important; 
-            color: #005695 !important; 
-            font-weight: bold !important; 
-            text-decoration: none !important; 
-        }
+        /* ===== НОВОСТИ ===== */
+#dynamic-news-wrapper .news-item {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 22px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #edf2f7;
+    transition: all 0.2s;
+    background: #ffffff;
+    padding: 14px 16px;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+}
 
-        @media screen and (max-width: 992px) {
-            .cards-grid-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-            .contacts-map-box {
-                grid-template-columns: 1fr;
-            }
-            .logos-row {
-                gap: 30px;
-            }
-        }
+#dynamic-news-wrapper .news-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
 
-        @media screen and (max-width: 768px) {
-            .navbar-custom {
-                flex-direction: row;
-                justify-content: space-between;
-                padding: 0 15px;
-                height: 70px;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-            }
+#dynamic-news-wrapper .news-item:hover {
+    background: #f8fafc;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    transform: translateY(-2px);
+}
+
+#dynamic-news-wrapper .news-item img {
+    width: 130px;
+    height: 95px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+    border: 1px solid #eef2f6;
+}
+
+#dynamic-news-wrapper .news-item:hover img {
+    transform: scale(1.02);
+}
+
+#dynamic-news-wrapper .news-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.news-date {
+    font-size: 11px;
+    color: #8b9aab;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+#dynamic-news-wrapper .news-info h4 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    color: #0a1f33;
+    font-weight: 600;
+    line-height: 1.3;
+    transition: color 0.2s;
+}
+
+#dynamic-news-wrapper .news-item:hover .news-info h4 {
+    color: #005695;
+}
+
+#dynamic-news-wrapper .news-info p {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    color: #5a6b7a;
+    line-height: 1.5;
+}
+
+#dynamic-news-wrapper .news-link {
+    font-size: 13px;
+    color: #005695;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+    border-bottom: 1px solid transparent;
+    align-self: flex-start;
+}
+
+#dynamic-news-wrapper .news-link:hover {
+    color: #c5a059;
+    border-bottom-color: #c5a059;
+}
+
+/* ===== АДАПТИВ ===== */
+@media screen and (max-width: 600px) {
+    #dynamic-news-wrapper .news-item {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px;
+    }
+    #dynamic-news-wrapper .news-item img {
+        width: 100%;
+        height: 150px;
+    }
+    #dynamic-news-wrapper .news-info h4 {
+        font-size: 15px;
+    }
+}
             .hero-banner {
                 margin-top: 70px;
             }
@@ -457,40 +506,39 @@
             <div class="news-box">
                 <div class="section-title">Новости ведомства</div>
                 <div id="dynamic-news-wrapper" class="news-card-wrapper">
-                    <div class="news-item">
-                        <img src="news1.jpg" alt="Новость 1">
-                        <div class="news-info">
-                            <h4>Заседание Межведомственной комиссии</h4>
-                            <p>Обсуждение итогов работы за 2025 год и планов на 2026 год.</p>
-                            <a href="#" class="news-link">Подробнее →</a>
-                        </div>
-                    </div>
-                    <div class="news-item">
-                        <img src="news2.jpg" alt="Новость 2">
-                        <div class="news-info">
-                            <h4>Международное сотрудничество</h4>
-                            <p>Встреча с делегацией FATF по вопросам противодействия отмыванию средств.</p>
-                            <a href="#" class="news-link">Подробнее →</a>
-                        </div>
-                    </div>
-                    <div class="news-item">
-                        <img src="news3.jpg" alt="Новость 3">
-                        <div class="news-info">
-                            <h4>Новые требования к отчетности</h4>
-                            <p>Изменения в ФЗ-115 с 1 июля 2026 года.</p>
-                            <a href="#" class="news-link">Подробнее →</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="verification-box">
-                <div class="section-title">Проверка сотрудника</div>
-                <p>Введите номер служебного удостоверения для мгновенной верификации личности.</p>
-                <input type="text" id="id-input" class="input-style" placeholder="Например: ФС-123456">
-                <button onclick="checkEmployee()" class="btn-verify">Проверить</button>
-            </div>
+    <!-- Новость 1: Отчет Путину -->
+    <div class="news-item">
+        <img src="otchet3_8.png" alt="Встреча с Путиным">
+        <div class="news-info">
+            <span class="news-date">19 июня 2026</span>
+            <h4>Росфинмониторинг отчитался Путину: спасено 3,8 млрд рублей по госконтрактам</h4>
+            <p>Глава ведомства Юрий Чиханчин доложил о передаче 160 материалов в правоохранительные органы, возбуждении 50 уголовных дел и аресте 2 млрд рублей. Президент поручил доводить дела до суда.</p>
+            <a href="https://xn----8sbemlcfpa7are0cf2a9f.xn--p1ai/nacionalnye-proekty/putinu-dolozhili-o-narushenijah-rabot-po-goskontraktam-dlja-borby-s-covid-19/" class="news-link">Подробнее →</a>
         </div>
+    </div>
+
+    <!-- Новость 2: Путин освободил от публикации -->
+    <div class="news-item">
+        <img src="pupkin.png" alt="Закон">
+        <div class="news-info">
+            <span class="news-date">8 марта 2026</span>
+            <h4>Путин освободил Росфинмониторинг от публикации данных о целевом обучении</h4>
+            <p>Ведомство приравняли к силовым структурам (ФСБ, МВД, СК) — теперь оно не обязано размещать предложения о целевом обучении на публичной платформе в интересах безопасности государства.</p>
+            <a href="https://www.pnp.ru/social/putin-osvobodil-rosfinmonitoring-ot-publikacii-dannykh-o-celevom-obuchenii.html" class="news-link">Подробнее →</a>
+        </div>
+    </div>
+
+    <!-- Новость 3: Борьба с криптомошенничеством -->
+    <div class="news-item">
+        <img src="15k.png" alt="Кибербезопасность">
+        <div class="news-info">
+            <span class="news-date">17 апреля 2026</span>
+            <h4>Росфинмониторинг борется с криптомошенничеством — уроки для 15 000 человек</h4>
+            <p>Ведомство координирует борьбу с киберпреступлениями и криптоактивами. В 2026 году провели уроки по финансовой безопасности в школах, вузах и «Артеке» — более 15 000 слушателей.</p>
+            <a href="https://fedsfm.ru/rosfinolymp/9937" target="_blank" class="news-link">Подробнее →</a>
+        </div>
+    </div>
+</div>
 
         <div class="internet-priemnaya-banner">
             <a href="appeal.html">
