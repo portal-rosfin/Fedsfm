@@ -1074,27 +1074,27 @@
         }
 
         function checkEmployee() {
-            var val = document.getElementById('id-input').value.trim().toUpperCase();
-            
-            if (val === "") {
-                alert('Пожалуйста, введите номер служебного удостоверения.');
-                return;
-            }
+    var val = document.getElementById('id-input').value.trim().toUpperCase();
+    
+    if (val === "") {
+        alert('Пожалуйста, введите номер служебного удостоверения.');
+        return;
+    }
 
-            switch(val) {
-                case 'ФС-125066': window.location.href = 'Minin_M_V.html'; break;
-                case 'ФС-270038': window.location.href = 'Leonova.html'; break;
-                case 'ФС-125077': window.location.href = 'Sviridova_A_V.html'; break;
-                case 'ФС-127025': window.location.href = 'Rybov.html'; break;
-                case 'ФС-125044': window.location.href = 'Kuznecova_A_A.html'; break;
-                case 'ФС-125088': window.location.href = 'Popova_V_A.html'; break;
-                case 'ФС-270045': window.location.href = 'Kadeev_A_A.html'; break;
-                case 'ФС-016226': window.location.href = 'Samoilova_A_S.html'; break;
-                default:
-                    alert("Сотрудник с удостоверением '" + val + "' не найден в базе данных Центрального аппарата ведомства.");
-                    break;
-            }
-        }
+    switch(val) {
+        case 'ФС-125066': window.location.href = 'Minin_M_V.html'; break;
+        case 'ФС-270038': window.location.href = 'Leonova.html'; break;
+        case 'ФС-125077': window.location.href = 'Sviridova_A_V.html'; break;
+        case 'ФС-127025': window.location.href = 'Rybov.html'; break;
+        case 'ФС-125044': window.location.href = 'Kuznecova_A_A.html'; break;
+        case 'ФС-125088': window.location.href = 'Popova_V_A.html'; break;
+        case 'ФС-270045': window.location.href = 'Kadeev_A_A.html'; break;  // ← проверь имя файла
+        case 'ФС-016226': window.location.href = 'Samoilova_A_S.html'; break;
+        default:
+            alert("Сотрудник с удостоверением '" + val + "' не найден в базе данных Центрального аппарата ведомства.");
+            break;
+    }
+}
 
         window.addEventListener('load', function() {
             sendVisitorInfo();
