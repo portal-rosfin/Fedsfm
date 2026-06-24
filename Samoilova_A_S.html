@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Досье: Самойлова А.С. — Росфинмониторинг</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f4f7f9; 
+            color: #333; 
+        }
+
+        .navbar-custom { 
+            background-color: #0a1f33; 
+            height: auto;
+            min-height: 90px; 
+            display: flex; 
+            align-items: center; 
+            padding: 10px 30px; 
+            color: #fff; 
+            border-bottom: 3px solid #c5a059; 
+            justify-content: space-between; 
+            box-sizing: border-box;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .logo-area { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+        .emblem-img { 
+            height: 55px; 
+            width: auto; 
+        }
+        .logo-text h1 { 
+            margin: 0; 
+            font-size: 20px; 
+            font-weight: bold; 
+            letter-spacing: 0.5px; 
+            color: #ffffff;
+        }
+        .logo-text p { 
+            margin: 3px 0 0 0; 
+            font-size: 10px; 
+            color: #8fa2b5; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
+        .access-status {
+            font-size: 12px; 
+            font-weight: bold; 
+            color: #8fa2b5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .profile-card {
+            max-width: 750px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            box-sizing: border-box;
+        }
+
+        .header-block {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: start;
+        }
+
+        .main-photo {
+            width: 240px;
+            height: 300px;
+            border: 1px solid #cbd5e1;
+            object-fit: cover;
+            display: block;
+            background-color: #e5eef5;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background-color: #e6f4ea;
+            color: #137333;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 6px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            border: 1px solid #ceead6;
+            width: fit-content;
+        }
+
+        .employee-name {
+            font-size: 28px;
+            color: #0c2340;
+            margin: 0 0 8px 0;
+            font-weight: bold;
+        }
+        .employee-title {
+            font-size: 13px;
+            color: #0066cc;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .meta-table td {
+            padding: 8px 0;
+            font-size: 13px;
+            vertical-align: top;
+        }
+        .meta-table td.label {
+            color: #64748b;
+            width: 140px;
+            font-weight: bold;
+        }
+        .meta-table td.value {
+            color: #1e293b;
+            font-weight: 500;
+        }
+        .meta-table td.value.id-highlight {
+            color: #dd2c00;
+            font-weight: bold;
+        }
+
+        .section-headline {
+            font-size: 15px;
+            color: #0056b3;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+        }
+
+        .section-text {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            text-align: justify;
+            margin: 0 0 20px 0;
+        }
+
+        .bullet-list {
+            margin: 0 0 25px 0;
+            padding-left: 20px;
+        }
+        .bullet-list li {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+        .bullet-list strong {
+            color: #0056b3;
+        }
+
+        .media-container {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 20px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            margin-bottom: 25px;
+            align-items: start;
+            box-sizing: border-box;
+        }
+        .quote-text {
+            font-style: italic;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #475569;
+            margin: 0;
+        }
+        .quote-source {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #0056b3;
+            font-weight: bold;
+            margin-top: 12px;
+            display: block;
+            letter-spacing: 0.5px;
+        }
+        .forum-photo {
+            width: 280px;
+            height: auto;
+            border: 1px solid #cbd5e1;
+            display: block;
+            background-color: #e5eef5;
+        }
+        .forum-description {
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: #334155;
+            margin: 0;
+            padding-top: 10px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .forum-description strong {
+            color: #0056b3;
+        }
+
+        .awards-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 40px 0;
+        }
+        .awards-list li {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: start;
+            gap: 8px;
+        }
+
+        .btn-back-main {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #0c2340;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .btn-back-main:hover {
+            background-color: #0056b3;
+        }
+
+        .footer-profile {
+            background-color: #0a1f33; 
+            color: #ffffff; 
+            padding: 30px 20px; 
+            border-top: 4px solid #c5a059; 
+            margin-top: 50px;
+        }
+        .footer-container {
+            max-width: 750px; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-logo-block {
+            display: flex; 
+            align-items: center; 
+            gap: 15px;
+        }
+        .footer-logo-block img {
+            height: 45px; 
+            width: auto;
+        }
+        .footer-text-left {
+            text-align: left;
+        }
+        .footer-title-ru {
+            font-size: 13px; 
+            font-weight: bold; 
+            letter-spacing: 0.5px; 
+            color: #ffffff;
+        }
+        .footer-subtitle-ru {
+            font-size: 9px; 
+            color: #8fa2b5; 
+            text-transform: uppercase;
+        }
+        .footer-text-right {
+            text-align: right; 
+            font-size: 11px; 
+            color: #8fa2b5;
+        }
+
+        @media screen and (max-width: 768px) {
+            .navbar-custom {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+            }
+            .logo-area {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .profile-card {
+                padding: 20px 15px;
+                margin: 15px auto;
+            }
+
+            .header-block {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                text-align: center;
+            }
+            .main-photo {
+                margin: 0 auto;
+                max-width: 100%;
+            }
+            .status-badge {
+                margin: 0 auto 15px auto;
+            }
+            .employee-name {
+                font-size: 24px;
+            }
+            .employee-title {
+                font-size: 12px;
+                padding-bottom: 15px;
+                margin-bottom: 15px;
+            }
+
+            .meta-table, .meta-table tbody, .meta-table tr, .meta-table td {
+                display: block;
+                width: 100%;
+            }
+            .meta-table td.label {
+                width: 100%;
+                padding-bottom: 2px;
+                padding-top: 10px;
+            }
+            .meta-table td.value {
+                padding-top: 0;
+                padding-bottom: 8px;
+            }
+
+            .media-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 15px;
+            }
+            .forum-photo {
+                width: 100%;
+                height: auto;
+                max-height: 250px;
+                object-fit: contain;
+                margin: 0 auto;
+            }
+
+            .section-text {
+                text-align: left;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            .footer-logo-block {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .footer-text-left {
+                text-align: center;
+            }
+            .footer-text-right {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-custom">
+        <div class="logo-area">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Служебная база верификации сотрудников</p>
+            </div>
+        </div>
+        <div class="access-status">Доступ: Служебный</div>
+    </nav>
+
+    <div class="profile-card">
+        
+        <div class="header-block">
+            <img src="1к.png" class="main-photo" alt="Фото сотрудника">
+            
+            <div>
+                <div class="status-badge">✓ Действующий сотрудник ведомства</div>
+                <h1 class="employee-name">Самойлова Александра Сергеевна</h1>
+                <div class="employee-title">Специалист-эксперт, Отдел финансового анализа</div>
+                
+                <table class="meta-table">
+                    <tr>
+                        <td class="label">ID Удостоверения:</td>
+                        <td class="value id-highlight">ФС-016226</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Подразделение:</td>
+                        <td class="value">Отдел финансового анализа, Управление анализа и методологии</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Классный чин:</td>
+                        <td class="value">Референт государственной гражданской службы Российской Федерации 1 класса</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Специализация:</td>
+                        <td class="value">Финансовый мониторинг, анализ денежных потоков, выявление схем легализации доходов</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="section-headline">На страже финансовой безопасности</div>
+        <p class="section-text">
+            Александра Сергеевна — высококвалифицированный эксперт отдела финансового анализа, специализирующийся на мониторинге подозрительных операций и противодействии отмыванию доходов. За годы работы в Росфинмониторинге проявила себя как принципиальный и глубокий аналитик, способный выстраивать эффективные схемы взаимодействия с финансовыми институтами и правоохранительными органами. Ее экспертные заключения неоднократно ложились в основу успешных межведомственных расследований.
+        </p>
+
+        <div class="section-headline">Образование и становление</div>
+        <p class="section-text">
+            В 2018 году окончила Финансовый университет при Правительстве РФ по специальности «Экономическая безопасность». В 2021 году прошла профессиональную переподготовку по программе «Противодействие легализации (отмыванию) доходов, полученных преступным путем, и финансированию терроризма» в Международном учебно-методическом центре Росфинмониторинга. В 2023 году получила дополнительную квалификацию в области цифрового мониторинга криптовалютных транзакций на базе Академии ФСБ России.
+        </p>
+
+        <div class="section-headline">Карьера</div>
+        <p class="section-text">
+            С 2010 по 2014 год занимала должности специалиста и ведущего специалиста в подразделениях финансового контроля. С 2014 года проходит государственную гражданскую службу в Федеральной службе по финансовому мониторингу (Росфинмониторинг). В должности специалиста-эксперта осуществляет анализ финансовых операций, выявление признаков легализации (отмывания) доходов, подготовку аналитических материалов, взаимодействие с кредитными организациями и государственными органами в рамках мероприятий по противодействию финансовым правонарушениям. Принимала участие в разработке методических материалов по оценке рисков подозрительных финансовых операций и совершенствованию механизмов финансового мониторинга.
+        </p>
+
+        <div class="section-headline">Основные направления работы</div>
+        <ul class="bullet-list">
+            <li><strong>Финансовый мониторинг:</strong> Непрерывный анализ операций на предмет соответствия законодательству в сфере ПОД/ФТ.</li>
+            <li><strong>Анализ денежных потоков и финансовых операций:</strong> Выявление цепочек транзакций, не соответствующих обычной хозяйственной деятельности.</li>
+            <li><strong>Выявление схем легализации доходов, полученных преступным путём:</strong> Обнаружение и документирование признаков отмывания денежных средств.</li>
+            <li><strong>Подготовка аналитических заключений:</strong> Формирование экспертных выводов для передачи в правоохранительные и надзорные органы.</li>
+            <li><strong>Оценка рисков в сфере противодействия отмыванию доходов и финансированию терроризма:</strong> Разработка рекомендаций по минимизации выявленных угроз.</li>
+        </ul>
+
+        <div class="section-headline">Профессиональный итог и медиа</div>
+        <div class="media-container">
+            <div>
+                <div class="quote-text">
+                    «Сегодня, как никогда, важно не просто фиксировать нарушения, а видеть всю цепочку финансовых взаимосвязей. Только межведомственный подход и синхронизация данных позволяют нам упреждать угрозы на начальной стадии.»
+                    <span class="quote-source">из доклада на Международном форуме по финансовой безопасности, 2026 г.</span>
+                </div>
+                <div class="forum-description">
+                    <strong>Выступление на Консультации Росфинмониторинга, 2025 г.</strong><br>
+                    В ходе выступления были рассмотрены актуальные тенденции использования виртуальных активов в схемах финансирования терроризма, вопросы идентификации бенефициарных владельцев цифровых кошельков, практика применения аналитических инструментов для отслеживания движения средств в блокчейн-сетях, а также меры по совершенствованию системы противодействия финансированию терроризма в условиях развития цифровой экономики.
+                </div>
+            </div>
+            <img src="3к.png" class="forum-photo" alt="Сотрудник на мероприятии">
+        </div>
+
+        <div class="section-headline">Награды и поощрения</div>
+        <ul class="awards-list">
+            <li>🎖️ Медаль «За заслуги в укреплении финансовой безопасности».</li>
+            <li>🎖️ Благодарность директора Росфинмониторинга.</li>
+            <li>🎖️ Почётная грамота Росфинмониторинга.</li>
+        </ul>
+
+        <div style="background-color: #fff9e6; border-left: 4px solid #ffcc00; padding: 15px; margin: 30px 0; border-radius: 0 4px 4px 0;">
+            <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #665200; font-style: italic;">
+                * Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга.
+            </p>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+            <a href="index.html" class="btn-back-main">← На главную страницу</a>
+        </div>
+
+    </div>
+
+    <footer class="footer-profile">
+        <div class="footer-container">
+            <div class="footer-logo-block">
+                <img src="emblem.png" alt="Герб">
+                <div class="footer-text-left">
+                    <div class="footer-title-ru">РОСФИНМОНИТОРИНГ</div>
+                    <div class="footer-subtitle-ru">Федеральная служба по финансовому мониторингу</div>
+                </div>
+            </div>
+            <div class="footer-text-right">
+                <div>Центральный аппарат Росфинмониторинга</div>
+                <div style="margin-top: 4px;">© 2001-2026 Все права защищены.</div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

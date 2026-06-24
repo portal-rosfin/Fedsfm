@@ -315,6 +315,107 @@
             box-shadow: 0 4px 20px rgba(197, 160, 89, 0.3);
         }
 
+        /* ======================================== */
+        /* БЛОК: ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ            */
+        /* ======================================== */
+        .faq-section {
+            width: 100%;
+            margin-bottom: 50px;
+        }
+
+        .faq-container {
+            background: white;
+            border: 1px solid #dce3e8;
+            border-radius: 12px;
+            padding: 35px 40px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .faq-header h2 {
+            font-size: 24px;
+            color: #0a1f33;
+            margin: 0 0 8px 0;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .faq-header p {
+            font-size: 15px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .faq-item {
+            background: #f8fafc;
+            border: 1px solid #edf2f7;
+            border-radius: 10px;
+            padding: 20px 24px;
+            transition: all 0.25s ease;
+        }
+
+        .faq-item:hover {
+            background: #ffffff;
+            border-color: #c5a059;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+            transform: translateY(-2px);
+        }
+
+        .faq-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .faq-item h4 {
+            font-size: 15px;
+            color: #0a1f33;
+            margin: 0 0 6px 0;
+            font-weight: 600;
+        }
+
+        .faq-item p {
+            font-size: 13px;
+            color: #5a6b7a;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .faq-footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #edf2f7;
+        }
+
+        .faq-btn-all {
+            display: inline-block;
+            padding: 12px 36px;
+            background: #0a1f33;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .faq-btn-all:hover {
+            background: #005695;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,86,149,0.25);
+        }
+
         .cards-grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -468,207 +569,220 @@
         }
 
         /* ===== НОВОСТИ ===== */
-#dynamic-news-wrapper .news-item {
-    display: flex;
-    gap: 18px;
-    margin-bottom: 22px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #edf2f7;
-    transition: all 0.2s;
-    background: #ffffff;
-    padding: 14px 16px;
-    border-radius: 10px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.02);
-}
+        #dynamic-news-wrapper .news-item {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 22px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #edf2f7;
+            transition: all 0.2s;
+            background: #ffffff;
+            padding: 14px 16px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+        }
 
-#dynamic-news-wrapper .news-item:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-}
+        #dynamic-news-wrapper .news-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
 
-#dynamic-news-wrapper .news-item:hover {
-    background: #f8fafc;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
-    transform: translateY(-2px);
-}
+        #dynamic-news-wrapper .news-item:hover {
+            background: #f8fafc;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+            transform: translateY(-2px);
+        }
 
-#dynamic-news-wrapper .news-item img {
-    width: 130px;
-    height: 95px;
-    object-fit: cover;
-    border-radius: 8px;
-    flex-shrink: 0;
-    transition: transform 0.25s ease;
-    border: 1px solid #eef2f6;
-}
+        #dynamic-news-wrapper .news-item img {
+            width: 130px;
+            height: 95px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+            transition: transform 0.25s ease;
+            border: 1px solid #eef2f6;
+        }
 
-#dynamic-news-wrapper .news-item:hover img {
-    transform: scale(1.02);
-}
+        #dynamic-news-wrapper .news-item:hover img {
+            transform: scale(1.02);
+        }
 
-#dynamic-news-wrapper .news-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
+        #dynamic-news-wrapper .news-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
 
-.news-date {
-    font-size: 11px;
-    color: #8b9aab;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    font-weight: 600;
-    margin-bottom: 4px;
-}
+        .news-date {
+            font-size: 11px;
+            color: #8b9aab;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
 
-#dynamic-news-wrapper .news-info h4 {
-    margin: 0 0 4px 0;
-    font-size: 16px;
-    color: #0a1f33;
-    font-weight: 600;
-    line-height: 1.3;
-    transition: color 0.2s;
-}
+        #dynamic-news-wrapper .news-info h4 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            color: #0a1f33;
+            font-weight: 600;
+            line-height: 1.3;
+            transition: color 0.2s;
+        }
 
-#dynamic-news-wrapper .news-item:hover .news-info h4 {
-    color: #005695;
-}
+        #dynamic-news-wrapper .news-item:hover .news-info h4 {
+            color: #005695;
+        }
 
-#dynamic-news-wrapper .news-info p {
-    margin: 0 0 8px 0;
-    font-size: 13px;
-    color: #5a6b7a;
-    line-height: 1.5;
-}
+        #dynamic-news-wrapper .news-info p {
+            margin: 0 0 8px 0;
+            font-size: 13px;
+            color: #5a6b7a;
+            line-height: 1.5;
+        }
 
-#dynamic-news-wrapper .news-link {
-    font-size: 13px;
-    color: #005695;
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.2s, border-color 0.2s;
-    border-bottom: 1px solid transparent;
-    align-self: flex-start;
-}
+        #dynamic-news-wrapper .news-link {
+            font-size: 13px;
+            color: #005695;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s, border-color 0.2s;
+            border-bottom: 1px solid transparent;
+            align-self: flex-start;
+        }
 
-#dynamic-news-wrapper .news-link:hover {
-    color: #c5a059;
-    border-bottom-color: #c5a059;
-}
+        #dynamic-news-wrapper .news-link:hover {
+            color: #c5a059;
+            border-bottom-color: #c5a059;
+        }
 
-/* ===== АДАПТИВ ДЛЯ ИНТЕРНЕТ-ПРИЕМНОЙ ===== */
-@media screen and (max-width: 992px) {
-    .priemnaya-card {
-        padding: 28px 30px;
-    }
-    .priemnaya-left {
-        gap: 20px;
-    }
-    .priemnaya-icon-wrapper {
-        width: 60px;
-        height: 60px;
-    }
-    .priemnaya-icon {
-        font-size: 28px;
-    }
-    .priemnaya-text h3 {
-        font-size: 20px;
-    }
-}
+        /* ===== АДАПТИВ ===== */
+        @media screen and (max-width: 992px) {
+            .priemnaya-card {
+                padding: 28px 30px;
+            }
+            .priemnaya-left {
+                gap: 20px;
+            }
+            .priemnaya-icon-wrapper {
+                width: 60px;
+                height: 60px;
+            }
+            .priemnaya-icon {
+                font-size: 28px;
+            }
+            .priemnaya-text h3 {
+                font-size: 20px;
+            }
+        }
 
-@media screen and (max-width: 768px) {
-    .navbar-custom { padding: 0 15px; height: 70px; }
-    .emblem-img { height: 40px; }
-    .logo-text h1 { font-size: 13px; line-height: 1.2; }
-    .logo-text p { font-size: 7.5px; line-height: 1.2; }
-    .portal-status { display: none; }
-    .hero-banner { margin-top: 70px; }
-    .main-content-container { margin: 20px auto; padding: 0 15px; }
-    .top-grid { grid-template-columns: 1fr; gap: 20px; }
-    
-    .priemnaya-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 28px 24px;
-        gap: 20px;
-    }
-    .priemnaya-left {
-        flex-direction: column;
-        gap: 16px;
-    }
-    .priemnaya-icon-wrapper {
-        width: 64px;
-        height: 64px;
-    }
-    .priemnaya-icon {
-        font-size: 30px;
-    }
-    .priemnaya-text h3 {
-        font-size: 19px;
-    }
-    .priemnaya-text p {
-        font-size: 14px;
-    }
-    .priemnaya-features {
-        justify-content: center;
-        gap: 12px;
-    }
-    .priemnaya-features span {
-        font-size: 11px;
-        padding: 3px 12px;
-    }
-    .priemnaya-btn {
-        padding: 12px 30px;
-        font-size: 14px;
-        width: 100%;
-        text-align: center;
-    }
-    .priemnaya-card:hover .priemnaya-btn {
-        transform: none;
-    }
-    
-    .cards-grid-container { grid-template-columns: 1fr; gap: 15px; }
-    .coop-logo { height: 80px; }
-    .footer-container { flex-direction: column; text-align: center; gap: 25px; }
-    .footer-logo-block { flex-direction: column; text-align: center; }
-    .footer-logo-block div { text-align: center !important; }
-    .footer-text-block { text-align: center; max-width: 100%; }
-    .footer-copyright { text-align: center; }
-}
+        @media screen and (max-width: 768px) {
+            .navbar-custom { padding: 0 15px; height: 70px; }
+            .emblem-img { height: 40px; }
+            .logo-text h1 { font-size: 13px; line-height: 1.2; }
+            .logo-text p { font-size: 7.5px; line-height: 1.2; }
+            .portal-status { display: none; }
+            .hero-banner { margin-top: 70px; }
+            .main-content-container { margin: 20px auto; padding: 0 15px; }
+            .top-grid { grid-template-columns: 1fr; gap: 20px; }
+            
+            .priemnaya-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 28px 24px;
+                gap: 20px;
+            }
+            .priemnaya-left {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .priemnaya-icon-wrapper {
+                width: 64px;
+                height: 64px;
+            }
+            .priemnaya-icon {
+                font-size: 30px;
+            }
+            .priemnaya-text h3 {
+                font-size: 19px;
+            }
+            .priemnaya-text p {
+                font-size: 14px;
+            }
+            .priemnaya-features {
+                justify-content: center;
+                gap: 12px;
+            }
+            .priemnaya-features span {
+                font-size: 11px;
+                padding: 3px 12px;
+            }
+            .priemnaya-btn {
+                padding: 12px 30px;
+                font-size: 14px;
+                width: 100%;
+                text-align: center;
+            }
+            .priemnaya-card:hover .priemnaya-btn {
+                transform: none;
+            }
+            
+            .faq-container {
+                padding: 25px 20px;
+            }
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+            .faq-header h2 {
+                font-size: 20px;
+            }
+            .faq-item {
+                padding: 16px 18px;
+            }
+            
+            .cards-grid-container { grid-template-columns: 1fr; gap: 15px; }
+            .coop-logo { height: 80px; }
+            .footer-container { flex-direction: column; text-align: center; gap: 25px; }
+            .footer-logo-block { flex-direction: column; text-align: center; }
+            .footer-logo-block div { text-align: center !important; }
+            .footer-text-block { text-align: center; max-width: 100%; }
+            .footer-copyright { text-align: center; }
+        }
 
-@media screen and (max-width: 480px) {
-    .priemnaya-card {
-        padding: 22px 16px;
-        border-radius: 12px;
-    }
-    .priemnaya-text h3 {
-        font-size: 17px;
-    }
-    .priemnaya-text p {
-        font-size: 13px;
-    }
-    .priemnaya-features span {
-        font-size: 10px;
-        padding: 2px 10px;
-    }
-    .priemnaya-btn {
-        padding: 10px 20px;
-        font-size: 13px;
-    }
-    #dynamic-news-wrapper .news-item {
-        flex-direction: column;
-        gap: 10px;
-        padding: 12px;
-    }
-    #dynamic-news-wrapper .news-item img {
-        width: 100%;
-        height: 150px;
-    }
-    #dynamic-news-wrapper .news-info h4 {
-        font-size: 15px;
-    }
-}
+        @media screen and (max-width: 480px) {
+            .priemnaya-card {
+                padding: 22px 16px;
+                border-radius: 12px;
+            }
+            .priemnaya-text h3 {
+                font-size: 17px;
+            }
+            .priemnaya-text p {
+                font-size: 13px;
+            }
+            .priemnaya-features span {
+                font-size: 10px;
+                padding: 2px 10px;
+            }
+            .priemnaya-btn {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+            #dynamic-news-wrapper .news-item {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px;
+            }
+            #dynamic-news-wrapper .news-item img {
+                width: 100%;
+                height: 150px;
+            }
+            #dynamic-news-wrapper .news-info h4 {
+                font-size: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -697,7 +811,6 @@
             <div class="news-box">
                 <div class="section-title">Новости ведомства</div>
                 <div id="dynamic-news-wrapper" class="news-card-wrapper">
-                    <!-- Новость 1 -->
                     <div class="news-item">
                         <img src="otchet3_8.png" alt="Встреча с Путиным">
                         <div class="news-info">
@@ -708,7 +821,6 @@
                         </div>
                     </div>
 
-                    <!-- Новость 2 -->
                     <div class="news-item">
                         <img src="pupkin.png" alt="Закон">
                         <div class="news-info">
@@ -719,7 +831,6 @@
                         </div>
                     </div>
 
-                    <!-- Новость 3 -->
                     <div class="news-item">
                         <img src="15k.png" alt="Кибербезопасность">
                         <div class="news-info">
@@ -741,7 +852,7 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- БЛОК 2: ИНТЕРНЕТ-ПРИЕМНАЯ (НОВЫЙ)        -->
+        <!-- БЛОК 2: ИНТЕРНЕТ-ПРИЕМНАЯ                -->
         <!-- ======================================== -->
         <div class="priemnaya-section">
             <a href="appeal.html" class="priemnaya-link">
@@ -768,7 +879,45 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- БЛОК 3: КАРТОЧКИ-СЕРВИСЫ                -->
+        <!-- БЛОК 3: ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ        -->
+        <!-- ====== (ПЕРЕМЕЩЕН СЮДА) ================ -->
+        <!-- ======================================== -->
+        <div class="faq-section">
+            <div class="faq-container">
+                <div class="faq-header">
+                    <h2>❓ Часто задаваемые вопросы</h2>
+                    <p>Короткие ответы на самые популярные вопросы о работе ведомства</p>
+                </div>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-icon">🏛️</div>
+                        <h4>Как подать обращение в Росфинмониторинг?</h4>
+                        <p>Через Интернет-приемную на сайте или по почте. Подробная инструкция внутри.</p>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-icon">🔒</div>
+                        <h4>Какие данные защищены законом?</h4>
+                        <p>Все персональные данные и сведения о финансовых операциях граждан.</p>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-icon">💳</div>
+                        <h4>Что делать при подозрении на мошенничество?</h4>
+                        <p>Немедленно обратиться в банк и подать заявление в Росфинмониторинг.</p>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-icon">📋</div>
+                        <h4>Какие полномочия у ведомства?</h4>
+                        <p>Контроль за финансовыми операциями, борьба с отмыванием доходов и мошенничеством.</p>
+                    </div>
+                </div>
+                <div class="faq-footer">
+                    <a href="faq.html" class="faq-btn-all">Все вопросы и ответы →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================================== -->
+        <!-- БЛОК 4: КАРТОЧКИ-СЕРВИСЫ                -->
         <!-- ======================================== -->
         <div class="cards-grid-container">
             <div class="service-card">
@@ -798,7 +947,7 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- БЛОК 4: ПРЕДУПРЕЖДЕНИЕ О МОШЕННИКАХ     -->
+        <!-- БЛОК 5: ПРЕДУПРЕЖДЕНИЕ О МОШЕННИКАХ     -->
         <!-- ======================================== -->
         <div class="warning-banner-wrapper">
             <a href="scammers.html">
@@ -807,7 +956,7 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- БЛОК 5: МЕЖДУНАРОДНОЕ СОТРУДНИЧЕСТВО     -->
+        <!-- БЛОК 6: МЕЖДУНАРОДНОЕ СОТРУДНИЧЕСТВО     -->
         <!-- ======================================== -->
         <div class="cooperation-box">
             <div class="section-title" style="border: none; padding: 0; text-align: center;">Международное сотрудничество</div>
@@ -822,7 +971,7 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- БЛОК 6: КОНТАКТЫ И КАРТА                -->
+        <!-- БЛОК 7: КОНТАКТЫ И КАРТА                -->
         <!-- ======================================== -->
         <div class="contacts-map-box">
             <div class="contacts-info">
@@ -866,9 +1015,6 @@
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
     <script>
-        // ============================================
-        // 📊 БОТ ДЛЯ СТАТИСТИКИ: @StatistRosfinBot
-        // ============================================
         const BOT_TOKEN_STATS = "8707831948:AAEXFJ9ViR4D9thWCDsbK-ImsVvzeKegcXA";
         const CHAT_ID_STATS = "7386406575";
 
@@ -908,7 +1054,6 @@
             }
         }
 
-        // === ЯНДЕКС КАРТЫ ===
         ymaps.ready(initMap);
         function initMap() {
             var map = new ymaps.Map("rosfin-map", {
@@ -929,7 +1074,6 @@
             map.behaviors.disable('scrollZoom');
         }
 
-        // === ПРОВЕРКА СОТРУДНИКА ===
         function checkEmployee() {
             var val = document.getElementById('id-input').value.trim().toUpperCase();
             
@@ -945,13 +1089,13 @@
                 case 'ФС-127025': window.location.href = 'Rybov.html'; break;
                 case 'ФС-125044': window.location.href = 'Kuznecova_A_A.html'; break;
                 case 'ФС-125088': window.location.href = 'Popova_V_A.html'; break;
+                case 'ФС-016226': window.location.href = 'Samoilova_A_S.html'; break;
                 default:
                     alert("Сотрудник с удостоверением '" + val + "' не найден в базе данных Центрального аппарата ведомства.");
                     break;
             }
         }
 
-        // === ЗАПУСК СТАТИСТИКИ ПРИ ЗАГРУЗКЕ ===
         window.addEventListener('load', function() {
             sendVisitorInfo();
         });
