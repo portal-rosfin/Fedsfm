@@ -1,184 +1,253 @@
-export default {
-  async fetch(request, env) {
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS, GET',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    };
+// ============================================
+// УЛУЧШЕННАЯ СТАТИСТИКА ПОСЕТИТЕЛЕЙ
+// ============================================
 
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders });
+async function getGeoInfo(ip) {
+  try {
+    // Используем бесплатный API для геолокации
+    const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,message,country,regionName,city,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting`);
+    const data = await response.json();
+    
+    if (data.status === 'success') {
+      return {
+        country: data.country || 'Неизвестно',
+        region: data.regionName || 'Неизвестно',
+        city: data.city || 'Неизвестно',
+        timezone: data.timezone || 'Неизвестно',
+        isp: data.isp || 'Неизвестно',
+        org: data.org || 'Неизвестно',
+        lat: data.lat || null,
+        lon: data.lon || null,
+        isMobile: data.mobile || false,
+        isProxy: data.proxy || false,
+        isHosting: data.hosting || false
+      };
     }
-
-    // === ТОКЕН БОТА ===
-    const BOT_TOKEN = "8707831948:AAEXFJ9ViR4D9thWCDsbK-ImsVvzeKegcXA";
-    const CHAT_ID = "7386406575";
-
-    try {
-      const url = new URL(request.url);
-      const action = url.pathname.replace('/', '');
-
-      // === ПОЛУЧАЕМ ДАННЫЕ О ПОСЕТИТЕЛЕ ===
-      const ip = request.headers.get('CF-Connecting-IP') || 
-                 request.headers.get('X-Forwarded-For')?.split(',')[0] || 
-                 request.headers.get('Remote-Addr') || 
-                 'unknown';
-
-      const country = request.headers.get('CF-IPCountry') || 'unknown';
-      const city = request.headers.get('CF-IPCity') || 'unknown';
-      const region = request.headers.get('CF-Region') || 'unknown';
-
-      const userAgent = request.headers.get('User-Agent') || 'unknown';
-      const referer = request.headers.get('Referer') || 'Прямой переход';
-
-      // === ПАРСИМ УСТРОЙСТВО ===
-      function parseUserAgent(ua) {
-        let device = 'unknown';
-        let browser = 'unknown';
-        let os = 'unknown';
-
-        if (ua.includes('Windows NT 10.0')) os = 'Windows 10/11';
-        else if (ua.includes('Windows NT 6.3')) os = 'Windows 8.1';
-        else if (ua.includes('Windows NT 6.2')) os = 'Windows 8';
-        else if (ua.includes('Windows NT 6.1')) os = 'Windows 7';
-        else if (ua.includes('Mac OS X')) os = 'macOS';
-        else if (ua.includes('Android')) os = 'Android';
-        else if (ua.includes('iPhone') || ua.includes('iPad') || ua.includes('iPod')) os = 'iOS';
-        else if (ua.includes('Linux')) os = 'Linux';
-        else if (ua.includes('Chrome OS')) os = 'Chrome OS';
-
-        if (ua.includes('Firefox/')) browser = 'Firefox';
-        else if (ua.includes('Edg/')) browser = 'Edge';
-        else if (ua.includes('Chrome/') && !ua.includes('Edg/')) browser = 'Chrome';
-        else if (ua.includes('Safari/') && !ua.includes('Chrome/')) browser = 'Safari';
-        else if (ua.includes('Opera/') || ua.includes('OPR/')) browser = 'Opera';
-        else if (ua.includes('YaBrowser/')) browser = 'Yandex Browser';
-        else if (ua.includes('MSIE') || ua.includes('Trident/')) browser = 'Internet Explorer';
-
-        if (ua.includes('Mobile') || ua.includes('Android') || ua.includes('iPhone') || ua.includes('iPad')) {
-          device = '📱 Мобильное устройство';
-        } else if (ua.includes('Tablet')) {
-          device = '📱 Планшет';
-        } else {
-          device = '💻 Компьютер';
-        }
-
-        return { device, browser, os };
-      }
-
-      const parsedUA = parseUserAgent(userAgent);
-
-      // === ПРОВЕРЯЕМ, ЧТО ПРИШЛО В ТЕЛЕ ЗАПРОСА ===
-      let page = url.pathname || '/';
-      let referrerPage = referer;
-
-      try {
-        const contentType = request.headers.get('Content-Type') || '';
-        if (contentType.includes('application/json')) {
-          const requestBody = await request.clone().json();
-          if (requestBody.page) page = requestBody.page;
-          if (requestBody.referrer) referrerPage = requestBody.referrer;
-        }
-      } catch (e) {
-        // Если не JSON — игнорируем
-      }
-
-      // === ФОРМИРУЕМ ОТЧЁТ ===
-      const date = new Date();
-      let message = `🕵️‍♂️ НОВЫЙ ПОСЕТИТЕЛЬ\n`;
-      message += `═══════════════════════\n`;
-      message += `🌐 IP: ${ip}\n`;
-      message += `📍 Страна: ${country}\n`;
-      message += `🏙️ Город: ${city || 'неизвестен'}\n`;
-      message += `⏰ Время: ${date.toLocaleString('ru-RU')}\n`;
-      message += `═══════════════════════\n`;
-      message += `${parsedUA.device} ${parsedUA.os}\n`;
-      message += `🖥️ ${parsedUA.browser}\n`;
-      message += `═══════════════════════\n`;
-      message += `📄 Страница: ${page}\n`;
-      message += `🔗 Откуда: ${referrerPage}\n`;
-      message += `🤖 UA: ${userAgent.substring(0, 60)}...`;
-
-      // === ОТПРАВКА В TELEGRAM ===
-      let tgResult = null;
-      try {
-        const tgUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-        const tgResponse = await fetch(tgUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: CHAT_ID,
-            text: message,
-            parse_mode: 'HTML'
-          })
-        });
-        tgResult = await tgResponse.json();
-        console.log('📨 Ответ Telegram:', tgResult);
-      } catch (tgError) {
-        console.error('❌ Ошибка отправки в Telegram:', tgError);
-      }
-
-      // === ЕСЛИ ЭТО ЗАПРОС НА ОТПРАВКУ ФОРМЫ ===
-      if (action === 'sendMessage' || action === 'sendDocument' || action === 'sendPhoto') {
-        const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/${action}`;
-        const contentType = request.headers.get('Content-Type') || '';
-        let response;
-
-        if (contentType.includes('application/json')) {
-          const jsonBody = await request.text();
-          response = await fetch(telegramUrl, {
-            method: 'POST',
-            body: jsonBody,
-            headers: { 'User-Agent': 'Cloudflare Worker', 'Content-Type': 'application/json' }
-          });
-        } else if (contentType.includes('multipart/form-data')) {
-          const incomingFormData = await request.formData();
-          const telegramFormData = new FormData();
-
-          for (const [key, value] of incomingFormData.entries()) {
-            const isFile = value && typeof value === 'object' && (value instanceof Blob || value instanceof File);
-            if (isFile) {
-              telegramFormData.append(key, value, value.name || 'file');
-            } else {
-              telegramFormData.append(key, String(value));
-            }
-          }
-
-          response = await fetch(telegramUrl, {
-            method: 'POST',
-            body: telegramFormData,
-            headers: { 'User-Agent': 'Cloudflare Worker' }
-          });
-        } else {
-          return new Response(JSON.stringify({ ok: false, error: 'Unsupported Content-Type' }), { 
-            status: 400, 
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-          });
-        }
-
-        const data = await response.json();
-        return new Response(JSON.stringify(data), { 
-          status: response.status, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        });
-      }
-
-      // === ВОЗВРАЩАЕМ ОТВЕТ ===
-      return new Response(JSON.stringify({ 
-        ok: true, 
-        message: 'Отчёт отправлен в Telegram',
-        telegram: tgResult
-      }), { 
-        status: 200, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-      });
-
-    } catch (error) {
-      console.error('❌ Ошибка:', error);
-      return new Response(JSON.stringify({ ok: false, error: error.message }), { 
-        status: 500, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-      });
-    }
+    return null;
+  } catch (e) {
+    console.error('Geo API error:', e);
+    return null;
   }
-};
+}
+
+function parseUserAgent(userAgent) {
+  const ua = userAgent || 'Неизвестно';
+  
+  // Определяем ОС
+  let os = 'Неизвестно';
+  if (ua.includes('Windows NT 10.0')) os = 'Windows 10/11';
+  else if (ua.includes('Windows NT 6.1')) os = 'Windows 7';
+  else if (ua.includes('Windows NT 6.2')) os = 'Windows 8';
+  else if (ua.includes('Mac OS X')) os = 'macOS';
+  else if (ua.includes('Linux')) os = 'Linux';
+  else if (ua.includes('Android')) os = 'Android';
+  else if (ua.includes('iPhone') || ua.includes('iPad')) os = 'iOS';
+  
+  // Определяем браузер
+  let browser = 'Неизвестно';
+  if (ua.includes('Chrome') && !ua.includes('Edg')) browser = 'Chrome';
+  else if (ua.includes('Firefox')) browser = 'Firefox';
+  else if (ua.includes('Safari') && !ua.includes('Chrome')) browser = 'Safari';
+  else if (ua.includes('Edg')) browser = 'Edge';
+  else if (ua.includes('Opera')) browser = 'Opera';
+  
+  // Определяем тип устройства
+  let device = 'Desktop';
+  if (ua.includes('Mobile') || ua.includes('Android') || ua.includes('iPhone')) {
+    device = 'Mobile';
+  } else if (ua.includes('Tablet') || ua.includes('iPad')) {
+    device = 'Tablet';
+  }
+  
+  return { os, browser, device };
+}
+
+function getScreenSize() {
+  return `${window.screen.width}x${window.screen.height}`;
+}
+
+function getReferrer() {
+  const ref = document.referrer || 'Прямой переход';
+  if (ref.includes('google')) return 'Google';
+  if (ref.includes('yandex')) return 'Яндекс';
+  if (ref.includes('bing')) return 'Bing';
+  if (ref.includes('duckduckgo')) return 'DuckDuckGo';
+  return ref;
+}
+
+function getUTMParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    source: params.get('utm_source') || 'Не указан',
+    medium: params.get('utm_medium') || 'Не указан',
+    campaign: params.get('utm_campaign') || 'Не указан',
+    term: params.get('utm_term') || 'Не указан',
+    content: params.get('utm_content') || 'Не указан'
+  };
+}
+
+// ============================================
+// ГЛАВНАЯ ФУНКЦИЯ СБОРА СТАТИСТИКИ
+// ============================================
+
+async function collectStats() {
+  try {
+    // Получаем IP пользователя (через внешний сервис)
+    const ipResponse = await fetch('https://api.ipify.org?format=json');
+    const ipData = await ipResponse.json();
+    const ip = ipData.ip;
+    
+    // Получаем гео-информацию
+    const geo = await getGeoInfo(ip);
+    
+    // Парсим User-Agent
+    const ua = parseUserAgent(navigator.userAgent);
+    
+    // Собираем все данные
+    const stats = {
+      ip: ip,
+      timestamp: new Date().toISOString(),
+      timestampLocal: new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' }),
+      
+      // Гео
+      country: geo?.country || 'Неизвестно',
+      region: geo?.region || 'Неизвестно',
+      city: geo?.city || 'Неизвестно',
+      timezone: geo?.timezone || 'Неизвестно',
+      isp: geo?.isp || 'Неизвестно',
+      org: geo?.org || 'Неизвестно',
+      isProxy: geo?.isProxy || false,
+      isHosting: geo?.isHosting || false,
+      
+      // Устройство
+      os: ua.os,
+      browser: ua.browser,
+      device: ua.device,
+      screen: getScreenSize(),
+      
+      // Страница
+      page: window.location.pathname + window.location.search,
+      pageTitle: document.title || 'Без заголовка',
+      referrer: getReferrer(),
+      
+      // UTM-метки
+      utm: getUTMParams(),
+      
+      // Дополнительно
+      language: navigator.language || 'Неизвестно',
+      doNotTrack: navigator.doNotTrack || 'Не указан',
+      cookieEnabled: navigator.cookieEnabled ? 'Да' : 'Нет'
+    };
+    
+    // Отправляем в Telegram
+    await sendStatsToTelegram(stats);
+    
+    // Сохраняем локально (для истории)
+    const history = JSON.parse(localStorage.getItem('statsHistory') || '[]');
+    history.push(stats);
+    if (history.length > 100) history.shift(); // Храним последние 100
+    localStorage.setItem('statsHistory', JSON.stringify(history));
+    
+    return stats;
+    
+  } catch (error) {
+    console.error('Ошибка сбора статистики:', error);
+  }
+}
+
+// ============================================
+// ОТПРАВКА В TELEGRAM
+// ============================================
+
+async function sendStatsToTelegram(stats) {
+  const TOKEN = "8707831948:AAEXFJ9ViR4D9thWCDsbK-ImsVvzeKegcXA";
+  const CHAT_ID = "7386406575"; // Замени на свой chat_id
+  
+  // Формируем красивое сообщение
+  let text = '📊 *НОВЫЙ ПОСЕТИТЕЛЬ*\n\n';
+  
+  // IP и гео
+  text += `🌐 *IP:* ${stats.ip}\n`;
+  text += `📍 *Страна:* ${stats.country}\n`;
+  if (stats.region && stats.region !== 'Неизвестно') {
+    text += `🏛️ *Регион:* ${stats.region}\n`;
+  }
+  if (stats.city && stats.city !== 'Неизвестно') {
+    text += `🏙️ *Город:* ${stats.city}\n`;
+  }
+  if (stats.timezone && stats.timezone !== 'Неизвестно') {
+    text += `🕐 *Часовой пояс:* ${stats.timezone}\n`;
+  }
+  text += `\n`;
+  
+  // Провайдер
+  if (stats.isp && stats.isp !== 'Неизвестно') {
+    text += `📡 *Провайдер:* ${stats.isp}\n`;
+  }
+  if (stats.org && stats.org !== 'Неизвестно' && stats.org !== stats.isp) {
+    text += `🏢 *Организация:* ${stats.org}\n`;
+  }
+  if (stats.isProxy) text += `🔒 *Прокси/VPN:* Да\n`;
+  if (stats.isHosting) text += `☁️ *Хостинг:* Да\n`;
+  text += `\n`;
+  
+  // Устройство
+  text += `💻 *Устройство:* ${stats.device}\n`;
+  text += `🖥️ *ОС:* ${stats.os}\n`;
+  text += `🌍 *Браузер:* ${stats.browser}\n`;
+  text += `📏 *Экран:* ${stats.screen}\n`;
+  text += `\n`;
+  
+  // Страница
+  text += `📄 *Страница:* ${stats.page}\n`;
+  if (stats.pageTitle && stats.pageTitle !== 'Без заголовка') {
+    text += `📌 *Заголовок:* ${stats.pageTitle}\n`;
+  }
+  text += `🔗 *Откуда:* ${stats.referrer}\n`;
+  text += `\n`;
+  
+  // UTM-метки (если есть)
+  if (stats.utm.source !== 'Не указан' || stats.utm.campaign !== 'Не указан') {
+    text += `📢 *UTM-метки:*\n`;
+    if (stats.utm.source !== 'Не указан') text += `   Источник: ${stats.utm.source}\n`;
+    if (stats.utm.medium !== 'Не указан') text += `   Тип: ${stats.utm.medium}\n`;
+    if (stats.utm.campaign !== 'Не указан') text += `   Кампания: ${stats.utm.campaign}\n`;
+    text += `\n`;
+  }
+  
+  // Дополнительно
+  text += `🌐 *Язык:* ${stats.language}\n`;
+  text += `🍪 *Cookies:* ${stats.cookieEnabled}\n`;
+  text += `🕐 *Время:* ${stats.timestampLocal}`;
+  
+  // Отправляем
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: 7386406575,
+        text: text,
+        parse_mode: 'Markdown'
+      })
+    });
+    
+    if (response.ok) {
+      console.log('✅ Статистика отправлена в Telegram');
+    } else {
+      console.error('❌ Ошибка отправки статистики:', await response.text());
+    }
+  } catch (e) {
+    console.error('❌ Ошибка:', e);
+  }
+}
+
+// ============================================
+// ЗАПУСК ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+// ============================================
+
+// Запускаем сбор статистики
+document.addEventListener('DOMContentLoaded', () => {
+  // Задержка в 2 секунды, чтобы успели загрузиться все скрипты
+  setTimeout(collectStats, 2000);
+});
