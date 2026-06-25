@@ -463,9 +463,14 @@
                             timestamp: new Date().toISOString(),
                             status: 'pending'
                         });
-                        localStorage.setItem('appeals', JSON.stringify(appeals));
-                        
-                        alert(`⚠️ Временно недоступна отправка в Telegram.\n\n✅ Ваше обращение сохранено локально.\nНомер: РФМ-ОБ-${Date.now().toString().slice(-6)}\n\nАдминистратор свяжется с вами.`);
+                        // Сохраняем обращение в localStorage
+localStorage.setItem('appeals', JSON.stringify(appeals));
+
+// Показываем уведомление
+alert(`✅ Ваше обращение сохранено.\nНомер: РФМ-ОБ-${Date.now().toString().slice(-6)}`);
+
+// Очищаем форму (если нужно)
+document.getElementById('appealForm').reset();
                         
                         const ticketNumber = Date.now().toString().slice(-6);
                         document.getElementById('ticketNumber').innerText = ticketNumber;
