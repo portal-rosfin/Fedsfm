@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интернет-приемная — Росфинмониторинг</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f0f4f7; 
+            color: #333; 
+        }
+        .navbar-custom { 
+            background-color: #0a1f33; 
+            height: 85px; 
+            display: flex; 
+            align-items: center; 
+            padding: 0 30px; 
+            color: #fff; 
+            border-bottom: 4px solid #c5a059; 
+            justify-content: space-between; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            z-index: 1000; 
+            box-sizing: border-box; 
+        }
+        .logo-area { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            cursor: pointer; 
+        }
+        .emblem-img { 
+            height: 60px; 
+            width: auto; 
+        }
+        .logo-text h1 { 
+            margin: 0; 
+            font-size: 18px; 
+            font-weight: bold; 
+            letter-spacing: 0.5px; 
+        }
+        .logo-text p { 
+            margin: 0; 
+            font-size: 10px; 
+            color: #a0b2c6; 
+            text-transform: uppercase; 
+        }
+        .form-container { 
+            max-width: 800px; 
+            margin: 125px auto 40px auto; 
+            background: white; 
+            border: 1px solid #dce3e8; 
+            border-radius: 4px; 
+            padding: 40px; 
+            box-sizing: border-box; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02); 
+        }
+        .section-title { 
+            font-size: 20px; 
+            color: #0a1f33; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            border-bottom: 2px solid #005695; 
+            padding-bottom: 8px; 
+        }
+        .notice-box { 
+            background-color: #fff9e6; 
+            border-left: 4px solid #ffc107; 
+            padding: 15px; 
+            margin-bottom: 30px; 
+            font-size: 14px; 
+            color: #665014; 
+            line-height: 1.5; 
+            border-radius: 0 4px 4px 0; 
+        }
+        .form-group { 
+            margin-bottom: 22px; 
+        }
+        .form-group label { 
+            display: block; 
+            font-weight: bold; 
+            color: #0a1f33; 
+            margin-bottom: 8px; 
+            font-size: 14px; 
+            text-transform: uppercase; 
+        }
+        .form-control { 
+            width: 100%; 
+            padding: 12px 15px; 
+            border: 1px solid #ced4da; 
+            border-radius: 4px; 
+            font-size: 15px; 
+            box-sizing: border-box; 
+            background-color: #f8fafc; 
+            font-family: inherit; 
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #005695;
+            box-shadow: 0 0 0 3px rgba(0,86,149,0.15);
+        }
+        .file-input-wrapper {
+            position: relative;
+        }
+        .file-input-wrapper input[type="file"] {
+            padding: 12px 15px;
+            background-color: #f8fafc;
+            cursor: pointer;
+        }
+        .file-list {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+            display: none;
+        }
+        .file-list.active {
+            display: block;
+        }
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 13px;
+        }
+        .file-item:last-child {
+            border-bottom: none;
+        }
+        .file-name {
+            color: #0a1f33;
+            font-weight: 500;
+        }
+        .file-size {
+            color: #6c757d;
+            font-size: 12px;
+        }
+        .file-remove {
+            color: #dc3545;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0 8px;
+            border: none;
+            background: none;
+            font-size: 16px;
+        }
+        .file-remove:hover {
+            color: #a71d2a;
+        }
+        .file-hint {
+            color: #6c757d;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .btn-submit { 
+            background: #005695; 
+            color: white; 
+            padding: 14px 30px; 
+            border: none; 
+            border-radius: 4px; 
+            font-size: 14px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            width: 100%; 
+            transition: background 0.2s; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .btn-submit:hover { 
+            background: #0a1f33; 
+        }
+        .btn-submit:disabled { 
+            background: #cccccc; 
+            cursor: not-allowed; 
+        }
+
+        /* ===== СПИННЕР ===== */
+        .spinner {
+            display: none;
+            width: 22px;
+            height: 22px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            flex-shrink: 0;
+        }
+        .spinner.active {
+            display: inline-block;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== ТЕКСТ КНОПКИ ===== */
+        .btn-text {
+            display: inline;
+        }
+        .btn-text.hidden {
+            display: none;
+        }
+
+        /* ===== МОДАЛКА ===== */
+        .modal-success { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(10,31,51,0.6); 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 2000; 
+            padding: 15px; 
+        }
+        .modal-content { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 4px; 
+            border-top: 6px solid #28a745; 
+            text-align: center; 
+            max-width: 450px; 
+            width: 100%; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+        }
+        .btn-close { 
+            background: #28a745; 
+            color: white; 
+            padding: 12px 24px; 
+            border: none; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            margin-top: 20px; 
+            text-transform: uppercase; 
+        }
+        .btn-close:hover {
+            background: #1e7e34;
+        }
+
+        /* ===== ПОДВАЛ ===== */
+        .footer-profile { 
+            background-color: #0a1f33; 
+            color: #fff; 
+            padding: 30px 0; 
+            margin-top: 60px; 
+            font-size: 12px; 
+            border-top: 4px solid #c5a059; 
+        }
+        .footer-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 30px; 
+        }
+        .footer-emblem { 
+            height: 50px; 
+            width: auto; 
+        }
+        .footer-disclaimer { 
+            font-size: 11px; 
+            color: #a0b2c6; 
+            font-style: italic; 
+            max-width: 500px; 
+        }
+        .footer-copyright { 
+            color: #8fa2b5; 
+            font-size: 11px; 
+            font-weight: bold; 
+            text-align: right; 
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media screen and (max-width: 768px) {
+            .navbar-custom { 
+                height: 70px; 
+                padding: 0 15px; 
+            }
+            .form-container { 
+                margin: 100px auto 20px auto; 
+                padding: 20px; 
+            }
+            .emblem-img { 
+                height: 40px; 
+            }
+            .logo-text h1 { 
+                font-size: 13px; 
+            }
+            .logo-text p { 
+                font-size: 7.5px; 
+            }
+            .footer-container { 
+                flex-direction: column; 
+                text-align: center; 
+                gap: 15px; 
+            }
+            .footer-copyright { 
+                text-align: center; 
+            }
+            .modal-content {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-custom">
+        <div class="logo-area" onclick="window.location.href='index.html'">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Официальный модуль отправки обращений</p>
+            </div>
+        </div>
+        <div style="font-size: 12px; font-weight: bold; color: #a0b2c6;">УЗЕЛ СВЯЗИ: ЗАЩИЩЕН</div>
+    </nav>
+
+    <div class="form-container">
+        <div class="section-title">Прием обращений граждан и организаций</div>
+        <div class="notice-box">
+            <strong>Внимание!</strong> Обращения, направленные через настоящий электронный портал, регистрируются в установленном порядке в соответствии с Федеральным законом № 59-ФЗ «О порядке рассмотрения обращений граждан Российской Федерации»
+        </div>
+
+        <form id="appealForm">
+            <div class="form-group">
+                <label for="fullName">ФИО заявителя / Наименование организации *</label>
+                <input type="text" id="fullName" class="form-control" placeholder="Иванов Иван Иванович" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Электронная почта для ответа *</label>
+                <input type="email" id="email" class="form-control" placeholder="example@mail.ru" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Номер телефона для связи *</label>
+                <input type="tel" id="phone" class="form-control" placeholder="+7 (999) 123-45-67" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Тема обращения *</label>
+                <select id="subject" class="form-control" required>
+                    <option value="" disabled selected>Выберите тему...</option>
+                    <option value="Сообщение о сомнительных операциях">Сообщение о сомнительных операциях</option>
+                    <option value="Вопросы №-115">Вопросы исполнения требований ФЗ №-115</option>
+                    <option value="Техподдержка">Запрос техподдержки</option>
+                    <option value="Факт мошенничества">Факт мошенничества</option>
+                    <option value="Другой вопрос">Другой вопрос</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="message">Текст обращения *</label>
+                <textarea id="message" class="form-control" placeholder="Подробно изложите суть вашего вопроса..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Прикрепить документы (до 5 файлов):</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="fileInput" class="form-control" style="padding: 12px 15px;" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.txt,.gif,.bmp,.xls,.xlsx">
+                </div>
+                <div class="file-hint">Допустимые форматы: JPG, PNG, PDF, DOC, DOCX, TXT, XLS, XLSX (макс. 5 файлов до 20MB каждый)</div>
+                <div id="fileList" class="file-list"></div>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <input type="checkbox" id="agreement" required> 
+                <label for="agreement" style="display:inline; font-size:13px;">Я подтверждаю согласие на обработку данных.</label>
+            </div>
+            <button type="submit" class="btn-submit" id="submitBtn">
+                <span class="btn-text">Отправить официальное обращение</span>
+                <span class="spinner" id="spinner"></span>
+            </button>
+        </form>
+    </div>
+
+    <div id="successModal" class="modal-success">
+        <div class="modal-content">
+            <h3>✅ Обращение успешно отправлено!</h3>
+            <p>Вашему заявлению присвоен номер:</p>
+            <p style="font-family: monospace; font-size: 16px; font-weight: bold; color: #005695; background: #eef2f5; padding: 8px; border-radius: 4px;">
+                РФМ-ОБ-<span id="ticketNumber">000000</span>
+            </p>
+            <button class="btn-close" onclick="closeModal()">Закрыть окно</button>
+        </div>
+    </div>
+
+    <footer class="footer-profile">
+        <div class="footer-container">
+            <img src="emblem.png" class="footer-emblem" alt="Герб Росфинмониторинга">
+            <div class="footer-disclaimer">
+                «Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга».
+            </div>
+            <div class="footer-copyright">
+                © 2001-2026 Федеральная служба<br>по финансовому мониторингу.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const form = document.getElementById('appealForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const spinner = document.getElementById('spinner');
+            const fileInput = document.getElementById('fileInput');
+            const fileList = document.getElementById('fileList');
+
+            // =============================================
+            // 📌 ТВОЙ CLOUDFLARE WORKER
+            // =============================================
+            const WORKER_URL = 'https://round-band-482a.portal-rosfin.workers.dev';
+
+            // === УПРАВЛЕНИЕ СПИСКОМ ФАЙЛОВ ===
+            let selectedFiles = [];
+
+            fileInput.addEventListener('change', function(e) {
+                const files = Array.from(this.files);
+                
+                // Проверка на лимит 5 файлов
+                if (files.length > 5) {
+                    alert('⚠️ Можно загрузить не более 5 файлов!');
+                    this.value = '';
+                    return;
+                }
+
+                // Проверка размера файлов (макс 20MB)
+                const MAX_SIZE = 20 * 1024 * 1024;
+                for (let file of files) {
+                    if (file.size > MAX_SIZE) {
+                        alert(`⚠️ Файл "${file.name}" превышает 20MB!`);
+                        this.value = '';
+                        return;
+                    }
+                }
+
+                selectedFiles = files;
+                updateFileList();
+            });
+
+            function updateFileList() {
+                if (selectedFiles.length === 0) {
+                    fileList.classList.remove('active');
+                    fileList.innerHTML = '';
+                    return;
+                }
+
+                fileList.classList.add('active');
+                fileList.innerHTML = selectedFiles.map((file, index) => `
+                    <div class="file-item">
+                        <span>
+                            <span class="file-name">📎 ${file.name}</span>
+                            <span class="file-size">(${(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                        </span>
+                        <button class="file-remove" data-index="${index}" title="Удалить файл">×</button>
+                    </div>
+                `).join('');
+
+                // Обработчики удаления
+                fileList.querySelectorAll('.file-remove').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.dataset.index);
+                        selectedFiles.splice(index, 1);
+                        
+                        // Обновляем input
+                        const dt = new DataTransfer();
+                        selectedFiles.forEach(f => dt.items.add(f));
+                        fileInput.files = dt.files;
+                        
+                        updateFileList();
+                    });
+                });
+            }
+
+            // ===== ОТПРАВКА ФОРМЫ =====
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                // === СБОР ДАННЫХ ===
+                const fullName = document.getElementById('fullName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value.trim();
+                const agreement = document.getElementById('agreement').checked;
+
+                // === ВАЛИДАЦИЯ ===
+                if (!fullName || !email || !phone || !subject || !message) {
+                    alert('⚠️ Заполните все обязательные поля!');
+                    return;
+                }
+                if (!agreement) {
+                    alert('⚠️ Подтвердите согласие на обработку данных!');
+                    return;
+                }
+                if (!email.includes('@') || !email.includes('.')) {
+                    alert('⚠️ Введите корректный email адрес!');
+                    return;
+                }
+
+                // === БЛОКИРУЕМ КНОПКУ ===
+                submitBtn.disabled = true;
+                btnText.classList.add('hidden');
+                spinner.classList.add('active');
+
+                try {
+                    const date = new Date();
+                    
+                    let text = `📋 НОВОЕ ОБРАЩЕНИЕ В РОСФИНМОНИТОРИНГ\n`;
+                    text += `═══════════════════════\n`;
+                    text += `👤 ФИО: ${fullName}\n`;
+                    text += `📧 Email: ${email}\n`;
+                    text += `📞 Телефон: ${phone}\n`;
+                    text += `📌 Тема: ${subject}\n`;
+                    text += `═══════════════════════\n`;
+                    text += `📝 Текст обращения:\n${message}\n`;
+                    text += `═══════════════════════\n`;
+                    if (selectedFiles.length > 0) {
+                        text += `📎 Приложено файлов: ${selectedFiles.length}\n`;
+                        selectedFiles.forEach((f, i) => {
+                            text += `   ${i+1}. ${f.name} (${(f.size / 1024 / 1024).toFixed(2)} MB)\n`;
+                        });
+                    }
+                    text += `🕐 ${date.toLocaleString('ru-RU')}`;
+
+                    // === 1. ОТПРАВКА ТЕКСТА ЧЕРЕЗ WORKER ===
+                    const response = await fetch(`${WORKER_URL}/telegram`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            text: text,
+                            fullName: fullName,
+                            email: email,
+                            phone: phone,
+                            subject: subject
+                        })
+                    });
+
+                    const result = await response.json();
+                    console.log('📨 Ответ Cloudflare Worker:', result);
+
+                    if (!result.ok) {
+                        throw new Error(result.error || 'Неизвестная ошибка');
+                    }
+
+                    // === 2. ОТПРАВКА ВСЕХ ФАЙЛОВ ===
+                    if (selectedFiles.length > 0) {
+                        const formData = new FormData();
+                        
+                        // Добавляем все файлы
+                        selectedFiles.forEach(file => {
+                            formData.append('files', file);
+                        });
+                        formData.append('fullName', fullName);
+                        formData.append('email', email);
+                        
+                        const fileResponse = await fetch(`${WORKER_URL}/send-files`, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        const fileResult = await fileResponse.json();
+                        console.log('📎 Ответ по файлам:', fileResult);
+                        
+                        if (fileResult.errors) {
+                            console.warn('⚠️ Ошибки при загрузке файлов:', fileResult.errors);
+                        }
+                    }
+
+                    // === УСПЕХ ===
+                    const ticketNumber = Math.floor(100000 + Math.random() * 900000);
+                    document.getElementById('ticketNumber').innerText = ticketNumber;
+                    document.getElementById('successModal').style.display = 'flex';
+                    form.reset();
+                    selectedFiles = [];
+                    fileInput.value = '';
+                    fileList.classList.remove('active');
+                    fileList.innerHTML = '';
+
+                } catch (error) {
+                    console.error('❌ Ошибка:', error);
+                    
+                    // === ЕСЛИ ОШИБКА — СОХРАНЯЕМ ЛОКАЛЬНО ===
+                    try {
+                        const appeals = JSON.parse(localStorage.getItem('appeals') || '[]');
+                        appeals.push({
+                            id: Date.now(),
+                            fullName,
+                            email,
+                            phone,
+                            subject,
+                            message,
+                            files: selectedFiles.map(f => ({
+                                name: f.name,
+                                size: f.size,
+                                type: f.type
+                            })),
+                            timestamp: new Date().toISOString(),
+                            status: 'pending'
+                        });
+                        localStorage.setItem('appeals', JSON.stringify(appeals));
+                        
+                        const ticketNumber = Date.now().toString().slice(-6);
+                        document.getElementById('ticketNumber').innerText = ticketNumber;
+                        document.getElementById('successModal').style.display = 'flex';
+                        form.reset();
+                        selectedFiles = [];
+                        fileInput.value = '';
+                        fileList.classList.remove('active');
+                        fileList.innerHTML = '';
+                        
+                        alert(`✅ Ваше обращение сохранено локально.\nНомер: РФМ-ОБ-${ticketNumber}`);
+                    } catch (localError) {
+                        alert(`❌ Ошибка отправки: ${error.message || 'Проверьте интернет'}`);
+                    }
+                } finally {
+                    submitBtn.disabled = false;
+                    btnText.classList.remove('hidden');
+                    spinner.classList.remove('active');
+                }
+            });
+
+            // ===== ЗАКРЫТИЕ МОДАЛКИ =====
+            window.closeModal = function() {
+                document.getElementById('successModal').style.display = 'none';
+            };
+
+            document.getElementById('successModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                }
+            });
+
+        })();
+    </script>
+
+</body>
+</html>
