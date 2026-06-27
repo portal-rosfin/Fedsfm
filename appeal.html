@@ -109,6 +109,61 @@
             border-color: #005695;
             box-shadow: 0 0 0 3px rgba(0,86,149,0.15);
         }
+        .file-input-wrapper {
+            position: relative;
+        }
+        .file-input-wrapper input[type="file"] {
+            padding: 12px 15px;
+            background-color: #f8fafc;
+            cursor: pointer;
+        }
+        .file-list {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+            display: none;
+        }
+        .file-list.active {
+            display: block;
+        }
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 13px;
+        }
+        .file-item:last-child {
+            border-bottom: none;
+        }
+        .file-name {
+            color: #0a1f33;
+            font-weight: 500;
+        }
+        .file-size {
+            color: #6c757d;
+            font-size: 12px;
+        }
+        .file-remove {
+            color: #dc3545;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0 8px;
+            border: none;
+            background: none;
+            font-size: 16px;
+        }
+        .file-remove:hover {
+            color: #a71d2a;
+        }
+        .file-hint {
+            color: #6c757d;
+            font-size: 12px;
+            margin-top: 5px;
+        }
         .btn-submit { 
             background: #005695; 
             color: white; 
@@ -315,8 +370,12 @@
                 <textarea id="message" class="form-control" placeholder="Подробно изложите суть вашего вопроса..." required></textarea>
             </div>
             <div class="form-group">
-                <label>Прикрепить документы:</label>
-                <input type="file" id="file" class="form-control" style="padding: 8px;">
+                <label>Прикрепить документы (до 5 файлов):</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="fileInput" class="form-control" style="padding: 12px 15px;" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.txt,.gif,.bmp,.xls,.xlsx">
+                </div>
+                <div class="file-hint">Допустимые форматы: JPG, PNG, PDF, DOC, DOCX, TXT, XLS, XLSX (макс. 5 файлов до 20MB каждый)</div>
+                <div id="fileList" class="file-list"></div>
             </div>
             <div style="margin-bottom: 20px;">
                 <input type="checkbox" id="agreement" required> 
@@ -358,11 +417,74 @@
             const submitBtn = document.getElementById('submitBtn');
             const btnText = submitBtn.querySelector('.btn-text');
             const spinner = document.getElementById('spinner');
+            const fileInput = document.getElementById('fileInput');
+            const fileList = document.getElementById('fileList');
 
             // =============================================
             // 📌 ТВОЙ CLOUDFLARE WORKER
             // =============================================
             const WORKER_URL = 'https://round-band-482a.portal-rosfin.workers.dev';
+
+            // === УПРАВЛЕНИЕ СПИСКОМ ФАЙЛОВ ===
+            let selectedFiles = [];
+
+            fileInput.addEventListener('change', function(e) {
+                const files = Array.from(this.files);
+                
+                // Проверка на лимит 5 файлов
+                if (files.length > 5) {
+                    alert('⚠️ Можно загрузить не более 5 файлов!');
+                    this.value = '';
+                    return;
+                }
+
+                // Проверка размера файлов (макс 20MB)
+                const MAX_SIZE = 20 * 1024 * 1024;
+                for (let file of files) {
+                    if (file.size > MAX_SIZE) {
+                        alert(`⚠️ Файл "${file.name}" превышает 20MB!`);
+                        this.value = '';
+                        return;
+                    }
+                }
+
+                selectedFiles = files;
+                updateFileList();
+            });
+
+            function updateFileList() {
+                if (selectedFiles.length === 0) {
+                    fileList.classList.remove('active');
+                    fileList.innerHTML = '';
+                    return;
+                }
+
+                fileList.classList.add('active');
+                fileList.innerHTML = selectedFiles.map((file, index) => `
+                    <div class="file-item">
+                        <span>
+                            <span class="file-name">📎 ${file.name}</span>
+                            <span class="file-size">(${(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                        </span>
+                        <button class="file-remove" data-index="${index}" title="Удалить файл">×</button>
+                    </div>
+                `).join('');
+
+                // Обработчики удаления
+                fileList.querySelectorAll('.file-remove').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.dataset.index);
+                        selectedFiles.splice(index, 1);
+                        
+                        // Обновляем input
+                        const dt = new DataTransfer();
+                        selectedFiles.forEach(f => dt.items.add(f));
+                        fileInput.files = dt.files;
+                        
+                        updateFileList();
+                    });
+                });
+            }
 
             // ===== ОТПРАВКА ФОРМЫ =====
             form.addEventListener('submit', async function(event) {
@@ -375,8 +497,6 @@
                 const subject = document.getElementById('subject').value;
                 const message = document.getElementById('message').value.trim();
                 const agreement = document.getElementById('agreement').checked;
-                const fileInput = document.getElementById('file');
-                const file = fileInput.files[0];
 
                 // === ВАЛИДАЦИЯ ===
                 if (!fullName || !email || !phone || !subject || !message) {
@@ -409,13 +529,25 @@
                     text += `═══════════════════════\n`;
                     text += `📝 Текст обращения:\n${message}\n`;
                     text += `═══════════════════════\n`;
+                    if (selectedFiles.length > 0) {
+                        text += `📎 Приложено файлов: ${selectedFiles.length}\n`;
+                        selectedFiles.forEach((f, i) => {
+                            text += `   ${i+1}. ${f.name} (${(f.size / 1024 / 1024).toFixed(2)} MB)\n`;
+                        });
+                    }
                     text += `🕐 ${date.toLocaleString('ru-RU')}`;
 
                     // === 1. ОТПРАВКА ТЕКСТА ЧЕРЕЗ WORKER ===
                     const response = await fetch(`${WORKER_URL}/telegram`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ text: text })
+                        body: JSON.stringify({ 
+                            text: text,
+                            fullName: fullName,
+                            email: email,
+                            phone: phone,
+                            subject: subject
+                        })
                     });
 
                     const result = await response.json();
@@ -425,19 +557,28 @@
                         throw new Error(result.error || 'Неизвестная ошибка');
                     }
 
-                    // === 2. ЕСЛИ ЕСТЬ ФАЙЛ ===
-                    if (file) {
+                    // === 2. ОТПРАВКА ВСЕХ ФАЙЛОВ ===
+                    if (selectedFiles.length > 0) {
                         const formData = new FormData();
-                        formData.append('file', file);
-                        formData.append('caption', `📎 Вложение к обращению от ${fullName}`);
-
-                        const fileResponse = await fetch(`${WORKER_URL}/send-file`, {
+                        
+                        // Добавляем все файлы
+                        selectedFiles.forEach(file => {
+                            formData.append('files', file);
+                        });
+                        formData.append('fullName', fullName);
+                        formData.append('email', email);
+                        
+                        const fileResponse = await fetch(`${WORKER_URL}/send-files`, {
                             method: 'POST',
                             body: formData
                         });
-
+                        
                         const fileResult = await fileResponse.json();
-                        console.log('📎 Ответ по файлу:', fileResult);
+                        console.log('📎 Ответ по файлам:', fileResult);
+                        
+                        if (fileResult.errors) {
+                            console.warn('⚠️ Ошибки при загрузке файлов:', fileResult.errors);
+                        }
                     }
 
                     // === УСПЕХ ===
@@ -445,6 +586,10 @@
                     document.getElementById('ticketNumber').innerText = ticketNumber;
                     document.getElementById('successModal').style.display = 'flex';
                     form.reset();
+                    selectedFiles = [];
+                    fileInput.value = '';
+                    fileList.classList.remove('active');
+                    fileList.innerHTML = '';
 
                 } catch (error) {
                     console.error('❌ Ошибка:', error);
@@ -459,23 +604,26 @@
                             phone,
                             subject,
                             message,
-                            file: file ? file.name : null,
+                            files: selectedFiles.map(f => ({
+                                name: f.name,
+                                size: f.size,
+                                type: f.type
+                            })),
                             timestamp: new Date().toISOString(),
                             status: 'pending'
                         });
-                        // Сохраняем обращение в localStorage
-localStorage.setItem('appeals', JSON.stringify(appeals));
-
-// Показываем уведомление
-alert(`✅ Ваше обращение сохранено.\nНомер: РФМ-ОБ-${Date.now().toString().slice(-6)}`);
-
-// Очищаем форму (если нужно)
-document.getElementById('appealForm').reset();
+                        localStorage.setItem('appeals', JSON.stringify(appeals));
                         
                         const ticketNumber = Date.now().toString().slice(-6);
                         document.getElementById('ticketNumber').innerText = ticketNumber;
                         document.getElementById('successModal').style.display = 'flex';
                         form.reset();
+                        selectedFiles = [];
+                        fileInput.value = '';
+                        fileList.classList.remove('active');
+                        fileList.innerHTML = '';
+                        
+                        alert(`✅ Ваше обращение сохранено локально.\nНомер: РФМ-ОБ-${ticketNumber}`);
                     } catch (localError) {
                         alert(`❌ Ошибка отправки: ${error.message || 'Проверьте интернет'}`);
                     }
