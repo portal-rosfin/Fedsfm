@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Кибербезопасность — Росфинмониторинг</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f4f7; color: #333; }
         
-        /* ===== НАВБАР ===== */
         .navbar-custom { 
             background-color: #0a1f33; 
             height: 85px; 
@@ -31,10 +30,7 @@
         .logo-text p { margin: 0; font-size: 10px; color: #a0b2c6; text-transform: uppercase; }
         .portal-status { font-size: 12px; font-weight: bold; color: #a0b2c6; }
 
-        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
         .main-container { max-width: 1100px; margin: 115px auto 40px; padding: 0 20px; }
-
-        /* ===== КАРТОЧКИ ===== */
         .section-card { 
             background: white; 
             border: 1px solid #dce3e8; 
@@ -54,12 +50,7 @@
         }
         .subtitle { font-size: 18px; color: #005695; font-weight: bold; margin: 20px 0 10px 0; }
 
-        /* ===== НОВОСТИ (ГОРЯЧИЕ) ===== */
-        .news-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
+        .news-grid { display: flex; flex-direction: column; gap: 25px; }
         .news-card {
             display: flex;
             gap: 22px;
@@ -84,12 +75,7 @@
             flex-shrink: 0;
             border: 1px solid #eef2f6;
         }
-        .news-card .news-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            flex: 1;
-        }
+        .news-card .news-info { display: flex; flex-direction: column; justify-content: flex-start; flex: 1; }
         .news-card .news-date {
             font-size: 11px;
             color: #8b9aab;
@@ -120,12 +106,8 @@
             align-self: flex-start;
             transition: all 0.2s;
         }
-        .news-card .news-link:hover {
-            color: #c5a059;
-            border-bottom-color: #c5a059;
-        }
+        .news-card .news-link:hover { color: #c5a059; border-bottom-color: #c5a059; }
 
-        /* ===== ТЕКСТ В БЛОКЕ О МОШЕННИЧЕСТВЕ ===== */
         .info-block p { line-height: 1.7; color: #444; margin-bottom: 14px; font-size: 15px; }
         .info-block ul { margin-bottom: 18px; padding-left: 22px; color: #444; line-height: 1.7; }
         .info-block ul li { margin-bottom: 6px; }
@@ -139,7 +121,6 @@
         }
         .highlight-box strong { color: #0a1f33; }
 
-        /* ===== ПУБЛИКАЦИИ ===== */
         .pub-item {
             display: flex;
             gap: 18px;
@@ -176,25 +157,46 @@
         .pub-item a { text-decoration: none; display: block; }
         .pub-item a:hover h4 { color: #c5a059; }
 
-        /* ===== ВИДЕО ===== */
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
+        /* ===== ВИДЕО КАРТОЧКИ (отдельные окна) ===== */
+        .video-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .video-card {
+            background: #0a0a0a;
+            border-radius: 12px;
             overflow: hidden;
-            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+        .video-card .video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
             background: #000;
         }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .video-card .video-wrapper iframe {
             width: 100%;
             height: 100%;
-            border: 0;
+            border: none;
+            display: block;
+        }
+        .video-card .video-label {
+            padding: 10px 16px;
+            background: rgba(255,255,255,0.02);
+            color: #8892b0;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.03);
+        }
+        .video-card .video-label .num {
+            color: #6c8cff;
+            font-weight: 600;
         }
 
-        /* ===== ТЕСТ ===== */
         .quiz-btn {
             width: 100%;
             text-align: left;
@@ -209,6 +211,7 @@
             display: flex;
             align-items: center;
             gap: 14px;
+            cursor: pointer;
         }
         .quiz-btn:hover {
             border-color: #c5a059;
@@ -232,32 +235,53 @@
         .quiz-btn:hover .letter { background: #c5a059; color: white; }
         .progress-bar-inner { transition: width 0.5s ease; }
 
-        /* ===== ФУТЕР ===== */
         .footer-profile { background-color: #0a1f33; color: #fff; padding: 30px 0; margin-top: 40px; border-top: 4px solid #c5a059; }
         .footer-container { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
         .footer-emblem { height: 55px; width: auto; }
         .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; }
 
-        /* ===== АДАПТИВ ===== */
-        @media (max-width: 768px) {
-            .navbar-custom { padding: 0 15px; height: 70px; flex-wrap: nowrap; }
+        /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+        @media (max-width: 820px) {
+            .navbar-custom { padding: 0 15px; height: 70px; }
             .emblem-img { height: 40px; }
             .logo-text h1 { font-size: 13px; }
             .logo-text p { font-size: 7px; }
             .portal-status { display: none; }
             .main-container { margin-top: 85px; padding: 0 12px; }
-            .section-card { padding: 18px; }
+            .section-card { padding: 16px; }
+            .section-title { font-size: 17px; }
             .news-card { flex-direction: column; padding: 14px; }
             .news-card img { width: 100%; height: 170px; }
             .pub-item { flex-direction: column; align-items: flex-start; }
             .pub-item img { width: 100%; height: 140px; }
             .footer-container { flex-direction: column; text-align: center; }
             .footer-copyright { text-align: center; }
+            .video-grid { gap: 16px; }
         }
         @media (max-width: 480px) {
-            .section-title { font-size: 17px; }
-            .news-card h4 { font-size: 15px; }
-            .quiz-btn { padding: 14px; font-size: 14px; }
+            .navbar-custom { height: 60px; padding: 0 12px; }
+            .emblem-img { height: 32px; }
+            .logo-text h1 { font-size: 12px; }
+            .logo-text p { font-size: 7px; }
+            .main-container { margin-top: 75px; padding: 0 8px; }
+            .section-card { padding: 12px; border-radius: 8px; }
+            .section-title { font-size: 15px; padding-left: 10px; margin-bottom: 12px; }
+            .news-card { padding: 10px; }
+            .news-card img { height: 140px; }
+            .news-card h4 { font-size: 14px; }
+            .news-card p { font-size: 12px; }
+            .pub-item { padding: 8px 0; }
+            .pub-item h4 { font-size: 13px; }
+            .pub-item p { font-size: 12px; }
+            .info-block p { font-size: 13px; }
+            .info-block ul li { font-size: 13px; }
+            .highlight-box { font-size: 13px; padding: 10px 14px; }
+            .quiz-btn { padding: 12px 14px; font-size: 13px; gap: 10px; }
+            .quiz-btn .letter { width: 28px; height: 28px; line-height: 28px; font-size: 12px; }
+            .video-card .video-label { font-size: 12px; padding: 8px 12px; }
+            .video-grid { gap: 12px; }
+            .footer-emblem { height: 40px; }
+            .footer-copyright { font-size: 10px; }
         }
     </style>
 </head>
@@ -278,14 +302,20 @@
     <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <main class="main-container">
 
-        <!-- ======================================== -->
-        <!-- БЛОК 1: ГОРЯЧИЕ НОВОСТИ (5)               -->
-        <!-- ======================================== -->
+        <!-- БЛОК 1: НОВОСТИ -->
         <div class="section-card">
             <div class="section-title">🔥 Горячие новости</div>
             <div class="news-grid">
+                <div class="news-card">
+                    <img src="zoloto2.png" alt="Кража золотых монет">
+                    <div class="news-info">
+                        <span class="news-date">25 июня 2026</span>
+                        <h4>В деле о краже монет на 2 миллиарда в Петербурге новая фигурантка. Она закапывала деньги</h4>
+                        <p>Куйбышевский районный суд отправил под домашний арест менеджера банка Дарью Еркаеву. По версии следствия, она помогала начальнице офиса и другому менеджеру в хищении 8 893 золотых инвестиционных монет «Победоносец» общей стоимостью более 2 млрд рублей. Сама Еркаева заявила, что деньги ей были не нужны — испугавшись, она пошла их закапывать. Суд избрал меру пресечения до 20 августа.</p>
+                        <a href="https://www.fontanka.ru/2026/06/25/76499002/" target="_blank" class="news-link">Подробнее →</a>
+                    </div>
+                </div>
 
-                <!-- НОВОСТЬ 1: КРАЖА ВЕКА (НОВАЯ) -->
                 <div class="news-card">
                     <img src="zoloto.png" alt="Кража золотых монет">
                     <div class="news-info">
@@ -296,7 +326,6 @@
                     </div>
                 </div>
 
-                <!-- НОВОСТЬ 2: ВТБ 9 млрд -->
                 <div class="news-card">
                     <img src="vtb_ter.png" alt="ВТБ">
                     <div class="news-info">
@@ -307,7 +336,6 @@
                     </div>
                 </div>
 
-                <!-- НОВОСТЬ 3: Сбербанк 40 млн -->
                 <div class="news-card">
                     <img src="sister.png" alt="Сбербанк">
                     <div class="news-info">
@@ -318,7 +346,6 @@
                     </div>
                 </div>
 
-                <!-- НОВОСТЬ 4: Альфа-Банк -->
                 <div class="news-card">
                     <img src="alfa-b.png" alt="Альфа-Банк">
                     <div class="news-info">
@@ -329,9 +356,8 @@
                     </div>
                 </div>
 
-                <!-- НОВОСТЬ 5: ВТБ 241 млн -->
                 <div class="news-card">
-                    <img src="mvd-vtb.png">
+                    <img src="mvd-vtb.png" alt="МВД ВТБ">
                     <div class="news-info">
                         <span class="news-date">19 декабря 2025</span>
                         <h4>Экс-сотрудница МВД украла у ВТБ 241 млн рублей через фиктивную ипотеку</h4>
@@ -339,13 +365,10 @@
                         <a href="https://smotrim.ru/article/4838017" target="_blank" class="news-link">Подробнее →</a>
                     </div>
                 </div>
-
             </div>
         </div>
 
-        <!-- ======================================== -->
-        <!-- БЛОК 2: КИБЕРМОШЕННИЧЕСТВО                -->
-        <!-- ======================================== -->
+        <!-- БЛОК 2: КИБЕРМОШЕННИЧЕСТВО -->
         <div class="section-card info-block">
             <div class="section-title">Кибермошенничество: схемы и защита</div>
 
@@ -398,12 +421,9 @@
             </div>
         </div>
 
-        <!-- ======================================== -->
-        <!-- БЛОК 3: АКТУАЛЬНЫЕ ПУБЛИКАЦИИ              -->
-        <!-- ======================================== -->
+        <!-- БЛОК 3: ПУБЛИКАЦИИ -->
         <div class="section-card">
             <div class="section-title">Актуальные публикации и аналитика</div>
-
             <div>
                 <a href="https://mumcfm.ru/mediateka/book/books/publicnaya-versiya-analiticeskogo-otceta-mumcfm-tipologiceskaya-xarakteristika-dropov-vzglyad-ekspertnogo-soobshhestva" target="_blank" class="pub-item">
                     <img src="101.png" alt="Аналитический отчет">
@@ -458,27 +478,53 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- БЛОК 4: ВИДЕОМАТЕРИАЛЫ                   -->
+        <!-- БЛОК 4: ВИДЕОМАТЕРИАЛЫ (ОТДЕЛЬНЫЕ КАРТОЧКИ) -->
         <!-- ======================================== -->
         <div class="section-card">
             <div class="section-title">Видеоматериалы</div>
-            <div class="video-wrapper">
-                <iframe 
-                    src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview"
-                    allow="autoplay; encrypted-media"
-                    allowfullscreen>
-                </iframe>
+            <div class="video-grid">
+                
+                <!-- ВИДЕО 1 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-label">
+                        <span><span class="num">01</span> — Новости 1 канала</span>
+                        <span style="color:#4a5370;font-size:11px;">3:43</span>
+                    </div>
+                </div>
+
+                <!-- ВИДЕО 2 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://drive.google.com/file/d/1wG8BsdLs1tFoJpio0piVI-WAEsRkmEOr/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-label">
+                        <span><span class="num">02</span> — Задержание менеджера банка</span>
+                        <span style="color:#4a5370;font-size:11px;">1:03</span>
+                    </div>
+                </div>
+
+                <!-- ВИДЕО 3 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://drive.google.com/file/d/1JRcACJxWq7e_qvBxLBx-sUy1LVStEkeE/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-label">
+                        <span><span class="num">03</span> — Ограбление в Петербурге</span>
+                        <span style="color:#4a5370;font-size:11px;">3:20</span>
+                    </div>
+                </div>
+
             </div>
-            <p class="text-sm text-gray-500 mt-4 text-center">Видеосюжет о противодействии кибермошенничеству и защите персональных данных</p>
+            <p class="text-sm text-gray-500 mt-4 text-center">Видеосюжеты о противодействии кибермошенничеству и защите персональных данных</p>
         </div>
 
-        <!-- ======================================== -->
-        <!-- БЛОК 5: ТЕСТ (ПРОВЕРЬ СЕБЯ)              -->
-        <!-- ======================================== -->
+        <!-- БЛОК 5: ТЕСТ -->
         <div class="section-card shadow-lg border-0" id="quiz-section">
             <div class="section-title" style="border-color: #c5a059;">🧠 Проверь свои знания</div>
             <p class="text-gray-600 text-sm mb-6">Ответь на 9 вопросов и узнай, насколько ты защищен от кибермошенников</p>
-
             <div id="quiz-container">
                 <div class="flex justify-between text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
                     <span>Вопрос <span id="current-q-num">1</span> из <span id="total-q-num">9</span></span>
@@ -490,7 +536,6 @@
                 <h2 id="question-text" class="text-xl font-semibold text-gray-800 mb-8 leading-tight">Загрузка вопроса...</h2>
                 <div id="options-container" class="space-y-3"></div>
             </div>
-
             <div id="result-container" class="hidden text-center py-6">
                 <div id="result-icon" class="text-7xl mb-4"></div>
                 <h2 id="result-title" class="text-3xl font-black mb-2">Результат</h2>
@@ -512,63 +557,149 @@
         </div>
     </footer>
 
-    <!-- ===== СКРИПТ ТЕСТА ===== -->
+    <!-- ============================================================ -->
+    <!-- СКРИПТ: УПРАВЛЕНИЕ ВИДЕО (отдельные окна)                   -->
+    <!-- ============================================================ -->
     <script>
-        const questions = [
-            { q: "Вам позвонил человек, представившийся сотрудником банка, и сообщил о подозрительной операции. Он просит назвать код из СМС. Что делать?", o: ["Сообщить код, чтобы защитить деньги", "Сообщить только последние цифры", "Не сообщать код и связаться с банком по официальному номеру", "Сообщить код, если звонящий знает ваши данные"], a: 2 },
-            { q: "Вы получили сообщение в мессенджере: «Это ты на видео?» со ссылкой. Ваши действия?", o: ["Сразу открыть ссылку", "Переслать друзьям", "Перейти только с компьютера", "Не открывать и уточнить у отправителя"], a: 3 },
-            { q: "Для чего мошенники чаще всего пытаются получить код из СМС?", o: ["Для проверки номера", "Для участия в опросе", "Для доступа к аккаунтам и банковским приложениям", "Для улучшения качества связи"], a: 2 },
-            { q: "Какой признак чаще всего указывает на мошеннический звонок?", o: ["Требуют срочно принять решение", "Знают ваше имя и отчество", "Знают ваш номер телефона", "Звонят в рабочее время"], a: 0 },
-            { q: "Что может произойти после получения мошенниками доступа к «Госуслугам»?", o: ["Только просмотр данных", "Оформление кредитов и кража личности", "Лишь смена пароля", "Ничего опасного"], a: 1 },
-            { q: "Выигрыш в лотерее и просьба оплатить комиссию — это что?", o: ["Обычная практика", "Ошибка оператора", "Мошенничество", "Банковская проверка"], a: 2 },
-            { q: "Что будет, если перейти по сомнительной ссылке в SMS?", o: ["Ничего, если не вводить данные", "Телефон станет быстрее", "Заражение вирусом и кража данных", "Изменится оформление браузера"], a: 2 },
-            { q: "Кто может официально запрашивать коды из СМС?", o: ["Сотрудник банка", "Сотрудник полиции", "Сотрудник Госуслуг", "Никто из перечисленных"], a: 3 },
-            { q: "Что делать, если вы случайно сообщили код мошенникам?", o: ["Ничего, ждать", "Немедленно обратиться в официальную службу поддержки банка и Госуслуг", "Подождать несколько часов", "Удалить сообщение"], a: 1 }
-        ];
+        (function() {
+            // Находим все iframe с видео
+            const iframes = document.querySelectorAll('.video-card iframe');
 
-        let currentQ = 0, score = 0;
+            // Функция паузы для всех видео
+            function pauseAllVideos() {
+                iframes.forEach(function(iframe) {
+                    try {
+                        iframe.contentWindow.postMessage(
+                            JSON.stringify({ event: 'command', func: 'pauseVideo' }),
+                            '*'
+                        );
+                    } catch(e) {}
+                });
+            }
 
-        function renderQuestion() {
-            const q = questions[currentQ];
-            document.getElementById('current-q-num').innerText = currentQ + 1;
-            document.getElementById('total-q-num').innerText = questions.length;
-            document.getElementById('score-counter').innerText = `✅ ${score}`;
-            document.getElementById('progress-bar').style.width = `${((currentQ + 1) / questions.length) * 100}%`;
-            document.getElementById('question-text').innerText = q.q;
-
-            const container = document.getElementById('options-container');
-            container.innerHTML = '';
-            q.o.forEach((opt, i) => {
-                const btn = document.createElement('button');
-                btn.className = "quiz-btn";
-                btn.innerHTML = `<span class="letter">${String.fromCharCode(65 + i)}</span> ${opt}`;
-                btn.onclick = () => {
-                    if (i === q.a) score++;
-                    currentQ++;
-                    if (currentQ < questions.length) renderQuestion();
-                    else showResults();
-                };
-                container.appendChild(btn);
+            // ===== 1. Пауза при переключении вкладки =====
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    pauseAllVideos();
+                }
             });
-        }
 
-        function showResults() {
-            document.getElementById('quiz-container').classList.add('hidden');
-            const resCont = document.getElementById('result-container');
-            resCont.classList.remove('hidden');
+            // ===== 2. Пауза при закрытии страницы =====
+            window.addEventListener('beforeunload', function() {
+                pauseAllVideos();
+            });
 
-            const percent = Math.round((score / questions.length) * 100);
-            const isGood = percent >= 70;
+            // ===== 3. Пауза при запуске любого видео =====
+            // Отслеживаем клики по iframe (пользователь запускает видео)
+            iframes.forEach(function(iframe) {
+                iframe.addEventListener('click', function() {
+                    // Ставим паузу всем остальным
+                    iframes.forEach(function(other) {
+                        if (other !== iframe) {
+                            try {
+                                other.contentWindow.postMessage(
+                                    JSON.stringify({ event: 'command', func: 'pauseVideo' }),
+                                    '*'
+                                );
+                            } catch(e) {}
+                        }
+                    });
+                });
+            });
 
-            document.getElementById('result-icon').innerText = isGood ? '🛡️' : '⚠️';
-            document.getElementById('result-title').innerText = isGood ? 'Вы отлично защищены!' : 'Есть над чем поработать';
-            document.getElementById('result-desc').innerText = isGood 
-                ? 'Вы знаете основные схемы мошенников и не попадётесь на их уловки!' 
-                : 'Вам стоит внимательнее изучить материалы о кибербезопасности и быть осторожнее.';
-            document.getElementById('result-stats').innerText = `✅ Правильных ответов: ${score} из ${questions.length} (${percent}%)`;
-        }
+            // ===== 4. Дополнительная проверка через Intersection Observer =====
+            // Если видео уходит из видимой области — ставим паузу
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (!entry.isIntersecting) {
+                            const iframe = entry.target.querySelector('iframe');
+                            if (iframe) {
+                                try {
+                                    iframe.contentWindow.postMessage(
+                                        JSON.stringify({ event: 'command', func: 'pauseVideo' }),
+                                        '*'
+                                    );
+                                } catch(e) {}
+                            }
+                        }
+                    });
+                }, { threshold: 0.3 });
 
-        renderQuestion();
+                document.querySelectorAll('.video-card').forEach(function(card) {
+                    observer.observe(card);
+                });
+            }
+
+            console.log('🎬 Видео-менеджер запущен (отдельные окна)');
+        })();
     </script>
+
+    <!-- ============================================================ -->
+    <!-- СКРИПТ: ТЕСТЫ                                                -->
+    <!-- ============================================================ -->
+    <script>
+        (function() {
+            var questions = [
+                { q: "Вам позвонил человек, представившийся сотрудником банка, и сообщил о подозрительной операции. Он просит назвать код из СМС. Что делать?", o: ["Сообщить код, чтобы защитить деньги", "Сообщить только последние цифры", "Не сообщать код и связаться с банком по официальному номеру", "Сообщить код, если звонящий знает ваши данные"], a: 2 },
+                { q: "Вы получили сообщение в мессенджере: «Это ты на видео?» со ссылкой. Ваши действия?", o: ["Сразу открыть ссылку", "Переслать друзьям", "Перейти только с компьютера", "Не открывать и уточнить у отправителя"], a: 3 },
+                { q: "Для чего мошенники чаще всего пытаются получить код из СМС?", o: ["Для проверки номера", "Для участия в опросе", "Для доступа к аккаунтам и банковским приложениям", "Для улучшения качества связи"], a: 2 },
+                { q: "Какой признак чаще всего указывает на мошеннический звонок?", o: ["Требуют срочно принять решение", "Знают ваше имя и отчество", "Знают ваш номер телефона", "Звонят в рабочее время"], a: 0 },
+                { q: "Что может произойти после получения мошенниками доступа к «Госуслугам»?", o: ["Только просмотр данных", "Оформление кредитов и кража личности", "Лишь смена пароля", "Ничего опасного"], a: 1 },
+                { q: "Выигрыш в лотерее и просьба оплатить комиссию — это что?", o: ["Обычная практика", "Ошибка оператора", "Мошенничество", "Банковская проверка"], a: 2 },
+                { q: "Что будет, если перейти по сомнительной ссылке в SMS?", o: ["Ничего, если не вводить данные", "Телефон станет быстрее", "Заражение вирусом и кража данных", "Изменится оформление браузера"], a: 2 },
+                { q: "Кто может официально запрашивать коды из СМС?", o: ["Сотрудник банка", "Сотрудник полиции", "Сотрудник Госуслуг", "Никто из перечисленных"], a: 3 },
+                { q: "Что делать, если вы случайно сообщили код мошенникам?", o: ["Ничего, ждать", "Немедленно обратиться в официальную службу поддержки банка и Госуслуг", "Подождать несколько часов", "Удалить сообщение"], a: 1 }
+            ];
+
+            var currentQ = 0, score = 0;
+
+            function renderQuestion() {
+                var q = questions[currentQ];
+                document.getElementById('current-q-num').innerText = currentQ + 1;
+                document.getElementById('total-q-num').innerText = questions.length;
+                document.getElementById('score-counter').innerText = '✅ ' + score;
+                document.getElementById('progress-bar').style.width = (((currentQ + 1) / questions.length) * 100) + '%';
+                document.getElementById('question-text').innerText = q.q;
+
+                var container = document.getElementById('options-container');
+                container.innerHTML = '';
+                q.o.forEach(function(opt, i) {
+                    var btn = document.createElement('button');
+                    btn.className = "quiz-btn";
+                    var letter = String.fromCharCode(65 + i);
+                    btn.innerHTML = '<span class="letter">' + letter + '</span> ' + opt;
+                    btn.onclick = function() {
+                        if (i === q.a) score++;
+                        currentQ++;
+                        if (currentQ < questions.length) renderQuestion();
+                        else showResults();
+                    };
+                    container.appendChild(btn);
+                });
+            }
+
+            function showResults() {
+                document.getElementById('quiz-container').classList.add('hidden');
+                var resCont = document.getElementById('result-container');
+                resCont.classList.remove('hidden');
+
+                var percent = Math.round((score / questions.length) * 100);
+                var isGood = percent >= 70;
+
+                document.getElementById('result-icon').innerText = isGood ? '🛡️' : '⚠️';
+                document.getElementById('result-title').innerText = isGood ? 'Вы отлично защищены!' : 'Есть над чем поработать';
+                document.getElementById('result-desc').innerText = isGood 
+                    ? 'Вы знаете основные схемы мошенников и не попадётесь на их уловки!' 
+                    : 'Вам стоит внимательнее изучить материалы о кибербезопасности и быть осторожнее.';
+                document.getElementById('result-stats').innerText = '✅ Правильных ответов: ' + score + ' из ' + questions.length + ' (' + percent + '%)';
+            }
+
+            if (document.getElementById('options-container')) {
+                renderQuestion();
+            }
+        })();
+    </script>
+
 </body>
 </html>
