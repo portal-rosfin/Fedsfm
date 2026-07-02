@@ -9,7 +9,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f4f7; color: #333; }
         
-        /* ===== НАВБАР ===== */
         .navbar-custom { 
             background-color: #0a1f33; 
             height: 85px; 
@@ -31,10 +30,7 @@
         .logo-text p { margin: 0; font-size: 10px; color: #a0b2c6; text-transform: uppercase; }
         .portal-status { font-size: 12px; font-weight: bold; color: #a0b2c6; }
 
-        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
         .main-container { max-width: 1100px; margin: 115px auto 40px; padding: 0 20px; }
-
-        /* ===== КАРТОЧКИ ===== */
         .section-card { 
             background: white; 
             border: 1px solid #dce3e8; 
@@ -54,12 +50,7 @@
         }
         .subtitle { font-size: 18px; color: #005695; font-weight: bold; margin: 20px 0 10px 0; }
 
-        /* ===== НОВОСТИ ===== */
-        .news-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
+        .news-grid { display: flex; flex-direction: column; gap: 25px; }
         .news-card {
             display: flex;
             gap: 22px;
@@ -84,12 +75,7 @@
             flex-shrink: 0;
             border: 1px solid #eef2f6;
         }
-        .news-card .news-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            flex: 1;
-        }
+        .news-card .news-info { display: flex; flex-direction: column; justify-content: flex-start; flex: 1; }
         .news-card .news-date {
             font-size: 11px;
             color: #8b9aab;
@@ -120,12 +106,8 @@
             align-self: flex-start;
             transition: all 0.2s;
         }
-        .news-card .news-link:hover {
-            color: #c5a059;
-            border-bottom-color: #c5a059;
-        }
+        .news-card .news-link:hover { color: #c5a059; border-bottom-color: #c5a059; }
 
-        /* ===== ТЕКСТ ===== */
         .info-block p { line-height: 1.7; color: #444; margin-bottom: 14px; font-size: 15px; }
         .info-block ul { margin-bottom: 18px; padding-left: 22px; color: #444; line-height: 1.7; }
         .info-block ul li { margin-bottom: 6px; }
@@ -139,7 +121,6 @@
         }
         .highlight-box strong { color: #0a1f33; }
 
-        /* ===== ПУБЛИКАЦИИ ===== */
         .pub-item {
             display: flex;
             gap: 18px;
@@ -176,7 +157,7 @@
         .pub-item a { text-decoration: none; display: block; }
         .pub-item a:hover h4 { color: #c5a059; }
 
-        /* ===== ВИДЕО СЛАЙДЕР ===== */
+        /* ===== СЛАЙДЕР ===== */
         .slider-container {
             position: relative;
             overflow: hidden;
@@ -227,13 +208,8 @@
             background: #c5a059;
             box-shadow: 0 0 12px rgba(197, 160, 89, 0.5);
         }
-        .dot:hover {
-            transform: scale(1.2);
-        }
-        .slider-track {
-            display: flex;
-            transition: transform 0.4s ease-in-out;
-        }
+        .dot:hover { transform: scale(1.2); }
+        .slider-track { display: flex; transition: transform 0.4s ease-in-out; }
         .slide {
             min-width: 100%;
             aspect-ratio: 16/9;
@@ -242,13 +218,12 @@
             align-items: center;
             justify-content: center;
         }
-        .slide video {
+        .slide iframe {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            background: #000;
+            border: none;
+            aspect-ratio: 16/9;
             display: block;
-            outline: none;
         }
 
         /* ===== ТЕСТ ===== */
@@ -266,6 +241,7 @@
             display: flex;
             align-items: center;
             gap: 14px;
+            cursor: pointer;
         }
         .quiz-btn:hover {
             border-color: #c5a059;
@@ -289,13 +265,11 @@
         .quiz-btn:hover .letter { background: #c5a059; color: white; }
         .progress-bar-inner { transition: width 0.5s ease; }
 
-        /* ===== ФУТЕР ===== */
         .footer-profile { background-color: #0a1f33; color: #fff; padding: 30px 0; margin-top: 40px; border-top: 4px solid #c5a059; }
         .footer-container { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
         .footer-emblem { height: 55px; width: auto; }
         .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; }
 
-        /* ===== АДАПТИВ ===== */
         @media (max-width: 768px) {
             .navbar-custom { padding: 0 15px; height: 70px; flex-wrap: nowrap; }
             .emblem-img { height: 40px; }
@@ -343,7 +317,6 @@
             <div class="section-title">🔥 Горячие новости</div>
             <div class="news-grid">
 
-                <!-- НОВОСТЬ 1 -->
                 <div class="news-card">
                     <img src="zoloto2.png" alt="Кража золотых монет">
                     <div class="news-info">
@@ -354,7 +327,6 @@
                     </div>
                 </div>
 
-                <!-- НОВОСТЬ 2 -->
                 <div class="news-card">
                     <img src="zoloto.png" alt="Кража золотых монет">
                     <div class="news-info">
@@ -365,7 +337,6 @@
                     </div>
                 </div>
 
-                <!-- НОВОСТЬ 3 -->
                 <div class="news-card">
                     <img src="vtb_ter.png" alt="ВТБ">
                     <div class="news-info">
@@ -376,7 +347,6 @@
                     </div>
                 </div>
 
-                <!-- НОВОСТЬ 4 -->
                 <div class="news-card">
                     <img src="sister.png" alt="Сбербанк">
                     <div class="news-info">
@@ -387,7 +357,6 @@
                     </div>
                 </div>
 
-                <!-- НОВОСТЬ 5 -->
                 <div class="news-card">
                     <img src="alfa-b.png" alt="Альфа-Банк">
                     <div class="news-info">
@@ -398,7 +367,6 @@
                     </div>
                 </div>
 
-                <!-- НОВОСТЬ 6 -->
                 <div class="news-card">
                     <img src="mvd-vtb.png" alt="МВД ВТБ">
                     <div class="news-info">
@@ -544,22 +512,25 @@
 
                 <div class="slider-track" id="sliderTrack">
                     <div class="slide">
-                        <video controls preload="metadata">
-                            <source src="https://drive.google.com/uc?export=download&id=1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U" type="video/mp4">
-                            Ваш браузер не поддерживает видео.
-                        </video>
+                        <iframe 
+                            src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview" 
+                            allow="autoplay; encrypted-media"
+                            loading="lazy"
+                        ></iframe>
                     </div>
                     <div class="slide">
-                        <video controls preload="metadata">
-                            <source src="https://drive.google.com/uc?export=download&id=ТВОЙ_ID_ВТОРОГО_ВИДЕО" type="video/mp4">
-                            Ваш браузер не поддерживает видео.
-                        </video>
+                        <iframe 
+                            src="https://drive.google.com/file/d/1wG8BsdLs1tFoJpio0piVI-WAEsRkmEOr/preview" 
+                            allow="autoplay; encrypted-media"
+                            loading="lazy"
+                        ></iframe>
                     </div>
                     <div class="slide">
-                        <video controls preload="metadata">
-                            <source src="https://drive.google.com/uc?export=download&id=ТВОЙ_ID_ТРЕТЬЕГО_ВИДЕО" type="video/mp4">
-                            Ваш браузер не поддерживает видео.
-                        </video>
+                        <iframe 
+                            src="https://drive.google.com/file/d/1JRcACJxWq7e_qvBxLBx-sUy1LVStEkeE/preview" 
+                            allow="autoplay; encrypted-media"
+                            loading="lazy"
+                        ></iframe>
                     </div>
                 </div>
             </div>
@@ -616,15 +587,21 @@
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
         const track = document.getElementById('sliderTrack');
-        let allVideos = [];
+        const iframes = document.querySelectorAll('.slide iframe');
 
-        document.querySelectorAll('.slide video').forEach(v => allVideos.push(v));
+        function pauseAllVideos() {
+            iframes.forEach(iframe => {
+                if (iframe) {
+                    iframe.contentWindow.postMessage(
+                        JSON.stringify({ event: 'command', func: 'pauseVideo' }),
+                        '*'
+                    );
+                }
+            });
+        }
 
         function updateSlider(index) {
-            allVideos.forEach(v => {
-                v.pause();
-                v.currentTime = 0;
-            });
+            pauseAllVideos();
             track.style.transform = `translateX(-${index * 100}%)`;
             dots.forEach((dot, i) => {
                 dot.classList.toggle('active', i === index);
@@ -651,6 +628,16 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') changeSlide(-1);
             if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                pauseAllVideos();
+            }
+        });
+
+        window.addEventListener('beforeunload', function() {
+            pauseAllVideos();
         });
 
         updateSlider(0);
