@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Кибербезопасность — Росфинмониторинг</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -157,12 +157,14 @@
         .pub-item a { text-decoration: none; display: block; }
         .pub-item a:hover h4 { color: #c5a059; }
 
-        /* ===== СЛАЙДЕР ===== */
+        /* ===== ВИДЕО СЛАЙДЕР — МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
         .slider-container {
             position: relative;
             overflow: hidden;
             border-radius: 12px;
             background: #000;
+            width: 100%;
+            aspect-ratio: 16 / 9;
         }
         .slider-btn {
             position: absolute;
@@ -209,10 +211,15 @@
             box-shadow: 0 0 12px rgba(197, 160, 89, 0.5);
         }
         .dot:hover { transform: scale(1.2); }
-        .slider-track { display: flex; transition: transform 0.4s ease-in-out; }
+        .slider-track {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+            height: 100%;
+            width: 100%;
+        }
         .slide {
             min-width: 100%;
-            aspect-ratio: 16/9;
+            height: 100%;
             background: #0a0a0a;
             display: flex;
             align-items: center;
@@ -222,11 +229,10 @@
             width: 100%;
             height: 100%;
             border: none;
-            aspect-ratio: 16/9;
             display: block;
+            background: #000;
         }
 
-        /* ===== ТЕСТ ===== */
         .quiz-btn {
             width: 100%;
             text-align: left;
@@ -270,6 +276,7 @@
         .footer-emblem { height: 55px; width: auto; }
         .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; }
 
+        /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
         @media (max-width: 768px) {
             .navbar-custom { padding: 0 15px; height: 70px; flex-wrap: nowrap; }
             .emblem-img { height: 40px; }
@@ -285,11 +292,16 @@
             .footer-container { flex-direction: column; text-align: center; }
             .footer-copyright { text-align: center; }
             .slider-btn { width: 32px; height: 32px; font-size: 18px; }
+            .slider-btn.prev { left: 8px; }
+            .slider-btn.next { right: 8px; }
         }
         @media (max-width: 480px) {
             .section-title { font-size: 17px; }
             .news-card h4 { font-size: 15px; }
             .quiz-btn { padding: 14px; font-size: 14px; }
+            .slider-btn { width: 28px; height: 28px; font-size: 14px; }
+            .dots-wrapper { gap: 6px; bottom: 10px; }
+            .dot { width: 8px; height: 8px; }
         }
     </style>
 </head>
@@ -310,13 +322,10 @@
     <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <main class="main-container">
 
-        <!-- ======================================== -->
-        <!-- БЛОК 1: ГОРЯЧИЕ НОВОСТИ                   -->
-        <!-- ======================================== -->
+        <!-- БЛОК 1: НОВОСТИ (ВСЕ 6) -->
         <div class="section-card">
             <div class="section-title">🔥 Горячие новости</div>
             <div class="news-grid">
-
                 <div class="news-card">
                     <img src="zoloto2.png" alt="Кража золотых монет">
                     <div class="news-info">
@@ -376,13 +385,10 @@
                         <a href="https://smotrim.ru/article/4838017" target="_blank" class="news-link">Подробнее →</a>
                     </div>
                 </div>
-
             </div>
         </div>
 
-        <!-- ======================================== -->
-        <!-- БЛОК 2: КИБЕРМОШЕННИЧЕСТВО                -->
-        <!-- ======================================== -->
+        <!-- БЛОК 2: КИБЕРМОШЕННИЧЕСТВО (ПОЛНЫЙ ТЕКСТ) -->
         <div class="section-card info-block">
             <div class="section-title">Кибермошенничество: схемы и защита</div>
 
@@ -435,12 +441,9 @@
             </div>
         </div>
 
-        <!-- ======================================== -->
-        <!-- БЛОК 3: АКТУАЛЬНЫЕ ПУБЛИКАЦИИ              -->
-        <!-- ======================================== -->
+        <!-- БЛОК 3: ПУБЛИКАЦИИ (ВСЕ 7) -->
         <div class="section-card">
             <div class="section-title">Актуальные публикации и аналитика</div>
-
             <div>
                 <a href="https://mumcfm.ru/mediateka/book/books/publicnaya-versiya-analiticeskogo-otceta-mumcfm-tipologiceskaya-xarakteristika-dropov-vzglyad-ekspertnogo-soobshhestva" target="_blank" class="pub-item">
                     <img src="101.png" alt="Аналитический отчет">
@@ -494,57 +497,36 @@
             </div>
         </div>
 
-        <!-- ======================================== -->
-        <!-- БЛОК 4: ВИДЕОМАТЕРИАЛЫ (СЛАЙДЕР)         -->
-        <!-- ======================================== -->
+        <!-- БЛОК 4: ВИДЕОМАТЕРИАЛЫ (СЛАЙДЕР) -->
         <div class="section-card">
             <div class="section-title">Видеоматериалы</div>
-            
             <div class="slider-container">
                 <button class="slider-btn prev" onclick="changeSlide(-1)">‹</button>
                 <button class="slider-btn next" onclick="changeSlide(1)">›</button>
-                
                 <div class="dots-wrapper">
                     <span class="dot active" onclick="goToSlide(0)"></span>
                     <span class="dot" onclick="goToSlide(1)"></span>
                     <span class="dot" onclick="goToSlide(2)"></span>
                 </div>
-
                 <div class="slider-track" id="sliderTrack">
                     <div class="slide">
-                        <iframe 
-                            src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview" 
-                            allow="autoplay; encrypted-media"
-                            loading="lazy"
-                        ></iframe>
+                        <iframe src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
                     </div>
                     <div class="slide">
-                        <iframe 
-                            src="https://drive.google.com/file/d/1wG8BsdLs1tFoJpio0piVI-WAEsRkmEOr/preview" 
-                            allow="autoplay; encrypted-media"
-                            loading="lazy"
-                        ></iframe>
+                        <iframe src="https://drive.google.com/file/d/1wG8BsdLs1tFoJpio0piVI-WAEsRkmEOr/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
                     </div>
                     <div class="slide">
-                        <iframe 
-                            src="https://drive.google.com/file/d/1JRcACJxWq7e_qvBxLBx-sUy1LVStEkeE/preview" 
-                            allow="autoplay; encrypted-media"
-                            loading="lazy"
-                        ></iframe>
+                        <iframe src="https://drive.google.com/file/d/1JRcACJxWq7e_qvBxLBx-sUy1LVStEkeE/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
-
             <p class="text-sm text-gray-500 mt-4 text-center">Видеосюжеты о противодействии кибермошенничеству и защите персональных данных</p>
         </div>
 
-        <!-- ======================================== -->
-        <!-- БЛОК 5: ТЕСТ (ПРОВЕРЬ СЕБЯ)              -->
-        <!-- ======================================== -->
+        <!-- БЛОК 5: ТЕСТ -->
         <div class="section-card shadow-lg border-0" id="quiz-section">
             <div class="section-title" style="border-color: #c5a059;">🧠 Проверь свои знания</div>
             <p class="text-gray-600 text-sm mb-6">Ответь на 9 вопросов и узнай, насколько ты защищен от кибермошенников</p>
-
             <div id="quiz-container">
                 <div class="flex justify-between text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
                     <span>Вопрос <span id="current-q-num">1</span> из <span id="total-q-num">9</span></span>
@@ -556,7 +538,6 @@
                 <h2 id="question-text" class="text-xl font-semibold text-gray-800 mb-8 leading-tight">Загрузка вопроса...</h2>
                 <div id="options-container" class="space-y-3"></div>
             </div>
-
             <div id="result-container" class="hidden text-center py-6">
                 <div id="result-icon" class="text-7xl mb-4"></div>
                 <h2 id="result-title" class="text-3xl font-black mb-2">Результат</h2>
@@ -578,128 +559,153 @@
         </div>
     </footer>
 
-    <!-- ===== СКРИПТ СЛАЙДЕРА И ТЕСТА ===== -->
+    <!-- ============================================================ -->
+    <!-- СКРИПТ 1: СЛАЙДЕР (АВТОПАУЗА) — РАБОТАЕТ ОТДЕЛЬНО           -->
+    <!-- ============================================================ -->
     <script>
-        // ================================================================
-        // 1. СЛАЙДЕР
-        // ================================================================
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
-        const track = document.getElementById('sliderTrack');
-        const iframes = document.querySelectorAll('.slide iframe');
+        // ============================================================
+        // 1. СЛАЙДЕР С АВТОПАУЗОЙ
+        // ============================================================
+        (function() {
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const track = document.getElementById('sliderTrack');
+            const iframes = document.querySelectorAll('.slide iframe');
 
-        function pauseAllVideos() {
-            iframes.forEach(iframe => {
-                if (iframe) {
-                    iframe.contentWindow.postMessage(
-                        JSON.stringify({ event: 'command', func: 'pauseVideo' }),
-                        '*'
-                    );
+            if (!track || slides.length === 0) return;
+
+            function pauseAllVideos() {
+                iframes.forEach(function(iframe) {
+                    try {
+                        iframe.contentWindow.postMessage(
+                            JSON.stringify({ event: 'command', func: 'pauseVideo' }),
+                            '*'
+                        );
+                    } catch(e) {
+                        // Игнорируем ошибки
+                    }
+                });
+            }
+
+            function updateSlider(index) {
+                pauseAllVideos();
+                track.style.transform = 'translateX(-' + (index * 100) + '%)';
+                dots.forEach(function(dot, i) {
+                    if (i === index) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+                currentSlide = index;
+            }
+
+            window.changeSlide = function(direction) {
+                let newIndex = currentSlide + direction;
+                if (newIndex < 0) newIndex = slides.length - 1;
+                if (newIndex >= slides.length) newIndex = 0;
+                updateSlider(newIndex);
+            };
+
+            window.goToSlide = function(index) {
+                if (index < 0 || index >= slides.length) return;
+                updateSlider(index);
+            };
+
+            dots.forEach(function(dot, i) {
+                dot.addEventListener('click', function() {
+                    window.goToSlide(i);
+                });
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') window.changeSlide(-1);
+                if (e.key === 'ArrowRight') window.changeSlide(1);
+            });
+
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    pauseAllVideos();
                 }
             });
-        }
 
-        function updateSlider(index) {
-            pauseAllVideos();
-            track.style.transform = `translateX(-${index * 100}%)`;
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-            currentSlide = index;
-        }
-
-        function changeSlide(direction) {
-            let newIndex = currentSlide + direction;
-            if (newIndex < 0) newIndex = slides.length - 1;
-            if (newIndex >= slides.length) newIndex = 0;
-            updateSlider(newIndex);
-        }
-
-        function goToSlide(index) {
-            if (index < 0 || index >= slides.length) return;
-            updateSlider(index);
-        }
-
-        dots.forEach((dot, i) => {
-            dot.addEventListener('click', () => goToSlide(i));
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') changeSlide(-1);
-            if (e.key === 'ArrowRight') changeSlide(1);
-        });
-
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
+            window.addEventListener('beforeunload', function() {
                 pauseAllVideos();
-            }
-        });
-
-        window.addEventListener('beforeunload', function() {
-            pauseAllVideos();
-        });
-
-        updateSlider(0);
-
-        // ================================================================
-        // 2. ТЕСТ
-        // ================================================================
-        const questions = [
-            { q: "Вам позвонил человек, представившийся сотрудником банка, и сообщил о подозрительной операции. Он просит назвать код из СМС. Что делать?", o: ["Сообщить код, чтобы защитить деньги", "Сообщить только последние цифры", "Не сообщать код и связаться с банком по официальному номеру", "Сообщить код, если звонящий знает ваши данные"], a: 2 },
-            { q: "Вы получили сообщение в мессенджере: «Это ты на видео?» со ссылкой. Ваши действия?", o: ["Сразу открыть ссылку", "Переслать друзьям", "Перейти только с компьютера", "Не открывать и уточнить у отправителя"], a: 3 },
-            { q: "Для чего мошенники чаще всего пытаются получить код из СМС?", o: ["Для проверки номера", "Для участия в опросе", "Для доступа к аккаунтам и банковским приложениям", "Для улучшения качества связи"], a: 2 },
-            { q: "Какой признак чаще всего указывает на мошеннический звонок?", o: ["Требуют срочно принять решение", "Знают ваше имя и отчество", "Знают ваш номер телефона", "Звонят в рабочее время"], a: 0 },
-            { q: "Что может произойти после получения мошенниками доступа к «Госуслугам»?", o: ["Только просмотр данных", "Оформление кредитов и кража личности", "Лишь смена пароля", "Ничего опасного"], a: 1 },
-            { q: "Выигрыш в лотерее и просьба оплатить комиссию — это что?", o: ["Обычная практика", "Ошибка оператора", "Мошенничество", "Банковская проверка"], a: 2 },
-            { q: "Что будет, если перейти по сомнительной ссылке в SMS?", o: ["Ничего, если не вводить данные", "Телефон станет быстрее", "Заражение вирусом и кража данных", "Изменится оформление браузера"], a: 2 },
-            { q: "Кто может официально запрашивать коды из СМС?", o: ["Сотрудник банка", "Сотрудник полиции", "Сотрудник Госуслуг", "Никто из перечисленных"], a: 3 },
-            { q: "Что делать, если вы случайно сообщили код мошенникам?", o: ["Ничего, ждать", "Немедленно обратиться в официальную службу поддержки банка и Госуслуг", "Подождать несколько часов", "Удалить сообщение"], a: 1 }
-        ];
-
-        let currentQ = 0, score = 0;
-
-        function renderQuestion() {
-            const q = questions[currentQ];
-            document.getElementById('current-q-num').innerText = currentQ + 1;
-            document.getElementById('total-q-num').innerText = questions.length;
-            document.getElementById('score-counter').innerText = `✅ ${score}`;
-            document.getElementById('progress-bar').style.width = `${((currentQ + 1) / questions.length) * 100}%`;
-            document.getElementById('question-text').innerText = q.q;
-
-            const container = document.getElementById('options-container');
-            container.innerHTML = '';
-            q.o.forEach((opt, i) => {
-                const btn = document.createElement('button');
-                btn.className = "quiz-btn";
-                btn.innerHTML = `<span class="letter">${String.fromCharCode(65 + i)}</span> ${opt}`;
-                btn.onclick = () => {
-                    if (i === q.a) score++;
-                    currentQ++;
-                    if (currentQ < questions.length) renderQuestion();
-                    else showResults();
-                };
-                container.appendChild(btn);
             });
-        }
 
-        function showResults() {
-            document.getElementById('quiz-container').classList.add('hidden');
-            const resCont = document.getElementById('result-container');
-            resCont.classList.remove('hidden');
+            // Старт
+            updateSlider(0);
+        })();
+    </script>
 
-            const percent = Math.round((score / questions.length) * 100);
-            const isGood = percent >= 70;
+    <!-- ============================================================ -->
+    <!-- СКРИПТ 2: ТЕСТЫ — РАБОТАЮТ ОТДЕЛЬНО                         -->
+    <!-- ============================================================ -->
+    <script>
+        // ============================================================
+        // 2. ТЕСТ
+        // ============================================================
+        (function() {
+            var questions = [
+                { q: "Вам позвонил человек, представившийся сотрудником банка, и сообщил о подозрительной операции. Он просит назвать код из СМС. Что делать?", o: ["Сообщить код, чтобы защитить деньги", "Сообщить только последние цифры", "Не сообщать код и связаться с банком по официальному номеру", "Сообщить код, если звонящий знает ваши данные"], a: 2 },
+                { q: "Вы получили сообщение в мессенджере: «Это ты на видео?» со ссылкой. Ваши действия?", o: ["Сразу открыть ссылку", "Переслать друзьям", "Перейти только с компьютера", "Не открывать и уточнить у отправителя"], a: 3 },
+                { q: "Для чего мошенники чаще всего пытаются получить код из СМС?", o: ["Для проверки номера", "Для участия в опросе", "Для доступа к аккаунтам и банковским приложениям", "Для улучшения качества связи"], a: 2 },
+                { q: "Какой признак чаще всего указывает на мошеннический звонок?", o: ["Требуют срочно принять решение", "Знают ваше имя и отчество", "Знают ваш номер телефона", "Звонят в рабочее время"], a: 0 },
+                { q: "Что может произойти после получения мошенниками доступа к «Госуслугам»?", o: ["Только просмотр данных", "Оформление кредитов и кража личности", "Лишь смена пароля", "Ничего опасного"], a: 1 },
+                { q: "Выигрыш в лотерее и просьба оплатить комиссию — это что?", o: ["Обычная практика", "Ошибка оператора", "Мошенничество", "Банковская проверка"], a: 2 },
+                { q: "Что будет, если перейти по сомнительной ссылке в SMS?", o: ["Ничего, если не вводить данные", "Телефон станет быстрее", "Заражение вирусом и кража данных", "Изменится оформление браузера"], a: 2 },
+                { q: "Кто может официально запрашивать коды из СМС?", o: ["Сотрудник банка", "Сотрудник полиции", "Сотрудник Госуслуг", "Никто из перечисленных"], a: 3 },
+                { q: "Что делать, если вы случайно сообщили код мошенникам?", o: ["Ничего, ждать", "Немедленно обратиться в официальную службу поддержки банка и Госуслуг", "Подождать несколько часов", "Удалить сообщение"], a: 1 }
+            ];
 
-            document.getElementById('result-icon').innerText = isGood ? '🛡️' : '⚠️';
-            document.getElementById('result-title').innerText = isGood ? 'Вы отлично защищены!' : 'Есть над чем поработать';
-            document.getElementById('result-desc').innerText = isGood 
-                ? 'Вы знаете основные схемы мошенников и не попадётесь на их уловки!' 
-                : 'Вам стоит внимательнее изучить материалы о кибербезопасности и быть осторожнее.';
-            document.getElementById('result-stats').innerText = `✅ Правильных ответов: ${score} из ${questions.length} (${percent}%)`;
-        }
+            var currentQ = 0, score = 0;
 
-        renderQuestion();
+            function renderQuestion() {
+                var q = questions[currentQ];
+                document.getElementById('current-q-num').innerText = currentQ + 1;
+                document.getElementById('total-q-num').innerText = questions.length;
+                document.getElementById('score-counter').innerText = '✅ ' + score;
+                document.getElementById('progress-bar').style.width = (((currentQ + 1) / questions.length) * 100) + '%';
+                document.getElementById('question-text').innerText = q.q;
+
+                var container = document.getElementById('options-container');
+                container.innerHTML = '';
+                q.o.forEach(function(opt, i) {
+                    var btn = document.createElement('button');
+                    btn.className = "quiz-btn";
+                    var letter = String.fromCharCode(65 + i);
+                    btn.innerHTML = '<span class="letter">' + letter + '</span> ' + opt;
+                    btn.onclick = function() {
+                        if (i === q.a) score++;
+                        currentQ++;
+                        if (currentQ < questions.length) renderQuestion();
+                        else showResults();
+                    };
+                    container.appendChild(btn);
+                });
+            }
+
+            function showResults() {
+                document.getElementById('quiz-container').classList.add('hidden');
+                var resCont = document.getElementById('result-container');
+                resCont.classList.remove('hidden');
+
+                var percent = Math.round((score / questions.length) * 100);
+                var isGood = percent >= 70;
+
+                document.getElementById('result-icon').innerText = isGood ? '🛡️' : '⚠️';
+                document.getElementById('result-title').innerText = isGood ? 'Вы отлично защищены!' : 'Есть над чем поработать';
+                document.getElementById('result-desc').innerText = isGood 
+                    ? 'Вы знаете основные схемы мошенников и не попадётесь на их уловки!' 
+                    : 'Вам стоит внимательнее изучить материалы о кибербезопасности и быть осторожнее.';
+                document.getElementById('result-stats').innerText = '✅ Правильных ответов: ' + score + ' из ' + questions.length + ' (' + percent + '%)';
+            }
+
+            if (document.getElementById('options-container')) {
+                renderQuestion();
+            }
+        })();
     </script>
 
 </body>
