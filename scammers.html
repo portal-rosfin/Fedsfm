@@ -157,7 +157,7 @@
         .pub-item a { text-decoration: none; display: block; }
         .pub-item a:hover h4 { color: #c5a059; }
 
-        /* ===== ВИДЕО СЛАЙДЕР — МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+        /* ===== ВИДЕО СЛАЙДЕР ===== */
         .slider-container {
             position: relative;
             overflow: hidden;
@@ -165,6 +165,7 @@
             background: #000;
             width: 100%;
             aspect-ratio: 16 / 9;
+            touch-action: pan-y;
         }
         .slider-btn {
             position: absolute;
@@ -232,6 +233,19 @@
             display: block;
             background: #000;
         }
+        /* Полноэкранный режим для iframe */
+        .slide iframe:fullscreen {
+            width: 100vw;
+            height: 100vh;
+            max-width: none;
+            max-height: none;
+        }
+        .slide iframe:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            max-width: none;
+            max-height: none;
+        }
 
         .quiz-btn {
             width: 100%;
@@ -276,7 +290,6 @@
         .footer-emblem { height: 55px; width: auto; }
         .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; }
 
-        /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
         @media (max-width: 768px) {
             .navbar-custom { padding: 0 15px; height: 70px; flex-wrap: nowrap; }
             .emblem-img { height: 40px; }
@@ -322,7 +335,7 @@
     <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <main class="main-container">
 
-        <!-- БЛОК 1: НОВОСТИ (ВСЕ 6) -->
+        <!-- БЛОК 1: НОВОСТИ -->
         <div class="section-card">
             <div class="section-title">🔥 Горячие новости</div>
             <div class="news-grid">
@@ -388,7 +401,7 @@
             </div>
         </div>
 
-        <!-- БЛОК 2: КИБЕРМОШЕННИЧЕСТВО (ПОЛНЫЙ ТЕКСТ) -->
+        <!-- БЛОК 2: КИБЕРМОШЕННИЧЕСТВО -->
         <div class="section-card info-block">
             <div class="section-title">Кибермошенничество: схемы и защита</div>
 
@@ -441,7 +454,7 @@
             </div>
         </div>
 
-        <!-- БЛОК 3: ПУБЛИКАЦИИ (ВСЕ 7) -->
+        <!-- БЛОК 3: ПУБЛИКАЦИИ -->
         <div class="section-card">
             <div class="section-title">Актуальные публикации и аналитика</div>
             <div>
@@ -500,7 +513,7 @@
         <!-- БЛОК 4: ВИДЕОМАТЕРИАЛЫ (СЛАЙДЕР) -->
         <div class="section-card">
             <div class="section-title">Видеоматериалы</div>
-            <div class="slider-container">
+            <div class="slider-container" id="sliderContainer">
                 <button class="slider-btn prev" onclick="changeSlide(-1)">‹</button>
                 <button class="slider-btn next" onclick="changeSlide(1)">›</button>
                 <div class="dots-wrapper">
@@ -510,13 +523,13 @@
                 </div>
                 <div class="slider-track" id="sliderTrack">
                     <div class="slide">
-                        <iframe src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
+                        <iframe src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview" allow="autoplay; encrypted-media; fullscreen" loading="lazy" allowfullscreen></iframe>
                     </div>
                     <div class="slide">
-                        <iframe src="https://drive.google.com/file/d/1wG8BsdLs1tFoJpio0piVI-WAEsRkmEOr/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
+                        <iframe src="https://drive.google.com/file/d/1wG8BsdLs1tFoJpio0piVI-WAEsRkmEOr/preview" allow="autoplay; encrypted-media; fullscreen" loading="lazy" allowfullscreen></iframe>
                     </div>
                     <div class="slide">
-                        <iframe src="https://drive.google.com/file/d/1JRcACJxWq7e_qvBxLBx-sUy1LVStEkeE/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
+                        <iframe src="https://drive.google.com/file/d/1JRcACJxWq7e_qvBxLBx-sUy1LVStEkeE/preview" allow="autoplay; encrypted-media; fullscreen" loading="lazy" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -560,21 +573,20 @@
     </footer>
 
     <!-- ============================================================ -->
-    <!-- СКРИПТ 1: СЛАЙДЕР (АВТОПАУЗА) — РАБОТАЕТ ОТДЕЛЬНО           -->
+    <!-- СКРИПТ 1: СЛАЙДЕР + СВАЙП В ПОЛНОЭКРАННОМ РЕЖИМЕ            -->
     <!-- ============================================================ -->
     <script>
-        // ============================================================
-        // 1. СЛАЙДЕР С АВТОПАУЗОЙ
-        // ============================================================
         (function() {
             let currentSlide = 0;
             const slides = document.querySelectorAll('.slide');
             const dots = document.querySelectorAll('.dot');
             const track = document.getElementById('sliderTrack');
             const iframes = document.querySelectorAll('.slide iframe');
+            const container = document.getElementById('sliderContainer');
 
             if (!track || slides.length === 0) return;
 
+            // ===== Пауза всех видео =====
             function pauseAllVideos() {
                 iframes.forEach(function(iframe) {
                     try {
@@ -582,25 +594,21 @@
                             JSON.stringify({ event: 'command', func: 'pauseVideo' }),
                             '*'
                         );
-                    } catch(e) {
-                        // Игнорируем ошибки
-                    }
+                    } catch(e) {}
                 });
             }
 
+            // ===== Обновление слайдера =====
             function updateSlider(index) {
                 pauseAllVideos();
                 track.style.transform = 'translateX(-' + (index * 100) + '%)';
                 dots.forEach(function(dot, i) {
-                    if (i === index) {
-                        dot.classList.add('active');
-                    } else {
-                        dot.classList.remove('active');
-                    }
+                    dot.classList.toggle('active', i === index);
                 });
                 currentSlide = index;
             }
 
+            // ===== Глобальные функции =====
             window.changeSlide = function(direction) {
                 let newIndex = currentSlide + direction;
                 if (newIndex < 0) newIndex = slides.length - 1;
@@ -613,6 +621,7 @@
                 updateSlider(index);
             };
 
+            // ===== Обработчики =====
             dots.forEach(function(dot, i) {
                 dot.addEventListener('click', function() {
                     window.goToSlide(i);
@@ -625,14 +634,47 @@
             });
 
             document.addEventListener('visibilitychange', function() {
-                if (document.hidden) {
-                    pauseAllVideos();
-                }
+                if (document.hidden) pauseAllVideos();
             });
 
             window.addEventListener('beforeunload', function() {
                 pauseAllVideos();
             });
+
+            // ===== СВАЙП В ПОЛНОЭКРАННОМ РЕЖИМЕ =====
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let isFullscreen = false;
+
+            // Отслеживаем полноэкранный режим
+            document.addEventListener('fullscreenchange', function() {
+                isFullscreen = !!document.fullscreenElement;
+            });
+            document.addEventListener('webkitfullscreenchange', function() {
+                isFullscreen = !!document.webkitFullscreenElement;
+            });
+
+            // Обработка свайпов на контейнере
+            container.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            container.addEventListener('touchend', function(e) {
+                // Работаем только в полноэкранном режиме
+                if (!isFullscreen) return;
+                
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                
+                // Минимальная длина свайпа — 50px
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        window.changeSlide(1); // свайп влево — следующее
+                    } else {
+                        window.changeSlide(-1); // свайп вправо — предыдущее
+                    }
+                }
+            }, { passive: true });
 
             // Старт
             updateSlider(0);
@@ -640,12 +682,9 @@
     </script>
 
     <!-- ============================================================ -->
-    <!-- СКРИПТ 2: ТЕСТЫ — РАБОТАЮТ ОТДЕЛЬНО                         -->
+    <!-- СКРИПТ 2: ТЕСТЫ                                              -->
     <!-- ============================================================ -->
     <script>
-        // ============================================================
-        // 2. ТЕСТ
-        // ============================================================
         (function() {
             var questions = [
                 { q: "Вам позвонил человек, представившийся сотрудником банка, и сообщил о подозрительной операции. Он просит назвать код из СМС. Что делать?", o: ["Сообщить код, чтобы защитить деньги", "Сообщить только последние цифры", "Не сообщать код и связаться с банком по официальному номеру", "Сообщить код, если звонящий знает ваши данные"], a: 2 },
@@ -659,7 +698,8 @@
                 { q: "Что делать, если вы случайно сообщили код мошенникам?", o: ["Ничего, ждать", "Немедленно обратиться в официальную службу поддержки банка и Госуслуг", "Подождать несколько часов", "Удалить сообщение"], a: 1 }
             ];
 
-            var currentQ = 0, score = 0;
+            var currentQ = 0,
+                score = 0;
 
             function renderQuestion() {
                 var q = questions[currentQ];
@@ -695,11 +735,13 @@
                 var isGood = percent >= 70;
 
                 document.getElementById('result-icon').innerText = isGood ? '🛡️' : '⚠️';
-                document.getElementById('result-title').innerText = isGood ? 'Вы отлично защищены!' : 'Есть над чем поработать';
-                document.getElementById('result-desc').innerText = isGood 
-                    ? 'Вы знаете основные схемы мошенников и не попадётесь на их уловки!' 
-                    : 'Вам стоит внимательнее изучить материалы о кибербезопасности и быть осторожнее.';
-                document.getElementById('result-stats').innerText = '✅ Правильных ответов: ' + score + ' из ' + questions.length + ' (' + percent + '%)';
+                document.getElementById('result-title').innerText = isGood ? 'Вы отлично защищены!' :
+                    'Есть над чем поработать';
+                document.getElementById('result-desc').innerText = isGood ?
+                    'Вы знаете основные схемы мошенников и не попадётесь на их уловки!' :
+                    'Вам стоит внимательнее изучить материалы о кибербезопасности и быть осторожнее.';
+                document.getElementById('result-stats').innerText = '✅ Правильных ответов: ' + score + ' из ' +
+                    questions.length + ' (' + percent + '%)';
             }
 
             if (document.getElementById('options-container')) {
