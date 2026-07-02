@@ -157,50 +157,53 @@
         .pub-item a { text-decoration: none; display: block; }
         .pub-item a:hover h4 { color: #c5a059; }
 
-        /* ===== ВИДЕО СЛАЙДЕР ===== */
+        /* ===== ВИДЕО СЛАЙДЕР — АДАПТИВ ===== */
         .slider-container {
             position: relative;
             overflow: hidden;
             border-radius: 12px;
             background: #000;
             width: 100%;
+            max-width: 100%;
             aspect-ratio: 16 / 9;
-            touch-action: pan-y;
         }
         .slider-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             z-index: 20;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.5);
             color: white;
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            font-size: 22px;
+            font-size: 18px;
             cursor: pointer;
             backdrop-filter: blur(4px);
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .slider-btn:hover {
             background: rgba(0,0,0,0.8);
             transform: translateY(-50%) scale(1.05);
         }
-        .slider-btn.prev { left: 12px; }
-        .slider-btn.next { right: 12px; }
+        .slider-btn.prev { left: 10px; }
+        .slider-btn.next { right: 10px; }
         .dots-wrapper {
             position: absolute;
-            bottom: 16px;
+            bottom: 12px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 20;
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
         .dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: rgba(255,255,255,0.3);
             cursor: pointer;
@@ -232,19 +235,6 @@
             border: none;
             display: block;
             background: #000;
-        }
-        /* Полноэкранный режим для iframe */
-        .slide iframe:fullscreen {
-            width: 100vw;
-            height: 100vh;
-            max-width: none;
-            max-height: none;
-        }
-        .slide iframe:-webkit-full-screen {
-            width: 100vw;
-            height: 100vh;
-            max-width: none;
-            max-height: none;
         }
 
         .quiz-btn {
@@ -290,31 +280,162 @@
         .footer-emblem { height: 55px; width: auto; }
         .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; }
 
-        @media (max-width: 768px) {
-            .navbar-custom { padding: 0 15px; height: 70px; flex-wrap: nowrap; }
-            .emblem-img { height: 40px; }
-            .logo-text h1 { font-size: 13px; }
-            .logo-text p { font-size: 7px; }
-            .portal-status { display: none; }
-            .main-container { margin-top: 85px; padding: 0 12px; }
-            .section-card { padding: 18px; }
-            .news-card { flex-direction: column; padding: 14px; }
-            .news-card img { width: 100%; height: 170px; }
-            .pub-item { flex-direction: column; align-items: flex-start; }
-            .pub-item img { width: 100%; height: 140px; }
-            .footer-container { flex-direction: column; text-align: center; }
-            .footer-copyright { text-align: center; }
-            .slider-btn { width: 32px; height: 32px; font-size: 18px; }
-            .slider-btn.prev { left: 8px; }
-            .slider-btn.next { right: 8px; }
+        /* ================================================================ */
+        /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+        /* ================================================================ */
+
+        /* Планшеты и маленькие ноутбуки */
+        @media (max-width: 1024px) {
+            .main-container { padding: 0 16px; }
+            .section-card { padding: 24px; }
+            .section-title { font-size: 20px; }
         }
-        @media (max-width: 480px) {
-            .section-title { font-size: 17px; }
+
+        /* Телефоны (горизонтальная ориентация) */
+        @media (max-width: 820px) {
+            .navbar-custom { 
+                padding: 0 15px; 
+                height: 70px; 
+                flex-wrap: nowrap; 
+            }
+            .emblem-img { height: 40px; }
+            .logo-text h1 { font-size: 14px; }
+            .logo-text p { font-size: 8px; }
+            .portal-status { display: none; }
+            
+            .main-container { 
+                margin-top: 85px; 
+                padding: 0 12px; 
+            }
+            .section-card { 
+                padding: 16px; 
+                border-radius: 10px;
+            }
+            .section-title { 
+                font-size: 17px; 
+                margin-bottom: 16px;
+                padding-left: 12px;
+            }
+            
+            .news-card { 
+                flex-direction: column; 
+                padding: 14px; 
+                gap: 12px;
+            }
+            .news-card img { 
+                width: 100%; 
+                height: 180px; 
+                min-height: 140px;
+                max-height: 200px;
+                object-fit: cover;
+            }
             .news-card h4 { font-size: 15px; }
-            .quiz-btn { padding: 14px; font-size: 14px; }
-            .slider-btn { width: 28px; height: 28px; font-size: 14px; }
-            .dots-wrapper { gap: 6px; bottom: 10px; }
+            .news-card p { font-size: 13px; }
+            
+            .pub-item { 
+                flex-direction: column; 
+                align-items: flex-start; 
+                padding: 12px 0;
+            }
+            .pub-item img { 
+                width: 100%; 
+                height: 120px; 
+                object-fit: cover;
+            }
+            
+            .footer-container { 
+                flex-direction: column; 
+                text-align: center; 
+                padding: 0 16px;
+            }
+            .footer-copyright { text-align: center; }
+        }
+
+        /* Телефоны (вертикальная ориентация) */
+        @media (max-width: 480px) {
+            .navbar-custom { height: 60px; padding: 0 12px; }
+            .emblem-img { height: 32px; }
+            .logo-text h1 { font-size: 12px; }
+            .logo-text p { font-size: 7px; }
+            
+            .main-container { margin-top: 75px; padding: 0 8px; }
+            .section-card { padding: 12px; border-radius: 8px; }
+            .section-title { font-size: 15px; padding-left: 10px; margin-bottom: 12px; }
+            .subtitle { font-size: 15px; }
+            
+            .news-card { padding: 10px; gap: 8px; }
+            .news-card img { height: 140px; }
+            .news-card h4 { font-size: 14px; }
+            .news-card p { font-size: 12px; }
+            .news-card .news-date { font-size: 10px; }
+            
+            .pub-item { padding: 8px 0; }
+            .pub-item h4 { font-size: 13px; }
+            .pub-item p { font-size: 12px; }
+            
+            .info-block p { font-size: 13px; }
+            .info-block ul li { font-size: 13px; }
+            .highlight-box { font-size: 13px; padding: 10px 14px; }
+            
+            .quiz-btn { 
+                padding: 12px 14px; 
+                font-size: 13px; 
+                gap: 10px;
+            }
+            .quiz-btn .letter { 
+                width: 28px; 
+                height: 28px; 
+                line-height: 28px; 
+                font-size: 12px;
+            }
+            
+            /* ===== ВИДЕО НА МОБИЛЬНЫХ ===== */
+            .slider-container {
+                aspect-ratio: 16 / 9;
+                border-radius: 8px;
+            }
+            .slider-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+            .slider-btn.prev { left: 6px; }
+            .slider-btn.next { right: 6px; }
+            .dots-wrapper { bottom: 8px; gap: 6px; }
             .dot { width: 8px; height: 8px; }
+            
+            .footer-emblem { height: 40px; }
+            .footer-copyright { font-size: 10px; }
+        }
+
+        /* Очень маленькие телефоны (до 380px) */
+        @media (max-width: 380px) {
+            .section-card { padding: 8px; }
+            .news-card { padding: 8px; }
+            .news-card img { height: 120px; }
+            .news-card h4 { font-size: 13px; }
+            .quiz-btn { font-size: 12px; padding: 10px; }
+            .slider-btn { width: 24px; height: 24px; font-size: 12px; }
+        }
+
+        /* ===== ПОЛНОЭКРАННЫЙ РЕЖИМ ДЛЯ ВИДЕО НА МОБИЛЬНЫХ ===== */
+        .slide iframe:fullscreen {
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: 100vw !important;
+            max-height: 100vh !important;
+        }
+        .slide iframe:-webkit-full-screen {
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: 100vw !important;
+            max-height: 100vh !important;
+        }
+        .slide iframe:-moz-full-screen {
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: 100vw !important;
+            max-height: 100vh !important;
         }
     </style>
 </head>
@@ -513,7 +634,7 @@
         <!-- БЛОК 4: ВИДЕОМАТЕРИАЛЫ (СЛАЙДЕР) -->
         <div class="section-card">
             <div class="section-title">Видеоматериалы</div>
-            <div class="slider-container" id="sliderContainer">
+            <div class="slider-container">
                 <button class="slider-btn prev" onclick="changeSlide(-1)">‹</button>
                 <button class="slider-btn next" onclick="changeSlide(1)">›</button>
                 <div class="dots-wrapper">
@@ -523,13 +644,13 @@
                 </div>
                 <div class="slider-track" id="sliderTrack">
                     <div class="slide">
-                        <iframe src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview" allow="autoplay; encrypted-media; fullscreen" loading="lazy" allowfullscreen></iframe>
+                        <iframe src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
                     </div>
                     <div class="slide">
-                        <iframe src="https://drive.google.com/file/d/1wG8BsdLs1tFoJpio0piVI-WAEsRkmEOr/preview" allow="autoplay; encrypted-media; fullscreen" loading="lazy" allowfullscreen></iframe>
+                        <iframe src="https://drive.google.com/file/d/1wG8BsdLs1tFoJpio0piVI-WAEsRkmEOr/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
                     </div>
                     <div class="slide">
-                        <iframe src="https://drive.google.com/file/d/1JRcACJxWq7e_qvBxLBx-sUy1LVStEkeE/preview" allow="autoplay; encrypted-media; fullscreen" loading="lazy" allowfullscreen></iframe>
+                        <iframe src="https://drive.google.com/file/d/1JRcACJxWq7e_qvBxLBx-sUy1LVStEkeE/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -573,7 +694,7 @@
     </footer>
 
     <!-- ============================================================ -->
-    <!-- СКРИПТ 1: СЛАЙДЕР + СВАЙП В ПОЛНОЭКРАННОМ РЕЖИМЕ            -->
+    <!-- СКРИПТ 1: СЛАЙДЕР + АВТОПАУЗА                               -->
     <!-- ============================================================ -->
     <script>
         (function() {
@@ -582,11 +703,9 @@
             const dots = document.querySelectorAll('.dot');
             const track = document.getElementById('sliderTrack');
             const iframes = document.querySelectorAll('.slide iframe');
-            const container = document.getElementById('sliderContainer');
 
             if (!track || slides.length === 0) return;
 
-            // ===== Пауза всех видео =====
             function pauseAllVideos() {
                 iframes.forEach(function(iframe) {
                     try {
@@ -598,7 +717,6 @@
                 });
             }
 
-            // ===== Обновление слайдера =====
             function updateSlider(index) {
                 pauseAllVideos();
                 track.style.transform = 'translateX(-' + (index * 100) + '%)';
@@ -608,7 +726,6 @@
                 currentSlide = index;
             }
 
-            // ===== Глобальные функции =====
             window.changeSlide = function(direction) {
                 let newIndex = currentSlide + direction;
                 if (newIndex < 0) newIndex = slides.length - 1;
@@ -621,7 +738,6 @@
                 updateSlider(index);
             };
 
-            // ===== Обработчики =====
             dots.forEach(function(dot, i) {
                 dot.addEventListener('click', function() {
                     window.goToSlide(i);
@@ -641,42 +757,6 @@
                 pauseAllVideos();
             });
 
-            // ===== СВАЙП В ПОЛНОЭКРАННОМ РЕЖИМЕ =====
-            let touchStartX = 0;
-            let touchEndX = 0;
-            let isFullscreen = false;
-
-            // Отслеживаем полноэкранный режим
-            document.addEventListener('fullscreenchange', function() {
-                isFullscreen = !!document.fullscreenElement;
-            });
-            document.addEventListener('webkitfullscreenchange', function() {
-                isFullscreen = !!document.webkitFullscreenElement;
-            });
-
-            // Обработка свайпов на контейнере
-            container.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-            }, { passive: true });
-
-            container.addEventListener('touchend', function(e) {
-                // Работаем только в полноэкранном режиме
-                if (!isFullscreen) return;
-                
-                touchEndX = e.changedTouches[0].screenX;
-                const diff = touchStartX - touchEndX;
-                
-                // Минимальная длина свайпа — 50px
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) {
-                        window.changeSlide(1); // свайп влево — следующее
-                    } else {
-                        window.changeSlide(-1); // свайп вправо — предыдущее
-                    }
-                }
-            }, { passive: true });
-
-            // Старт
             updateSlider(0);
         })();
     </script>
@@ -698,8 +778,7 @@
                 { q: "Что делать, если вы случайно сообщили код мошенникам?", o: ["Ничего, ждать", "Немедленно обратиться в официальную службу поддержки банка и Госуслуг", "Подождать несколько часов", "Удалить сообщение"], a: 1 }
             ];
 
-            var currentQ = 0,
-                score = 0;
+            var currentQ = 0, score = 0;
 
             function renderQuestion() {
                 var q = questions[currentQ];
@@ -735,13 +814,11 @@
                 var isGood = percent >= 70;
 
                 document.getElementById('result-icon').innerText = isGood ? '🛡️' : '⚠️';
-                document.getElementById('result-title').innerText = isGood ? 'Вы отлично защищены!' :
-                    'Есть над чем поработать';
-                document.getElementById('result-desc').innerText = isGood ?
-                    'Вы знаете основные схемы мошенников и не попадётесь на их уловки!' :
-                    'Вам стоит внимательнее изучить материалы о кибербезопасности и быть осторожнее.';
-                document.getElementById('result-stats').innerText = '✅ Правильных ответов: ' + score + ' из ' +
-                    questions.length + ' (' + percent + '%)';
+                document.getElementById('result-title').innerText = isGood ? 'Вы отлично защищены!' : 'Есть над чем поработать';
+                document.getElementById('result-desc').innerText = isGood 
+                    ? 'Вы знаете основные схемы мошенников и не попадётесь на их уловки!' 
+                    : 'Вам стоит внимательнее изучить материалы о кибербезопасности и быть осторожнее.';
+                document.getElementById('result-stats').innerText = '✅ Правильных ответов: ' + score + ' из ' + questions.length + ' (' + percent + '%)';
             }
 
             if (document.getElementById('options-container')) {
