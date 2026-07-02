@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Кибербезопасность — Росфинмониторинг</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -54,7 +54,7 @@
         }
         .subtitle { font-size: 18px; color: #005695; font-weight: bold; margin: 20px 0 10px 0; }
 
-        /* ===== НОВОСТИ (ГОРЯЧИЕ) ===== */
+        /* ===== НОВОСТИ ===== */
         .news-grid {
             display: flex;
             flex-direction: column;
@@ -125,7 +125,7 @@
             border-bottom-color: #c5a059;
         }
 
-        /* ===== ТЕКСТ В БЛОКЕ О МОШЕННИЧЕСТВЕ ===== */
+        /* ===== ТЕКСТ ===== */
         .info-block p { line-height: 1.7; color: #444; margin-bottom: 14px; font-size: 15px; }
         .info-block ul { margin-bottom: 18px; padding-left: 22px; color: #444; line-height: 1.7; }
         .info-block ul li { margin-bottom: 6px; }
@@ -176,22 +176,79 @@
         .pub-item a { text-decoration: none; display: block; }
         .pub-item a:hover h4 { color: #c5a059; }
 
-        /* ===== ВИДЕО ===== */
-        .video-wrapper {
+        /* ===== ВИДЕО СЛАЙДЕР ===== */
+        .slider-container {
             position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
             overflow: hidden;
-            border-radius: 10px;
+            border-radius: 12px;
             background: #000;
         }
-        .video-wrapper iframe {
+        .slider-btn {
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            transition: 0.3s;
+        }
+        .slider-btn:hover {
+            background: rgba(0,0,0,0.8);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .slider-btn.prev { left: 12px; }
+        .slider-btn.next { right: 12px; }
+        .dots-wrapper {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            gap: 10px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .dot.active {
+            background: #c5a059;
+            box-shadow: 0 0 12px rgba(197, 160, 89, 0.5);
+        }
+        .dot:hover {
+            transform: scale(1.2);
+        }
+        .slider-track {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            aspect-ratio: 16/9;
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .slide video {
             width: 100%;
             height: 100%;
-            border: 0;
+            object-fit: contain;
+            background: #000;
+            display: block;
+            outline: none;
         }
 
         /* ===== ТЕСТ ===== */
@@ -253,6 +310,7 @@
             .pub-item img { width: 100%; height: 140px; }
             .footer-container { flex-direction: column; text-align: center; }
             .footer-copyright { text-align: center; }
+            .slider-btn { width: 32px; height: 32px; font-size: 18px; }
         }
         @media (max-width: 480px) {
             .section-title { font-size: 17px; }
@@ -279,24 +337,24 @@
     <main class="main-container">
 
         <!-- ======================================== -->
-        <!-- БЛОК 1: ГОРЯЧИЕ НОВОСТИ (5)               -->
+        <!-- БЛОК 1: ГОРЯЧИЕ НОВОСТИ                   -->
         <!-- ======================================== -->
-        
         <div class="section-card">
             <div class="section-title">🔥 Горячие новости</div>
             <div class="news-grid">
 
-                <!-- НОВОСТЬ 1 (НОВАЯ): КРАЖА МОНЕТ — НОВАЯ ФИГУРАНТКА -->
-<div class="news-card">
-    <img src="zoloto2.png" alt="Кража золотых монет">
-    <div class="news-info">
-        <span class="news-date">25 июня 2026</span>
-        <h4>В деле о краже монет на 2 миллиарда в Петербурге новая фигурантка. Она закапывала деньги</h4>
-        <p>Куйбышевский районный суд отправил под домашний арест менеджера банка Дарью Еркаеву. По версии следствия, она помогала начальнице офиса и другому менеджеру в хищении 8 893 золотых инвестиционных монет «Победоносец» общей стоимостью более 2 млрд рублей. Сама Еркаева заявила, что деньги ей были не нужны — испугавшись, она пошла их закапывать. Суд избрал меру пресечения до 20 августа.</p>
-        <a href="https://www.fontanka.ru/2026/06/25/76499002/" target="_blank" class="news-link">Подробнее →</a>
-    </div>
-</div>
-                <!-- НОВОСТЬ 1: КРАЖА ВЕКА (НОВАЯ) -->
+                <!-- НОВОСТЬ 1 -->
+                <div class="news-card">
+                    <img src="zoloto2.png" alt="Кража золотых монет">
+                    <div class="news-info">
+                        <span class="news-date">25 июня 2026</span>
+                        <h4>В деле о краже монет на 2 миллиарда в Петербурге новая фигурантка. Она закапывала деньги</h4>
+                        <p>Куйбышевский районный суд отправил под домашний арест менеджера банка Дарью Еркаеву. По версии следствия, она помогала начальнице офиса и другому менеджеру в хищении 8 893 золотых инвестиционных монет «Победоносец» общей стоимостью более 2 млрд рублей. Сама Еркаева заявила, что деньги ей были не нужны — испугавшись, она пошла их закапывать. Суд избрал меру пресечения до 20 августа.</p>
+                        <a href="https://www.fontanka.ru/2026/06/25/76499002/" target="_blank" class="news-link">Подробнее →</a>
+                    </div>
+                </div>
+
+                <!-- НОВОСТЬ 2 -->
                 <div class="news-card">
                     <img src="zoloto.png" alt="Кража золотых монет">
                     <div class="news-info">
@@ -307,7 +365,7 @@
                     </div>
                 </div>
 
-                <!-- НОВОСТЬ 2: ВТБ 9 млрд -->
+                <!-- НОВОСТЬ 3 -->
                 <div class="news-card">
                     <img src="vtb_ter.png" alt="ВТБ">
                     <div class="news-info">
@@ -318,7 +376,7 @@
                     </div>
                 </div>
 
-                <!-- НОВОСТЬ 3: Сбербанк 40 млн -->
+                <!-- НОВОСТЬ 4 -->
                 <div class="news-card">
                     <img src="sister.png" alt="Сбербанк">
                     <div class="news-info">
@@ -329,7 +387,7 @@
                     </div>
                 </div>
 
-                <!-- НОВОСТЬ 4: Альфа-Банк -->
+                <!-- НОВОСТЬ 5 -->
                 <div class="news-card">
                     <img src="alfa-b.png" alt="Альфа-Банк">
                     <div class="news-info">
@@ -340,9 +398,9 @@
                     </div>
                 </div>
 
-                <!-- НОВОСТЬ 5: ВТБ 241 млн -->
+                <!-- НОВОСТЬ 6 -->
                 <div class="news-card">
-                    <img src="mvd-vtb.png">
+                    <img src="mvd-vtb.png" alt="МВД ВТБ">
                     <div class="news-info">
                         <span class="news-date">19 декабря 2025</span>
                         <h4>Экс-сотрудница МВД украла у ВТБ 241 млн рублей через фиктивную ипотеку</h4>
@@ -468,139 +526,74 @@
             </div>
         </div>
 
-<!-- ======================================== -->
-<!-- БЛОК 4: ВИДЕОМАТЕРИАЛЫ (СЛАЙДЕР)         -->
-<!-- ======================================== -->
-<div class="section-card">
-    <div class="section-title">Видеоматериалы</div>
-    
-    <!-- Слайдер -->
-    <div class="slider-container" style="position:relative; overflow:hidden; border-radius:12px; background:#000;">
-        
-        <!-- КНОПКИ НАВИГАЦИИ -->
-        <button class="slider-btn prev" onclick="changeSlide(-1)" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); z-index:20; background:rgba(0,0,0,0.6); color:white; border:none; width:40px; height:40px; border-radius:50%; font-size:22px; cursor:pointer; backdrop-filter:blur(4px); transition:0.3s;">‹</button>
-        <button class="slider-btn next" onclick="changeSlide(1)" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); z-index:20; background:rgba(0,0,0,0.6); color:white; border:none; width:40px; height:40px; border-radius:50%; font-size:22px; cursor:pointer; backdrop-filter:blur(4px); transition:0.3s;">›</button>
-        
-        <!-- ТОЧКИ (ИНДИКАТОРЫ) -->
-        <div class="dots-wrapper" style="position:absolute; bottom:16px; left:50%; transform:translateX(-50%); z-index:20; display:flex; gap:10px;">
-            <span class="dot active" onclick="goToSlide(0)" style="width:12px; height:12px; border-radius:50%; background:#c5a059; cursor:pointer; transition:0.3s; display:inline-block;"></span>
-            <span class="dot" onclick="goToSlide(1)" style="width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,0.3); cursor:pointer; transition:0.3s; display:inline-block;"></span>
-            <span class="dot" onclick="goToSlide(2)" style="width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,0.3); cursor:pointer; transition:0.3s; display:inline-block;"></span>
-        </div>
-
-        <!-- ВИДЕО-ТРЕК -->
-        <div class="slider-track" style="display:flex; transition:transform 0.4s ease-in-out;">
+        <!-- ======================================== -->
+        <!-- БЛОК 4: ВИДЕОМАТЕРИАЛЫ (СЛАЙДЕР)         -->
+        <!-- ======================================== -->
+        <div class="section-card">
+            <div class="section-title">Видеоматериалы</div>
             
-            <!-- ВИДЕО 1 -->
-            <div class="slide" style="min-width:100%; aspect-ratio:16/9; background:#0a0a0a; display:flex; align-items:center; justify-content:center;">
-                <video controls style="width:100%; height:100%; object-fit:contain; background:#000;" preload="metadata">
-                    <source src="https://drive.google.com/uc?export=download&id=1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
+            <div class="slider-container">
+                <button class="slider-btn prev" onclick="changeSlide(-1)">‹</button>
+                <button class="slider-btn next" onclick="changeSlide(1)">›</button>
+                
+                <div class="dots-wrapper">
+                    <span class="dot active" onclick="goToSlide(0)"></span>
+                    <span class="dot" onclick="goToSlide(1)"></span>
+                    <span class="dot" onclick="goToSlide(2)"></span>
+                </div>
+
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slide">
+                        <video controls preload="metadata">
+                            <source src="https://drive.google.com/uc?export=download&id=1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U" type="video/mp4">
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                    </div>
+                    <div class="slide">
+                        <video controls preload="metadata">
+                            <source src="https://drive.google.com/uc?export=download&id=ТВОЙ_ID_ВТОРОГО_ВИДЕО" type="video/mp4">
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                    </div>
+                    <div class="slide">
+                        <video controls preload="metadata">
+                            <source src="https://drive.google.com/uc?export=download&id=ТВОЙ_ID_ТРЕТЬЕГО_ВИДЕО" type="video/mp4">
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                    </div>
+                </div>
             </div>
 
-            <!-- ВИДЕО 2 -->
-            <div class="slide" style="min-width:100%; aspect-ratio:16/9; background:#0a0a0a; display:flex; align-items:center; justify-content:center;">
-                <video controls style="width:100%; height:100%; object-fit:contain; background:#000;" preload="metadata">
-                    <source src="https://drive.google.com/file/d/1wG8BsdLs1tFoJpio0piVI-WAEsRkmEOr/view?usp=sharing"video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
-            </div>
-
-            <!-- ВИДЕО 3 -->
-            <div class="slide" style="min-width:100%; aspect-ratio:16/9; background:#0a0a0a; display:flex; align-items:center; justify-content:center;">
-                <video controls style="width:100%; height:100%; object-fit:contain; background:#000;" preload="metadata">
-                    <source src="https://drive.google.com/file/d/1JRcACJxWq7e_qvBxLBx-sUy1LVStEkeE/view?usp=sharing" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
-            </div>
-
+            <p class="text-sm text-gray-500 mt-4 text-center">Видеосюжеты о противодействии кибермошенничеству и защите персональных данных</p>
         </div>
-    </div>
 
-    <p class="text-sm text-gray-500 mt-4 text-center">Видеосюжеты о противодействии кибермошенничеству и защите персональных данных</p>
-</div>
+        <!-- ======================================== -->
+        <!-- БЛОК 5: ТЕСТ (ПРОВЕРЬ СЕБЯ)              -->
+        <!-- ======================================== -->
+        <div class="section-card shadow-lg border-0" id="quiz-section">
+            <div class="section-title" style="border-color: #c5a059;">🧠 Проверь свои знания</div>
+            <p class="text-gray-600 text-sm mb-6">Ответь на 9 вопросов и узнай, насколько ты защищен от кибермошенников</p>
 
-<style>
-    .slider-btn:hover {
-        background: rgba(0,0,0,0.8);
-        transform: translateY(-50%) scale(1.05);
-    }
-    .dot.active {
-        background: #c5a059;
-        box-shadow: 0 0 12px rgba(197, 160, 89, 0.5);
-    }
-    .dot:hover {
-        transform: scale(1.2);
-    }
-    .slide video {
-        display: block;
-        outline: none;
-    }
-    /* Прячем стандартные кнопки навигации на мобилках, если не влезают */
-    @media (max-width: 480px) {
-        .slider-btn {
-            width: 32px !important;
-            height: 32px !important;
-            font-size: 18px !important;
-        }
-    }
-</style>
+            <div id="quiz-container">
+                <div class="flex justify-between text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                    <span>Вопрос <span id="current-q-num">1</span> из <span id="total-q-num">9</span></span>
+                    <span id="score-counter">✅ 0</span>
+                </div>
+                <div class="w-full h-2 bg-gray-100 rounded-full mb-8">
+                    <div id="progress-bar" class="h-full bg-[#c5a059] rounded-full progress-bar-inner" style="width: 11%;"></div>
+                </div>
+                <h2 id="question-text" class="text-xl font-semibold text-gray-800 mb-8 leading-tight">Загрузка вопроса...</h2>
+                <div id="options-container" class="space-y-3"></div>
+            </div>
 
-<script>
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
-    const track = document.querySelector('.slider-track');
-    let allVideos = [];
-
-    // Собираем все видео
-    document.querySelectorAll('.slide video').forEach(v => allVideos.push(v));
-
-    function updateSlider(index) {
-        // Останавливаем все видео
-        allVideos.forEach(v => {
-            v.pause();
-            v.currentTime = 0; // сбрасываем на начало, чтобы при переключении не было сюрпризов
-        });
-
-        // Двигаем слайдер
-        track.style.transform = `translateX(-${index * 100}%)`;
-
-        // Обновляем точки
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-        });
-
-        currentSlide = index;
-    }
-
-    function changeSlide(direction) {
-        let newIndex = currentSlide + direction;
-        if (newIndex < 0) newIndex = slides.length - 1;
-        if (newIndex >= slides.length) newIndex = 0;
-        updateSlider(newIndex);
-    }
-
-    function goToSlide(index) {
-        if (index < 0 || index >= slides.length) return;
-        updateSlider(index);
-    }
-
-    // Обработчики для точек
-    dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => goToSlide(i));
-    });
-
-    // Клавиши навигации (для удобства)
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') changeSlide(-1);
-        if (e.key === 'ArrowRight') changeSlide(1);
-    });
-
-    // Инициализация
-    updateSlider(0);
-</script>
+            <div id="result-container" class="hidden text-center py-6">
+                <div id="result-icon" class="text-7xl mb-4"></div>
+                <h2 id="result-title" class="text-3xl font-black mb-2">Результат</h2>
+                <p id="result-desc" class="text-gray-600 mb-3 text-lg"></p>
+                <p id="result-stats" class="text-sm text-gray-400 mb-6"></p>
+                <button onclick="location.reload()" class="px-10 py-3 bg-[#0a1f33] text-white rounded-xl font-bold hover:bg-blue-900 transition-all shadow-lg">Пройти заново</button>
+            </div>
+        </div>
 
     </main>
 
@@ -614,8 +607,57 @@
         </div>
     </footer>
 
-    <!-- ===== СКРИПТ ТЕСТА ===== -->
+    <!-- ===== СКРИПТ СЛАЙДЕРА И ТЕСТА ===== -->
     <script>
+        // ================================================================
+        // 1. СЛАЙДЕР
+        // ================================================================
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const track = document.getElementById('sliderTrack');
+        let allVideos = [];
+
+        document.querySelectorAll('.slide video').forEach(v => allVideos.push(v));
+
+        function updateSlider(index) {
+            allVideos.forEach(v => {
+                v.pause();
+                v.currentTime = 0;
+            });
+            track.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            currentSlide = index;
+        }
+
+        function changeSlide(direction) {
+            let newIndex = currentSlide + direction;
+            if (newIndex < 0) newIndex = slides.length - 1;
+            if (newIndex >= slides.length) newIndex = 0;
+            updateSlider(newIndex);
+        }
+
+        function goToSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            updateSlider(index);
+        }
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => goToSlide(i));
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        updateSlider(0);
+
+        // ================================================================
+        // 2. ТЕСТ
+        // ================================================================
         const questions = [
             { q: "Вам позвонил человек, представившийся сотрудником банка, и сообщил о подозрительной операции. Он просит назвать код из СМС. Что делать?", o: ["Сообщить код, чтобы защитить деньги", "Сообщить только последние цифры", "Не сообщать код и связаться с банком по официальному номеру", "Сообщить код, если звонящий знает ваши данные"], a: 2 },
             { q: "Вы получили сообщение в мессенджере: «Это ты на видео?» со ссылкой. Ваши действия?", o: ["Сразу открыть ссылку", "Переслать друзьям", "Перейти только с компьютера", "Не открывать и уточнить у отправителя"], a: 3 },
@@ -672,5 +714,6 @@
 
         renderQuestion();
     </script>
+
 </body>
 </html>
