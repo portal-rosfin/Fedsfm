@@ -154,7 +154,7 @@ function getPlugins() {
     for (let i = 0; i < navigator.plugins.length; i++) {
       plugins.push(navigator.plugins[i].name);
     }
-    return plugins.slice(0, 5); // Первые 5 плагинов
+    return plugins.slice(0, 5);
   } catch(e) {
     return [];
   }
@@ -320,8 +320,10 @@ async function collectFullStats() {
       isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Да' : 'Нет'
     };
     
-    // Отправляем в Telegram
-    await sendFullStatsToTelegram(stats);
+    // ============================================
+    // ОТПРАВКА ЧЕРЕЗ CLOUDFLARE WORKER
+    // ============================================
+    await sendStatsToWorker(stats);
     
     // Сохраняем локально
     const history = JSON.parse(localStorage.getItem('statsHistory') || '[]');
@@ -337,162 +339,75 @@ async function collectFullStats() {
 }
 
 // ============================================
-// ОТПРАВКА КРАСИВОГО СООБЩЕНИЯ
+// ОТПРАВКА НА CLOUDFLARE WORKER
 // ============================================
 
-async function sendFullStatsToTelegram(stats) {
-  const TOKEN = "8707831948:AAEXFJ9ViR4D9thWCDsbK-ImsVvzeKegcXA";
-  const CHAT_ID = "7386406575";
+async function sendStatsToWorker(stats) {
+  // ТВОЙ URL WORKER (замени на свой)
+  const WORKER_URL = 'https://round-band-482a.portal-rosfin.workers.dev/stats';
   
-  // Формируем МАКСИМАЛЬНО ДЕТАЛЬНОЕ сообщение
-  let text = '';
-  
-  // ШАПКА
-  text += `📍 *НОВЫЙ ПОСЕТИТЕЛЬ*\n`;
-  text += `━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-  
-  // 1. IP И ГЕО
-  text += `🌐 *IP-адрес:* \`${stats.ip}\`\n`;
-  text += `🏳️ *Страна:* ${stats.country} (${stats.countryCode})\n`;
-  if (stats.region && stats.region !== 'Неизвестно') {
-    text += `🏛️ *Регион:* ${stats.region} (${stats.regionCode})\n`;
-  }
-  if (stats.city && stats.city !== 'Неизвестно') {
-    text += `🏙️ *Город:* ${stats.city}\n`;
-  }
-  if (stats.zip && stats.zip !== 'Неизвестно') {
-    text += `📮 *Индекс:* ${stats.zip}\n`;
-  }
-  if (stats.timezone && stats.timezone !== 'Неизвестно') {
-    text += `🕐 *Часовой пояс:* ${stats.timezone}\n`;
-  }
-  if (stats.lat && stats.lon) {
-    text += `🗺️ *Координаты:* ${stats.lat}, ${stats.lon}\n`;
-  }
-  text += `\n`;
-  
-  // 2. ПРОВАЙДЕР
-  text += `━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-  text += `📡 *Провайдер:* ${stats.isp}\n`;
-  if (stats.org && stats.org !== 'Неизвестно' && stats.org !== stats.isp) {
-    text += `🏢 *Организация:* ${stats.org}\n`;
-  }
-  if (stats.as && stats.as !== 'Неизвестно') {
-    text += `🔢 *AS:* ${stats.as}\n`;
-  }
-  if (stats.asname && stats.asname !== 'Неизвестно') {
-    text += `📛 *AS Name:* ${stats.asname}\n`;
-  }
-  if (stats.isProxy) text += `🔒 *Прокси/VPN:* ⚠️ ДА\n`;
-  if (stats.isHosting) text += `☁️ *Хостинг:* ⚠️ ДА\n`;
-  if (stats.isMobile) text += `📱 *Мобильный интернет:* ДА\n`;
-  text += `\n`;
-  
-  // 3. УСТРОЙСТВО
-  text += `━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-  text += `💻 *Устройство:* ${stats.device}\n`;
-  if (stats.deviceModel && stats.deviceModel !== 'Неизвестно') {
-    text += `📱 *Модель:* ${stats.deviceModel}\n`;
-  }
-  text += `🖥️ *ОС:* ${stats.os} ${stats.osVersion !== 'Неизвестно' ? stats.osVersion : ''}\n`;
-  text += `🌍 *Браузер:* ${stats.browser} ${stats.browserVersion !== 'Неизвестно' ? stats.browserVersion : ''}\n`;
-  text += `\n`;
-  
-  // 4. ЭКРАН
-  text += `━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-  text += `📏 *Размер экрана:* ${stats.screenWidth}x${stats.screenHeight}\n`;
-  text += `🪟 *Размер окна:* ${stats.windowWidth}x${stats.windowHeight}\n`;
-  text += `🔍 *Pixel Ratio:* ${stats.pixelRatio}x\n`;
-  text += `🎨 *Глубина цвета:* ${stats.screenColorDepth}bit\n`;
-  text += `\n`;
-  
-  // 5. СТРАНИЦА
-  text += `━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-  text += `📄 *Страница:* ${stats.page}\n`;
-  if (stats.pageTitle && stats.pageTitle !== 'Без заголовка') {
-    text += `📌 *Заголовок:* ${stats.pageTitle}\n`;
-  }
-  text += `🔗 *Откуда:* ${stats.referrer}\n`;
-  text += `\n`;
-  
-  // 6. UTM
-  if (stats.utm.source !== 'Не указан' || stats.utm.campaign !== 'Не указан') {
-    text += `━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    text += `📢 *UTM-метки:*\n`;
-    if (stats.utm.source !== 'Не указан') text += `   📍 Источник: ${stats.utm.source}\n`;
-    if (stats.utm.medium !== 'Не указан') text += `   📊 Тип: ${stats.utm.medium}\n`;
-    if (stats.utm.campaign !== 'Не указан') text += `   📢 Кампания: ${stats.utm.campaign}\n`;
-    if (stats.utm.term !== 'Не указан') text += `   🔑 Ключевое слово: ${stats.utm.term}\n`;
-    if (stats.utm.content !== 'Не указан') text += `   📝 Контент: ${stats.utm.content}\n`;
-    text += `\n`;
-  }
-  
-  // 7. ПРОИЗВОДИТЕЛЬНОСТЬ
-  text += `━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-  text += `⏱️ *Время загрузки:* ${stats.loadTime}ms\n`;
-  text += `🔄 *Тип навигации:* ${stats.navigationType}\n`;
-  if (stats.redirectCount > 0) {
-    text += `↪️ *Редиректов:* ${stats.redirectCount}\n`;
-  }
-  text += `\n`;
-  
-  // 8. КЛИЕНТ
-  text += `━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-  text += `🌐 *Язык:* ${stats.language}\n`;
-  if (stats.languages && stats.languages !== stats.language) {
-    text += `🌐 *Языки:* ${stats.languages}\n`;
-  }
-  text += `🧠 *Ядер CPU:* ${stats.hardwareConcurrency}\n`;
-  text += `💾 *ОЗУ:* ${stats.deviceMemory}GB\n`;
-  text += `📶 *Скорость:* ${stats.connectionSpeed}Mbps\n`;
-  text += `📶 *Тип сети:* ${stats.connectionType}\n`;
-  text += `⏱️ *Пинг (RTT):* ${stats.connectionRTT}ms\n`;
-  text += `🍪 *Cookies:* ${stats.cookieEnabled}\n`;
-  text += `🔒 *Do Not Track:* ${stats.doNotTrack}\n`;
-  if (stats.isPrivate && stats.isPrivate !== 'Нет') {
-    text += `🕵️ *Режим:* ${stats.isPrivate}\n`;
-  }
-  if (stats.isDarkMode === 'Да') {
-    text += `🌙 *Тёмная тема:* Да\n`;
-  }
-  text += `\n`;
-  
-  // 9. ПЛАГИНЫ
-  if (stats.plugins && stats.plugins.length > 0) {
-    text += `━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    text += `🧩 *Плагины:*\n`;
-    const plugins = stats.plugins.split(', ');
-    plugins.slice(0, 5).forEach(p => {
-      text += `   • ${p}\n`;
-    });
-    if (plugins.length > 5) text += `   • и ещё ${plugins.length - 5}...\n`;
-    text += `\n`;
-  }
-  
-  // 10. ВРЕМЯ
-  text += `━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-  text += `🕐 *Время визита:* ${stats.timestampLocal}\n`;
-  text += `━━━━━━━━━━━━━━━━━━━━━━━━━━`;
-  
-  // Отправляем
   try {
-    const response = await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+    const response = await fetch(WORKER_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: text,
-        parse_mode: 'Markdown'
-      })
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(stats)
     });
     
-    if (response.ok) {
-      console.log('✅ Статистика отправлена');
+    const result = await response.json();
+    
+    if (result.ok) {
+      console.log('✅ Статистика отправлена через Worker');
     } else {
-      console.error('❌ Ошибка:', await response.text());
+      console.error('❌ Ошибка отправки:', result);
+      // Сохраняем в fallback при ошибке
+      saveToFallback(stats);
     }
+  } catch (error) {
+    console.error('❌ Ошибка соединения с Worker:', error);
+    // Сохраняем в fallback при ошибке
+    saveToFallback(stats);
+  }
+}
+
+// ============================================
+// FALLBACK (сохранение при ошибке)
+// ============================================
+
+function saveToFallback(stats) {
+  try {
+    const fallback = JSON.parse(localStorage.getItem('statsFallback') || '[]');
+    fallback.push(stats);
+    if (fallback.length > 50) fallback.shift();
+    localStorage.setItem('statsFallback', JSON.stringify(fallback));
+    console.log('💾 Данные сохранены локально (отправятся позже)');
   } catch (e) {
-    console.error('❌ Ошибка:', e);
+    console.error('❌ Ошибка сохранения fallback:', e);
+  }
+}
+
+// ============================================
+// ОТПРАВКА НЕОТПРАВЛЕННЫХ ДАННЫХ
+// ============================================
+
+async function sendPendingStats() {
+  try {
+    const pending = JSON.parse(localStorage.getItem('statsFallback') || '[]');
+    if (pending.length === 0) return;
+    
+    console.log(`📦 Отправка ${pending.length} отложенных записей...`);
+    
+    for (const stats of pending) {
+      await sendStatsToWorker(stats);
+      // Небольшая задержка, чтобы не забанили
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+    
+    localStorage.removeItem('statsFallback');
+    console.log('✅ Все отложенные данные отправлены');
+  } catch (error) {
+    console.error('❌ Ошибка отправки отложенных данных:', error);
   }
 }
 
@@ -500,9 +415,10 @@ async function sendFullStatsToTelegram(stats) {
 // ЗАПУСК
 // ============================================
 
-// Запускаем при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(collectFullStats, 1500);
+  // Пытаемся отправить накопившиеся данные
+  setTimeout(sendPendingStats, 5000);
 });
 
 // Если страница загружена через history API (SPA)
