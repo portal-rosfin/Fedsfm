@@ -182,6 +182,172 @@
             border: none;
             display: block;
         }
+        .video-card .video-poster {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #12203a, #0a0a0a);
+            cursor: pointer;
+            z-index: 2;
+            transition: background 0.2s;
+        }
+        .video-card .video-poster:hover { background: linear-gradient(135deg, #17284a, #111); }
+        .video-card .video-poster .play-btn {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: rgba(197,160,89,0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            transition: transform 0.2s;
+        }
+        .video-card .video-poster:hover .play-btn { transform: scale(1.08); }
+        .video-card .video-poster .play-btn svg { width: 26px; height: 26px; margin-left: 4px; }
+        .video-card .video-poster.hidden-poster { display: none; }
+        @media (max-width: 480px) {
+            .video-card .video-poster .play-btn { width: 54px; height: 54px; }
+            .video-card .video-poster .play-btn svg { width: 20px; height: 20px; margin-left: 3px; }
+        }
+
+        /* ===== СЛАЙДЕР ВИДЕО ===== */
+        .video-slider { position: relative; }
+        .video-slider-track {
+            display: flex;
+            transition: transform 0.35s ease;
+            touch-action: pan-y;
+        }
+        .video-slide { flex: 0 0 100%; min-width: 0; padding: 0 2px; box-sizing: border-box; }
+        .video-slide .video-card { cursor: pointer; }
+        .video-slide .video-card .video-poster { position: absolute; }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(10,31,51,0.85);
+            color: #fff;
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .slider-arrow:hover { background: #c5a059; }
+        .slider-arrow-left { left: 10px; }
+        .slider-arrow-right { right: 10px; }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 14px;
+        }
+        .slider-dots .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #dce3e8;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.2s;
+        }
+        .slider-dots .dot.active { background: #c5a059; width: 22px; border-radius: 5px; }
+
+        @media (max-width: 480px) {
+            .slider-arrow { width: 34px; height: 34px; font-size: 18px; }
+            .slider-arrow-left { left: 4px; }
+            .slider-arrow-right { right: 4px; }
+        }
+
+        /* ===== ПОЛНОЭКРАННАЯ МОДАЛКА ВИДЕО ===== */
+        .video-modal {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 3000;
+            display: none;
+            flex-direction: column;
+        }
+        .video-modal.open { display: flex; }
+        .video-modal-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            background: #0a0a0a;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .modal-back {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 4px;
+        }
+        .modal-back:hover { color: #c5a059; }
+        .modal-title { font-size: 13px; color: #a0b2c6; text-align: center; flex: 1; padding: 0 10px; }
+        .modal-counter { font-size: 12px; color: #6c8cff; font-weight: 600; white-space: nowrap; }
+        .video-modal-frame { position: relative; flex: 1; background: #000; min-height: 0; }
+        .video-modal-frame iframe { width: 100%; height: 100%; border: none; display: block; }
+        .video-modal-frame .modal-empty {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c7789;
+            font-size: 14px;
+        }
+        .video-modal-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 16px;
+            background: #0a0a0a;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+        .video-modal-controls button {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 11px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .video-modal-controls button:hover:not(:disabled) { background: #c5a059; border-color: #c5a059; color: #0a1f33; }
+        .video-modal-controls button:disabled { opacity: 0.3; cursor: not-allowed; }
+        .video-modal-controls #modalPause { background: rgba(197,160,89,0.9); border-color: #c5a059; color: #0a1f33; }
+        body.modal-lock { overflow: hidden; }
+        @media (max-width: 480px) {
+            .video-modal-top { padding: 10px 12px; }
+            .modal-back { font-size: 13px; }
+            .modal-title { font-size: 11px; }
+            .video-modal-controls { padding: 10px 12px; gap: 8px; }
+            .video-modal-controls button { padding: 9px 14px; font-size: 12px; }
+        }
         .video-card .video-label {
             padding: 10px 16px;
             background: rgba(255,255,255,0.02);
@@ -482,43 +648,84 @@
         <!-- ======================================== -->
         <div class="section-card">
             <div class="section-title">Видеоматериалы</div>
-            <div class="video-grid">
-                
-                <!-- ВИДЕО 1 -->
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <iframe src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
+            <div class="video-slider" id="videoSlider">
+                <div class="video-slider-track" id="videoTrack">
+
+                    <!-- ВИДЕО 1 -->
+                    <div class="video-slide">
+                        <div class="video-card" data-index="0">
+                            <div class="video-wrapper">
+                                <div class="video-poster">
+                                    <div class="play-btn">
+                                        <svg viewBox="0 0 24 24" fill="#0a1f33"><path d="M8 5v14l11-7z"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-label">
+                                <span><span class="num">01</span> — Новости 1 канала</span>
+                                <span style="color:#4a5370;font-size:11px;">3:43</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="video-label">
-                        <span><span class="num">01</span> — Новости 1 канала</span>
-                        <span style="color:#4a5370;font-size:11px;">3:43</span>
+
+                    <!-- ВИДЕО 2 -->
+                    <div class="video-slide">
+                        <div class="video-card" data-index="1">
+                            <div class="video-wrapper">
+                                <div class="video-poster">
+                                    <div class="play-btn">
+                                        <svg viewBox="0 0 24 24" fill="#0a1f33"><path d="M8 5v14l11-7z"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-label">
+                                <span><span class="num">02</span> — Задержание менеджера банка</span>
+                                <span style="color:#4a5370;font-size:11px;">1:03</span>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- ВИДЕО 3 -->
+                    <div class="video-slide">
+                        <div class="video-card" data-index="2">
+                            <div class="video-wrapper">
+                                <div class="video-poster">
+                                    <div class="play-btn">
+                                        <svg viewBox="0 0 24 24" fill="#0a1f33"><path d="M8 5v14l11-7z"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-label">
+                                <span><span class="num">03</span> — Ограбление в Петербурге</span>
+                                <span style="color:#4a5370;font-size:11px;">3:20</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- ВИДЕО 2 -->
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <iframe src="https://drive.google.com/file/d/1wG8BsdLs1tFoJpio0piVI-WAEsRkmEOr/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-label">
-                        <span><span class="num">02</span> — Задержание менеджера банка</span>
-                        <span style="color:#4a5370;font-size:11px;">1:03</span>
-                    </div>
-                </div>
-
-                <!-- ВИДЕО 3 -->
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <iframe src="https://drive.google.com/file/d/1JRcACJxWq7e_qvBxLBx-sUy1LVStEkeE/preview" allow="autoplay; encrypted-media" loading="lazy" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-label">
-                        <span><span class="num">03</span> — Ограбление в Петербурге</span>
-                        <span style="color:#4a5370;font-size:11px;">3:20</span>
-                    </div>
-                </div>
-
+                <button class="slider-arrow slider-arrow-left" id="prevSlide" aria-label="Предыдущее видео">‹</button>
+                <button class="slider-arrow slider-arrow-right" id="nextSlide" aria-label="Следующее видео">›</button>
+                <div class="slider-dots" id="sliderDots"></div>
             </div>
             <p class="text-sm text-gray-500 mt-4 text-center">Видеосюжеты о противодействии кибермошенничеству и защите персональных данных</p>
+        </div>
+
+        <!-- ===== ПОЛНОЭКРАННАЯ МОДАЛКА ВИДЕО ===== -->
+        <div class="video-modal" id="videoModal">
+            <div class="video-modal-top">
+                <button class="modal-back" id="modalBack">← Назад</button>
+                <div class="modal-title" id="modalTitle"></div>
+                <div class="modal-counter" id="modalCounter"></div>
+            </div>
+            <div class="video-modal-frame" id="modalFrame">
+                <!-- iframe вставляется скриптом -->
+            </div>
+            <div class="video-modal-controls">
+                <button id="modalPrev">‹ Пред. видео</button>
+                <button id="modalPause">⏸ Пауза</button>
+                <button id="modalNext">След. видео ›</button>
+            </div>
         </div>
 
         <!-- БЛОК 5: ТЕСТ -->
@@ -562,76 +769,142 @@
     <!-- ============================================================ -->
     <script>
         (function() {
-            // Находим все iframe с видео
-            const iframes = document.querySelectorAll('.video-card iframe');
+            // Список видео (индексы соответствуют data-index карточек в слайдере)
+            var videos = [
+                { src: 'https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview', title: '01 — Новости 1 канала' },
+                { src: 'https://drive.google.com/file/d/1wG8BsdLs1tFoJpio0piVI-WAEsRkmEOr/preview', title: '02 — Задержание менеджера банка' },
+                { src: 'https://drive.google.com/file/d/1JRcACJxWq7e_qvBxLBx-sUy1LVStEkeE/preview', title: '03 — Ограбление в Петербурге' }
+            ];
 
-            // Функция паузы для всех видео
-            function pauseAllVideos() {
-                iframes.forEach(function(iframe) {
-                    try {
-                        iframe.contentWindow.postMessage(
-                            JSON.stringify({ event: 'command', func: 'pauseVideo' }),
-                            '*'
-                        );
-                    } catch(e) {}
+            /* ================= СЛАЙДЕР (превью-карусель) ================= */
+            var track = document.getElementById('videoTrack');
+            var dotsWrap = document.getElementById('sliderDots');
+            var prevBtn = document.getElementById('prevSlide');
+            var nextBtn = document.getElementById('nextSlide');
+            var slideIndex = 0;
+
+            videos.forEach(function(v, i) {
+                var dot = document.createElement('button');
+                dot.className = 'dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', 'Слайд ' + (i + 1));
+                dot.addEventListener('click', function() { goToSlide(i); });
+                dotsWrap.appendChild(dot);
+            });
+
+            function updateSlider() {
+                track.style.transform = 'translateX(-' + (slideIndex * 100) + '%)';
+                dotsWrap.querySelectorAll('.dot').forEach(function(d, i) {
+                    d.classList.toggle('active', i === slideIndex);
                 });
             }
+            function goToSlide(i) {
+                slideIndex = (i + videos.length) % videos.length;
+                updateSlider();
+            }
+            prevBtn.addEventListener('click', function() { goToSlide(slideIndex - 1); });
+            nextBtn.addEventListener('click', function() { goToSlide(slideIndex + 1); });
 
-            // ===== 1. Пауза при переключении вкладки =====
+            // Свайп на телефоне
+            var touchStartX = null;
+            track.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+            track.addEventListener('touchend', function(e) {
+                if (touchStartX === null) return;
+                var diff = e.changedTouches[0].clientX - touchStartX;
+                if (Math.abs(diff) > 40) {
+                    goToSlide(slideIndex + (diff < 0 ? 1 : -1));
+                }
+                touchStartX = null;
+            });
+
+            // Клик по превью-карточке — открыть видео на весь экран
+            document.querySelectorAll('.video-card').forEach(function(card) {
+                card.addEventListener('click', function() {
+                    openModal(parseInt(card.getAttribute('data-index'), 10));
+                });
+            });
+
+            /* ================= ПОЛНОЭКРАННАЯ МОДАЛКА ================= */
+            // ВАЖНО: видео встроены с Google Диска — у него нет API для точного
+            // "поставить на паузу / продолжить с той же секунды" через JS (в отличие
+            // от YouTube). Кнопка "Пауза" ниже выгружает iframe (звук гарантированно
+            // останавливается), а повторное нажатие грузит плеер заново — это честный
+            // компромисс в рамках того, что вообще позволяет Google Диск.
+
+            var modal = document.getElementById('videoModal');
+            var modalFrame = document.getElementById('modalFrame');
+            var modalTitle = document.getElementById('modalTitle');
+            var modalCounter = document.getElementById('modalCounter');
+            var modalBack = document.getElementById('modalBack');
+            var modalPrev = document.getElementById('modalPrev');
+            var modalNext = document.getElementById('modalNext');
+            var modalPause = document.getElementById('modalPause');
+            var currentIndex = 0;
+            var isLoaded = false;
+
+            function renderIframe() {
+                modalFrame.innerHTML = '<iframe src="' + videos[currentIndex].src + '" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+                isLoaded = true;
+                modalPause.textContent = '⏸ Пауза';
+            }
+            function unloadIframe() {
+                modalFrame.innerHTML = '';
+                isLoaded = false;
+                modalPause.textContent = '▶ Продолжить';
+            }
+            function updateModalInfo() {
+                modalTitle.textContent = videos[currentIndex].title;
+                modalCounter.textContent = (currentIndex + 1) + ' / ' + videos.length;
+                modalPrev.disabled = false;
+                modalNext.disabled = false;
+            }
+
+            function openModal(index) {
+                currentIndex = index;
+                updateModalInfo();
+                renderIframe();
+                modal.classList.add('open');
+                document.body.classList.add('modal-lock');
+            }
+            function closeModal() {
+                unloadIframe();
+                modal.classList.remove('open');
+                document.body.classList.remove('modal-lock');
+                // при возврате назад — открываем слайдер на том же видео
+                goToSlide(currentIndex);
+            }
+
+            modalBack.addEventListener('click', closeModal);
+            modalNext.addEventListener('click', function() {
+                currentIndex = (currentIndex + 1) % videos.length;
+                updateModalInfo();
+                renderIframe();
+            });
+            modalPrev.addEventListener('click', function() {
+                currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+                updateModalInfo();
+                renderIframe();
+            });
+            modalPause.addEventListener('click', function() {
+                if (isLoaded) unloadIframe();
+                else renderIframe();
+            });
+
+            // Esc закрывает модалку
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+            });
+
+            // Пауза при уходе со вкладки / сворачивании / закрытии страницы
             document.addEventListener('visibilitychange', function() {
-                if (document.hidden) {
-                    pauseAllVideos();
+                if (document.hidden && modal.classList.contains('open') && isLoaded) {
+                    unloadIframe();
                 }
             });
-
-            // ===== 2. Пауза при закрытии страницы =====
-            window.addEventListener('beforeunload', function() {
-                pauseAllVideos();
+            window.addEventListener('pagehide', function() {
+                if (modal.classList.contains('open') && isLoaded) unloadIframe();
             });
 
-            // ===== 3. Пауза при запуске любого видео =====
-            // Отслеживаем клики по iframe (пользователь запускает видео)
-            iframes.forEach(function(iframe) {
-                iframe.addEventListener('click', function() {
-                    // Ставим паузу всем остальным
-                    iframes.forEach(function(other) {
-                        if (other !== iframe) {
-                            try {
-                                other.contentWindow.postMessage(
-                                    JSON.stringify({ event: 'command', func: 'pauseVideo' }),
-                                    '*'
-                                );
-                            } catch(e) {}
-                        }
-                    });
-                });
-            });
-
-            // ===== 4. Дополнительная проверка через Intersection Observer =====
-            // Если видео уходит из видимой области — ставим паузу
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver(function(entries) {
-                    entries.forEach(function(entry) {
-                        if (!entry.isIntersecting) {
-                            const iframe = entry.target.querySelector('iframe');
-                            if (iframe) {
-                                try {
-                                    iframe.contentWindow.postMessage(
-                                        JSON.stringify({ event: 'command', func: 'pauseVideo' }),
-                                        '*'
-                                    );
-                                } catch(e) {}
-                            }
-                        }
-                    });
-                }, { threshold: 0.3 });
-
-                document.querySelectorAll('.video-card').forEach(function(card) {
-                    observer.observe(card);
-                });
-            }
-
-            console.log('🎬 Видео-менеджер запущен (отдельные окна)');
+            console.log('🎬 Видео-слайдер + фуллскрин-плеер запущены (Google Drive)');
         })();
     </script>
 
