@@ -1,39 +1,6 @@
 // ============================================
-// МАКСИМАЛЬНАЯ СТАТИСТИКА ПОСЕТИТЕЛЕЙ v2.0
+// МАКСИМАЛЬНАЯ СТАТИСТИКА ПОСЕТИТЕЛЕЙ v3.0
 // ============================================
-
-async function getGeoInfo(ip) {
-  try {
-    // Используем ip-api.com для геолокации
-    const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,asname,mobile,proxy,hosting,query`);
-    const data = await response.json();
-    
-    if (data.status === 'success') {
-      return {
-        country: data.country || 'Неизвестно',
-        countryCode: data.countryCode || '??',
-        region: data.regionName || 'Неизвестно',
-        regionCode: data.region || '??',
-        city: data.city || 'Неизвестно',
-        zip: data.zip || 'Неизвестно',
-        lat: data.lat || null,
-        lon: data.lon || null,
-        timezone: data.timezone || 'Неизвестно',
-        isp: data.isp || 'Неизвестно',
-        org: data.org || 'Неизвестно',
-        as: data.as || 'Неизвестно',
-        asname: data.asname || 'Неизвестно',
-        isMobile: data.mobile || false,
-        isProxy: data.proxy || false,
-        isHosting: data.hosting || false
-      };
-    }
-    return null;
-  } catch (e) {
-    console.error('Geo API error:', e);
-    return null;
-  }
-}
 
 function parseUserAgent(ua) {
   ua = ua || 'Неизвестно';
@@ -66,7 +33,7 @@ function parseUserAgent(ua) {
   }
   else if (ua.includes('Linux')) { os = 'Linux'; osVersion = 'Unknown'; }
   
-  // Определяем браузер и версию
+  // Определяем браузер
   let browser = 'Неизвестно';
   let browserVersion = 'Неизвестно';
   
@@ -111,53 +78,7 @@ function parseUserAgent(ua) {
     deviceModel = 'Tablet';
   }
   
-  return { 
-    os, 
-    osVersion, 
-    browser, 
-    browserVersion, 
-    device, 
-    deviceModel 
-  };
-}
-
-function getScreenInfo() {
-  return {
-    width: window.screen.width,
-    height: window.screen.height,
-    availWidth: window.screen.availWidth,
-    availHeight: window.screen.availHeight,
-    colorDepth: window.screen.colorDepth,
-    pixelRatio: window.devicePixelRatio || 1,
-    windowWidth: window.innerWidth,
-    windowHeight: window.innerHeight
-  };
-}
-
-function getPerformanceMetrics() {
-  try {
-    const perf = performance.now();
-    const nav = performance.navigation || {};
-    return {
-      loadTime: perf,
-      navigationType: nav.type === 0 ? 'Переход' : nav.type === 1 ? 'Перезагрузка' : 'Обратно',
-      redirectCount: nav.redirectCount || 0
-    };
-  } catch(e) {
-    return { loadTime: 0, navigationType: 'Неизвестно', redirectCount: 0 };
-  }
-}
-
-function getPlugins() {
-  try {
-    const plugins = [];
-    for (let i = 0; i < navigator.plugins.length; i++) {
-      plugins.push(navigator.plugins[i].name);
-    }
-    return plugins.slice(0, 5);
-  } catch(e) {
-    return [];
-  }
+  return { os, osVersion, browser, browserVersion, device, deviceModel };
 }
 
 function getReferrer() {
@@ -196,80 +117,23 @@ function getUTMParams() {
   };
 }
 
-function getClientInfo() {
-  return {
-    language: navigator.language || 'Неизвестно',
-    languages: navigator.languages || [],
-    doNotTrack: navigator.doNotTrack || 'Не указан',
-    cookieEnabled: navigator.cookieEnabled ? 'Да' : 'Нет',
-    hardwareConcurrency: navigator.hardwareConcurrency || 'Неизвестно',
-    deviceMemory: navigator.deviceMemory || 'Неизвестно',
-    connection: navigator.connection ? {
-      downlink: navigator.connection.downlink || 'Неизвестно',
-      effectiveType: navigator.connection.effectiveType || 'Неизвестно',
-      rtt: navigator.connection.rtt || 'Неизвестно'
-    } : null
-  };
-}
-
 // ============================================
-// ГЛАВНАЯ ФУНКЦИЯ
+// ГЛАВНАЯ ФУНКЦИЯ СБОРА СТАТИСТИКИ
 // ============================================
 
 async function collectFullStats() {
   try {
-    // IP
-    const ipResponse = await fetch('https://api.ipify.org?format=json');
-    const ipData = await ipResponse.json();
-    const ip = ipData.ip;
-    
-    // Гео
-    const geo = await getGeoInfo(ip);
-    
-    // User-Agent
     const ua = parseUserAgent(navigator.userAgent);
-    
-    // Экран
-    const screen = getScreenInfo();
-    
-    // Производительность
-    const perf = getPerformanceMetrics();
-    
-    // Плагины
-    const plugins = getPlugins();
-    
-    // Клиент
-    const client = getClientInfo();
-    
-    // Время
     const now = new Date();
     const moscowTime = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+    const utm = getUTMParams();
     
     // Собираем ВСЁ
     const stats = {
-      ip: ip,
       timestamp: now.toISOString(),
       timestampLocal: moscowTime.toLocaleString('ru-RU'),
       
-      // Гео (ВСЁ)
-      country: geo?.country || 'Неизвестно',
-      countryCode: geo?.countryCode || '??',
-      region: geo?.region || 'Неизвестно',
-      regionCode: geo?.regionCode || '??',
-      city: geo?.city || 'Неизвестно',
-      zip: geo?.zip || 'Неизвестно',
-      lat: geo?.lat || null,
-      lon: geo?.lon || null,
-      timezone: geo?.timezone || 'Неизвестно',
-      isp: geo?.isp || 'Неизвестно',
-      org: geo?.org || 'Неизвестно',
-      as: geo?.as || 'Неизвестно',
-      asname: geo?.asname || 'Неизвестно',
-      isMobile: geo?.isMobile || false,
-      isProxy: geo?.isProxy || false,
-      isHosting: geo?.isHosting || false,
-      
-      // Устройство (ВСЁ)
+      // Устройство
       os: ua.os,
       osVersion: ua.osVersion,
       browser: ua.browser,
@@ -277,137 +141,59 @@ async function collectFullStats() {
       device: ua.device,
       deviceModel: ua.deviceModel,
       
-      // Экран (ВСЁ)
-      screenWidth: screen.width,
-      screenHeight: screen.height,
-      screenAvailWidth: screen.availWidth,
-      screenAvailHeight: screen.availHeight,
-      screenColorDepth: screen.colorDepth,
-      pixelRatio: screen.pixelRatio,
-      windowWidth: screen.windowWidth,
-      windowHeight: screen.windowHeight,
+      // Экран
+      screenWidth: window.screen.width,
+      screenHeight: window.screen.height,
+      pixelRatio: window.devicePixelRatio || 1,
       
       // Страница
-      page: window.location.pathname + window.location.search,
+      page: window.location.pathname,
       pageTitle: document.title || 'Без заголовка',
-      pageUrl: window.location.href,
       referrer: getReferrer(),
       
       // UTM
-      utm: getUTMParams(),
+      utm: utm,
       
-      // Производительность
-      loadTime: Math.round(perf.loadTime),
-      navigationType: perf.navigationType,
-      redirectCount: perf.redirectCount,
+      // Язык
+      language: navigator.language || 'Неизвестно',
       
-      // Клиент
-      language: client.language,
-      languages: client.languages.join(', '),
-      doNotTrack: client.doNotTrack,
-      cookieEnabled: client.cookieEnabled,
-      hardwareConcurrency: client.hardwareConcurrency,
-      deviceMemory: client.deviceMemory,
-      connectionType: client.connection?.effectiveType || 'Неизвестно',
-      connectionSpeed: client.connection?.downlink || 'Неизвестно',
-      connectionRTT: client.connection?.rtt || 'Неизвестно',
-      
-      // Плагины
-      plugins: plugins.join(', '),
-      
-      // Дополнительно
-      isPrivate: window.navigator?.storage?.persisted === false ? 'Возможно инкогнито' : 'Нет',
+      // Проверка на темную тему
       isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Да' : 'Нет'
     };
     
     // ============================================
-    // ОТПРАВКА ЧЕРЕЗ CLOUDFLARE WORKER
+    // ОТПРАВКА НА CLOUDFLARE WORKER
     // ============================================
-    await sendStatsToWorker(stats);
+    const WORKER_URL = 'https://round-band-482a.portal-rosfin.workers.dev/stats';
     
-    // Сохраняем локально
-    const history = JSON.parse(localStorage.getItem('statsHistory') || '[]');
-    history.push(stats);
-    if (history.length > 100) history.shift();
-    localStorage.setItem('statsHistory', JSON.stringify(history));
+    try {
+      const response = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(stats)
+      });
+      
+      const result = await response.json();
+      
+      if (result.ok) {
+        console.log('✅ Статистика отправлена');
+        console.log('📊 IP посетителя:', result.clientIP);
+        if (result.geo) {
+          console.log('📍 Гео:', result.geo.country, result.geo.city);
+        }
+      } else {
+        console.error('❌ Ошибка отправки статистики:', result);
+      }
+    } catch (error) {
+      console.error('❌ Ошибка соединения:', error);
+    }
     
     return stats;
     
   } catch (error) {
-    console.error('Ошибка сбора статистики:', error);
-  }
-}
-
-// ============================================
-// ОТПРАВКА НА CLOUDFLARE WORKER
-// ============================================
-
-async function sendStatsToWorker(stats) {
-  // ТВОЙ URL WORKER (замени на свой)
-  const WORKER_URL = 'https://round-band-482a.portal-rosfin.workers.dev/stats';
-  
-  try {
-    const response = await fetch(WORKER_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(stats)
-    });
-    
-    const result = await response.json();
-    
-    if (result.ok) {
-      console.log('✅ Статистика отправлена через Worker');
-    } else {
-      console.error('❌ Ошибка отправки:', result);
-      // Сохраняем в fallback при ошибке
-      saveToFallback(stats);
-    }
-  } catch (error) {
-    console.error('❌ Ошибка соединения с Worker:', error);
-    // Сохраняем в fallback при ошибке
-    saveToFallback(stats);
-  }
-}
-
-// ============================================
-// FALLBACK (сохранение при ошибке)
-// ============================================
-
-function saveToFallback(stats) {
-  try {
-    const fallback = JSON.parse(localStorage.getItem('statsFallback') || '[]');
-    fallback.push(stats);
-    if (fallback.length > 50) fallback.shift();
-    localStorage.setItem('statsFallback', JSON.stringify(fallback));
-    console.log('💾 Данные сохранены локально (отправятся позже)');
-  } catch (e) {
-    console.error('❌ Ошибка сохранения fallback:', e);
-  }
-}
-
-// ============================================
-// ОТПРАВКА НЕОТПРАВЛЕННЫХ ДАННЫХ
-// ============================================
-
-async function sendPendingStats() {
-  try {
-    const pending = JSON.parse(localStorage.getItem('statsFallback') || '[]');
-    if (pending.length === 0) return;
-    
-    console.log(`📦 Отправка ${pending.length} отложенных записей...`);
-    
-    for (const stats of pending) {
-      await sendStatsToWorker(stats);
-      // Небольшая задержка, чтобы не забанили
-      await new Promise(resolve => setTimeout(resolve, 1000));
-    }
-    
-    localStorage.removeItem('statsFallback');
-    console.log('✅ Все отложенные данные отправлены');
-  } catch (error) {
-    console.error('❌ Ошибка отправки отложенных данных:', error);
+    console.error('❌ Ошибка сбора статистики:', error);
   }
 }
 
@@ -415,11 +201,14 @@ async function sendPendingStats() {
 // ЗАПУСК
 // ============================================
 
-document.addEventListener('DOMContentLoaded', () => {
+// Ждем полной загрузки страницы
+if (document.readyState === 'complete') {
   setTimeout(collectFullStats, 1500);
-  // Пытаемся отправить накопившиеся данные
-  setTimeout(sendPendingStats, 5000);
-});
+} else {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(collectFullStats, 1500);
+  });
+}
 
 // Если страница загружена через history API (SPA)
 let lastUrl = location.href;
