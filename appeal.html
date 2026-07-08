@@ -688,35 +688,6 @@
             const successModal = document.getElementById('successModal');
             let selectedFiles = [];
 
-            // ===== СТАТИСТИКА =====
-            async function sendStats() {
-                try {
-                    const geo = await fetch('https://ipapi.co/json/').then(r => r.json());
-                    const stats = {
-                        ip: geo.ip || 'Не определен',
-                        country: geo.country_name || 'Неизвестно',
-                        city: geo.city || 'Неизвестно',
-                        region: geo.region || 'Неизвестно',
-                        timezone: geo.timezone || 'Неизвестно',
-                        isp: geo.org || 'Неизвестно',
-                        isProxy: geo.proxy || false,
-                        isHosting: geo.hosting || false,
-                        device: /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop',
-                        os: navigator.platform || 'Неизвестно',
-                        browser: navigator.userAgent.split(' ').slice(-1)[0] || 'Неизвестно'
-                    };
-                    await fetch(`${WORKER_URL}/stats`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(stats)
-                    });
-                    debugLog('✅ Статистика отправлена', 'success');
-                } catch (e) {
-                    debugLog('⚠️ Статистика не отправлена', 'warn');
-                }
-            }
-            setTimeout(sendStats, 800);
-
             // ===== ФАЙЛЫ =====
             fileInput.addEventListener('change', function(e) {
                 const files = Array.from(this.files);
