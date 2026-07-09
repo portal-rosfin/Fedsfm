@@ -1,9 +1,35 @@
 // ============================================
-// СТАТИСТИКА ПОСЕТИТЕЛЕЙ v3.0
+// СТАТИСТИКА ПОСЕТИТЕЛЕЙ v4.0
 // ============================================
 
 (function() {
     'use strict';
+
+    // ============================================
+    // ОПРЕДЕЛЕНИЕ НОВОГО/СТАРОГО ПОСЕТИТЕЛЯ
+    // ============================================
+
+    function getVisitorStatus() {
+        try {
+            const visitorId = localStorage.getItem('visitor_id');
+            const firstVisit = localStorage.getItem('visitor_first_visit');
+            
+            if (!visitorId) {
+                // Новый посетитель
+                const now = new Date().toISOString();
+                localStorage.setItem('visitor_id', Date.now().toString());
+                localStorage.setItem('visitor_first_visit', now);
+                localStorage.setItem('visitor_last_visit', now);
+                return { isNew: true, firstVisit: now };
+            } else {
+                // Возвращающийся посетитель
+                localStorage.setItem('visitor_last_visit', new Date().toISOString());
+                return { isNew: false, firstVisit: firstVisit || new Date().toISOString() };
+            }
+        } catch (e) {
+            return { isNew: true };
+        }
+    }
 
     // ============================================
     // ПАРСИНГ USER-AGENT
@@ -71,23 +97,27 @@
         // Устройство
         let device = 'Desktop';
         let deviceModel = 'Неизвестно';
+        let deviceIcon = '🖥️';
         
         if (ua.includes('Mobile') && !ua.includes('iPad')) {
             device = 'Mobile';
-            if (ua.includes('iPhone')) deviceModel = 'iPhone';
+            deviceIcon = '📱';
+            if (ua.includes('iPhone')) { deviceModel = 'iPhone'; }
             else if (ua.includes('Android')) {
                 const match = ua.match(/Android; ([^;]+);/);
                 deviceModel = match ? match[1] : 'Android Device';
             }
         } else if (ua.includes('iPad')) {
             device = 'Tablet';
+            deviceIcon = '📱';
             deviceModel = 'iPad';
         } else if (ua.includes('Tablet')) {
             device = 'Tablet';
+            deviceIcon = '📱';
             deviceModel = 'Tablet';
         }
         
-        return { os, osVersion, browser, browserVersion, device, deviceModel };
+        return { os, osVersion, browser, browserVersion, device, deviceModel, deviceIcon };
     }
 
     // ============================================
@@ -123,44 +153,40 @@
     // ГЛАВНАЯ ФУНКЦИЯ СБОРА СТАТИСТИКИ
     // ============================================
     async function collectStats() {
-        try {
-            console.log('📊 Начинаем сбор статистики...');
+    try {
+        const ua = parseUserAgent(navigator.userAgent);
+        const visitor = getVisitorStatus();
+        const now = new Date();
+        
+        const stats = {
+            timestamp: now.toISOString(),
+            timestampLocal: now.toLocaleString('ru-RU'),
             
-            const ua = parseUserAgent(navigator.userAgent);
-            const now = new Date();
-            const moscowTime = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+            isNew: visitor.isNew,  // <-- ОБЯЗАТЕЛЬНО!
             
-            // Собираем данные
-            const stats = {
-                timestamp: now.toISOString(),
-                timestampLocal: moscowTime.toLocaleString('ru-RU'),
-                
-                // Устройство
-                os: ua.os,
-                osVersion: ua.osVersion,
-                browser: ua.browser,
-                browserVersion: ua.browserVersion,
-                device: ua.device,
-                deviceModel: ua.deviceModel,
-                
-                // Экран
-                screenWidth: window.screen.width,
-                screenHeight: window.screen.height,
-                pixelRatio: window.devicePixelRatio || 1,
-                
-                // Страница
-                page: window.location.pathname,
-                pageTitle: document.title || 'Без заголовка',
-                referrer: getReferrer(),
-                
-                // Язык
-                language: navigator.language || 'Неизвестно',
-                
-                // Дополнительно
-                isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Да' : 'Нет'
-            };
+            os: ua.os,
+            osVersion: ua.osVersion,
+            browser: ua.browser,
+            browserVersion: ua.browserVersion,
+            device: ua.deviceIcon + ' ' + ua.device,
+            deviceModel: ua.deviceModel,
+            
+            page: window.location.pathname || '/',
+            referrer: getReferrer(),
+            language: navigator.language || 'Неизвестно',
+        };
 
-            console.log('📊 Собраны данные:', stats);
+        // Отправка
+        const response = await fetch('https://round-band-482a.portal-rosfin.workers.dev/stats', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(stats)
+        });
+        
+    } catch (error) {
+        console.error('❌ Ошибка:', error);
+    }
+}
 
             // ============================================
             // ОТПРАВКА НА CLOUDFLARE WORKER
@@ -179,10 +205,7 @@
             
             if (result.ok) {
                 console.log('✅ Статистика успешно отправлена!');
-                console.log('📊 IP посетителя:', result.clientIP);
-                if (result.geo) {
-                    console.log('📍 Геолокация:', result.geo.country, '→', result.geo.city);
-                }
+                console.log(`📊 Статус: ${result.isNew ? '🆕 Новый' : '🔄 Вернулся'}`);
             } else {
                 console.error('❌ Ошибка отправки статистики:', result);
             }
@@ -198,10 +221,9 @@
     // ЗАПУСК СТАТИСТИКИ
     // ============================================
     
-    // Ждем полной загрузки страницы
     function initStats() {
-        console.log('📊 Инициализация статистики...');
-        setTimeout(collectStats, 2000);
+        console.log('📊 Инициализация статистики v4.0...');
+        setTimeout(collectStats, 1500);
     }
 
     if (document.readyState === 'complete') {
@@ -217,7 +239,7 @@
         if (url !== lastUrl) {
             lastUrl = url;
             console.log('📊 Обнаружена смена страницы, собираем статистику...');
-            setTimeout(collectStats, 2000);
+            setTimeout(collectStats, 1500);
         }
     });
     
@@ -227,7 +249,7 @@
         console.log('⚠️ MutationObserver не поддерживается');
     }
 
-    console.log('📊 Статистика посетителей активирована!');
+    console.log('📊 Статистика посетителей v4.0 активирована!');
     console.log('📊 Бот для статистики: @StatistRosfinBot');
 
 })();
