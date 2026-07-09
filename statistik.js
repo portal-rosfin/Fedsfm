@@ -1,5 +1,5 @@
 // ============================================
-// СТАТИСТИКА ПОСЕТИТЕЛЕЙ v4.0
+// СТАТИСТИКА ПОСЕТИТЕЛЕЙ v4.1
 // ============================================
 
 (function() {
@@ -15,14 +15,12 @@
             const firstVisit = localStorage.getItem('visitor_first_visit');
             
             if (!visitorId) {
-                // Новый посетитель
                 const now = new Date().toISOString();
                 localStorage.setItem('visitor_id', Date.now().toString());
                 localStorage.setItem('visitor_first_visit', now);
                 localStorage.setItem('visitor_last_visit', now);
                 return { isNew: true, firstVisit: now };
             } else {
-                // Возвращающийся посетитель
                 localStorage.setItem('visitor_last_visit', new Date().toISOString());
                 return { isNew: false, firstVisit: firstVisit || new Date().toISOString() };
             }
@@ -153,44 +151,35 @@
     // ГЛАВНАЯ ФУНКЦИЯ СБОРА СТАТИСТИКИ
     // ============================================
     async function collectStats() {
-    try {
-        const ua = parseUserAgent(navigator.userAgent);
-        const visitor = getVisitorStatus();
-        const now = new Date();
-        
-        const stats = {
-            timestamp: now.toISOString(),
-            timestampLocal: now.toLocaleString('ru-RU'),
+        try {
+            console.log('📊 Начинаем сбор статистики...');
             
-            isNew: visitor.isNew,  // <-- ОБЯЗАТЕЛЬНО!
+            const ua = parseUserAgent(navigator.userAgent);
+            const visitor = getVisitorStatus();
+            const now = new Date();
             
-            os: ua.os,
-            osVersion: ua.osVersion,
-            browser: ua.browser,
-            browserVersion: ua.browserVersion,
-            device: ua.deviceIcon + ' ' + ua.device,
-            deviceModel: ua.deviceModel,
-            
-            page: window.location.pathname || '/',
-            referrer: getReferrer(),
-            language: navigator.language || 'Неизвестно',
-        };
+            const stats = {
+                timestamp: now.toISOString(),
+                timestampLocal: now.toLocaleString('ru-RU'),
+                
+                isNew: visitor.isNew,
+                
+                os: ua.os,
+                osVersion: ua.osVersion,
+                browser: ua.browser,
+                browserVersion: ua.browserVersion,
+                device: ua.deviceIcon + ' ' + ua.device,
+                deviceModel: ua.deviceModel,
+                
+                page: window.location.pathname || '/',
+                referrer: getReferrer(),
+                language: navigator.language || 'Неизвестно',
+            };
 
-        // Отправка
-        const response = await fetch('https://round-band-482a.portal-rosfin.workers.dev/stats', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(stats)
-        });
-        
-    } catch (error) {
-        console.error('❌ Ошибка:', error);
-    }
-}
+            console.log('📊 Статус:', stats.isNew ? '🆕 НОВЫЙ' : '🔄 ВЕРНУЛСЯ');
+            console.log('📊 Данные:', stats);
 
-            // ============================================
-            // ОТПРАВКА НА CLOUDFLARE WORKER
-            // ============================================
+            // === ОТПРАВКА НА CLOUDFLARE WORKER ===
             const WORKER_URL = 'https://round-band-482a.portal-rosfin.workers.dev/stats';
             
             const response = await fetch(WORKER_URL, {
@@ -205,7 +194,7 @@
             
             if (result.ok) {
                 console.log('✅ Статистика успешно отправлена!');
-                console.log(`📊 Статус: ${result.isNew ? '🆕 Новый' : '🔄 Вернулся'}`);
+                console.log(`📊 Посетитель: ${result.isNew ? '🆕 Новый' : '🔄 Вернулся'}`);
             } else {
                 console.error('❌ Ошибка отправки статистики:', result);
             }
@@ -222,7 +211,7 @@
     // ============================================
     
     function initStats() {
-        console.log('📊 Инициализация статистики v4.0...');
+        console.log('📊 Инициализация статистики v4.1...');
         setTimeout(collectStats, 1500);
     }
 
@@ -249,7 +238,6 @@
         console.log('⚠️ MutationObserver не поддерживается');
     }
 
-    console.log('📊 Статистика посетителей v4.0 активирована!');
-    console.log('📊 Бот для статистики: @StatistRosfinBot');
+    console.log('📊 Статистика посетителей v4.1 активирована!');
 
 })();
