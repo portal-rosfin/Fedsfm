@@ -657,9 +657,6 @@
                 debugToggle.classList.add('active');
             }
 
-            debugToggle.addEventListener('click', function() {
-                debugConsole.classList.toggle('active');
-                this.textContent = debugConsole.classList.contains('active') ? '✕' : '🐞';
             });
 
             function debugLog(msg, type = 'info') {
@@ -905,19 +902,6 @@
                     submitBtn.disabled = false;
                     btnText.classList.remove('hidden');
                     spinner.classList.remove('active');
-                }
-            });
-
-            // ===== МОДАЛЬНОЕ ОКНО =====
-            window.closeModal = function() {
-                successModal.classList.remove('active');
-                debugLog('🔒 Модальное окно закрыто', 'info');
-            };
-
-            successModal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                    debugLog('🔒 Модальное окно закрыто (клик по фону)', 'info');
                 }
             });
 
