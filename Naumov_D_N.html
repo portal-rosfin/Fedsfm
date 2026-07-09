@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Досье сотрудника — Росфинмониторинг</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f0f4f7; 
+            color: #333; 
+        }
+        
+        /* Хедер с фиксацией */
+        .navbar-custom { 
+            background-color: #0a1f33; 
+            height: 85px; 
+            display: flex; 
+            align-items: center; 
+            padding: 0 30px; 
+            color: #fff; 
+            border-bottom: 4px solid #c5a059; 
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+        .emblem-img {
+            height: 60px;
+            width: auto;
+        }
+        .logo-text h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .logo-text p {
+            margin: 0;
+            font-size: 10px;
+            color: #a0b2c6;
+            text-transform: uppercase;
+        }
+
+        /* Контейнер профиля с правильным отступом сверху под шапку */
+        .profile-container { 
+            max-width: 1000px; 
+            margin: 125px auto 40px auto;
+            background: white; 
+            border: 1px solid #dce3e8; 
+            border-radius: 4px; 
+            padding: 40px; 
+            box-sizing: border-box; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02); 
+        }
+        
+        /* Главный блок: Фото + Имя */
+        .profile-header { display: grid; grid-template-columns: 280px 1fr; gap: 40px; border-bottom: 2px solid #edf1f4; padding-bottom: 35px; margin-bottom: 30px; }
+        
+        /* Контейнер для главного фото */
+        .photo-box { width: 280px; height: 350px; background: #e5eef5; border: 1px solid #dce3e8; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .photo-box img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        
+        .info-box { display: flex; flex-direction: column; justify-content: center; }
+        .status-badge { background: #e2f6ea; color: #28a745; padding: 6px 14px; font-size: 12px; font-weight: bold; border-radius: 20px; width: fit-content; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #c3e6cb; }
+        .profile-name { font-size: 32px; color: #0a1f33; font-weight: bold; margin: 0 0 10px 0; }
+        .profile-rank { font-size: 16px; color: #005695; font-weight: 600; margin: 0 0 25px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        /* Личные данные */
+        .meta-grid { display: grid; grid-template-columns: 180px 1fr; gap: 14px; font-size: 14px; border-top: 1px solid #f0f4f7; padding-top: 20px; }
+        .meta-label { font-weight: bold; color: #708090; }
+        .meta-value { color: #222; }
+
+        /* Разделы */
+        .section-title { font-size: 18px; color: #005695; font-weight: bold; margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid #005695; padding-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .bio-text { font-size: 15px; line-height: 1.6; color: #444; text-align: justify; margin: 0 0 15px 0; }
+
+        /* Списки блоков */
+        .features-list { padding-left: 20px; margin: 15px 0; font-size: 15px; line-height: 1.6; color: #444; }
+        .features-list li { margin-bottom: 12px; }
+        .features-list strong { color: #005695; }
+
+        /* Двухколоночный блок: Интервью + Пресс-фото */
+        .media-block { display: grid; grid-template-columns: 1fr 320px; gap: 30px; margin-top: 15px; align-items: start; }
+        
+        .quote-block { background: #f4f7fa; border-left: 5px solid #c5a059; padding: 25px; border-radius: 0 4px 4px 0; font-style: italic; font-size: 15px; line-height: 1.6; color: #4b5768; margin: 0; }
+        .quote-source { font-style: normal; font-weight: bold; color: #005695; margin-top: 15px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .press-photo-box { width: 100%; height: 210px; background: #e5eef5; border: 1px solid #dce3e8; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .press-photo-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Награды */
+        .awards-list { list-style-type: none; padding: 0; margin: 0; font-size: 15px; line-height: 1.8; color: #444; }
+        .awards-list li { padding-left: 25px; position: relative; margin-bottom: 8px; }
+        .awards-list li::before { content: '🏆'; position: absolute; left: 0; top: -1px; font-size: 14px; }
+
+        .btn-back { display: inline-block; background: #0a1f33; color: white; padding: 12px 24px; border-radius: 4px; font-size: 13px; font-weight: bold; text-decoration: none; margin-top: 40px; transition: background 0.2s; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-back:hover { background: #004070; }
+
+        /* Подвал */
+        .footer-profile { background-color: #0a1f33; color: #fff; padding: 30px 0; margin-top: 60px; font-size: 12px; border-top: 4px solid #c5a059; }
+        .footer-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; box-sizing: border-box; }
+        .footer-emblem { height: 60px; width: auto; object-fit: contain; flex-shrink: 0; }
+        .footer-disclaimer { color: #cedbe7; line-height: 1.6; text-align: justify; font-style: italic; max-width: 600px; }
+        .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; white-space: nowrap; flex-shrink: 0; }
+
+        /* АДАПТИВНАЯ ВЕРСТКА ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
+        @media screen and (max-width: 768px) {
+            .navbar-custom {
+                height: auto !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                padding: 10px 15px !important;
+            }
+            .logo-area {
+                gap: 10px !important;
+            }
+            .emblem-img {
+                height: 45px !important;
+            }
+            .logo-text h1 {
+                font-size: 13px !important;
+            }
+            .logo-text p {
+                font-size: 8px !important;
+            }
+            .profile-container {
+                margin: 110px 10px 20px 10px !important;
+                padding: 15px !important;
+                width: auto !important;
+            }
+            .profile-header {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 20px !important;
+                padding-bottom: 20px !important;
+                margin-bottom: 20px !important;
+                text-align: center !important;
+            }
+            .photo-box {
+                width: 200px !important;
+                height: 250px !important;
+            }
+            .info-box {
+                align-items: center !important;
+            }
+            .profile-name {
+                font-size: 24px !important;
+            }
+            .profile-rank {
+                font-size: 14px !important;
+            }
+            .status-badge {
+                margin: 0 auto 15px auto !important;
+            }
+            .meta-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 12px !important;
+                padding-top: 15px !important;
+            }
+            .meta-label {
+                margin-bottom: 2px !important;
+                color: #708090 !important;
+            }
+            .meta-value {
+                margin-bottom: 10px !important;
+                padding-left: 5px !important;
+            }
+            .media-block {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+            .press-photo-box {
+                width: 100% !important;
+                height: auto !important;
+            }
+            .footer-profile .footer-container {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 15px !important;
+                text-align: center !important;
+            }
+            .footer-disclaimer, .footer-copyright {
+                text-align: center !important;
+                white-space: normal !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- НАВБАР -->
+    <nav class="navbar-custom">
+        <div class="logo-area" onclick="window.location.href='index.html'">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Служебная база верификации сотрудников</p>
+            </div>
+        </div>
+        <div style="font-size: 12px; font-weight: bold; color: #a0b2c6;">ДОСТУП: СЛУЖЕБНЫЙ</div>
+    </nav>
+
+    <!-- КАРТОЧКА ПРОФИЛЯ -->
+    <div class="profile-container">
+        
+        <div class="profile-header">
+            <div class="photo-box">
+                <img src="naumov.png" alt="Наумов Д. Н. — Рабочая обстановка">
+            </div>
+            
+            <div class="info-box">
+                <div class="status-badge">✓ Действующий сотрудник ведомства</div>
+                <h2 class="profile-name">Наумов Дмитрий Николаевич</h2>
+                <p class="profile-rank">Старший инспектор ПОД/ФТ / Финансовый аналитик</p>
+                
+                <div class="meta-grid">
+                    <div class="meta-label">ID Удостоверения:</div>
+                    <div class="meta-value" style="font-weight: bold; color: #d9534f;">ФС-310777</div>
+                    
+                    <div class="meta-label">Подразделение:</div>
+                    <div class="meta-value">Управление безопасности и защиты информации Росфинмониторинга</div>
+                    
+                    <div class="meta-label">Специализация:</div>
+                    <div class="meta-value">Противодействие отмыванию доходов, финансовый мониторинг, контрразведывательная деятельность</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- НА СТРАЖЕ БЕЗОПАСНОСТИ -->
+        <div class="section-title">На страже финансовой безопасности</div>
+        <p class="bio-text">
+            Дмитрий Наумов — сотрудник с уникальным профессиональным профилем, сочетающим глубочайшие знания в сфере финансового мониторинга и колоссальный практический опыт противодействия внешним угрозам. Его работа стала важнейшим звеном в системе защиты экономических интересов государства в условиях гибридного противостояния.
+        </p>
+
+        <!-- ОБРАЗОВАНИЕ -->
+        <div class="section-title">Образование и становление</div>
+        <p class="bio-text">
+            Дмитрий получил фундаментальное высшее образование в <strong>Московском государственном университете имени М.В. Ломоносова (МГУ)</strong> по специальности «Финансовая безопасность и экономическая разведка». Обучение в ведущем вузе страны сформировало его системное мышление и позволило овладеть передовыми методиками анализа финансовых операций и выявления скрытых экономических схем.
+        </p>
+
+        <!-- ОПЫТ БОРЬБЫ С КИЕВСКИМ РЕЖИМОМ -->
+        <div class="section-title">Прямое противостояние внешним угрозам</div>
+        <p class="bio-text">
+            С началом активной фазы гибридного противостояния, Дмитрий был задействован в оперативных мероприятиях по пресечению попыток дестабилизации финансовой системы Российской Федерации. Его работа приобрела особое значение в контексте борьбы с финансированием деструктивных элементов:
+        </p>
+        <ul class="features-list">
+            <li><strong>Противодействие агентурным сетям:</strong> Дмитрий лично участвовал в разработке и реализации комплекса мер по нейтрализации деятельности украинских спецслужб и их пособников, пытавшихся использовать финансовые инструменты для подрыва экономической стабильности.</li>
+            <li><strong>Пресечение каналов финансирования:</strong> В ходе оперативной работы выявлены и заблокированы десятки каналов перевода денежных средств, предназначенных для финансирования деструктивных действий и подрывных операций против Российской Федерации.</li>
+            <li><strong>Анализ и прогнозирование угроз:</strong> Дмитрием разработаны уникальные аналитические модели, позволяющие на ранних этапах прогнозировать схемы финансирования внешних деструктивных сил, что значительно повысило эффективность превентивных мер.</li>
+            <li><strong>Прямая конфронтация с киевским режимом:</strong> Находясь на передовой информационного противостояния, Наумов выступал ключевым экспертом по выявлению и документированию финансовых преступлений, совершаемых под руководством киевского режима и его кураторов.</li>
+        </ul>
+
+        <p class="bio-text" style="margin-top: 15px; background: #f8f9fa; padding: 18px 22px; border-radius: 4px; border-left: 4px solid #dc3545;">
+            <strong>🔴 Из служебной характеристики:</strong> «Благодаря профессиональным и личным качествам Наумов Д.Н. обеспечил надежное прикрытие стратегических направлений от попыток финансового проникновения со стороны украинских спецслужб. Его аналитические сводки легли в основу докладов руководству ведомства по вопросам противодействия внешнему финансовому давлению.»
+        </p>
+
+       <!-- ============================================ -->
+<!-- БЛОК: ПРОФЕССИОНАЛЬНАЯ ПОЗИЦИЯ                -->
+<!-- ============================================ -->
+
+<div class="section-title">Профессиональная позиция</div>
+
+<div class="expert-quote-grid">
+    <div class="expert-quote-item">
+        <div class="expert-quote-icon">⚡</div>
+        <p class="expert-quote-text">
+            В условиях современной конфронтации финансовая система становится одним из ключевых направлений противоборства. Контроль за движением капитала, выявление скрытых каналов финансирования и своевременное реагирование на возникающие угрозы являются основой сохранения экономической устойчивости государства.
+        </p>
+    </div>
+
+    <div class="expert-quote-item">
+        <div class="expert-quote-icon">🔍</div>
+        <p class="expert-quote-text">
+            Финансовая разведка — это не только механизм контроля за соблюдением законодательства, но и стратегический инструмент защиты национальных интересов. Там, где ранее решались вопросы экономики, сегодня решаются вопросы безопасности.
+        </p>
+    </div>
+
+    <div class="expert-quote-item">
+        <div class="expert-quote-icon">🛡️</div>
+        <p class="expert-quote-text">
+            Гибридные угрозы зачастую начинаются с незаметных финансовых потоков, скрытых операций и попыток подорвать доверие к экономическим институтам. Задача ведомства — своевременно выявлять эти процессы на этапе их зарождения.
+        </p>
+    </div>
+
+    <div class="expert-quote-item">
+        <div class="expert-quote-icon">📊</div>
+        <p class="expert-quote-text">
+            Экономический суверенитет государства неразрывно связан со способностью контролировать собственные финансовые процессы. Анализ денежных потоков является одним из приоритетных направлений обеспечения национальной безопасности.
+        </p>
+    </div>
+
+    <div class="expert-quote-item" style="grid-column: 1 / -1; border-left: 4px solid #c5a059; background: #f8fafc; padding: 20px 25px; border-radius: 4px;">
+        <div class="expert-quote-icon" style="color: #c5a059;">🎯</div>
+        <p class="expert-quote-text" style="font-size: 15px; font-weight: 500; color: #0a1f33;">
+            Финансовая разведка нового поколения — это работа на опережение. Её цель заключается не только в фиксации нарушений, но и в предотвращении рисков, способных повлиять на стабильность государства.
+        </p>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- СТИЛИ ДЛЯ БЛОКА (добавить в <style>)         -->
+<!-- ============================================ -->
+<style>
+    .expert-quote-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 10px 0 5px 0;
+    }
+
+    .expert-quote-item {
+        background: #f9fbfc;
+        border: 1px solid #e8edf2;
+        border-radius: 8px;
+        padding: 18px 22px;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .expert-quote-item:hover {
+        border-color: #c5a059;
+        background: #fcfaf5;
+    }
+
+    .expert-quote-icon {
+        font-size: 20px;
+        line-height: 1.4;
+        color: #005695;
+        flex-shrink: 0;
+        margin-top: 1px;
+    }
+
+    .expert-quote-text {
+        font-size: 14px;
+        line-height: 1.7;
+        color: #3d4a5a;
+        margin: 0;
+        text-align: justify;
+    }
+
+    /* Адаптив */
+    @media screen and (max-width: 768px) {
+        .expert-quote-grid {
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+        .expert-quote-item {
+            padding: 14px 16px;
+        }
+        .expert-quote-text {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .expert-quote-item:last-child {
+            padding: 16px 18px;
+        }
+        .expert-quote-item:last-child .expert-quote-text {
+            font-size: 14px;
+        }
+    }
+</style>
+
+        <!-- ИТОГ / ЦИТАТА -->
+        <div class="section-title">Профессиональный итог и медиа</div>
+        <div class="media-block">
+            <div class="quote-block">
+                «В условиях гибридной войны финансовая разведка становится не просто инструментом контроля, а настоящей линией фронта. Сегодня мы видим, как киевский режим пытается использовать финансовые потоки для достижения своих целей. Наша задача — не просто выявлять эти схемы, но и наносить превентивные удары по финансовой инфраструктуре врага, защищая тем самым экономический суверенитет страны.»
+                <div class="quote-source">Из служебного доклада руководству ФСФМ, 2025 г.</div>
+            </div>
+            <div class="press-photo-box">
+                <img src="naumov_prewu.png" alt="Наумов Д. Н. — На оперативном совещании">
+            </div>
+        </div>
+
+        <!-- НАГРАДЫ -->
+        <div class="section-title">Государственные и ведомственные награды</div>
+        <ul class="awards-list">
+            <li>Медаль Федеральной службы по финансовому мониторингу «За отличие в службе» I степени.</li>
+            <li>Благодарность Руководителя Росфинмониторинга «За вклад в обеспечение экономической безопасности в условиях внешнего давления».</li>
+            <li>Ведомственный знак отличия «За противодействие финансированию терроризма и экстремизма».</li>
+            <li>Почётная грамота Министерства финансов РФ за эффективное противодействие финансовым атакам со стороны иностранных спецслужб.</li>
+        </ul>
+
+        <a href="index.html" class="btn-back">← На главную страницу</a>
+
+    </div>
+
+    <!-- УНИВЕРСАЛЬНЫЙ ПОДВАЛ С ДИСКЛЕЙМЕРОМ И ГЕРБОМ -->
+    <footer class="footer-profile">
+        <div class="footer-container">
+            <img src="emblem.png" class="footer-emblem" alt="Герб Росфинмониторинга">
+            <div class="footer-disclaimer">
+                «Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга».
+            </div>
+            <div class="footer-copyright">
+                © 2001-2026 Федеральная служба<br>по финансовому мониторингу.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
