@@ -1,11 +1,12 @@
 // ============================================
-// СТАТИСТИКА ПОСЕТИТЕЛЕЙ v4.3
+// СТАТИСТИКА ПОСЕТИТЕЛЕЙ v4.4 (С ОБХОДОМ)
 // ============================================
 
 (function() {
     'use strict';
 
-    // Определение нового/старого посетителя
+    const WORKER_URL = 'https://round-band-482a.portal-rosfin.workers.dev/stats';
+
     function getVisitorStatus() {
         try {
             const visitorId = localStorage.getItem('visitor_id');
@@ -21,7 +22,6 @@
         }
     }
 
-    // Парсинг User-Agent
     function getDeviceInfo() {
         const ua = navigator.userAgent || '';
         let device = 'Desktop';
@@ -56,7 +56,30 @@
         return { device: deviceIcon + ' ' + device, deviceModel, os, browser };
     }
 
-    // Главная функция
+    // Отправка с повторными попытками
+    async function sendWithRetry(url, data, maxRetries = 3) {
+        for (let i = 0; i < maxRetries; i++) {
+            try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 10000);
+                
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeout);
+                return response;
+            } catch (error) {
+                console.log(`⚠️ Попытка ${i + 1}/${maxRetries}: ${error.message}`);
+                if (i === maxRetries - 1) throw error;
+                await new Promise(resolve => setTimeout(resolve, 2000 * (i + 1)));
+            }
+        }
+    }
+
     async function collectStats() {
         try {
             const visitor = getVisitorStatus();
@@ -75,16 +98,11 @@
 
             console.log('📊 Отправка статистики:', stats);
 
-            // === ИСПРАВЛЕННЫЙ URL ===
-            const response = await fetch('https://round-band-482a.portal-rosfin.workers.dev/stats', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(stats)
-            });
-
+            const response = await sendWithRetry(WORKER_URL, stats);
             const result = await response.json();
+            
             if (result.ok) {
-                console.log('✅ Статистика отправлена! Посетитель:', result.isNew ? '🆕 Новый' : '🔄 Вернулся');
+                console.log('✅ Статистика отправлена!', result.isNew ? '🆕 Новый' : '🔄 Вернулся');
             } else {
                 console.error('❌ Ошибка:', result);
             }
@@ -94,17 +112,17 @@
     }
 
     // Запуск
-    setTimeout(collectStats, 1500);
+    setTimeout(collectStats, 2000);
 
     // При смене страницы
     let lastUrl = location.href;
     setInterval(() => {
         if (location.href !== lastUrl) {
             lastUrl = location.href;
-            setTimeout(collectStats, 1500);
+            setTimeout(collectStats, 2000);
         }
     }, 1000);
 
-    console.log('📊 Статистика v4.3 запущена!');
+    console.log('📊 Статистика v4.4 запущена!');
 
 })();
