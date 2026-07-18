@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Досье: Захаров А.Ю. — Росфинмониторинг</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f4f7f9; 
+            color: #333; 
+        }
+
+        .navbar-custom { 
+            background-color: #0a1f33; 
+            height: auto;
+            min-height: 90px; 
+            display: flex; 
+            align-items: center; 
+            padding: 10px 30px; 
+            color: #fff; 
+            border-bottom: 3px solid #c5a059; 
+            justify-content: space-between; 
+            box-sizing: border-box;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .logo-area { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+        .emblem-img { 
+            height: 55px; 
+            width: auto; 
+        }
+        .logo-text h1 { 
+            margin: 0; 
+            font-size: 20px; 
+            font-weight: bold; 
+            letter-spacing: 0.5px; 
+            color: #ffffff;
+        }
+        .logo-text p { 
+            margin: 3px 0 0 0; 
+            font-size: 10px; 
+            color: #8fa2b5; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
+        .access-status {
+            font-size: 12px; 
+            font-weight: bold; 
+            color: #8fa2b5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .profile-card {
+            max-width: 750px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            box-sizing: border-box;
+        }
+
+        .header-block {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: start;
+        }
+
+        .main-photo {
+            width: 240px;
+            height: 300px;
+            border: 1px solid #cbd5e1;
+            object-fit: cover;
+            display: block;
+            background-color: #e5eef5;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background-color: #e6f4ea;
+            color: #137333;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 6px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            border: 1px solid #ceead6;
+            width: fit-content;
+        }
+
+        .employee-name {
+            font-size: 28px;
+            color: #0c2340;
+            margin: 0 0 8px 0;
+            font-weight: bold;
+        }
+        .employee-title {
+            font-size: 13px;
+            color: #0066cc;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .meta-table td {
+            padding: 8px 0;
+            font-size: 13px;
+            vertical-align: top;
+        }
+        .meta-table td.label {
+            color: #64748b;
+            width: 140px;
+            font-weight: bold;
+        }
+        .meta-table td.value {
+            color: #1e293b;
+            font-weight: 500;
+        }
+        .meta-table td.value.id-highlight {
+            color: #dd2c00;
+            font-weight: bold;
+        }
+
+        .section-headline {
+            font-size: 15px;
+            color: #0056b3;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+        }
+
+        .section-text {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            text-align: justify;
+            margin: 0 0 20px 0;
+        }
+
+        .bullet-list {
+            margin: 0 0 25px 0;
+            padding-left: 20px;
+        }
+        .bullet-list li {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+        .bullet-list strong {
+            color: #0056b3;
+        }
+
+        .media-container {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 20px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            margin-bottom: 25px;
+            align-items: start;
+            box-sizing: border-box;
+        }
+        .forum-photo {
+            width: 280px;
+            height: auto;
+            border: 1px solid #cbd5e1;
+            display: block;
+            background-color: #e5eef5;
+        }
+        .forum-description {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            margin: 0;
+        }
+        .forum-description strong {
+            color: #0056b3;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 12px;
+        }
+                /* ===== ФОТО С ПОДПИСЬЮ ===== */
+        .forum-photo-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .forum-photo {
+            width: 280px;
+            height: auto;
+            border: 1px solid #cbd5e1;
+            display: block;
+            background-color: #e5eef5;
+            border-radius: 6px;
+        }
+
+        .forum-photo-caption {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px 6px 8px;
+            background: #f1f5f9;
+            border-left: 3px solid #c5a059;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #475569;
+            line-height: 1.4;
+        }
+
+        .forum-photo-caption .caption-icon {
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .forum-photo-caption .caption-text {
+            font-weight: 500;
+        }
+
+        @media screen and (max-width: 768px) {
+            .forum-photo {
+                width: 100%;
+                height: auto;
+                max-height: 250px;
+                object-fit: contain;
+                margin: 0 auto;
+            }
+
+            .forum-photo-wrapper {
+                width: 100%;
+            }
+
+            .forum-photo-caption {
+                padding: 8px 14px;
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 6px;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+                font-size: 12px;
+                color: #1e293b;
+            }
+        }
+
+        .awards-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 40px 0;
+        }
+        .awards-list li {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: start;
+            gap: 8px;
+        }
+
+        .btn-back-main {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #0c2340;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .btn-back-main:hover {
+            background-color: #0056b3;
+        }
+
+        .footer-profile {
+            background-color: #0a1f33; 
+            color: #ffffff; 
+            padding: 30px 20px; 
+            border-top: 4px solid #c5a059; 
+            margin-top: 50px;
+        }
+        .footer-container {
+            max-width: 750px; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-logo-block {
+            display: flex; 
+            align-items: center; 
+            gap: 15px;
+        }
+        .footer-logo-block img {
+            height: 45px; 
+            width: auto;
+        }
+        .footer-text-left {
+            text-align: left;
+        }
+        .footer-title-ru {
+            font-size: 13px; 
+            font-weight: bold; 
+            letter-spacing: 0.5px; 
+            color: #ffffff;
+        }
+        .footer-subtitle-ru {
+            font-size: 9px; 
+            color: #8fa2b5; 
+            text-transform: uppercase;
+        }
+        .footer-text-right {
+            text-align: right; 
+            font-size: 11px; 
+            color: #8fa2b5;
+        }
+
+        .highlight-box {
+            background: #f0f7ff;
+            border-left: 4px solid #0056b3;
+            padding: 20px 25px;
+            margin: 25px 0 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box .label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #0056b3;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .highlight-box .text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        @media screen and (max-width: 768px) {
+            .navbar-custom {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+            }
+            .logo-area {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .profile-card {
+                padding: 20px 15px;
+                margin: 15px auto;
+            }
+
+            .header-block {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                text-align: center;
+            }
+            .main-photo {
+                margin: 0 auto;
+                max-width: 100%;
+                height: auto;
+            }
+            .status-badge {
+                margin: 0 auto 15px auto;
+            }
+            .employee-name {
+                font-size: 24px;
+            }
+            .employee-title {
+                font-size: 12px;
+                padding-bottom: 15px;
+                margin-bottom: 15px;
+            }
+
+            .meta-table, .meta-table tbody, .meta-table tr, .meta-table td {
+                display: block;
+                width: 100%;
+            }
+            .meta-table td.label {
+                width: 100%;
+                padding-bottom: 2px;
+                padding-top: 10px;
+            }
+            .meta-table td.value {
+                padding-top: 0;
+                padding-bottom: 8px;
+            }
+
+            .media-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 15px;
+            }
+            .forum-photo {
+                width: 100%;
+                height: auto;
+                max-height: 250px;
+                object-fit: contain;
+                margin: 0 auto;
+            }
+
+            .section-text {
+                text-align: left;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            .footer-logo-block {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .footer-text-left {
+                text-align: center;
+            }
+            .footer-text-right {
+                text-align: center;
+            }
+
+            .highlight-box {
+                padding: 15px 18px;
+            }
+            .highlight-box .text {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-custom">
+        <div class="logo-area">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Служебная база верификации сотрудников</p>
+            </div>
+        </div>
+        <div class="access-status">Доступ: Служебный</div>
+    </nav>
+
+    <div class="profile-card">
+        
+        <div class="header-block">
+            <img src="zakharov.png" class="main-photo" alt="Фото сотрудника">
+            
+            <div>
+                <div class="status-badge">✓ Действующий сотрудник ведомства</div>
+                <h1 class="employee-name">Захаров Алексей Юрьевич</h1>
+                <div class="employee-title">Главный специалист-эксперт, Управление по противодействию мошенничеству и защите прав потребителей финансовых услуг</div>
+                
+                <table class="meta-table">
+                    <tr>
+                        <td class="label">ID Удостоверения:</td>
+                        <td class="value id-highlight">ФС-310770</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Подразделение:</td>
+                        <td class="value">Управление по противодействию мошенничеству и защите прав потребителей финансовых услуг (УПМЗППФУ)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Классный чин:</td>
+                        <td class="value">Референт государственной гражданской службы Российской Федерации 2 класса</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Специализация:</td>
+                        <td class="value">Противодействие финансовым пирамидам, мошенническим схемам, защита прав пострадавших граждан, финансовый мониторинг</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===== ОСОБАЯ ВЫДЕЛЕННАЯ СЕКЦИЯ ===== -->
+        <div class="highlight-box">
+            <div class="label">🎯 Ключевая специализация</div>
+            <p class="text">
+                <strong>Борьба с финансовыми пирамидами и мошенническими схемами.</strong> 
+                Алексей Юрьевич специализируется на выявлении, пресечении и 
+                профилактике финансовых пирамид, мошеннических инвестиционных 
+                проектов и схем, направленных на хищение денежных средств граждан, 
+                а также на защите прав пострадавших потребителей финансовых услуг.
+            </p>
+        </div>
+
+        <div class="section-headline">На страже прав потребителей финансовых услуг</div>
+        <p class="section-text">
+            Алексей Юрьевич — ведущий эксперт в области противодействия финансовому 
+            мошенничеству. Его профессиональная деятельность сосредоточена на 
+            защите прав и законных интересов граждан, ставших жертвами мошеннических 
+            схем, а также на выявлении и пресечении деятельности финансовых пирамид 
+            и недобросовестных участников финансового рынка. За годы работы в 
+            Росфинмониторинге зарекомендовал себя как принципиальный специалист, 
+            способный эффективно взаимодействовать с правоохранительными органами, 
+            Банком России и общественными организациями в вопросах защиты прав 
+            пострадавших инвесторов.
+        </p>
+
+        <div class="section-headline">ОБРАЗОВАНИЕ И КАРЬЕРА</div>
+        <ul class="bullet-list">
+            <li>В 2012 году окончил Московский государственный университет экономики, статистики и информатики (МЭСИ) по специальности «Финансы и кредит».</li>
+            <li>В 2014 году получил дополнительное образование по программе «Противодействие мошенничеству и защита прав потребителей финансовых услуг» в Российской академии народного хозяйства и государственной службы (РАНХиГС).</li>
+            <li>С 2014 по 2017 год занимал должности специалиста и ведущего специалиста в подразделениях финансового контроля.</li>
+            <li>С 2017 года проходит государственную гражданскую службу в Федеральной службе по финансовому мониторингу (Росфинмониторинг).</li>
+            <li>В должности главного специалиста-эксперта осуществляет мониторинг финансового рынка на предмет выявления признаков мошенничества, подготовку аналитических материалов для правоохранительных органов, взаимодействие с Банком России и Следственным комитетом.</li>
+            <li>Принимал участие в разработке методических рекомендаций по противодействию финансовым пирамидам и мошенническим схемам.</li>
+        </ul>
+
+        <div class="section-headline">Основные направления работы</div>
+        <ul class="bullet-list">
+            <li><strong>Выявление финансовых пирамид:</strong> Мониторинг финансового рынка на предмет признаков организации и деятельности финансовых пирамид.</li>
+            <li><strong>Противодействие мошенническим схемам:</strong> Выявление и пресечение деятельности мошенников в сфере инвестиций, кредитования, страхования и банковских услуг.</li>
+            <li><strong>Защита прав пострадавших граждан:</strong> Восстановление справедливости для граждан, пострадавших от мошеннических действий на финансовом рынке.</li>
+            <li><strong>Межведомственное взаимодействие:</strong> Совместная работа с Банком России, Следственным комитетом, МВД и прокуратурой.</li>
+            <li><strong>Подготовка аналитических заключений:</strong> Формирование экспертных выводов для передачи в правоохранительные органы.</li>
+        </ul>
+
+                <!-- ===== ПРОФЕССИОНАЛЬНЫЕ ДОСТИЖЕНИЯ ===== -->
+        <div class="section-headline">Профессиональные достижения</div>
+
+        <div class="media-container">
+            <div>
+                <div class="forum-description">
+                    <strong>2024 — Ликвидация крупной финансовой пирамиды и возврат средств пострадавшим</strong>
+                    В ходе проведения оперативно-аналитических мероприятий была выявлена 
+                    и пресечена деятельность крупной финансовой пирамиды, действовавшей 
+                    на территории нескольких регионов России. Организаторы привлекали 
+                    деньги граждан под видом инвестиций в высокодоходные проекты, 
+                    обещая доходность до 300% годовых. Благодаря профессиональным 
+                    действиям Алексея Юрьевича удалось привлечь к ответственности 
+                    организаторов мошеннической схемы, а также обеспечить возврат 
+                    средств более 3 000 пострадавших граждан на сумму свыше 1,5 млрд 
+                    рублей.
+                </div>
+            </div>
+            <div class="forum-photo-wrapper">
+                <img src="zakharov_forum.png" class="forum-photo" alt="Сотрудник на мероприятии">
+                <div class="forum-photo-caption">
+                    <span class="caption-icon">📸</span>
+                    <span class="caption-text">Алексей Захаров на совещании по противодействию финансовым пирамидам, 2024 г.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== НАГРАДЫ И ПООЩРЕНИЯ ===== -->
+        <div class="section-headline">Награды и поощрения</div>
+
+        <ul class="awards-list">
+            <li>🎖️ Медаль «За заслуги в укреплении финансовой безопасности» (2024).</li>
+            <li>🎖️ Почётная грамота Росфинмониторинга (2023).</li>
+            <li>🎖️ Благодарность Председателя Банка России (2023).</li>
+            <li>🎖️ Нагрудный знак «За безупречную службу в Росфинмониторинге» (2025).</li>
+        </ul>
+
+        <div style="background-color: #fff9e6; border-left: 4px solid #ffcc00; padding: 15px; margin: 30px 0; border-radius: 0 4px 4px 0;">
+            <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #665200; font-style: italic;">
+                * Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга.
+            </p>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+            <a href="index.html" class="btn-back-main">← На главную страницу</a>
+        </div>
+
+    </div>
+
+    <footer class="footer-profile">
+        <div class="footer-container">
+            <div class="footer-logo-block">
+                <img src="emblem.png" alt="Герб">
+                <div class="footer-text-left">
+                    <div class="footer-title-ru">РОСФИНМОНИТОРИНГ</div>
+                    <div class="footer-subtitle-ru">Федеральная служба по финансовому мониторингу</div>
+                </div>
+            </div>
+            <div class="footer-text-right">
+                <div>Центральный аппарат Росфинмониторинга</div>
+                <div style="margin-top: 4px;">© 2001-2026 Все права защищены.</div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
