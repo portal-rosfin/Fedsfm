@@ -847,7 +847,7 @@
                 <!-- ОСНОВНОЕ ВИДЕО -->
                 <div class="video-main">
                     <div class="video-container" id="videoContainer">
-                        <iframe id="mainVideo" src="https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <iframe id="mainVideo" src="https://disk.yandex.ru/embed/fys3Ae-Hkgswfw" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                     </div>
                     
                     <!-- ЗАГОЛОВОК ВИДЕО -->
@@ -939,144 +939,145 @@
     <!-- СКРИПТ: ВИДЕОПЛЕЕР (СПИНЕР) — ИСПРАВЛЕННЫЙ                   -->
     <!-- ============================================================ -->
     <script>
-        (function() {
-            // Список видео
-            var videos = [
-                { 
-                    src: 'https://drive.google.com/file/d/1GvgTwpdyXc_KdqddPCB1YqBceJtnim7U/preview', 
-                    title: 'Новости 1 канала',
-                    number: '01'
-                },
-                { 
-                    src: 'https://drive.google.com/file/d/1wG8BsdLs1tFoJpio0piVI-WAEsRkmEOr/preview', 
-                    title: 'Задержание менеджера банка',
-                    number: '02'
-                },
-                { 
-                    src: 'https://drive.google.com/file/d/1JRcACJxWq7e_qvBxLBx-sUy1LVStEkeE/preview', 
-                    title: 'Ограбление в Петербурге',
-                    number: '03'
-                }
-            ];
+    (function() {
+        // =========================================
+        // ТВОИ ВИДЕО НА VK VIDEO (РАБОТАЮТ В РФ)
+        // =========================================
+        var videos = [
+            { 
+                src: 'https://vkvideo.ru/video_ext.php?oid=-240372409&id=456239020&hash=f4959966ea93df4e&hd=4', 
+                title: 'Новости 1 канала',
+                number: '01'
+            },
+            { 
+                src: 'https://vkvideo.ru/video_ext.php?oid=-240372409&id=456239021&hash=03110e6c0f641049&hd=4', 
+                title: 'Задержание менеджера банка',
+                number: '02'
+            },
+            { 
+                src: 'https://vkvideo.ru/video_ext.php?oid=-240372409&id=456239022&hash=410fd23ab0d8226a&hd=4', 
+                title: 'Ограбление в Петербурге',
+                number: '03'
+            }
+        ];
 
-            var currentIndex = 0;
-            var iframe = document.getElementById('mainVideo');
-            var titleEl = document.getElementById('videoTitle');
-            var dots = document.querySelectorAll('.dot');
-            var prevBtn = document.getElementById('prevVideo');
-            var nextBtn = document.getElementById('nextVideo');
+        // --- ИНИЦИАЛИЗАЦИЯ ---
+        var currentIndex = 0;
+        var container = document.getElementById('videoContainer');
+        var iframe = document.getElementById('mainVideo');
+        var titleEl = document.getElementById('videoTitle');
+        var dots = document.querySelectorAll('.dot');
+        var prevBtn = document.getElementById('prevVideo');
+        var nextBtn = document.getElementById('nextVideo');
 
-            function loadVideo(index) {
-                // Проверяем границы
-                if (index < 0) index = videos.length - 1;
-                if (index >= videos.length) index = 0;
-                currentIndex = index;
+        // --- ФУНКЦИЯ ЗАГРУЗКИ ВИДЕО ---
+        function loadVideo(index) {
+            if (index < 0) index = videos.length - 1;
+            if (index >= videos.length) index = 0;
+            currentIndex = index;
 
-                // === ЖЕСТКАЯ ПЕРЕЗАГРУЗКА iframe ===
-                // 1. Полностью очищаем src
-                iframe.src = '';
-                
-                // 2. Принудительно пересоздаем iframe для гарантии
-                var container = document.getElementById('videoContainer');
-                var newIframe = document.createElement('iframe');
-                newIframe.id = 'mainVideo';
-                newIframe.src = videos[currentIndex].src;
-                newIframe.setAttribute('allow', 'autoplay; encrypted-media');
-                newIframe.setAttribute('allowfullscreen', '');
-                newIframe.style.width = '100%';
-                newIframe.style.height = '100%';
-                newIframe.style.border = 'none';
-                newIframe.style.display = 'block';
-                
-                // Заменяем старый iframe на новый
-                container.replaceChild(newIframe, iframe);
-                iframe = newIframe;
+            // 1. СОЗДАЕМ НОВЫЙ IFRAME (гарантирует остановку звука)
+            var newIframe = document.createElement('iframe');
+            newIframe.id = 'mainVideo';
+            newIframe.src = videos[currentIndex].src;
+            newIframe.setAttribute('allow', 'autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock');
+            newIframe.setAttribute('allowfullscreen', '');
+            newIframe.style.width = '100%';
+            newIframe.style.height = '100%';
+            newIframe.style.border = 'none';
+            newIframe.style.display = 'block';
+            newIframe.style.background = '#000';
+            
+            container.replaceChild(newIframe, iframe);
+            iframe = newIframe;
 
-                // Обновляем заголовок
-                titleEl.innerHTML = '<span class="video-number">' + videos[currentIndex].number + '</span> — ' + videos[currentIndex].title;
+            // 2. ЗАГОЛОВОК
+            titleEl.innerHTML = '<span class="video-number">' + videos[currentIndex].number + '</span> — ' + videos[currentIndex].title;
 
-                // Обновляем точки
-                dots.forEach(function(dot, i) {
-                    dot.classList.toggle('active', i === currentIndex);
-                });
+            // 3. ТОЧКИ
+            dots.forEach(function(dot, i) {
+                dot.classList.toggle('active', i === currentIndex);
+            });
 
-                // Прокручиваем к видео (для мобильных)
-                var wrapper = document.querySelector('.video-player-wrapper');
-                if (wrapper && window.innerWidth < 768) {
-                    setTimeout(function() {
-                        wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 300);
-                }
-
-                console.log('🎬 Видео загружено: ' + videos[currentIndex].title);
+            // 4. ПРОКРУТКА К ВИДЕО НА ТЕЛЕФОНЕ
+            var wrapper = document.querySelector('.video-player-wrapper');
+            if (wrapper && window.innerWidth < 768) {
+                setTimeout(function() {
+                    wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
             }
 
-            // Переключение
-            prevBtn.addEventListener('click', function(e) {
+            console.log('🎬 Видео загружено: ' + videos[currentIndex].title);
+        }
+
+        // --- КНОПКИ "ПРЕД." / "СЛЕД." ---
+        prevBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            loadVideo(currentIndex - 1);
+        });
+
+        nextBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            loadVideo(currentIndex + 1);
+        });
+
+        // --- КЛИК ПО ТОЧКАМ ---
+        dots.forEach(function(dot, i) {
+            dot.addEventListener('click', function() {
+                loadVideo(i);
+            });
+        });
+
+        // --- СТРЕЛКИ КЛАВИАТУРЫ ---
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
                 e.preventDefault();
                 loadVideo(currentIndex - 1);
-            });
-
-            nextBtn.addEventListener('click', function(e) {
+            } else if (e.key === 'ArrowRight') {
                 e.preventDefault();
                 loadVideo(currentIndex + 1);
-            });
+            }
+        });
 
-            // Клик по точкам
-            dots.forEach(function(dot, i) {
-                dot.addEventListener('click', function() {
-                    loadVideo(i);
-                });
-            });
-
-            // Клавиатура (влево/вправо)
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    loadVideo(currentIndex - 1);
-                } else if (e.key === 'ArrowRight') {
-                    e.preventDefault();
-                    loadVideo(currentIndex + 1);
+        // --- ПОЛНОЭКРАННЫЙ РЕЖИМ ПО КЛИКУ ---
+        container.addEventListener('click', function() {
+            var vid = document.getElementById('mainVideo');
+            if (vid) {
+                if (vid.requestFullscreen) {
+                    vid.requestFullscreen();
+                } else if (vid.webkitRequestFullscreen) {
+                    vid.webkitRequestFullscreen();
+                } else if (vid.msRequestFullscreen) {
+                    vid.msRequestFullscreen();
+                } else {
+                    window.open(videos[currentIndex].src, '_blank');
                 }
-            });
+            }
+        });
 
-            // Полноэкранный режим при клике на видео
-            document.getElementById('videoContainer').addEventListener('click', function() {
-                var vid = document.getElementById('mainVideo');
-                if (vid) {
-                    if (vid.requestFullscreen) {
-                        vid.requestFullscreen();
-                    } else if (vid.webkitRequestFullscreen) {
-                        vid.webkitRequestFullscreen();
-                    } else if (vid.msRequestFullscreen) {
-                        vid.msRequestFullscreen();
-                    }
-                }
-            });
+        // --- ОСТАНОВКА ПРИ СВОРАЧИВАНИИ ВКЛАДКИ ---
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && iframe) {
+                var currentSrc = iframe.src;
+                iframe.src = 'about:blank';
+                setTimeout(function() {
+                    iframe.src = currentSrc;
+                }, 150);
+            }
+        });
 
-            // При сворачивании вкладки — останавливаем видео
-            document.addEventListener('visibilitychange', function() {
-                if (document.hidden && iframe) {
-                    var currentSrc = iframe.src;
-                    iframe.src = '';
-                    setTimeout(function() {
-                        iframe.src = currentSrc;
-                    }, 200);
-                }
-            });
+        // --- ОСТАНОВКА ПРИ ЗАКРЫТИИ СТРАНИЦЫ ---
+        window.addEventListener('beforeunload', function() {
+            if (iframe) {
+                iframe.src = 'about:blank';
+            }
+        });
 
-            // При закрытии страницы — останавливаем
-            window.addEventListener('pagehide', function() {
-                if (iframe) {
-                    iframe.src = '';
-                }
-            });
-
-            console.log('🎬 Видеоплеер (спинер) запущен!');
-            console.log('📹 Всего видео: ' + videos.length);
-            console.log('▶️ Текущее: ' + videos[currentIndex].title);
-        })();
-    </script>
+        // СТАРТУЕМ ПЛЕЕР
+        loadVideo(0);
+        console.log('🎬 Плеер VK Video успешно запущен!');
+    })();
+</script>
 
     <!-- ============================================================ -->
     <!-- СКРИПТ: ТЕСТЫ                                                -->
