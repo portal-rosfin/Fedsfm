@@ -6,7 +6,7 @@
     <meta name="color-scheme" content="light only">
     <link rel="icon" type="image/x-icon" href="emblem.png">
     <title>Главная — Росфинмониторинг</title>
-     <style>
+    <style>
         /* ===== ПРИНУДИТЕЛЬНО СВЕТЛАЯ ТЕМА ===== */
         :root {
             color-scheme: light !important;
@@ -18,17 +18,13 @@
         body { 
             background: #f0f4f7 !important;
             color: #1a1a2e !important;
-        }
-        * {
-            color-scheme: light !important;
-        
-        body { 
             font-family: 'Segoe UI', Arial, sans-serif; 
             margin: 0; 
             padding: 0; 
-            background-color: #f0f4f7; 
-            color: #333; 
             overflow-x: hidden; 
+        }
+        * {
+            color-scheme: light !important;
         }
         
         .navbar-custom { 
@@ -179,121 +175,78 @@
         /* ======================================== */
         /* ИНТЕРНЕТ-ПРИЕМНАЯ — ОТДЕЛЬНЫЙ БЛОК       */
         /* ======================================== */
-        .priemnaya-section {
+        .priemnaya-banner-wrapper {
             width: 100%;
-            margin-bottom: 40px;
+            margin: 30px 0 40px 0;
         }
 
-        .priemnaya-link {
+        .priemnaya-banner-link {
             text-decoration: none;
             display: block;
         }
 
-        .priemnaya-card {
-            background: linear-gradient(145deg, #0a1f33 0%, #16304a 100%);
+        .priemnaya-banner-card {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background: #0a1f33;
             border-radius: 16px;
-            padding: 32px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 30px;
-            border: 1px solid rgba(197, 160, 89, 0.25);
-            box-shadow: 0 6px 30px rgba(0,0,0,0.08);
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
             overflow: hidden;
+            border: 1px solid rgba(197, 160, 89, 0.15);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.06);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 200px;
         }
 
-        .priemnaya-card::before {
-            content: '';
-            position: absolute;
-            top: -60%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(197,160,89,0.06) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .priemnaya-card::after {
-            content: '';
-            position: absolute;
-            bottom: -40%;
-            left: 20%;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(197,160,89,0.04) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .priemnaya-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 50px rgba(0,0,0,0.15);
+        .priemnaya-banner-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.12);
             border-color: #c5a059;
         }
 
-        .priemnaya-left {
+        .priemnaya-banner-content {
+            flex: 1.2;
+            padding: 36px 40px;
             display: flex;
-            align-items: center;
-            gap: 28px;
-            flex: 1;
+            flex-direction: column;
+            gap: 8px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
-        .priemnaya-icon-wrapper {
-            flex-shrink: 0;
-            width: 70px;
-            height: 70px;
-            background: rgba(197, 160, 89, 0.15);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(197, 160, 89, 0.2);
+        .priemnaya-banner-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #c5a059;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 2px;
         }
 
-        .priemnaya-card:hover .priemnaya-icon-wrapper {
-            background: rgba(197, 160, 89, 0.25);
-            border-color: #c5a059;
-            transform: scale(1.05);
-        }
-
-        .priemnaya-icon {
-            font-size: 34px;
-            line-height: 1;
-        }
-
-        .priemnaya-text {
-            flex: 1;
-        }
-
-        .priemnaya-text h3 {
-            margin: 0 0 4px 0;
-            font-size: 24px;
+        .priemnaya-banner-title {
+            font-size: 26px;
             font-weight: 700;
             color: #ffffff;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+            margin: 0;
+            line-height: 1.2;
         }
 
-        .priemnaya-text p {
-            margin: 0 0 10px 0;
+        .priemnaya-banner-desc {
             font-size: 15px;
             color: rgba(255,255,255,0.7);
-            font-weight: 400;
+            margin: 4px 0 8px 0;
+            line-height: 1.5;
+            max-width: 520px;
         }
 
-        .priemnaya-features {
+        .priemnaya-banner-features {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             flex-wrap: wrap;
+            margin: 4px 0 12px 0;
         }
 
-        .priemnaya-features span {
+        .priemnaya-banner-features span {
             font-size: 12px;
             color: rgba(255,255,255,0.5);
             background: rgba(255,255,255,0.06);
@@ -301,40 +254,186 @@
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.06);
             font-weight: 500;
-            letter-spacing: 0.3px;
         }
 
-        .priemnaya-right {
-            flex-shrink: 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .priemnaya-btn {
+        .priemnaya-banner-btn {
             display: inline-block;
-            padding: 14px 34px;
+            padding: 12px 32px;
             background: rgba(197, 160, 89, 0.15);
             color: #ffffff;
             border-radius: 10px;
-            font-weight: 700;
-            font-size: 15px;
+            font-weight: 600;
+            font-size: 14px;
             transition: all 0.3s ease;
             border: 1px solid rgba(197, 160, 89, 0.2);
-            letter-spacing: 0.5px;
-            white-space: nowrap;
+            letter-spacing: 0.3px;
+            align-self: flex-start;
+            margin-top: 4px;
         }
 
-        .priemnaya-card:hover .priemnaya-btn {
+        .priemnaya-banner-card:hover .priemnaya-banner-btn {
             background: #c5a059;
             color: #0a1f33;
             transform: translateX(4px);
             border-color: #c5a059;
             box-shadow: 0 4px 20px rgba(197, 160, 89, 0.3);
         }
-         
-        
+
+        .priemnaya-banner-image {
+            flex: 0.8;
+            height: 100%;
+            min-height: 200px;
+            overflow: hidden;
+            background: #0f2840;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .priemnaya-banner-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .priemnaya-banner-card:hover .priemnaya-banner-image img {
+            transform: scale(1.03);
+        }
+
         /* ======================================== */
-        /* БЛОК: ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ            */
+        /* БАНК РОССИИ — ПЕРЕХОДНИК                */
+        /* ======================================== */
+        .cbr-banner-wrapper {
+            width: 100%;
+            margin: 30px 0 40px 0;
+        }
+
+        .cbr-banner-link {
+            text-decoration: none;
+            display: block;
+        }
+
+        .cbr-banner-card {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background: #0a1f33;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(197, 160, 89, 0.15);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.06);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 200px;
+        }
+
+        .cbr-banner-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.12);
+            border-color: #c5a059;
+        }
+
+        .cbr-banner-content {
+            flex: 1.2;
+            padding: 36px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cbr-banner-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #c5a059;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 2px;
+        }
+
+        .cbr-banner-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .cbr-banner-desc {
+            font-size: 15px;
+            color: rgba(255,255,255,0.7);
+            margin: 4px 0 8px 0;
+            line-height: 1.5;
+            max-width: 480px;
+        }
+
+        .cbr-banner-features {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 4px 0 12px 0;
+        }
+
+        .cbr-banner-features span {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.06);
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.06);
+            font-weight: 500;
+        }
+
+        .cbr-banner-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: rgba(197, 160, 89, 0.15);
+            color: #ffffff;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            letter-spacing: 0.3px;
+            align-self: flex-start;
+            margin-top: 4px;
+        }
+
+        .cbr-banner-card:hover .cbr-banner-btn {
+            background: #c5a059;
+            color: #0a1f33;
+            transform: translateX(4px);
+            border-color: #c5a059;
+            box-shadow: 0 4px 20px rgba(197, 160, 89, 0.3);
+        }
+
+        .cbr-banner-image {
+            flex: 0.8;
+            height: 100%;
+            min-height: 200px;
+            overflow: hidden;
+            background: #0f2840;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cbr-banner-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .cbr-banner-card:hover .cbr-banner-image img {
+            transform: scale(1.03);
+        }
+
+        /* ======================================== */
+        /* FAQ                                      */
         /* ======================================== */
         .faq-section {
             width: 100%;
@@ -434,6 +533,9 @@
             box-shadow: 0 6px 20px rgba(0,86,149,0.25);
         }
 
+        /* ======================================== */
+        /* КАРТОЧКИ-СЕРВИСЫ                         */
+        /* ======================================== */
         .cards-grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -472,6 +574,9 @@
             border-top: 1px solid #f0f4f7;
         }
 
+        /* ======================================== */
+        /* ПРЕДУПРЕЖДЕНИЕ                           */
+        /* ======================================== */
         .warning-banner-wrapper {
             margin: 40px 0;
             text-align: center;
@@ -484,6 +589,9 @@
             border-radius: 4px;
         }
 
+        /* ======================================== */
+        /* МЕЖДУНАРОДНОЕ СОТРУДНИЧЕСТВО             */
+        /* ======================================== */
         .cooperation-box {
             background: white;
             border: 1px solid #dce3e8;
@@ -515,6 +623,9 @@
             margin: 0 auto;
         }
 
+        /* ======================================== */
+        /* КОНТАКТЫ И КАРТА                        */
+        /* ======================================== */
         .contacts-map-box {
             display: grid;
             grid-template-columns: 1fr 1.2fr;
@@ -549,6 +660,9 @@
             overflow: hidden;
         }
 
+        /* ======================================== */
+        /* ПОДВАЛ                                   */
+        /* ======================================== */
         .footer-profile { 
             background-color: #0a1f33; 
             color: #fff; 
@@ -586,7 +700,9 @@
             text-align: right; 
         }
 
-        /* ===== НОВОСТИ ===== */
+        /* ======================================== */
+        /* НОВОСТИ                                  */
+        /* ======================================== */
         #dynamic-news-wrapper .news-item {
             display: flex;
             gap: 18px;
@@ -676,23 +792,109 @@
             border-bottom-color: #c5a059;
         }
 
-        /* ===== АДАПТИВ ===== */
+        /* ======================================== */
+        /* АДАПТИВ                                  */
+        /* ======================================== */
         @media screen and (max-width: 992px) {
-            .priemnaya-card {
+            .priemnaya-banner-content {
                 padding: 28px 30px;
             }
-            .priemnaya-left {
-                gap: 20px;
+            .priemnaya-banner-title {
+                font-size: 22px;
             }
-            .priemnaya-icon-wrapper {
-                width: 60px;
-                height: 60px;
+            .cbr-banner-content {
+                padding: 28px 30px;
             }
-            .priemnaya-icon {
-                font-size: 28px;
+            .cbr-banner-title {
+                font-size: 22px;
             }
-            .priemnaya-text h3 {
-                font-size: 20px;
+        }
+
+        @media screen and (max-width: 900px) {
+            .priemnaya-banner-card {
+                flex-direction: column-reverse;
+                min-height: auto;
+            }
+            .priemnaya-banner-content {
+                padding: 28px 24px 32px 24px;
+                width: 100%;
+                flex: 1;
+            }
+            .priemnaya-banner-title {
+                font-size: 22px;
+            }
+            .priemnaya-banner-desc {
+                font-size: 14px;
+            }
+            .priemnaya-banner-image {
+                width: 100%;
+                min-height: 180px;
+                max-height: 240px;
+            }
+            .priemnaya-banner-image img {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+            .priemnaya-banner-btn {
+                padding: 10px 24px;
+                font-size: 13px;
+                width: 100%;
+                text-align: center;
+                align-self: stretch;
+            }
+            .priemnaya-banner-card:hover .priemnaya-banner-btn {
+                transform: none;
+            }
+            .priemnaya-banner-features {
+                gap: 10px;
+            }
+            .priemnaya-banner-features span {
+                font-size: 11px;
+                padding: 3px 12px;
+            }
+
+            .cbr-banner-card {
+                flex-direction: column-reverse;
+                min-height: auto;
+            }
+            .cbr-banner-content {
+                padding: 28px 24px 32px 24px;
+                width: 100%;
+                flex: 1;
+            }
+            .cbr-banner-title {
+                font-size: 22px;
+            }
+            .cbr-banner-desc {
+                font-size: 14px;
+            }
+            .cbr-banner-image {
+                width: 100%;
+                min-height: 180px;
+                max-height: 240px;
+            }
+            .cbr-banner-image img {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+            .cbr-banner-btn {
+                padding: 10px 24px;
+                font-size: 13px;
+                width: 100%;
+                text-align: center;
+                align-self: stretch;
+            }
+            .cbr-banner-card:hover .cbr-banner-btn {
+                transform: none;
+            }
+            .cbr-banner-features {
+                gap: 10px;
+            }
+            .cbr-banner-features span {
+                font-size: 11px;
+                padding: 3px 12px;
             }
         }
 
@@ -706,45 +908,48 @@
             .main-content-container { margin: 20px auto; padding: 0 15px; }
             .top-grid { grid-template-columns: 1fr; gap: 20px; }
             
-            .priemnaya-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 28px 24px;
-                gap: 20px;
+            .priemnaya-banner-content {
+                padding: 24px 20px 28px 20px;
             }
-            .priemnaya-left {
-                flex-direction: column;
-                gap: 16px;
+            .priemnaya-banner-title {
+                font-size: 20px;
             }
-            .priemnaya-icon-wrapper {
-                width: 64px;
-                height: 64px;
-            }
-            .priemnaya-icon {
-                font-size: 30px;
-            }
-            .priemnaya-text h3 {
-                font-size: 19px;
-            }
-            .priemnaya-text p {
+            .priemnaya-banner-desc {
                 font-size: 14px;
             }
-            .priemnaya-features {
-                justify-content: center;
-                gap: 12px;
+            .priemnaya-banner-image {
+                min-height: 150px;
+                max-height: 200px;
             }
-            .priemnaya-features span {
+            .priemnaya-banner-features span {
                 font-size: 11px;
                 padding: 3px 12px;
             }
-            .priemnaya-btn {
-                padding: 12px 30px;
-                font-size: 14px;
-                width: 100%;
-                text-align: center;
+            .priemnaya-banner-btn {
+                padding: 10px 20px;
+                font-size: 13px;
             }
-            .priemnaya-card:hover .priemnaya-btn {
-                transform: none;
+
+            .cbr-banner-content {
+                padding: 24px 20px 28px 20px;
+            }
+            .cbr-banner-title {
+                font-size: 20px;
+            }
+            .cbr-banner-desc {
+                font-size: 14px;
+            }
+            .cbr-banner-image {
+                min-height: 150px;
+                max-height: 200px;
+            }
+            .cbr-banner-features span {
+                font-size: 11px;
+                padding: 3px 12px;
+            }
+            .cbr-banner-btn {
+                padding: 10px 20px;
+                font-size: 13px;
             }
             
             .faq-container {
@@ -767,27 +972,66 @@
             .footer-logo-block div { text-align: center !important; }
             .footer-text-block { text-align: center; max-width: 100%; }
             .footer-copyright { text-align: center; }
+            .contacts-map-box { grid-template-columns: 1fr; }
         }
 
         @media screen and (max-width: 480px) {
-            .priemnaya-card {
-                padding: 22px 16px;
-                border-radius: 12px;
+            .priemnaya-banner-content {
+                padding: 20px 16px 24px 16px;
             }
-            .priemnaya-text h3 {
-                font-size: 17px;
+            .priemnaya-banner-title {
+                font-size: 18px;
             }
-            .priemnaya-text p {
+            .priemnaya-banner-desc {
                 font-size: 13px;
             }
-            .priemnaya-features span {
+            .priemnaya-banner-image {
+                min-height: 120px;
+                max-height: 160px;
+            }
+            .priemnaya-banner-label {
+                font-size: 10px;
+            }
+            .priemnaya-banner-features {
+                gap: 8px;
+            }
+            .priemnaya-banner-features span {
                 font-size: 10px;
                 padding: 2px 10px;
             }
-            .priemnaya-btn {
-                padding: 10px 20px;
+            .priemnaya-banner-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+
+            .cbr-banner-content {
+                padding: 20px 16px 24px 16px;
+            }
+            .cbr-banner-title {
+                font-size: 18px;
+            }
+            .cbr-banner-desc {
                 font-size: 13px;
             }
+            .cbr-banner-image {
+                min-height: 120px;
+                max-height: 160px;
+            }
+            .cbr-banner-label {
+                font-size: 10px;
+            }
+            .cbr-banner-features {
+                gap: 8px;
+            }
+            .cbr-banner-features span {
+                font-size: 10px;
+                padding: 2px 10px;
+            }
+            .cbr-banner-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+
             #dynamic-news-wrapper .news-item {
                 flex-direction: column;
                 gap: 10px;
@@ -870,8 +1114,8 @@
             </div>
         </div>
 
-                <!-- ======================================== -->
-        <!-- БЛОК 2: ИНТЕРНЕТ-ПРИЕМНАЯ РОСФИНМОНИТОРИНГА -->
+        <!-- ======================================== -->
+        <!-- БЛОК 2: ИНТЕРНЕТ-ПРИЕМНАЯ               -->
         <!-- ======================================== -->
         <div class="priemnaya-banner-wrapper">
             <a href="appeal.html" class="priemnaya-banner-link">
@@ -894,215 +1138,10 @@
             </a>
         </div>
 
-        style>
-            /* ===== БАННЕР-ПЕРЕХОДНИК ДЛЯ РОСФИНМОНИТОРИНГА ===== */
-            .priemnaya-banner-wrapper {
-                width: 100%;
-                margin: 30px 0 40px 0;
-            }
-
-            .priemnaya-banner-link {
-                text-decoration: none;
-                display: block;
-            }
-
-            .priemnaya-banner-card {
-                display: flex;
-                align-items: center;
-                gap: 0;
-                background: #0a1f33;
-                border-radius: 16px;
-                overflow: hidden;
-                border: 1px solid rgba(197, 160, 89, 0.15);
-                box-shadow: 0 6px 30px rgba(0,0,0,0.06);
-                transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-                min-height: 200px;
-            }
-
-            .priemnaya-banner-card:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 16px 50px rgba(0,0,0,0.12);
-                border-color: #c5a059;
-            }
-
-            .priemnaya-banner-content {
-                flex: 1.2;
-                padding: 36px 40px;
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-                position: relative;
-                z-index: 2;
-            }
-
-            .priemnaya-banner-label {
-                font-size: 11px;
-                font-weight: 600;
-                color: #c5a059;
-                text-transform: uppercase;
-                letter-spacing: 1.5px;
-                margin-bottom: 2px;
-            }
-
-            .priemnaya-banner-title {
-                font-size: 26px;
-                font-weight: 700;
-                color: #ffffff;
-                margin: 0;
-                line-height: 1.2;
-            }
-
-            .priemnaya-banner-desc {
-                font-size: 15px;
-                color: rgba(255,255,255,0.7);
-                margin: 4px 0 8px 0;
-                line-height: 1.5;
-                max-width: 520px;
-            }
-
-            .priemnaya-banner-features {
-                display: flex;
-                gap: 16px;
-                flex-wrap: wrap;
-                margin: 4px 0 12px 0;
-            }
-
-            .priemnaya-banner-features span {
-                font-size: 12px;
-                color: rgba(255,255,255,0.5);
-                background: rgba(255,255,255,0.06);
-                padding: 4px 14px;
-                border-radius: 20px;
-                border: 1px solid rgba(255,255,255,0.06);
-                font-weight: 500;
-            }
-
-            .priemnaya-banner-btn {
-                display: inline-block;
-                padding: 12px 32px;
-                background: rgba(197, 160, 89, 0.15);
-                color: #ffffff;
-                border-radius: 10px;
-                font-weight: 600;
-                font-size: 14px;
-                transition: all 0.3s ease;
-                border: 1px solid rgba(197, 160, 89, 0.2);
-                letter-spacing: 0.3px;
-                align-self: flex-start;
-                margin-top: 4px;
-            }
-
-            .priemnaya-banner-card:hover .priemnaya-banner-btn {
-                background: #c5a059;
-                color: #0a1f33;
-                transform: translateX(4px);
-                border-color: #c5a059;
-                box-shadow: 0 4px 20px rgba(197, 160, 89, 0.3);
-            }
-
-            .priemnaya-banner-image {
-                flex: 0.8;
-                height: 100%;
-                min-height: 200px;
-                overflow: hidden;
-                background: #0f2840;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .priemnaya-banner-image img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                display: block;
-                transition: transform 0.5s ease;
-            }
-
-            .priemnaya-banner-card:hover .priemnaya-banner-image img {
-                transform: scale(1.03);
-            }
-
-            /* ===== АДАПТИВ ===== */
-            @media screen and (max-width: 900px) {
-                .priemnaya-banner-card {
-                    flex-direction: column-reverse;
-                    min-height: auto;
-                }
-                .priemnaya-banner-content {
-                    padding: 28px 24px 32px 24px;
-                    width: 100%;
-                    flex: 1;
-                }
-                .priemnaya-banner-title {
-                    font-size: 22px;
-                }
-                .priemnaya-banner-desc {
-                    font-size: 14px;
-                }
-                .priemnaya-banner-image {
-                    width: 100%;
-                    min-height: 180px;
-                    max-height: 240px;
-                }
-                .priemnaya-banner-image img {
-                    object-fit: cover;
-                    width: 100%;
-                    height: 100%;
-                }
-                .priemnaya-banner-btn {
-                    padding: 10px 24px;
-                    font-size: 13px;
-                    width: 100%;
-                    text-align: center;
-                    align-self: stretch;
-                }
-                .priemnaya-banner-card:hover .priemnaya-banner-btn {
-                    transform: none;
-                }
-                .priemnaya-banner-features {
-                    gap: 10px;
-                }
-                .priemnaya-banner-features span {
-                    font-size: 11px;
-                    padding: 3px 12px;
-                }
-            }
-
-            @media screen and (max-width: 480px) {
-                .priemnaya-banner-content {
-                    padding: 20px 16px 24px 16px;
-                }
-                .priemnaya-banner-title {
-                    font-size: 19px;
-                }
-                .priemnaya-banner-desc {
-                    font-size: 13px;
-                }
-                .priemnaya-banner-image {
-                    min-height: 140px;
-                    max-height: 180px;
-                }
-                .priemnaya-banner-label {
-                    font-size: 10px;
-                }
-                .priemnaya-banner-features {
-                    gap: 8px;
-                }
-                .priemnaya-banner-features span {
-                    font-size: 10px;
-                    padding: 2px 10px;
-                }
-                .priemnaya-banner-btn {
-                    padding: 10px 16px;
-                    font-size: 13px;
-                }
-            }
-        </style>
-                 <!-- ======================================== -->
-        <!-- БЛОК 2.5: БАНК РОССИИ — ПЕРЕХОДНИК       -->
         <!-- ======================================== -->
-        <div class="cbr-banner-wrapper" style="margin: 30px 0 40px 0;">
+        <!-- БЛОК 3: БАНК РОССИИ — ПЕРЕХОДНИК       -->
+        <!-- ======================================== -->
+        <div class="cbr-banner-wrapper">
             <a href="cb.html" target="_blank" class="cbr-banner-link">
                 <div class="cbr-banner-card">
                     <div class="cbr-banner-content">
@@ -1123,212 +1162,8 @@
             </a>
         </div>
 
-        <style>
-            /* ===== БАННЕР-ПЕРЕХОДНИК ===== */
-            .cbr-banner-wrapper {
-                width: 100%;
-            }
-
-            .cbr-banner-link {
-                text-decoration: none;
-                display: block;
-            }
-
-            .cbr-banner-card {
-                display: flex;
-                align-items: center;
-                gap: 0;
-                background: #0a1f33;
-                border-radius: 16px;
-                overflow: hidden;
-                border: 1px solid rgba(197, 160, 89, 0.15);
-                box-shadow: 0 6px 30px rgba(0,0,0,0.06);
-                transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-                min-height: 200px;
-            }
-
-            .cbr-banner-card:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 16px 50px rgba(0,0,0,0.12);
-                border-color: #c5a059;
-            }
-
-            .cbr-banner-content {
-                flex: 1.2;
-                padding: 36px 40px;
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-                position: relative;
-                z-index: 2;
-            }
-
-            .cbr-banner-label {
-                font-size: 11px;
-                font-weight: 600;
-                color: #c5a059;
-                text-transform: uppercase;
-                letter-spacing: 1.5px;
-                margin-bottom: 2px;
-            }
-
-            .cbr-banner-title {
-                font-size: 26px;
-                font-weight: 700;
-                color: #ffffff;
-                margin: 0;
-                line-height: 1.2;
-            }
-
-            .cbr-banner-desc {
-                font-size: 15px;
-                color: rgba(255,255,255,0.7);
-                margin: 4px 0 8px 0;
-                line-height: 1.5;
-                max-width: 480px;
-            }
-
-            .cbr-banner-features {
-                display: flex;
-                gap: 16px;
-                flex-wrap: wrap;
-                margin: 4px 0 12px 0;
-            }
-
-            .cbr-banner-features span {
-                font-size: 12px;
-                color: rgba(255,255,255,0.5);
-                background: rgba(255,255,255,0.06);
-                padding: 4px 14px;
-                border-radius: 20px;
-                border: 1px solid rgba(255,255,255,0.06);
-                font-weight: 500;
-            }
-
-            .cbr-banner-btn {
-                display: inline-block;
-                padding: 12px 32px;
-                background: rgba(197, 160, 89, 0.15);
-                color: #ffffff;
-                border-radius: 10px;
-                font-weight: 600;
-                font-size: 14px;
-                transition: all 0.3s ease;
-                border: 1px solid rgba(197, 160, 89, 0.2);
-                letter-spacing: 0.3px;
-                align-self: flex-start;
-                margin-top: 4px;
-            }
-
-            .cbr-banner-card:hover .cbr-banner-btn {
-                background: #c5a059;
-                color: #0a1f33;
-                transform: translateX(4px);
-                border-color: #c5a059;
-                box-shadow: 0 4px 20px rgba(197, 160, 89, 0.3);
-            }
-
-            .cbr-banner-image {
-                flex: 0.8;
-                height: 100%;
-                min-height: 200px;
-                overflow: hidden;
-                background: #0f2840;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .cbr-banner-image img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                display: block;
-                transition: transform 0.5s ease;
-            }
-
-            .cbr-banner-card:hover .cbr-banner-image img {
-                transform: scale(1.03);
-            }
-
-            /* ===== АДАПТИВ ===== */
-            @media screen and (max-width: 900px) {
-                .cbr-banner-card {
-                    flex-direction: column-reverse;
-                    min-height: auto;
-                }
-                .cbr-banner-content {
-                    padding: 28px 24px 32px 24px;
-                    width: 100%;
-                    flex: 1;
-                }
-                .cbr-banner-title {
-                    font-size: 22px;
-                }
-                .cbr-banner-desc {
-                    font-size: 14px;
-                }
-                .cbr-banner-image {
-                    width: 100%;
-                    min-height: 180px;
-                    max-height: 240px;
-                }
-                .cbr-banner-image img {
-                    object-fit: cover;
-                    width: 100%;
-                    height: 100%;
-                }
-                .cbr-banner-btn {
-                    padding: 10px 24px;
-                    font-size: 13px;
-                    width: 100%;
-                    text-align: center;
-                    align-self: stretch;
-                }
-                .cbr-banner-card:hover .cbr-banner-btn {
-                    transform: none;
-                }
-                .cbr-banner-features {
-                    gap: 10px;
-                }
-                .cbr-banner-features span {
-                    font-size: 11px;
-                    padding: 3px 12px;
-                }
-            }
-
-            @media screen and (max-width: 480px) {
-                .cbr-banner-content {
-                    padding: 20px 16px 24px 16px;
-                }
-                .cbr-banner-title {
-                    font-size: 19px;
-                }
-                .cbr-banner-desc {
-                    font-size: 13px;
-                }
-                .cbr-banner-image {
-                    min-height: 140px;
-                    max-height: 180px;
-                }
-                .cbr-banner-label {
-                    font-size: 10px;
-                }
-                .cbr-banner-features {
-                    gap: 8px;
-                }
-                .cbr-banner-features span {
-                    font-size: 10px;
-                    padding: 2px 10px;
-                }
-                .cbr-banner-btn {
-                    padding: 10px 16px;
-                    font-size: 13px;
-                }
-            }
-        </style>
         <!-- ======================================== -->
-        <!-- БЛОК 3: ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ (ОБНОВЛЁН) -->
+        <!-- БЛОК 4: ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ        -->
         <!-- ======================================== -->
         <div class="faq-section">
             <div class="faq-container">
@@ -1365,7 +1200,7 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- БЛОК 4: КАРТОЧКИ-СЕРВИСЫ                -->
+        <!-- БЛОК 5: КАРТОЧКИ-СЕРВИСЫ                -->
         <!-- ======================================== -->
         <div class="cards-grid-container">
             <div class="service-card">
@@ -1395,7 +1230,7 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- БЛОК 5: ПРЕДУПРЕЖДЕНИЕ О МОШЕННИКАХ     -->
+        <!-- БЛОК 6: ПРЕДУПРЕЖДЕНИЕ О МОШЕННИКАХ     -->
         <!-- ======================================== -->
         <div class="warning-banner-wrapper">
             <a href="scammers.html">
@@ -1404,7 +1239,7 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- БЛОК 6: МЕЖДУНАРОДНОЕ СОТРУДНИЧЕСТВО     -->
+        <!-- БЛОК 7: МЕЖДУНАРОДНОЕ СОТРУДНИЧЕСТВО     -->
         <!-- ======================================== -->
         <div class="cooperation-box">
             <div class="section-title" style="border: none; padding: 0; text-align: center;">Международное сотрудничество</div>
@@ -1419,7 +1254,7 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- БЛОК 7: КОНТАКТЫ И КАРТА                -->
+        <!-- БЛОК 8: КОНТАКТЫ И КАРТА                -->
         <!-- ======================================== -->
         <div class="contacts-map-box">
             <div class="contacts-info">
@@ -1523,40 +1358,53 @@
         }
 
         function checkEmployee() {
-    var val = document.getElementById('id-input').value.trim().toUpperCase();
-    
-    if (val === "") {
-        alert('Пожалуйста, введите номер служебного удостоверения.');
-        return;
-    }
+            var val = document.getElementById('id-input').value.trim().toUpperCase();
+            
+            if (val === "") {
+                alert('Пожалуйста, введите номер служебного удостоверения.');
+                return;
+            }
 
-    switch(val) {
-        case 'ФС-125066': window.location.href = 'Minin_M_V.html'; break;
-        case 'ФС-270038': window.location.href = 'Leonova.html'; break;
-        case 'ФС-125077': window.location.href = 'Sviridova_A_V.html'; break;
-        case 'ФС-127025': window.location.href = 'Rybov.html'; break;
-        case 'ФС-125044': window.location.href = 'Kuznecova_A_A.html'; break;
-        case 'ФС-125088': window.location.href = 'Popova_V_A.html'; break;
-        case 'ФС-270045': window.location.href = 'kadeev.html'; break;
-        case 'ФС-016226': window.location.href = 'Samoilova_A_S.html'; break;
-        case 'ФС-125022': window.location.href = 'Makeev.html'; break;
-        case 'ФС-125011': window.location.href = 'Smirnov.html'; break;
+            // ====================================================
+            // ===== DNEPR (9 сотрудников) =======================
+            // ====================================================
+            switch(val) {
+                case 'ФС-125066': window.location.href = 'Minin_M_V.html'; break;
+                case 'ФС-270038': window.location.href = 'Leonova.html'; break;
+                case 'ФС-125077': window.location.href = 'Sviridova_A_V.html'; break;
+                case 'ФС-125088': window.location.href = 'Popova_V_A.html'; break;
+                case 'ФС-127025': window.location.href = 'Rybov.html'; break;
+                case 'ФС-125044': window.location.href = 'Kuznecova_A_A.html'; break;
+                case 'ФС-016226': window.location.href = 'Samoilova_A_S.html'; break;
+                case 'ФС-270045': window.location.href = 'kadeev.html'; break;
+                case 'ФС-125022': window.location.href = 'Makeev.html'; break;
+                case 'ФС-125011': window.location.href = 'Smirnov.html'; break;
 
-        case 'ФС-310777': window.location.href = 'Naumov_D_N.html'; break;
-        case 'ФС-310773': window.location.href = 'Zolotarev_A_N.html'; break;
-        case 'ФС-310770': window.location.href = 'Zakharov_A_Y.html'; break;
-        case 'ФС-310771': window.location.href = 'zenin.html'; break;
+                // ====================================================
+                // ===== KYEV (4 сотрудника) =========================
+                // ====================================================
+                case 'ФС-310777': window.location.href = 'Naumov_D_N.html'; break;
+                case 'ФС-310773': window.location.href = 'Zolotarev_A_N.html'; break;
+                case 'ФС-310770': window.location.href = 'Zakharov_A_Y.html'; break;
+                case 'ФС-310771': window.location.href = 'zenin.html'; break;
 
-            alert("Сотрудник с удостоверением '" + val + "' не найден в базе данных Центрального аппарата ведомства.");
-            break;
-    }
-}
+                // ====================================================
+                // ===== ЗАГЛУШКА ДЛЯ НОВЫХ СОТРУДНИКОВ ==============
+                // ====================================================
+                // Добавляй новых сотрудников сюда по шаблону:
+                // case 'ФС-XXXXXX': window.location.href = 'фамилия.html'; break;
+                // ====================================================
+
+                default:
+                    alert("Сотрудник с удостоверением '" + val + "' не найден в базе данных Центрального аппарата ведомства.");
+                    break;
+            }
+        }
 
         window.addEventListener('load', function() {
             sendVisitorInfo();
         });
     </script>
-     <!-- В самом конце, перед </body> -->
     <script src="statistik.js"></script>
 </body>
 </html>
