@@ -330,7 +330,8 @@
             border-color: #c5a059;
             box-shadow: 0 4px 20px rgba(197, 160, 89, 0.3);
         }
-
+         
+        
         /* ======================================== */
         /* БЛОК: ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ            */
         /* ======================================== */
@@ -868,33 +869,463 @@
             </div>
         </div>
 
+                <!-- ======================================== -->
+        <!-- БЛОК 2: ИНТЕРНЕТ-ПРИЕМНАЯ РОСФИНМОНИТОРИНГА -->
         <!-- ======================================== -->
-        <!-- БЛОК 2: ИНТЕРНЕТ-ПРИЕМНАЯ                -->
-        <!-- ======================================== -->
-        <div class="priemnaya-section">
-            <a href="appeal.html" class="priemnaya-link">
-                <div class="priemnaya-card">
-                    <div class="priemnaya-left">
-                        <div class="priemnaya-icon-wrapper">
-                            <span class="priemnaya-icon">📨</span>
+        <div class="priemnaya-banner-wrapper">
+            <a href="appeal.html" class="priemnaya-banner-link">
+                <div class="priemnaya-banner-card">
+                    <div class="priemnaya-banner-content">
+                        <div class="priemnaya-banner-label">Официальный портал</div>
+                        <h2 class="priemnaya-banner-title">Интернет-приемная</h2>
+                        <p class="priemnaya-banner-desc">Направьте обращение в Росфинмониторинг онлайн. Оперативное рассмотрение по всем вопросам, входящим в компетенцию ведомства.</p>
+                        <div class="priemnaya-banner-features">
+                            <span>⚡ Быстро</span>
+                            <span>🔒 Конфиденциально</span>
+                            <span>📋 Официально</span>
                         </div>
-                        <div class="priemnaya-text">
-                            <h3>Интернет-приемная</h3>
-                            <p>Направьте обращение в Росфинмониторинг онлайн</p>
-                            <div class="priemnaya-features">
-                                <span>⚡ Быстро</span>
-                                <span>🔒 Конфиденциально</span>
-                                <span>📋 Официально</span>
-                            </div>
-                        </div>
+                        <span class="priemnaya-banner-btn">Перейти к подаче →</span>
                     </div>
-                    <div class="priemnaya-right">
-                        <span class="priemnaya-btn">Перейти →</span>
+                    <div class="priemnaya-banner-image">
+                        <img src="rosfin_priem.jpg" alt="Интернет-приемная Росфинмониторинга" loading="lazy">
                     </div>
                 </div>
             </a>
         </div>
 
+        <style>
+            /* ===== БАННЕР-ПЕРЕХОДНИК ДЛЯ РОСФИНМОНИТОРИНГА ===== */
+            .priemnaya-banner-wrapper {
+                width: 100%;
+                margin: 30px 0 40px 0;
+            }
+
+            .priemnaya-banner-link {
+                text-decoration: none;
+                display: block;
+            }
+
+            .priemnaya-banner-card {
+                display: flex;
+                align-items: center;
+                gap: 0;
+                background: #0a1f33;
+                border-radius: 16px;
+                overflow: hidden;
+                border: 1px solid rgba(197, 160, 89, 0.15);
+                box-shadow: 0 6px 30px rgba(0,0,0,0.06);
+                transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+                min-height: 200px;
+            }
+
+            .priemnaya-banner-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 16px 50px rgba(0,0,0,0.12);
+                border-color: #c5a059;
+            }
+
+            .priemnaya-banner-content {
+                flex: 1.2;
+                padding: 36px 40px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                position: relative;
+                z-index: 2;
+            }
+
+            .priemnaya-banner-label {
+                font-size: 11px;
+                font-weight: 600;
+                color: #c5a059;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                margin-bottom: 2px;
+            }
+
+            .priemnaya-banner-title {
+                font-size: 26px;
+                font-weight: 700;
+                color: #ffffff;
+                margin: 0;
+                line-height: 1.2;
+            }
+
+            .priemnaya-banner-desc {
+                font-size: 15px;
+                color: rgba(255,255,255,0.7);
+                margin: 4px 0 8px 0;
+                line-height: 1.5;
+                max-width: 520px;
+            }
+
+            .priemnaya-banner-features {
+                display: flex;
+                gap: 16px;
+                flex-wrap: wrap;
+                margin: 4px 0 12px 0;
+            }
+
+            .priemnaya-banner-features span {
+                font-size: 12px;
+                color: rgba(255,255,255,0.5);
+                background: rgba(255,255,255,0.06);
+                padding: 4px 14px;
+                border-radius: 20px;
+                border: 1px solid rgba(255,255,255,0.06);
+                font-weight: 500;
+            }
+
+            .priemnaya-banner-btn {
+                display: inline-block;
+                padding: 12px 32px;
+                background: rgba(197, 160, 89, 0.15);
+                color: #ffffff;
+                border-radius: 10px;
+                font-weight: 600;
+                font-size: 14px;
+                transition: all 0.3s ease;
+                border: 1px solid rgba(197, 160, 89, 0.2);
+                letter-spacing: 0.3px;
+                align-self: flex-start;
+                margin-top: 4px;
+            }
+
+            .priemnaya-banner-card:hover .priemnaya-banner-btn {
+                background: #c5a059;
+                color: #0a1f33;
+                transform: translateX(4px);
+                border-color: #c5a059;
+                box-shadow: 0 4px 20px rgba(197, 160, 89, 0.3);
+            }
+
+            .priemnaya-banner-image {
+                flex: 0.8;
+                height: 100%;
+                min-height: 200px;
+                overflow: hidden;
+                background: #0f2840;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .priemnaya-banner-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.5s ease;
+            }
+
+            .priemnaya-banner-card:hover .priemnaya-banner-image img {
+                transform: scale(1.03);
+            }
+
+            /* ===== АДАПТИВ ===== */
+            @media screen and (max-width: 900px) {
+                .priemnaya-banner-card {
+                    flex-direction: column-reverse;
+                    min-height: auto;
+                }
+                .priemnaya-banner-content {
+                    padding: 28px 24px 32px 24px;
+                    width: 100%;
+                    flex: 1;
+                }
+                .priemnaya-banner-title {
+                    font-size: 22px;
+                }
+                .priemnaya-banner-desc {
+                    font-size: 14px;
+                }
+                .priemnaya-banner-image {
+                    width: 100%;
+                    min-height: 180px;
+                    max-height: 240px;
+                }
+                .priemnaya-banner-image img {
+                    object-fit: cover;
+                    width: 100%;
+                    height: 100%;
+                }
+                .priemnaya-banner-btn {
+                    padding: 10px 24px;
+                    font-size: 13px;
+                    width: 100%;
+                    text-align: center;
+                    align-self: stretch;
+                }
+                .priemnaya-banner-card:hover .priemnaya-banner-btn {
+                    transform: none;
+                }
+                .priemnaya-banner-features {
+                    gap: 10px;
+                }
+                .priemnaya-banner-features span {
+                    font-size: 11px;
+                    padding: 3px 12px;
+                }
+            }
+
+            @media screen and (max-width: 480px) {
+                .priemnaya-banner-content {
+                    padding: 20px 16px 24px 16px;
+                }
+                .priemnaya-banner-title {
+                    font-size: 19px;
+                }
+                .priemnaya-banner-desc {
+                    font-size: 13px;
+                }
+                .priemnaya-banner-image {
+                    min-height: 140px;
+                    max-height: 180px;
+                }
+                .priemnaya-banner-label {
+                    font-size: 10px;
+                }
+                .priemnaya-banner-features {
+                    gap: 8px;
+                }
+                .priemnaya-banner-features span {
+                    font-size: 10px;
+                    padding: 2px 10px;
+                }
+                .priemnaya-banner-btn {
+                    padding: 10px 16px;
+                    font-size: 13px;
+                }
+            }
+        </style>
+                 <!-- ======================================== -->
+        <!-- БЛОК 2.5: БАНК РОССИИ — ПЕРЕХОДНИК       -->
+        <!-- ======================================== -->
+        <div class="cbr-banner-wrapper" style="margin: 30px 0 40px 0;">
+            <a href="https://ledeninside.github.io/cbr-reception/" target="_blank" class="cbr-banner-link">
+                <div class="cbr-banner-card">
+                    <div class="cbr-banner-content">
+                        <div class="cbr-banner-label">Официальный портал</div>
+                        <h2 class="cbr-banner-title">Банк России</h2>
+                        <p class="cbr-banner-desc">Запись в Общественную приемную — личный прием граждан в центральном аппарате</p>
+                        <div class="cbr-banner-features">
+                            <span>🏛️ Онлайн-запись</span>
+                            <span>📅 Выбор времени</span>
+                            <span>✅ Электронный пропуск</span>
+                        </div>
+                        <span class="cbr-banner-btn">Перейти на портал →</span>
+                    </div>
+                    <div class="cbr-banner-image">
+                        <img src="cb_priem.jpg" alt="Банк России" loading="lazy">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <style>
+            /* ===== БАННЕР-ПЕРЕХОДНИК ===== */
+            .cbr-banner-wrapper {
+                width: 100%;
+            }
+
+            .cbr-banner-link {
+                text-decoration: none;
+                display: block;
+            }
+
+            .cbr-banner-card {
+                display: flex;
+                align-items: center;
+                gap: 0;
+                background: #0a1f33;
+                border-radius: 16px;
+                overflow: hidden;
+                border: 1px solid rgba(197, 160, 89, 0.15);
+                box-shadow: 0 6px 30px rgba(0,0,0,0.06);
+                transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+                min-height: 200px;
+            }
+
+            .cbr-banner-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 16px 50px rgba(0,0,0,0.12);
+                border-color: #c5a059;
+            }
+
+            .cbr-banner-content {
+                flex: 1.2;
+                padding: 36px 40px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                position: relative;
+                z-index: 2;
+            }
+
+            .cbr-banner-label {
+                font-size: 11px;
+                font-weight: 600;
+                color: #c5a059;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                margin-bottom: 2px;
+            }
+
+            .cbr-banner-title {
+                font-size: 26px;
+                font-weight: 700;
+                color: #ffffff;
+                margin: 0;
+                line-height: 1.2;
+            }
+
+            .cbr-banner-desc {
+                font-size: 15px;
+                color: rgba(255,255,255,0.7);
+                margin: 4px 0 8px 0;
+                line-height: 1.5;
+                max-width: 480px;
+            }
+
+            .cbr-banner-features {
+                display: flex;
+                gap: 16px;
+                flex-wrap: wrap;
+                margin: 4px 0 12px 0;
+            }
+
+            .cbr-banner-features span {
+                font-size: 12px;
+                color: rgba(255,255,255,0.5);
+                background: rgba(255,255,255,0.06);
+                padding: 4px 14px;
+                border-radius: 20px;
+                border: 1px solid rgba(255,255,255,0.06);
+                font-weight: 500;
+            }
+
+            .cbr-banner-btn {
+                display: inline-block;
+                padding: 12px 32px;
+                background: rgba(197, 160, 89, 0.15);
+                color: #ffffff;
+                border-radius: 10px;
+                font-weight: 600;
+                font-size: 14px;
+                transition: all 0.3s ease;
+                border: 1px solid rgba(197, 160, 89, 0.2);
+                letter-spacing: 0.3px;
+                align-self: flex-start;
+                margin-top: 4px;
+            }
+
+            .cbr-banner-card:hover .cbr-banner-btn {
+                background: #c5a059;
+                color: #0a1f33;
+                transform: translateX(4px);
+                border-color: #c5a059;
+                box-shadow: 0 4px 20px rgba(197, 160, 89, 0.3);
+            }
+
+            .cbr-banner-image {
+                flex: 0.8;
+                height: 100%;
+                min-height: 200px;
+                overflow: hidden;
+                background: #0f2840;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .cbr-banner-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.5s ease;
+            }
+
+            .cbr-banner-card:hover .cbr-banner-image img {
+                transform: scale(1.03);
+            }
+
+            /* ===== АДАПТИВ ===== */
+            @media screen and (max-width: 900px) {
+                .cbr-banner-card {
+                    flex-direction: column-reverse;
+                    min-height: auto;
+                }
+                .cbr-banner-content {
+                    padding: 28px 24px 32px 24px;
+                    width: 100%;
+                    flex: 1;
+                }
+                .cbr-banner-title {
+                    font-size: 22px;
+                }
+                .cbr-banner-desc {
+                    font-size: 14px;
+                }
+                .cbr-banner-image {
+                    width: 100%;
+                    min-height: 180px;
+                    max-height: 240px;
+                }
+                .cbr-banner-image img {
+                    object-fit: cover;
+                    width: 100%;
+                    height: 100%;
+                }
+                .cbr-banner-btn {
+                    padding: 10px 24px;
+                    font-size: 13px;
+                    width: 100%;
+                    text-align: center;
+                    align-self: stretch;
+                }
+                .cbr-banner-card:hover .cbr-banner-btn {
+                    transform: none;
+                }
+                .cbr-banner-features {
+                    gap: 10px;
+                }
+                .cbr-banner-features span {
+                    font-size: 11px;
+                    padding: 3px 12px;
+                }
+            }
+
+            @media screen and (max-width: 480px) {
+                .cbr-banner-content {
+                    padding: 20px 16px 24px 16px;
+                }
+                .cbr-banner-title {
+                    font-size: 19px;
+                }
+                .cbr-banner-desc {
+                    font-size: 13px;
+                }
+                .cbr-banner-image {
+                    min-height: 140px;
+                    max-height: 180px;
+                }
+                .cbr-banner-label {
+                    font-size: 10px;
+                }
+                .cbr-banner-features {
+                    gap: 8px;
+                }
+                .cbr-banner-features span {
+                    font-size: 10px;
+                    padding: 2px 10px;
+                }
+                .cbr-banner-btn {
+                    padding: 10px 16px;
+                    font-size: 13px;
+                }
+            }
+        </style>
         <!-- ======================================== -->
         <!-- БЛОК 3: ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ (ОБНОВЛЁН) -->
         <!-- ======================================== -->
