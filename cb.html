@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Банк России — Общественная приемная</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        /* =============================================
+           ГЛОБАЛЬНЫЕ СТИЛИ
+           ============================================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fff;
+            color: #2b2e33;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        a { text-decoration: none; color: #08c; }
+        a:hover { color: #0099e6; }
+        
+        .container { max-width: 1216px; margin: 0 auto; padding: 0 20px; width: 100%; }
+        
+        /* =============================================
+           ХЕДЕР (как на ЦБ)
+           ============================================= */
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #e8e9eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .header-menu-btn {
+            width: 40px;
+            height: 40px;
+            background: url('menu.svg') no-repeat center;
+            background-size: 24px 16px;
+            cursor: pointer;
+            border: none;
+            transition: opacity 0.3s;
+        }
+        .header-menu-btn:hover { opacity: 0.6; }
+        
+        .header-logo { display: block; height: 40px; }
+        .header-logo img { height: 100%; width: auto; }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .header-right a {
+            display: block;
+            width: 24px;
+            height: 24px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        .header-right a:hover { opacity: 1; }
+        
+        .header-mail { background-image: url('header-mail.svg'); }
+        .header-search { background-image: url('search-icon-v3.svg'); }
+        .header-glasses {
+            background-image: url('icon-la-glasses-v3.svg');
+            width: 26px !important;
+        }
+        
+        .header-lang {
+            font-size: 14px;
+            font-weight: 500;
+            color: #8f96a3;
+            display: flex;
+            gap: 4px;
+        }
+        .header-lang a {
+            color: #8f96a3;
+            width: auto !important;
+            height: auto !important;
+            opacity: 1 !important;
+            font-size: 14px;
+            padding: 0 4px;
+        }
+        .header-lang a.active {
+            color: #111214;
+            font-weight: 600;
+        }
+        .header-lang a:hover { color: #111214; }
+        
+        @media (max-width: 768px) {
+            .header-right .header-mail,
+            .header-right .header-glasses,
+            .header-right .header-lang { display: none; }
+            .header-logo { height: 32px; }
+        }
+        
+        /* =============================================
+           НАВИГАЦИЯ (как на ЦБ)
+           ============================================= */
+        .header-nav {
+            background: #f5f5f5;
+            border-bottom: 1px solid #e8e9eb;
+        }
+        
+        .header-nav-inner {
+            display: flex;
+            gap: 32px;
+            padding: 12px 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .header-nav-inner::-webkit-scrollbar { height: 0; }
+        
+        .header-nav a {
+            color: #111214;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+        }
+        .header-nav a:hover { border-bottom-color: #08c; }
+        .header-nav a.active { border-bottom-color: #08c; }
+        
+        @media (max-width: 768px) {
+            .header-nav-inner { gap: 16px; }
+            .header-nav a { font-size: 13px; }
+        }
+        
+        /* =============================================
+           БАННЕР С ФОТО ЗДАНИЯ
+           ============================================= */
+        .home-header {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 32px 0 48px;
+            min-height: 400px;
+        }
+        
+        .home-header_bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('cb_zdanie.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: 0;
+        }
+        
+        .home-header_bg:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+        
+        .home-header_content {
+            position: relative;
+            z-index: 2;
+            padding: 60px 48px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .home-header_supertitle {
+            color: #00ccf5;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .home-header_title {
+            color: #fff;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.2;
+            max-width: 600px;
+        }
+        
+        .home-header_title span {
+            color: #00ccf5;
+        }
+        
+        .home-header_subtitle {
+            color: rgba(255,255,255,0.85);
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 500px;
+            margin-top: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            padding: 14px 40px;
+            background: #08c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .btn-primary:hover { background: #0099e6; }
+        
+        .home-header_bottom {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            padding: 16px 32px;
+            background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+        }
+        
+        .home-header_nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .home-header_nav_pag {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .home-header_nav_btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #fff;
+        }
+        .home-header_nav_btn:hover {
+            background: rgba(255,255,255,0.4);
+        }
+        
+        @media (max-width: 992px) {
+            .home-header_content { padding: 40px 32px; min-height: 320px; }
+            .home-header_title { font-size: 28px; }
+        }
+        @media (max-width: 768px) {
+            .home-header { margin: 16px 0 24px; min-height: 280px; border-radius: 8px; }
+            .home-header_content { padding: 24px 20px; min-height: 280px; }
+            .home-header_title { font-size: 22px; }
+            .home-header_subtitle { font-size: 15px; }
+            .home-header_bottom { padding: 12px 16px; }
+        }
+        
+        /* =============================================
+           КУРСЫ ВАЛЮТ
+           ============================================= */
+        .main-indicator_rates {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 20px 32px;
+            margin-bottom: 40px;
+        }
+        
+        .main-indicator_rates-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            color: #8f96a3;
+            font-size: 14px;
+        }
+        .main-indicator_rates-head a { color: #8f96a3; }
+        .main-indicator_rates-head a:hover { color: #111214; }
+        
+        .main-indicator_rate {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-top: 1px solid #e8e9eb;
+            font-size: 14px;
+        }
+        .main-indicator_rate:first-child { border-top: none; }
+        .main-indicator_rate .currency { font-weight: 500; color: #111214; }
+        .main-indicator_rate .value { font-weight: 600; color: #111214; }
+        .main-indicator_rate .change { font-size: 12px; }
+        .main-indicator_rate .change.up { color: #2aa65e; }
+        .main-indicator_rate .change.down { color: #ed1a34; }
+        
+        @media (max-width: 768px) {
+            .main-indicator_rates { padding: 16px; }
+            .main-indicator_rates-head { flex-wrap: wrap; gap: 8px; }
+        }
+        
+        /* =============================================
+           ОСНОВНЫЕ ПОКАЗАТЕЛИ
+           ============================================= */
+        .main-indicators {
+            margin-bottom: 40px;
+        }
+        .main-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #e8e9eb;
+        }
+        .main-indicator:last-child { border-bottom: none; }
+        
+        .main-indicator_content .main-indicator_text {
+            font-size: 14px;
+            color: #2b2e33;
+        }
+        .main-indicator_content .main-indicator_text a {
+            color: #2b2e33;
+            text-decoration: none;
+        }
+        .main-indicator_content .main-indicator_text a:hover {
+            text-decoration: underline;
+        }
+        .main-indicator_content .main-indicator_sub {
+            font-size: 13px;
+            color: #8f96a3;
+        }
+        .main-indicator_content .main-indicator_sub a {
+            color: #8f96a3;
+            text-decoration: none;
+        }
+        .main-indicator_content .main-indicator_sub a:hover {
+            color: #111214;
+        }
+        
+        .main-indicator_value {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111214;
+        }
+        .main-indicator_value.blue { color: #08c; }
+        .main-indicator_value.red { color: #ed1a34; }
+        .main-indicator_value.green { color: #2aa65e; }
+        
+        .main-indicator_comment {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4px;
+            font-size: 12px;
+            color: #8f96a3;
+        }
+        .main-indicator_comment a { color: #8f96a3; }
+        .main-indicator_comment a:hover { color: #111214; }
+        
+        @media (max-width: 768px) {
+            .main-indicator { flex-wrap: wrap; gap: 8px; }
+            .main-indicator_value { font-size: 18px; }
+        }
+        
+        /* =============================================
+           НОВОСТИ + БОКОВАЯ ПАНЕЛЬ
+           ============================================= */
+        .home-main {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+        
+        .home-main_content { flex: 2; }
+        .home-main_aside { flex: 1; min-width: 280px; }
+        
+        .news-list .news-item {
+            border-bottom: 1px solid #e8e9eb;
+            padding: 16px 0;
+        }
+        .news-item:first-child { padding-top: 0; }
+        .news-item .date {
+            font-size: 12px;
+            color: #8f96a3;
+            margin-bottom: 4px;
+        }
+        .news-item .title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #111214;
+        }
+        .news-item .title:hover { text-decoration: underline; }
+        .news-item .category {
+            font-size: 12px;
+            color: #ed1a34;
+            font-weight: 500;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111214;
+        }
+        .all-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: #08c;
+            float: right;
+        }
+        .all-link:hover { text-decoration: underline; }
+        
+        @media (max-width: 992px) {
+            .home-main { flex-direction: column; }
+            .home-main_aside { min-width: 0; }
+        }
+        
+        /* =============================================
+           БЛОК "ВАЖНОЕ"
+           ============================================= */
+        .important {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .important_title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111214;
+            margin-bottom: 16px;
+        }
+        .important_item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 0;
+            border-bottom: 1px solid #e8e9eb;
+            color: #111214;
+            font-size: 14px;
+        }
+        .important_item:last-child { border-bottom: none; }
+        .important_item:hover { color: #08c; }
+        .important_item img {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+        }
+        
+        /* =============================================
+           ПРОЕКТЫ
+           ============================================= */
+        .russian-bank-projects {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .russian-bank-projects_title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111214;
+            margin-bottom: 16px;
+        }
+        .russian-bank-project {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 0;
+            border-bottom: 1px solid #e8e9eb;
+            color: #111214;
+        }
+        .russian-bank-project:last-child { border-bottom: none; }
+        .russian-bank-project:hover { color: #08c; }
+        .russian-bank-project img {
+            height: 32px;
+            width: auto;
+            flex-shrink: 0;
+        }
+        .russian-bank-project_text {
+            font-size: 13px;
+            color: #676e7b;
+        }
+        
+        /* =============================================
+           БЛОК ЗАПИСИ
+           ============================================= */
+        .cta-block {
+            background: #fff;
+            border: 1px solid #e8e9eb;
+            border-radius: 12px;
+            padding: 40px 48px;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .cta-block h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #111214;
+            margin-bottom: 8px;
+        }
+        .cta-block p {
+            color: #676e7b;
+            font-size: 16px;
+            margin-bottom: 24px;
+        }
+        .cta-block .btn-primary {
+            font-size: 18px;
+            padding: 16px 48px;
+        }
+        
+        @media (max-width: 768px) {
+            .cta-block { padding: 24px; }
+            .cta-block h2 { font-size: 22px; }
+        }
+        
+        /* =============================================
+           ПОДВАЛ (точная копия ЦБ)
+           ============================================= */
+        .footer {
+            background: #2b2e33;
+            color: #bcc1cc;
+            margin-top: auto;
+        }
+        
+        .footer_main {
+            padding-top: 48px;
+            padding-bottom: 36px;
+            color: #fff;
+            background-color: #6c717b;
+        }
+        
+        .footer_top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .footer_logo {
+            display: block;
+            width: 192px;
+            height: 48px;
+            background: url('logo-white.svg') no-repeat center;
+            background-size: contain;
+        }
+        
+        .footer_up {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+        }
+        .footer_up_title {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .footer_up_icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: url('icon-goto-up.svg') no-repeat center #a4a9b3;
+            background-size: 24px 24px;
+            transition: 0.3s;
+        }
+        .footer_up_icon:hover { background-color: #fff; }
+        
+        .footer_address {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.2;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+        
+        .footer_phones {
+            display: table;
+            margin-top: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .footer_phone { display: table-row; }
+        .footer_phone_val {
+            display: table-cell;
+            color: #e5e8ee;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+            padding-right: 16px;
+        }
+        .footer_phone span {
+            display: table-cell;
+            color: #bcc1cc;
+            font-size: 13px;
+        }
+        
+        .footer_main_block {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 32px;
+        }
+        
+        .footer_left-menu {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .footer_left-menu_item { margin-bottom: 12px; }
+        .footer_left-menu_item a {
+            color: #fff;
+            font-weight: 500;
+        }
+        .footer_left-menu_item a:hover { text-decoration: underline; }
+        
+        .networks-circle {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .networks-circle_item {
+            display: block;
+            width: 40px;
+            height: 40px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .networks-circle_item:hover { opacity: 1; }
+        .networks-circle_item._vk { background-image: url('vkontakte-circle.svg'); }
+        .networks-circle_item._yt { background-image: url('youtube-circle.svg'); }
+        .networks-circle_item._tg { background-image: url('telegram-circle.svg'); }
+        .networks-circle_item._ydzen { background-image: url('yandex-dzen-circle.svg'); }
+        .networks-circle_item._ok { background-image: url('ok-circle.svg'); }
+        .networks-circle_item._rt { background-image: url('rutube-circle.svg'); }
+        .networks-circle_item._max { background-image: url('max-circle.svg'); }
+        
+        .footer_menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            margin-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .footer_menu_items { display: flex; gap: 32px; }
+        .footer_menu_item a { color: #fff; }
+        .footer_menu_item a:hover { text-decoration: underline; }
+        
+        .footer_menu_item._visually-impaired {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer_visually-impaired-icon {
+            width: 24px;
+            height: 24px;
+            background: url('icon-la-glasses.svg') no-repeat center;
+            background-size: contain;
+        }
+        
+        .footer_bottom {
+            background: #2c323d;
+            padding: 24px 0;
+        }
+        .footer_bottom-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .footer_bottom_text {
+            color: #9099a3;
+            font-size: 12px;
+        }
+        .footer_bottom_aic {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #9099a3;
+            font-size: 12px;
+        }
+        .footer_bottom_aic a { color: #9099a3; }
+        
+        @media (max-width: 992px) {
+            .footer_main_block {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 24px;
+            }
+            .footer_menu {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            .footer_menu_items { flex-wrap: wrap; gap: 16px; }
+            .footer_bottom-container { flex-direction: column; text-align: center; }
+        }
+        @media (max-width: 768px) {
+            .footer_main { padding: 24px 16px; }
+            .footer_top { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .footer_logo { width: 128px; height: 32px; }
+            .footer_phone { display: block; margin-bottom: 8px; }
+            .footer_phone_val { display: block; font-size: 16px; }
+            .footer_phone span { display: block; font-size: 12px; padding-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========================================================== -->
+<!-- ХЕДЕР -->
+<!-- ========================================================== -->
+<header class="header">
+    <div class="container">
+        <div class="header-inner">
+            <div class="header-left">
+                <button class="header-menu-btn" aria-label="Меню"></button>
+                <a href="index.html" class="header-logo">
+                    <img src="logo-v3.svg" alt="Банк России">
+                </a>
+            </div>
+            <div class="header-right">
+                <a href="#" class="header-glasses" aria-label="Версия для слабовидящих"></a>
+                <a href="#" class="header-search" aria-label="Поиск"></a>
+                <a href="#" class="header-mail" aria-label="Почта"></a>
+                <div class="header-lang">
+                    <a href="#" class="active">RU</a>
+                    <a href="#">EN</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ========================================================== -->
+<!-- НАВИГАЦИЯ -->
+<!-- ========================================================== -->
+<nav class="header-nav">
+    <div class="container">
+        <div class="header-nav-inner">
+            <a href="index.html" class="active">Главная</a>
+            <a href="#">О банке</a>
+            <a href="#">Документы</a>
+            <a href="#">Денежно-кредитная политика</a>
+            <a href="#">Финансовые рынки</a>
+            <a href="booking.html">Запись на прием</a>
+            <a href="#">Контакты</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ========================================================== -->
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<!-- ========================================================== -->
+<main>
+    <div class="container">
+
+        <!-- БАННЕР С ФОТО ЗДАНИЯ -->
+        <div class="home-header">
+            <div class="home-header_bg"></div>
+            <div class="home-header_content">
+                <div class="home-header_supertitle">Общественная приемная</div>
+                <h1 class="home-header_title">Центральный банк<br><span>Российской Федерации</span></h1>
+                <p class="home-header_subtitle">Обеспечиваем ценовую и финансовую стабильность, создаем условия для устойчивого роста экономики</p>
+                <div>
+                    <a href="booking.html" class="btn-primary">Записаться на прием →</a>
+                </div>
+            </div>
+            <div class="home-header_bottom">
+                <div class="home-header_nav">
+                    <div class="home-header_nav_pag">1 / 1</div>
+                    <div class="home-header_nav_btns">
+                        <div class="home-header_nav_btn">‹</div>
+                        <div class="home-header_nav_btn">›</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- КУРСЫ ВАЛЮТ -->
+        <div class="main-indicator_rates">
+            <div class="main-indicator_rates-head">
+                <span><a href="#">Курсы валют</a></span>
+                <span><a href="#">22.07.2026</a></span>
+                <span><a href="#">23.07.2026</a></span>
+            </div>
+            <div class="main-indicator_rate">
+                <span class="currency">CNY, 1¥</span>
+                <span class="value">11,6091 ₽</span>
+                <span class="change up">▲ 0,03</span>
+            </div>
+            <div class="main-indicator_rate">
+                <span class="currency">USD, 1$</span>
+                <span class="value">78,5540 ₽</span>
+                <span class="change down">▼ 0,08</span>
+            </div>
+            <div class="main-indicator_rate">
+                <span class="currency">EUR, 1€</span>
+                <span class="value">89,7558 ₽</span>
+                <span class="change up">▲ 0,15</span>
+            </div>
+        </div>
+
+        <!-- ОСНОВНЫЕ ПОКАЗАТЕЛИ -->
+        <div class="main-indicators">
+            <div class="main-indicator">
+                <div class="main-indicator_content">
+                    <div class="main-indicator_text">Цель по инфляции</div>
+                </div>
+                <div class="main-indicator_value">4,0%</div>
+            </div>
+            <div class="main-indicator">
+                <div class="main-indicator_content">
+                    <div class="main-indicator_sub"><a href="#">Инфляция</a></div>
+                    <div class="main-indicator_text"><a href="#">июнь 2026</a></div>
+                </div>
+                <div class="main-indicator_value red">6,0%</div>
+            </div>
+            <div class="main-indicator">
+                <div class="main-indicator_content">
+                    <div class="main-indicator_sub"><a href="#">Ключевая ставка</a></div>
+                    <div class="main-indicator_text"><a href="#">с 22.06.2026</a></div>
+                </div>
+                <div class="main-indicator_value blue">14,25%</div>
+            </div>
+            <div class="main-indicator">
+                <div class="main-indicator_content">
+                    <div class="main-indicator_sub"><a href="#">Ставка RUONIA</a></div>
+                    <div class="main-indicator_text">21.07.2026</div>
+                </div>
+                <div class="main-indicator_value">14,57%</div>
+            </div>
+        </div>
+
+        <!-- 2 КОЛОНКИ -->
+        <div class="home-main">
+            <div class="home-main_content">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                    <h2 class="section-title" style="margin-bottom:0;">Новости</h2>
+                    <a href="#" class="all-link">Все новости →</a>
+                </div>
+                
+                <div class="news-item">
+                    <div class="date">24 июля 2026</div>
+                    <div class="title">Установлены факты неправомерного использования инсайдерской информации</div>
+                    <div class="category">Пресс-релиз</div>
+                </div>
+                <div class="news-item">
+                    <div class="date">23 июля 2026</div>
+                    <div class="title">Система страхования вкладов распространяется на электронные кошельки</div>
+                    <div class="category">Законодательство</div>
+                </div>
+                <div class="news-item">
+                    <div class="date">22 июля 2026</div>
+                    <div class="title">Установлено регулирование криптовалют на российском рынке</div>
+                    <div class="category">Регулирование</div>
+                </div>
+            </div>
+
+            <div class="home-main_aside">
+                <!-- Важное -->
+                <div class="important">
+                    <div class="important_title">Важное</div>
+                    <a href="#" class="important_item">
+                        <img src="1.svg" alt="Издания">
+                        Издания Банка России
+                    </a>
+                    <a href="#" class="important_item">
+                        <img src="2.svg" alt="График">
+                        График публикаций
+                    </a>
+                    <a href="#" class="important_item">
+                        <img src="5.svg" alt="Статистика">
+                        Статистика
+                    </a>
+                    <a href="#" class="important_item">
+                        <img src="4.svg" alt="Параметры">
+                        Параметры операций Банка России
+                    </a>
+                </div>
+
+                <!-- Проекты -->
+                <div class="russian-bank-projects">
+                    <div class="russian-bank-projects_title">Проекты Банка России</div>
+                    <a href="#" class="russian-bank-project">
+                        <img src="finance-culture.svg" alt="Финансовая культура">
+                        <div>
+                            <div style="font-weight:500;color:#111214;">Финансовая культура</div>
+                            <div class="russian-bank-project_text">Просветительский проект о бережном отношении к финансам</div>
+                        </div>
+                    </a>
+                    <a href="#" class="russian-bank-project">
+                        <img src="econs.svg" alt="ЭКОНОС">
+                        <div>
+                            <div style="font-weight:500;color:#111214;">ЭКОНОС</div>
+                            <div class="russian-bank-project_text">Популярно о научных исследованиях по экономике</div>
+                        </div>
+                    </a>
+                    <a href="#" class="russian-bank-project">
+                        <img src="bank-rus-museum.svg" alt="Музей">
+                        <div>
+                            <div style="font-weight:500;color:#111214;">Музей Банка России</div>
+                            <div class="russian-bank-project_text">Запись на экскурсии и уникальные материалы</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- БЛОК ЗАПИСИ -->
+        <div class="cta-block">
+            <h2>Запись в Общественную приемную</h2>
+            <p>Выберите удобное время и запишитесь на личный прием в центральном аппарате Банка России</p>
+            <a href="booking.html" class="btn-primary">Записаться на прием →</a>
+        </div>
+
+    </div>
+</main>
+
+<!-- ========================================================== -->
+<!-- ПОДВАЛ (точная копия ЦБ) -->
+<!-- ========================================================== -->
+<footer class="footer">
+    <div class="footer_main">
+        <div class="container">
+            <div class="footer_top">
+                <a class="footer_logo" href="index.html"></a>
+                <div class="footer_up" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+                    <div class="footer_up_title">Наверх</div>
+                    <div class="footer_up_icon"></div>
+                </div>
+            </div>
+            
+            <div class="footer_contacts">
+                <div class="footer_address">107016, Москва, ул. Неглинная, д. 12, к. В, Банк России</div>
+                <div class="footer_phones">
+                    <div class="footer_phone">
+                        <a class="footer_phone_val" href="tel:300">300</a>
+                        <span>(круглосуточно, бесплатно для звонков с мобильных телефонов)</span>
+                    </div>
+                    <div class="footer_phone">
+                        <a class="footer_phone_val" href="tel:88003003000">8 800 300-30-00</a>
+                        <span>(круглосуточно, бесплатно для звонков из регионов России)</span>
+                    </div>
+                    <div class="footer_phone">
+                        <a class="footer_phone_val" href="tel:+74993003000">+7 499 300-30-00</a>
+                        <span>(круглосуточно, в соответствии с тарифами вашего оператора)</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer_main_block">
+                <div class="footer_left-menu">
+                    <div class="footer_left-menu_item"><a href="#">Личный кабинет участника информационного обмена</a></div>
+                    <div class="footer_left-menu_item"><a href="#">Отношения с инвесторами</a></div>
+                    <div class="footer_left-menu_item"><a href="#">Перечень инсайдерской информации</a></div>
+                    <div class="footer_left-menu_item"><a href="#">Официальное опубликование нормативных актов</a></div>
+                    <div class="footer_left-menu_item"><a href="#">Проекты нормативных актов</a></div>
+                    <div class="footer_left-menu_item"><a href="#">Перечень нерабочих праздничных дней</a></div>
+                </div>
+                <div class="networks-circle">
+                    <a class="networks-circle_item _vk" href="#" title="ВКонтакте"></a>
+                    <a class="networks-circle_item _yt" href="#" title="YouTube"></a>
+                    <a class="networks-circle_item _tg" href="#" title="Telegram"></a>
+                    <a class="networks-circle_item _ydzen" href="#" title="Яндекс Дзен"></a>
+                    <a class="networks-circle_item _ok" href="#" title="Одноклассники"></a>
+                    <a class="networks-circle_item _rt" href="#" title="RUTUBE"></a>
+                    <a class="networks-circle_item _max" href="#" title="Макс"></a>
+                </div>
+            </div>
+            
+            <div class="footer_menu">
+                <div class="footer_menu_items">
+                    <div class="footer_menu_item"><a href="#">О сайте</a></div>
+                    <div class="footer_menu_item"><a href="#">Контакты</a></div>
+                    <div class="footer_menu_item"><a href="#">Противодействие коррупции</a></div>
+                    <div class="footer_menu_item"><a href="#">Технические ресурсы</a></div>
+                </div>
+                <div class="footer_menu_item _visually-impaired">
+                    <div class="footer_visually-impaired-icon"></div>
+                    <a href="#">Версия для слабовидящих</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer_bottom">
+        <div class="container">
+            <div class="footer_bottom-container">
+                <div class="footer_bottom_text">© Банк России, 2000–2026.</div>
+                <div class="footer_bottom_aic">
+                    Дизайн сайта — <a href="https://aic.ru" target="_blank">AIC</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
