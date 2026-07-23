@@ -296,6 +296,7 @@
             border-radius: 4px;
             background: #fafafa;
             transition: background 0.2s;
+            cursor: default;
         }
         .calendar-cell.empty { background: transparent; }
         .calendar-cell.disabled {
@@ -325,6 +326,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 4px;
+            margin-top: 4px;
         }
 
         .calendar-time-slot {
@@ -978,9 +980,9 @@
                     <!-- Календарь генерируется JS -->
                 </div>
 
-                <div style="text-align:center;margin-top:24px;">
+                <div style="text-align:center;margin-top:24px;" id="nextButtonWrapper">
                     <button class="booking-form-submit" id="nextToFormBtn" onclick="showBookingForm()">
-                        Выбрать время →
+                        Продолжить →
                     </button>
                 </div>
             </div>
@@ -1193,25 +1195,66 @@
         ];
 
         const DAYS_SHORT = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
-        const TIME_SLOTS = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30',
-            '13:30', '14:00', '14:30', '15:00', '15:30'
-        ];
 
-        // ===== ИЗМЕНЕНО: доступно С 25 АВГУСТА =====
-        const AVAILABLE_FROM = new Date(2026, 7, 25);
+        // ===== ФИКСИРОВАННЫЙ СПИСОК ВРЕМЕНИ (6 слотов) =====
+        const TIME_SLOTS = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00'];
 
+        // ===== ДАТА, С КОТОРОЙ ВСЁ ОТКРЫТО =====
+        const AVAILABLE_FROM = new Date(2026, 7, 25); // 25 августа 2026
+
+        // ===== ПЕРЕМЕННЫЕ =====
         let selectedDate = null;
         let selectedTime = null;
         let selectedDateTime = null;
+        let closedDates = [];
 
         // =============================================================
-        // ГЕНЕРАЦИЯ КАЛЕНДАРЯ (с выходными)
+        // ЗАГРУЗКА SCHEDULE.JSON
+        // =============================================================
+
+        async function loadSchedule() {
+            try {
+                const response = await fetch('schedule.json');
+                if (!response.ok) {
+                    console.warn('schedule.json не найден, все даты открыты');
+                    return;
+                }
+                const data = await response.json();
+                if (data && data.closed_dates) {
+                    closedDates = data.closed_dates;
+                    console.log('📅 Загружены закрытые даты:', closedDates);
+                }
+            } catch (e) {
+                console.warn('Ошибка загрузки schedule.json:', e);
+            }
+        }
+
+        // =============================================================
+        // ПРОВЕРКА — ЗАКРЫТА ЛИ ДАТА
+        // =============================================================
+
+        function isDateClosed(dateStr) {
+            // Если дата после 25 августа — всегда открыта
+            const parts = dateStr.split('-');
+            const year = parseInt(parts[0]);
+            const month = parseInt(parts[1]) - 1;
+            const day = parseInt(parts[2]);
+            const dateObj = new Date(year, month, day);
+            if (dateObj >= AVAILABLE_FROM) {
+                return false; // после 25 августа всё открыто
+            }
+            // Проверяем по списку закрытых
+            return closedDates.includes(dateStr);
+        }
+
+        // =============================================================
+        // ГЕНЕРАЦИЯ КАЛЕНДАРЯ
         // =============================================================
 
         function generateCalendar() {
             const container = document.getElementById('calendarContainer');
-            const startMonth = 6;
-            const endMonth = 8;
+            const startMonth = 6; // Июнь
+            const endMonth = 8;   // Август
 
             let html = '<div class="calendar-months">';
 
@@ -1241,43 +1284,38 @@
                         } else if (day > daysInMonth) {
                             html += `<div class="calendar-cell empty"></div>`;
                         } else {
+                            const dateStr = `${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
                             const dateObj = new Date(year, m, day);
                             const isWeekend = (d === 5 || d === 6);
-                            const isAvailable = dateObj >= AVAILABLE_FROM && !isWeekend;
+                            const isClosed = isDateClosed(dateStr);
+                            const isAvailable = !isWeekend && !isClosed && dateObj >= new Date(2026, 5, 27);
 
                             let cellClass = 'calendar-cell';
                             if (isWeekend) {
                                 cellClass += ' weekend disabled';
+                            } else if (isClosed) {
+                                cellClass += ' disabled';
                             } else if (!isAvailable) {
                                 cellClass += ' disabled';
                             } else {
                                 cellClass += ' available';
                             }
 
-                            html +=
-                                `<div class="${cellClass}" data-date="${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}" onclick="selectDate(this, '${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}')">`;
-                            html += `<div class="calendar-day-title${isWeekend ? ' weekend' : ''}">${day}</div>`;
-
-                            if (isAvailable && !isWeekend) {
-                                html += `<div class="calendar-time-slots">`;
-                                let slotsAdded = 0;
+                            // Если дата открыта — показываем слоты времени
+                            let timeSlotsHtml = '';
+                            if (isAvailable && !isWeekend && !isClosed) {
+                                timeSlotsHtml += `<div class="calendar-time-slots">`;
                                 for (let t of TIME_SLOTS) {
-                                    if (slotsAdded < 3) {
-                                        html +=
-                                            `<div class="calendar-time-slot available" data-time="${t}" onclick="selectTime(event, '${t}', '${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}')">${t}</div>`;
-                                        slotsAdded++;
-                                    } else {
-                                        html +=
-                                            `<div class="calendar-time-slot available hidden" data-time="${t}" onclick="selectTime(event, '${t}', '${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}')">${t}</div>`;
-                                    }
+                                    timeSlotsHtml +=
+                                        `<div class="calendar-time-slot available" data-time="${t}" onclick="selectTime(event, '${t}', '${dateStr}')">${t}</div>`;
                                 }
-                                if (TIME_SLOTS.length > 3) {
-                                    html +=
-                                        `<div style="font-size:10px;color:#8f96a3;cursor:pointer;width:100%;text-align:center;padding-top:4px;" onclick="toggleSlots(this)">+ еще</div>`;
-                                }
-                                html += `</div>`;
+                                timeSlotsHtml += `</div>`;
                             }
 
+                            html +=
+                                `<div class="${cellClass}" data-date="${dateStr}" onclick="selectDate(this, '${dateStr}')">`;
+                            html += `<div class="calendar-day-title${isWeekend ? ' weekend' : ''}">${day}</div>`;
+                            html += timeSlotsHtml;
                             html += `</div>`;
                             day++;
                         }
@@ -1297,49 +1335,62 @@
         // =============================================================
 
         function selectDate(el, dateStr) {
+            // Если дата уже выбрана — снимаем выделение
+            if (el.classList.contains('selected')) {
+                el.classList.remove('selected');
+                selectedDate = null;
+                selectedTime = null;
+                selectedDateTime = null;
+                document.getElementById('selectedDateTime').textContent = '—';
+                document.getElementById('nextToFormBtn').textContent = 'Продолжить →';
+                document.getElementById('nextToFormBtn').style.background = '#08c';
+                return;
+            }
+
+            // Снимаем выделение со всех дат
             document.querySelectorAll('.calendar-cell.available.selected').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
             selectedDate = dateStr;
             selectedTime = null;
             document.querySelectorAll('.calendar-time-slot.selected').forEach(s => s.classList.remove('selected'));
+
+            // Обновляем кнопку
+            document.getElementById('selectedDateTime').textContent = dateStr;
+            document.getElementById('nextToFormBtn').textContent = 'Выберите время';
+            document.getElementById('nextToFormBtn').style.background = '#888';
         }
 
         function selectTime(event, time, dateStr) {
             event.stopPropagation();
 
+            // Если дата не выбрана — выбираем её
             if (!selectedDate || selectedDate !== dateStr) {
                 const cell = document.querySelector(`.calendar-cell[data-date="${dateStr}"]`);
                 if (cell) {
-                    document.querySelectorAll('.calendar-cell.available.selected').forEach(c => c.classList.remove(
-                    'selected'));
+                    document.querySelectorAll('.calendar-cell.available.selected').forEach(c => c.classList.remove('selected'));
                     cell.classList.add('selected');
                     selectedDate = dateStr;
                 }
             }
 
+            // Снимаем выделение с других слотов времени
             document.querySelectorAll('.calendar-time-slot.selected').forEach(s => s.classList.remove('selected'));
             event.target.classList.add('selected');
             selectedTime = time;
             selectedDateTime = `${selectedDate} ${time}`;
 
             document.getElementById('selectedDateTime').textContent = selectedDateTime;
-            document.getElementById('nextToFormBtn').textContent = 'Далее →';
+            document.getElementById('nextToFormBtn').textContent = 'Продолжить →';
             document.getElementById('nextToFormBtn').style.background = '#08c';
-        }
 
-        function toggleSlots(el) {
-            const container = el.parentElement;
-            const hiddenSlots = container.querySelectorAll('.calendar-time-slot.hidden');
-            if (hiddenSlots.length > 0) {
-                hiddenSlots.forEach(s => s.classList.remove('hidden'));
-                el.textContent = '− скрыть';
-            } else {
-                const allSlots = container.querySelectorAll('.calendar-time-slot');
-                allSlots.forEach((s, i) => {
-                    if (i >= 3) s.classList.add('hidden');
+            // ===== ПЛАВНЫЙ СКРОЛЛ К КНОПКЕ =====
+            setTimeout(() => {
+                const button = document.getElementById('nextToFormBtn');
+                button.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
                 });
-                el.textContent = '+ еще';
-            }
+            }, 300);
         }
 
         // =============================================================
@@ -1500,7 +1551,7 @@
             document.getElementById('formEmail').value = '';
             document.getElementById('formComment').value = '';
             document.getElementById('selectedDateTime').textContent = '—';
-            document.getElementById('nextToFormBtn').textContent = 'Выбрать время →';
+            document.getElementById('nextToFormBtn').textContent = 'Продолжить →';
             document.getElementById('nextToFormBtn').style.background = '#08c';
             document.getElementById('qrContainer').innerHTML = '';
             document.getElementById('barcodeContainer').innerHTML = '';
@@ -1516,7 +1567,10 @@
         // ИНИЦИАЛИЗАЦИЯ
         // =============================================================
 
-        document.addEventListener('DOMContentLoaded', generateCalendar);
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadSchedule();
+            generateCalendar();
+        });
     </script>
 
 </body>
