@@ -5,12 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Запись в Общественную приемную Банка России</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- ===== БИБЛИОТЕКА ДЛЯ ШТРИХ-КОДА ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js">
+    </script>
+
+    <!-- ===== БИБЛИОТЕКА ДЛЯ СОХРАНЕНИЯ В PNG ===== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+    </script>
+
     <style>
         /* =============================================
            ГЛОБАЛЬНЫЕ СТИЛИ
            ============================================= */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #fff;
@@ -19,12 +28,12 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         a { text-decoration: none; color: #08c; }
         a:hover { color: #0099e6; }
-        
+
         .container { max-width: 1216px; margin: 0 auto; padding: 0 20px; width: 100%; }
-        
+
         /* =============================================
            ХЕДЕР (как на ЦБ)
            ============================================= */
@@ -35,20 +44,20 @@
             top: 0;
             z-index: 100;
         }
-        
+
         .header-inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 12px 0;
         }
-        
+
         .header-left {
             display: flex;
             align-items: center;
             gap: 16px;
         }
-        
+
         .header-menu-btn {
             width: 40px;
             height: 40px;
@@ -59,16 +68,16 @@
             transition: opacity 0.3s;
         }
         .header-menu-btn:hover { opacity: 0.6; }
-        
+
         .header-logo { display: block; height: 40px; }
         .header-logo img { height: 100%; width: auto; }
-        
+
         .header-right {
             display: flex;
             align-items: center;
             gap: 20px;
         }
-        
+
         .header-right a {
             display: block;
             width: 24px;
@@ -80,14 +89,14 @@
             transition: opacity 0.3s;
         }
         .header-right a:hover { opacity: 1; }
-        
+
         .header-mail { background-image: url('header-mail.svg'); }
         .header-search { background-image: url('search-icon-v3.svg'); }
         .header-glasses {
             background-image: url('icon-la-glasses-v3.svg');
             width: 26px !important;
         }
-        
+
         .header-lang {
             font-size: 14px;
             font-weight: 500;
@@ -108,14 +117,14 @@
             font-weight: 600;
         }
         .header-lang a:hover { color: #111214; }
-        
+
         @media (max-width: 768px) {
             .header-right .header-mail,
             .header-right .header-glasses,
             .header-right .header-lang { display: none; }
             .header-logo { height: 32px; }
         }
-        
+
         /* =============================================
            НАВИГАЦИЯ (как на ЦБ)
            ============================================= */
@@ -123,7 +132,7 @@
             background: #f5f5f5;
             border-bottom: 1px solid #e8e9eb;
         }
-        
+
         .header-nav-inner {
             display: flex;
             gap: 32px;
@@ -132,7 +141,7 @@
             -webkit-overflow-scrolling: touch;
         }
         .header-nav-inner::-webkit-scrollbar { height: 0; }
-        
+
         .header-nav a {
             color: #111214;
             font-size: 14px;
@@ -144,12 +153,12 @@
         }
         .header-nav a:hover { border-bottom-color: #08c; }
         .header-nav a.active { border-bottom-color: #08c; }
-        
+
         @media (max-width: 768px) {
             .header-nav-inner { gap: 16px; }
             .header-nav a { font-size: 13px; }
         }
-        
+
         /* =============================================
            ОСНОВНОЙ КОНТЕНТ
            ============================================= */
@@ -157,18 +166,18 @@
             flex: 1;
             padding: 40px 0 60px;
         }
-        
+
         .page-title {
             font-size: 32px;
             font-weight: 600;
             color: #111214;
             margin-bottom: 32px;
         }
-        
+
         @media (max-width: 768px) {
             .page-title { font-size: 24px; }
         }
-        
+
         /* =============================================
            ШАГИ
            ============================================= */
@@ -179,7 +188,7 @@
             padding-bottom: 16px;
             margin-bottom: 24px;
         }
-        
+
         .form-step {
             display: flex;
             align-items: center;
@@ -194,7 +203,7 @@
             color: #bcc1cc;
             font-size: 18px;
         }
-        
+
         .form-step-number {
             width: 32px;
             height: 32px;
@@ -209,14 +218,14 @@
         }
         .form-step.active .form-step-number { background: #08c; }
         .form-step.completed .form-step-number { background: #2aa65e; }
-        
+
         .form-step-title {
             font-size: 16px;
             font-weight: 500;
         }
         .form-step.active .form-step-title { color: #111214; }
         .form-step:not(.active):not(.completed) .form-step-title { color: #bcc1cc; }
-        
+
         @media (max-width: 768px) {
             .form-steps {
                 flex-direction: column;
@@ -225,7 +234,7 @@
             .form-step { padding-right: 0; }
             .form-step:not(:last-child):after { display: none; }
         }
-        
+
         /* =============================================
            КАЛЕНДАРЬ
            ============================================= */
@@ -235,13 +244,13 @@
             font-weight: 600;
             margin-bottom: 20px;
         }
-        
+
         .calendar-wrap {
             border: 1px solid #e8e9eb;
             border-radius: 8px;
             overflow: hidden;
         }
-        
+
         .calendar-months { display: flex; flex-direction: column; }
         .calendar-month {
             padding: 20px 24px;
@@ -254,7 +263,7 @@
             font-weight: 600;
             margin-bottom: 16px;
         }
-        
+
         .calendar-weekdays {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -269,7 +278,7 @@
             font-weight: 500;
             color: #8f96a3;
         }
-        
+
         .calendar-weeks {
             display: flex;
             flex-direction: column;
@@ -280,7 +289,7 @@
             grid-template-columns: repeat(7, 1fr);
             gap: 4px;
         }
-        
+
         .calendar-cell {
             min-height: 80px;
             padding: 8px;
@@ -304,20 +313,20 @@
             color: #fff;
         }
         .calendar-cell.available.selected .calendar-day-title { color: #fff; }
-        
+
         .calendar-day-title {
             font-size: 16px;
             font-weight: 500;
             margin-bottom: 8px;
         }
         .calendar-day-title.weekend { color: #ed1a34; }
-        
+
         .calendar-time-slots {
             display: flex;
             flex-wrap: wrap;
             gap: 4px;
         }
-        
+
         .calendar-time-slot {
             padding: 4px 10px;
             font-size: 12px;
@@ -342,7 +351,7 @@
             border-color: #08c;
             color: #08c;
         }
-        
+
         @media (max-width: 768px) {
             .calendar-month { padding: 12px 16px; }
             .calendar-cell {
@@ -355,7 +364,7 @@
                 padding: 2px 6px;
             }
         }
-        
+
         /* =============================================
            ФОРМА ЗАПИСИ
            ============================================= */
@@ -370,18 +379,18 @@
             display: block;
             animation: fadeIn 0.4s ease;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(16px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .booking-form-title {
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 24px;
         }
-        
+
         .booking-form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -389,13 +398,13 @@
             margin-bottom: 20px;
         }
         .booking-form-group.full-width { grid-column: 1 / -1; }
-        
+
         .booking-form-label {
             font-size: 14px;
             font-weight: 500;
             margin-bottom: 6px;
         }
-        
+
         .booking-form-input {
             padding: 12px 16px;
             border: 1px solid #c4c7cc;
@@ -412,7 +421,7 @@
         .booking-form-input.error {
             border-color: #ed1a34;
         }
-        
+
         .booking-form-error {
             color: #ed1a34;
             font-size: 12px;
@@ -420,7 +429,7 @@
             display: none;
         }
         .booking-form-error.visible { display: block; }
-        
+
         .booking-form-submit {
             padding: 12px 48px;
             background: #08c;
@@ -443,23 +452,23 @@
             background: #f5f5f5;
             color: #111214;
         }
-        
+
         @media (max-width: 768px) {
             .booking-form-row { grid-template-columns: 1fr; }
             .booking-form { padding: 20px; }
             .booking-form-submit { width: 100%; }
         }
-        
+
         /* =============================================
            ПОДТВЕРЖДЕНИЕ - ЭЛЕКТРОННЫЙ ПРОПУСК
            ============================================= */
         .booking-success {
             display: none;
-            max-width: 600px;
+            max-width: 680px;
             margin: 0 auto;
             background: #fff;
             border-radius: 12px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
             border: 1px solid #e8e9eb;
             overflow: hidden;
         }
@@ -467,7 +476,7 @@
             display: block;
             animation: fadeIn 0.5s ease;
         }
-        
+
         .booking-success-header {
             background: #2b2e33;
             padding: 24px 32px;
@@ -482,20 +491,26 @@
             font-weight: 500;
             opacity: 0.7;
         }
-        
-        .booking-success-body { padding: 32px; }
-        
+
+        .booking-success-body {
+            padding: 32px;
+            position: relative;
+        }
+
+        /* Верхняя часть: статус + номер талона + QR */
         .booking-success-top {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
+            gap: 16px;
         }
-        
+
         .booking-success-status {
             display: flex;
             align-items: center;
             gap: 12px;
+            flex: 1;
         }
         .booking-success-status-icon {
             width: 48px;
@@ -518,7 +533,15 @@
             font-size: 14px;
             color: #676e7b;
         }
-        
+
+        /* Номер талона + QR справа */
+        .booking-success-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
         .booking-success-ticket-number {
             text-align: right;
         }
@@ -532,17 +555,33 @@
             color: #111214;
             letter-spacing: 2px;
         }
-        
+
+        /* QR-код */
+        .booking-success-qr {
+            flex-shrink: 0;
+        }
+        .booking-success-qr canvas,
+        .booking-success-qr img {
+            width: 80px;
+            height: 80px;
+            display: block;
+            border: 1px solid #e8e9eb;
+            border-radius: 4px;
+            padding: 4px;
+        }
+
         .booking-success-divider {
             border: none;
             border-top: 2px dashed #e8e9eb;
-            margin: 16px 0 24px;
+            margin: 16px 0 20px;
         }
-        
+
+        /* Детали */
         .booking-success-details {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px 24px;
+            margin-bottom: 20px;
         }
         .booking-success-details-item { display: flex; flex-direction: column; }
         .booking-success-details-item.full { grid-column: 1 / -1; }
@@ -557,7 +596,21 @@
             color: #111214;
             margin-top: 2px;
         }
-        
+
+        /* ===== ШТРИХ-КОД (внизу) ===== */
+        .booking-success-barcode {
+            display: flex;
+            justify-content: center;
+            padding: 12px 0 8px 0;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 8px;
+        }
+        .booking-success-barcode svg {
+            max-width: 100%;
+            height: 60px;
+        }
+
+        /* ===== ФУТЕР ПРОПУСКА ===== */
         .booking-success-footer {
             background: #f5f5f5;
             padding: 16px 32px;
@@ -570,6 +623,7 @@
         .booking-success-footer .btn-group {
             display: flex;
             gap: 8px;
+            flex-wrap: wrap;
         }
         .booking-success-footer button {
             padding: 8px 20px;
@@ -597,23 +651,41 @@
         .booking-success-footer button.primary:hover {
             background: #0099e6;
         }
-        
+
         @media (max-width: 576px) {
             .booking-success-body { padding: 20px; }
             .booking-success-top {
                 flex-direction: column;
-                gap: 16px;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .booking-success-right {
+                justify-content: space-between;
+                width: 100%;
             }
             .booking-success-ticket-number {
                 text-align: left;
+            }
+            .booking-success-details {
+                grid-template-columns: 1fr;
+            }
+            .booking-success-footer {
+                flex-direction: column;
+            }
+            .booking-success-footer .btn-group {
                 width: 100%;
             }
-            .booking-success-details { grid-template-columns: 1fr; }
-            .booking-success-footer { flex-direction: column; }
-            .booking-success-footer .btn-group { width: 100%; }
-            .booking-success-footer .btn-group button { flex: 1; justify-content: center; }
+            .booking-success-footer .btn-group button {
+                flex: 1;
+                justify-content: center;
+            }
+            .booking-success-qr canvas,
+            .booking-success-qr img {
+                width: 64px;
+                height: 64px;
+            }
         }
-        
+
         /* =============================================
            ПОДВАЛ (точная копия ЦБ)
            ============================================= */
@@ -622,21 +694,21 @@
             color: #bcc1cc;
             margin-top: auto;
         }
-        
+
         .footer_main {
             padding-top: 48px;
             padding-bottom: 36px;
             color: #fff;
             background-color: #6c717b;
         }
-        
+
         .footer_top {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 24px;
         }
-        
+
         .footer_logo {
             display: block;
             width: 192px;
@@ -644,7 +716,7 @@
             background: url('logo-white.svg') no-repeat center;
             background-size: contain;
         }
-        
+
         .footer_up {
             display: flex;
             align-items: center;
@@ -665,7 +737,7 @@
             transition: 0.3s;
         }
         .footer_up_icon:hover { background-color: #fff; }
-        
+
         .footer_address {
             font-size: 16px;
             font-weight: 500;
@@ -673,7 +745,7 @@
             color: #fff;
             margin-bottom: 12px;
         }
-        
+
         .footer_phones {
             display: table;
             margin-top: 12px;
@@ -693,14 +765,14 @@
             color: #bcc1cc;
             font-size: 13px;
         }
-        
+
         .footer_main_block {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             margin-top: 32px;
         }
-        
+
         .footer_left-menu {
             font-size: 14px;
             font-weight: 500;
@@ -711,7 +783,7 @@
             font-weight: 500;
         }
         .footer_left-menu_item a:hover { text-decoration: underline; }
-        
+
         .networks-circle {
             display: flex;
             flex-wrap: wrap;
@@ -735,21 +807,21 @@
         .networks-circle_item._ok { background-image: url('ok-circle.svg'); }
         .networks-circle_item._rt { background-image: url('rutube-circle.svg'); }
         .networks-circle_item._max { background-image: url('max-circle.svg'); }
-        
+
         .footer_menu {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding-top: 24px;
             margin-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 14px;
             font-weight: 500;
         }
         .footer_menu_items { display: flex; gap: 32px; }
         .footer_menu_item a { color: #fff; }
         .footer_menu_item a:hover { text-decoration: underline; }
-        
+
         .footer_menu_item._visually-impaired {
             display: flex;
             align-items: center;
@@ -761,7 +833,7 @@
             background: url('icon-la-glasses.svg') no-repeat center;
             background-size: contain;
         }
-        
+
         .footer_bottom {
             background: #2c323d;
             padding: 24px 0;
@@ -785,7 +857,7 @@
             font-size: 12px;
         }
         .footer_bottom_aic a { color: #9099a3; }
-        
+
         @media (max-width: 992px) {
             .footer_main_block {
                 flex-direction: column;
@@ -808,12 +880,16 @@
             .footer_phone_val { display: block; font-size: 16px; }
             .footer_phone span { display: block; font-size: 12px; padding-left: 0; }
         }
-        
+
         /* =============================================
            ПРИНТ
            ============================================= */
         @media print {
-            .header, .header-nav, .footer, .booking-form-submit, .no-print {
+            .header,
+            .header-nav,
+            .footer,
+            .booking-form-submit,
+            .no-print {
                 display: none !important;
             }
             .booking-success {
@@ -826,539 +902,622 @@
 </head>
 <body>
 
-<!-- ========================================================== -->
-<!-- ХЕДЕР -->
-<!-- ========================================================== -->
-<header class="header">
-    <div class="container">
-        <div class="header-inner">
-            <div class="header-left">
-                <button class="header-menu-btn" aria-label="Меню"></button>
-                <a href="index.html" class="header-logo">
-                    <img src="logo-v3.svg" alt="Банк России">
-                </a>
-            </div>
-            <div class="header-right">
-                <a href="#" class="header-mail" aria-label="Почта"></a>
-                <a href="#" class="header-glasses" aria-label="Версия для слабовидящих"></a>
-                <a href="#" class="header-search" aria-label="Поиск"></a>
-                <div class="header-lang">
-                    <a href="#" class="active">RU</a>
-                    <a href="#">EN</a>
+    <!-- ========================================================== -->
+    <!-- ХЕДЕР -->
+    <!-- ========================================================== -->
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <div class="header-left">
+                    <button class="header-menu-btn" aria-label="Меню"></button>
+                    <a href="index.html" class="header-logo">
+                        <img src="logo-v3.svg" alt="Банк России">
+                    </a>
+                </div>
+                <div class="header-right">
+                    <a href="#" class="header-mail" aria-label="Почта"></a>
+                    <a href="#" class="header-glasses" aria-label="Версия для слабовидящих"></a>
+                    <a href="#" class="header-search" aria-label="Поиск"></a>
+                    <div class="header-lang">
+                        <a href="#" class="active">RU</a>
+                        <a href="#">EN</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<!-- ========================================================== -->
-<!-- НАВИГАЦИЯ -->
-<!-- ========================================================== -->
-<nav class="header-nav">
-    <div class="container">
-        <div class="header-nav-inner">
-            <a href="index.html">Главная</a>
-            <a href="#">О банке</a>
-            <a href="#">Документы</a>
-            <a href="#">Денежно-кредитная политика</a>
-            <a href="#">Финансовые рынки</a>
-            <a href="booking.html" class="active">Запись на прием</a>
-            <a href="#">Контакты</a>
+    <!-- ========================================================== -->
+    <!-- НАВИГАЦИЯ -->
+    <!-- ========================================================== -->
+    <nav class="header-nav">
+        <div class="container">
+            <div class="header-nav-inner">
+                <a href="index.html">Главная</a>
+                <a href="#">О банке</a>
+                <a href="#">Документы</a>
+                <a href="#">Денежно-кредитная политика</a>
+                <a href="#">Финансовые рынки</a>
+                <a href="booking.html" class="active">Запись на прием</a>
+                <a href="#">Контакты</a>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<!-- ========================================================== -->
-<!-- ОСНОВНОЙ КОНТЕНТ -->
-<!-- ========================================================== -->
-<main class="main-content">
-    <div class="container">
-        
-        <h1 class="page-title">Запись в Общественную приемную Банка России</h1>
-        
-        <!-- Шаги -->
-        <div class="form-steps">
-            <div class="form-step active" id="step1">
-                <span class="form-step-number">1</span>
-                <span class="form-step-title">Выбор времени посещения</span>
-            </div>
-            <div class="form-step" id="step2">
-                <span class="form-step-number">2</span>
-                <span class="form-step-title">Оформление заявки</span>
-            </div>
-            <div class="form-step" id="step3">
-                <span class="form-step-number">3</span>
-                <span class="form-step-title">Подтверждение</span>
-            </div>
-        </div>
-        
-        <!-- ========================================== -->
-        <!-- КАЛЕНДАРЬ -->
-        <!-- ========================================== -->
-        <div class="calendar-section" id="calendarSection">
-            <h2 class="calendar-section-title">Выберите дату и время</h2>
-            
-            <div class="calendar-wrap" id="calendarContainer">
-                <!-- Календарь генерируется JS -->
-            </div>
-            
-            <div style="text-align:center;margin-top:24px;">
-                <button class="booking-form-submit" id="nextToFormBtn" onclick="showBookingForm()">
-                    Выбрать время →
-                </button>
-            </div>
-        </div>
-        
-        <!-- ========================================== -->
-        <!-- ФОРМА ЗАПИСИ -->
-        <!-- ========================================== -->
-        <div class="booking-form" id="bookingForm">
-            <h2 class="booking-form-title">Оформление заявки</h2>
-            
-            <div style="background:#e8f4ff;padding:12px 16px;border-radius:4px;margin-bottom:20px;font-size:14px;">
-                <strong>Выбрано:</strong> <span id="selectedDateTime">—</span>
-            </div>
-            
-            <div class="booking-form-row">
-                <div class="booking-form-group">
-                    <label class="booking-form-label" for="formName">ФИО *</label>
-                    <input class="booking-form-input" id="formName" placeholder="Иванов Иван Иванович">
-                    <div class="booking-form-error" id="formNameError">Введите ФИО</div>
+    <!-- ========================================================== -->
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <!-- ========================================================== -->
+    <main class="main-content">
+        <div class="container">
+
+            <h1 class="page-title">Запись в Общественную приемную Банка России</h1>
+
+            <!-- Шаги -->
+            <div class="form-steps">
+                <div class="form-step active" id="step1">
+                    <span class="form-step-number">1</span>
+                    <span class="form-step-title">Выбор времени посещения</span>
                 </div>
-                <div class="booking-form-group">
-                    <label class="booking-form-label" for="formPhone">Телефон *</label>
-                    <input class="booking-form-input" id="formPhone" placeholder="+7 999 123-45-67">
-                    <div class="booking-form-error" id="formPhoneError">Введите телефон</div>
+                <div class="form-step" id="step2">
+                    <span class="form-step-number">2</span>
+                    <span class="form-step-title">Оформление заявки</span>
+                </div>
+                <div class="form-step" id="step3">
+                    <span class="form-step-number">3</span>
+                    <span class="form-step-title">Подтверждение</span>
                 </div>
             </div>
-            
-            <div class="booking-form-row">
-                <div class="booking-form-group full-width">
-                    <label class="booking-form-label" for="formEmail">Email</label>
-                    <input class="booking-form-input" id="formEmail" placeholder="example@mail.ru">
-                    <div class="booking-form-error" id="formEmailError">Введите корректный email</div>
+
+            <!-- ========================================== -->
+            <!-- КАЛЕНДАРЬ -->
+            <!-- ========================================== -->
+            <div class="calendar-section" id="calendarSection">
+                <h2 class="calendar-section-title">Выберите дату и время</h2>
+
+                <div class="calendar-wrap" id="calendarContainer">
+                    <!-- Календарь генерируется JS -->
+                </div>
+
+                <div style="text-align:center;margin-top:24px;">
+                    <button class="booking-form-submit" id="nextToFormBtn" onclick="showBookingForm()">
+                        Выбрать время →
+                    </button>
                 </div>
             </div>
-            
-            <div class="booking-form-row">
-                <div class="booking-form-group full-width">
-                    <label class="booking-form-label" for="formComment">Комментарий</label>
-                    <textarea class="booking-form-input" id="formComment" rows="3" placeholder="Дополнительная информация..." style="resize:vertical;font-family:inherit;"></textarea>
+
+            <!-- ========================================== -->
+            <!-- ФОРМА ЗАПИСИ -->
+            <!-- ========================================== -->
+            <div class="booking-form" id="bookingForm">
+                <h2 class="booking-form-title">Оформление заявки</h2>
+
+                <div style="background:#e8f4ff;padding:12px 16px;border-radius:4px;margin-bottom:20px;font-size:14px;">
+                    <strong>Выбрано:</strong> <span id="selectedDateTime">—</span>
                 </div>
+
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="formName">ФИО *</label>
+                        <input class="booking-form-input" id="formName" placeholder="Иванов Иван Иванович">
+                        <div class="booking-form-error" id="formNameError">Введите ФИО</div>
+                    </div>
+                    <div class="booking-form-group">
+                        <label class="booking-form-label" for="formPhone">Телефон *</label>
+                        <input class="booking-form-input" id="formPhone" placeholder="+7 999 123-45-67">
+                        <div class="booking-form-error" id="formPhoneError">Введите телефон</div>
+                    </div>
+                </div>
+
+                <div class="booking-form-row">
+                    <div class="booking-form-group full-width">
+                        <label class="booking-form-label" for="formEmail">Email</label>
+                        <input class="booking-form-input" id="formEmail" placeholder="example@mail.ru">
+                        <div class="booking-form-error" id="formEmailError">Введите корректный email</div>
+                    </div>
+                </div>
+
+                <div class="booking-form-row">
+                    <div class="booking-form-group full-width">
+                        <label class="booking-form-label" for="formComment">Комментарий</label>
+                        <textarea class="booking-form-input" id="formComment" rows="3" placeholder="Дополнительная информация..." style="resize:vertical;font-family:inherit;"></textarea>
+                    </div>
+                </div>
+
+                <button class="booking-form-submit" onclick="submitBooking()">Отправить заявку</button>
+                <button class="booking-form-submit secondary" style="margin-top:8px;" onclick="backToCalendar()">← Вернуться к выбору времени</button>
             </div>
-            
-            <button class="booking-form-submit" onclick="submitBooking()">Отправить заявку</button>
-            <button class="booking-form-submit secondary" style="margin-top:8px;" onclick="backToCalendar()">← Вернуться к выбору времени</button>
-        </div>
-        
-        <!-- ========================================== -->
-        <!-- ЭЛЕКТРОННЫЙ ПРОПУСК -->
-        <!-- ========================================== -->
-        <div class="booking-success" id="bookingSuccess">
-            <div class="booking-success-header">
-                <img src="logo-white.svg" alt="Банк России">
-                <span class="booking-success-header-text">ЭЛЕКТРОННЫЙ ПРОПУСК</span>
-            </div>
-            
-            <div class="booking-success-body">
-                <div class="booking-success-top">
-                    <div class="booking-success-status">
-                        <div class="booking-success-status-icon">✓</div>
-                        <div>
-                            <div class="booking-success-status-text">Запись подтверждена</div>
-                            <div class="booking-success-status-sub">Ваш пропуск действителен</div>
+
+            <!-- ========================================== -->
+            <!-- ЭЛЕКТРОННЫЙ ПРОПУСК С QR И ШТРИХ-КОДОМ -->
+            <!-- ========================================== -->
+            <div class="booking-success" id="bookingSuccess">
+                <div class="booking-success-header">
+                    <img src="logo-white.svg" alt="Банк России">
+                    <span class="booking-success-header-text">ЭЛЕКТРОННЫЙ ПРОПУСК</span>
+                </div>
+
+                <div class="booking-success-body" id="ticketToSave">
+
+                    <!-- Верхняя часть: статус + номер талона + QR -->
+                    <div class="booking-success-top">
+                        <div class="booking-success-status">
+                            <div class="booking-success-status-icon">✓</div>
+                            <div>
+                                <div class="booking-success-status-text">Запись подтверждена</div>
+                                <div class="booking-success-status-sub">Ваш пропуск действителен</div>
+                            </div>
+                        </div>
+                        <div class="booking-success-right">
+                            <div class="booking-success-ticket-number">
+                                <div class="booking-success-ticket-number-label">Номер талона</div>
+                                <div class="booking-success-ticket-number-value" id="ticketNumber">—</div>
+                            </div>
+                            <div class="booking-success-qr" id="qrContainer"></div>
                         </div>
                     </div>
-                    <div class="booking-success-ticket-number">
-                        <div class="booking-success-ticket-number-label">Номер талона</div>
-                        <div class="booking-success-ticket-number-value" id="ticketNumber">—</div>
+
+                    <hr class="booking-success-divider">
+
+                    <!-- Детали -->
+                    <div class="booking-success-details">
+                        <div class="booking-success-details-item">
+                            <span class="booking-success-details-item-label">Дата и время</span>
+                            <span class="booking-success-details-item-value" id="successDateTime">—</span>
+                        </div>
+                        <div class="booking-success-details-item">
+                            <span class="booking-success-details-item-label">ФИО</span>
+                            <span class="booking-success-details-item-value" id="successName">—</span>
+                        </div>
+                        <div class="booking-success-details-item">
+                            <span class="booking-success-details-item-label">Телефон</span>
+                            <span class="booking-success-details-item-value" id="successPhone">—</span>
+                        </div>
+                        <div class="booking-success-details-item">
+                            <span class="booking-success-details-item-label">Email</span>
+                            <span class="booking-success-details-item-value" id="successEmail">—</span>
+                        </div>
+                        <div class="booking-success-details-item full">
+                            <span class="booking-success-details-item-label">Статус</span>
+                            <span class="booking-success-details-item-value" style="color:#2aa65e;">✓ Подтверждено</span>
+                        </div>
                     </div>
+
+                    <!-- Штрих-код -->
+                    <div class="booking-success-barcode" id="barcodeContainer"></div>
+
                 </div>
-                
-                <hr class="booking-success-divider">
-                
-                <div class="booking-success-details">
-                    <div class="booking-success-details-item">
-                        <span class="booking-success-details-item-label">Дата и время</span>
-                        <span class="booking-success-details-item-value" id="successDateTime">—</span>
-                    </div>
-                    <div class="booking-success-details-item">
-                        <span class="booking-success-details-item-label">ФИО</span>
-                        <span class="booking-success-details-item-value" id="successName">—</span>
-                    </div>
-                    <div class="booking-success-details-item">
-                        <span class="booking-success-details-item-label">Телефон</span>
-                        <span class="booking-success-details-item-value" id="successPhone">—</span>
-                    </div>
-                    <div class="booking-success-details-item">
-                        <span class="booking-success-details-item-label">Email</span>
-                        <span class="booking-success-details-item-value" id="successEmail">—</span>
-                    </div>
-                    <div class="booking-success-details-item full">
-                        <span class="booking-success-details-item-label">Статус</span>
-                        <span class="booking-success-details-item-value" style="color:#2aa65e;">✓ Подтверждено</span>
+
+                <!-- Футер пропуска -->
+                <div class="booking-success-footer no-print">
+                    <span style="font-size:12px;color:#8f96a3;">Сохраните этот пропуск для входа</span>
+                    <div class="btn-group">
+                        <button onclick="window.print()">🖨️ Печать</button>
+                        <button onclick="saveTicketAsImage()">💾 Сохранить как фото</button>
+                        <button onclick="resetBooking()" class="primary">➕ Новая запись</button>
                     </div>
                 </div>
             </div>
-            
-            <div class="booking-success-footer no-print">
-                <span style="font-size:12px;color:#8f96a3;">Сохраните этот пропуск для входа</span>
-                <div class="btn-group">
-                    <button onclick="window.print()">🖨️ Печать</button>
-                    <button onclick="resetBooking()" class="primary">➕ Новая запись</button>
+
+        </div>
+    </main>
+
+    <!-- ========================================================== -->
+    <!-- ПОДВАЛ (точная копия ЦБ) -->
+    <!-- ========================================================== -->
+    <footer class="footer">
+        <div class="footer_main">
+            <div class="container">
+                <div class="footer_top">
+                    <a class="footer_logo" href="index.html"></a>
+                    <div class="footer_up" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+                        <div class="footer_up_title">Наверх</div>
+                        <div class="footer_up_icon"></div>
+                    </div>
+                </div>
+
+                <div class="footer_contacts">
+                    <div class="footer_address">107016, Москва, ул. Неглинная, д. 12, к. В, Банк России</div>
+                    <div class="footer_phones">
+                        <div class="footer_phone">
+                            <a class="footer_phone_val" href="tel:300">300</a>
+                            <span>(круглосуточно, бесплатно для звонков с мобильных телефонов)</span>
+                        </div>
+                        <div class="footer_phone">
+                            <a class="footer_phone_val" href="tel:88003003000">8 800 300-30-00</a>
+                            <span>(круглосуточно, бесплатно для звонков из регионов России)</span>
+                        </div>
+                        <div class="footer_phone">
+                            <a class="footer_phone_val" href="tel:+74993003000">+7 499 300-30-00</a>
+                            <span>(круглосуточно, в соответствии с тарифами вашего оператора)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer_main_block">
+                    <div class="footer_left-menu">
+                        <div class="footer_left-menu_item"><a href="#">Личный кабинет участника информационного обмена</a></div>
+                        <div class="footer_left-menu_item"><a href="#">Отношения с инвесторами</a></div>
+                        <div class="footer_left-menu_item"><a href="#">Перечень инсайдерской информации</a></div>
+                        <div class="footer_left-menu_item"><a href="#">Официальное опубликование нормативных актов</a></div>
+                        <div class="footer_left-menu_item"><a href="#">Проекты нормативных актов</a></div>
+                        <div class="footer_left-menu_item"><a href="#">Перечень нерабочих праздничных дней</a></div>
+                    </div>
+                    <div class="networks-circle">
+                        <a class="networks-circle_item _vk" href="#" title="ВКонтакте"></a>
+                        <a class="networks-circle_item _yt" href="#" title="YouTube"></a>
+                        <a class="networks-circle_item _tg" href="#" title="Telegram"></a>
+                        <a class="networks-circle_item _ydzen" href="#" title="Яндекс Дзен"></a>
+                        <a class="networks-circle_item _ok" href="#" title="Одноклассники"></a>
+                        <a class="networks-circle_item _rt" href="#" title="RUTUBE"></a>
+                        <a class="networks-circle_item _max" href="#" title="Макс"></a>
+                    </div>
+                </div>
+
+                <div class="footer_menu">
+                    <div class="footer_menu_items">
+                        <div class="footer_menu_item"><a href="#">О сайте</a></div>
+                        <div class="footer_menu_item"><a href="#">Контакты</a></div>
+                        <div class="footer_menu_item"><a href="#">Противодействие коррупции</a></div>
+                        <div class="footer_menu_item"><a href="#">Технические ресурсы</a></div>
+                    </div>
+                    <div class="footer_menu_item _visually-impaired">
+                        <div class="footer_visually-impaired-icon"></div>
+                        <a href="#">Версия для слабовидящих</a>
+                    </div>
                 </div>
             </div>
         </div>
-        
-    </div>
-</main>
 
-<!-- ========================================================== -->
-<!-- ПОДВАЛ (точная копия ЦБ) -->
-<!-- ========================================================== -->
-<footer class="footer">
-    <div class="footer_main">
-        <div class="container">
-            <div class="footer_top">
-                <a class="footer_logo" href="index.html"></a>
-                <div class="footer_up" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-                    <div class="footer_up_title">Наверх</div>
-                    <div class="footer_up_icon"></div>
-                </div>
-            </div>
-            
-            <div class="footer_contacts">
-                <div class="footer_address">107016, Москва, ул. Неглинная, д. 12, к. В, Банк России</div>
-                <div class="footer_phones">
-                    <div class="footer_phone">
-                        <a class="footer_phone_val" href="tel:300">300</a>
-                        <span>(круглосуточно, бесплатно для звонков с мобильных телефонов)</span>
+        <div class="footer_bottom">
+            <div class="container">
+                <div class="footer_bottom-container">
+                    <div class="footer_bottom_text">© Банк России, 2000–2026.</div>
+                    <div class="footer_bottom_aic">
+                        Дизайн сайта — <a href="https://aic.ru" target="_blank">AIC</a>
                     </div>
-                    <div class="footer_phone">
-                        <a class="footer_phone_val" href="tel:88003003000">8 800 300-30-00</a>
-                        <span>(круглосуточно, бесплатно для звонков из регионов России)</span>
-                    </div>
-                    <div class="footer_phone">
-                        <a class="footer_phone_val" href="tel:+74993003000">+7 499 300-30-00</a>
-                        <span>(круглосуточно, в соответствии с тарифами вашего оператора)</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer_main_block">
-                <div class="footer_left-menu">
-                    <div class="footer_left-menu_item"><a href="#">Личный кабинет участника информационного обмена</a></div>
-                    <div class="footer_left-menu_item"><a href="#">Отношения с инвесторами</a></div>
-                    <div class="footer_left-menu_item"><a href="#">Перечень инсайдерской информации</a></div>
-                    <div class="footer_left-menu_item"><a href="#">Официальное опубликование нормативных актов</a></div>
-                    <div class="footer_left-menu_item"><a href="#">Проекты нормативных актов</a></div>
-                    <div class="footer_left-menu_item"><a href="#">Перечень нерабочих праздничных дней</a></div>
-                </div>
-                <div class="networks-circle">
-                    <a class="networks-circle_item _vk" href="#" title="ВКонтакте"></a>
-                    <a class="networks-circle_item _yt" href="#" title="YouTube"></a>
-                    <a class="networks-circle_item _tg" href="#" title="Telegram"></a>
-                    <a class="networks-circle_item _ydzen" href="#" title="Яндекс Дзен"></a>
-                    <a class="networks-circle_item _ok" href="#" title="Одноклассники"></a>
-                    <a class="networks-circle_item _rt" href="#" title="RUTUBE"></a>
-                    <a class="networks-circle_item _max" href="#" title="Макс"></a>
-                </div>
-            </div>
-            
-            <div class="footer_menu">
-                <div class="footer_menu_items">
-                    <div class="footer_menu_item"><a href="#">О сайте</a></div>
-                    <div class="footer_menu_item"><a href="#">Контакты</a></div>
-                    <div class="footer_menu_item"><a href="#">Противодействие коррупции</a></div>
-                    <div class="footer_menu_item"><a href="#">Технические ресурсы</a></div>
-                </div>
-                <div class="footer_menu_item _visually-impaired">
-                    <div class="footer_visually-impaired-icon"></div>
-                    <a href="#">Версия для слабовидящих</a>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="footer_bottom">
-        <div class="container">
-            <div class="footer_bottom-container">
-                <div class="footer_bottom_text">© Банк России, 2000–2026.</div>
-                <div class="footer_bottom_aic">
-                    Дизайн сайта — <a href="https://aic.ru" target="_blank">AIC</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+    </footer>
 
-<!-- ========================================================== -->
-<!-- JAVASCRIPT -->
-<!-- ========================================================== -->
-<script>
-// =============================================================
-// ДАННЫЕ КАЛЕНДАРЯ
-// =============================================================
+    <!-- ========================================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ========================================================== -->
+    <script>
+        // =============================================================
+        // ДАННЫЕ КАЛЕНДАРЯ
+        // =============================================================
 
-const MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 
-                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+        const MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+            'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+        ];
 
-const DAYS_SHORT = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
-const TIME_SLOTS = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', 
-                    '13:30', '14:00', '14:30', '15:00', '15:30'];
+        const DAYS_SHORT = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
+        const TIME_SLOTS = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30',
+            '13:30', '14:00', '14:30', '15:00', '15:30'
+        ];
 
-// Свободно с 20 августа
-const AVAILABLE_FROM = new Date(2026, 7, 20);
+        // ===== ИЗМЕНЕНО: доступно С 25 АВГУСТА =====
+        const AVAILABLE_FROM = new Date(2026, 7, 25);
 
-let selectedDate = null;
-let selectedTime = null;
-let selectedDateTime = null;
+        let selectedDate = null;
+        let selectedTime = null;
+        let selectedDateTime = null;
 
-// =============================================================
-// ГЕНЕРАЦИЯ КАЛЕНДАРЯ (с выходными)
-// =============================================================
+        // =============================================================
+        // ГЕНЕРАЦИЯ КАЛЕНДАРЯ (с выходными)
+        // =============================================================
 
-function generateCalendar() {
-    const container = document.getElementById('calendarContainer');
-    const startMonth = 6;
-    const endMonth = 8;
-    
-    let html = '<div class="calendar-months">';
-    
-    for (let m = startMonth; m <= endMonth; m++) {
-        const year = 2026;
-        const firstDay = new Date(year, m, 1).getDay();
-        const daysInMonth = new Date(year, m + 1, 0).getDate();
-        let firstDayIndex = (firstDay === 0) ? 6 : firstDay - 1;
-        
-        html += `<div class="calendar-month">`;
-        html += `<div class="calendar-month-title">${MONTHS[m]} ${year}</div>`;
-        html += `<div class="calendar-weekdays">`;
-        for (let d = 0; d < 7; d++) {
-            html += `<div class="calendar-weekday">${DAYS_SHORT[d]}</div>`;
-        }
-        html += `</div>`;
-        html += `<div class="calendar-weeks">`;
-        
-        let day = 1;
-        let weekCount = Math.ceil((daysInMonth + firstDayIndex) / 7);
-        
-        for (let w = 0; w < weekCount; w++) {
-            html += `<div class="calendar-week">`;
-            for (let d = 0; d < 7; d++) {
-                if (w === 0 && d < firstDayIndex) {
-                    html += `<div class="calendar-cell empty"></div>`;
-                } else if (day > daysInMonth) {
-                    html += `<div class="calendar-cell empty"></div>`;
-                } else {
-                    const dateObj = new Date(year, m, day);
-                    const isWeekend = (d === 5 || d === 6);
-                    const isAvailable = dateObj >= AVAILABLE_FROM && !isWeekend;
-                    
-                    let cellClass = 'calendar-cell';
-                    if (isWeekend) {
-                        cellClass += ' weekend disabled';
-                    } else if (!isAvailable) {
-                        cellClass += ' disabled';
-                    } else {
-                        cellClass += ' available';
-                    }
-                    
-                    html += `<div class="${cellClass}" data-date="${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}" onclick="selectDate(this, '${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}')">`;
-                    html += `<div class="calendar-day-title${isWeekend ? ' weekend' : ''}">${day}</div>`;
-                    
-                    if (isAvailable && !isWeekend) {
-                        html += `<div class="calendar-time-slots">`;
-                        let slotsAdded = 0;
-                        for (let t of TIME_SLOTS) {
-                            if (slotsAdded < 3) {
-                                html += `<div class="calendar-time-slot available" data-time="${t}" onclick="selectTime(event, '${t}', '${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}')">${t}</div>`;
-                                slotsAdded++;
+        function generateCalendar() {
+            const container = document.getElementById('calendarContainer');
+            const startMonth = 6;
+            const endMonth = 8;
+
+            let html = '<div class="calendar-months">';
+
+            for (let m = startMonth; m <= endMonth; m++) {
+                const year = 2026;
+                const firstDay = new Date(year, m, 1).getDay();
+                const daysInMonth = new Date(year, m + 1, 0).getDate();
+                let firstDayIndex = (firstDay === 0) ? 6 : firstDay - 1;
+
+                html += `<div class="calendar-month">`;
+                html += `<div class="calendar-month-title">${MONTHS[m]} ${year}</div>`;
+                html += `<div class="calendar-weekdays">`;
+                for (let d = 0; d < 7; d++) {
+                    html += `<div class="calendar-weekday">${DAYS_SHORT[d]}</div>`;
+                }
+                html += `</div>`;
+                html += `<div class="calendar-weeks">`;
+
+                let day = 1;
+                let weekCount = Math.ceil((daysInMonth + firstDayIndex) / 7);
+
+                for (let w = 0; w < weekCount; w++) {
+                    html += `<div class="calendar-week">`;
+                    for (let d = 0; d < 7; d++) {
+                        if (w === 0 && d < firstDayIndex) {
+                            html += `<div class="calendar-cell empty"></div>`;
+                        } else if (day > daysInMonth) {
+                            html += `<div class="calendar-cell empty"></div>`;
+                        } else {
+                            const dateObj = new Date(year, m, day);
+                            const isWeekend = (d === 5 || d === 6);
+                            const isAvailable = dateObj >= AVAILABLE_FROM && !isWeekend;
+
+                            let cellClass = 'calendar-cell';
+                            if (isWeekend) {
+                                cellClass += ' weekend disabled';
+                            } else if (!isAvailable) {
+                                cellClass += ' disabled';
                             } else {
-                                html += `<div class="calendar-time-slot available hidden" data-time="${t}" onclick="selectTime(event, '${t}', '${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}')">${t}</div>`;
+                                cellClass += ' available';
                             }
+
+                            html +=
+                                `<div class="${cellClass}" data-date="${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}" onclick="selectDate(this, '${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}')">`;
+                            html += `<div class="calendar-day-title${isWeekend ? ' weekend' : ''}">${day}</div>`;
+
+                            if (isAvailable && !isWeekend) {
+                                html += `<div class="calendar-time-slots">`;
+                                let slotsAdded = 0;
+                                for (let t of TIME_SLOTS) {
+                                    if (slotsAdded < 3) {
+                                        html +=
+                                            `<div class="calendar-time-slot available" data-time="${t}" onclick="selectTime(event, '${t}', '${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}')">${t}</div>`;
+                                        slotsAdded++;
+                                    } else {
+                                        html +=
+                                            `<div class="calendar-time-slot available hidden" data-time="${t}" onclick="selectTime(event, '${t}', '${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}')">${t}</div>`;
+                                    }
+                                }
+                                if (TIME_SLOTS.length > 3) {
+                                    html +=
+                                        `<div style="font-size:10px;color:#8f96a3;cursor:pointer;width:100%;text-align:center;padding-top:4px;" onclick="toggleSlots(this)">+ еще</div>`;
+                                }
+                                html += `</div>`;
+                            }
+
+                            html += `</div>`;
+                            day++;
                         }
-                        if (TIME_SLOTS.length > 3) {
-                            html += `<div style="font-size:10px;color:#8f96a3;cursor:pointer;width:100%;text-align:center;padding-top:4px;" onclick="toggleSlots(this)">+ еще</div>`;
-                        }
-                        html += `</div>`;
                     }
-                    
                     html += `</div>`;
-                    day++;
+                }
+                html += `</div>`;
+                html += `</div>`;
+            }
+
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // =============================================================
+        // ВЫБОР ДАТЫ И ВРЕМЕНИ
+        // =============================================================
+
+        function selectDate(el, dateStr) {
+            document.querySelectorAll('.calendar-cell.available.selected').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedDate = dateStr;
+            selectedTime = null;
+            document.querySelectorAll('.calendar-time-slot.selected').forEach(s => s.classList.remove('selected'));
+        }
+
+        function selectTime(event, time, dateStr) {
+            event.stopPropagation();
+
+            if (!selectedDate || selectedDate !== dateStr) {
+                const cell = document.querySelector(`.calendar-cell[data-date="${dateStr}"]`);
+                if (cell) {
+                    document.querySelectorAll('.calendar-cell.available.selected').forEach(c => c.classList.remove(
+                    'selected'));
+                    cell.classList.add('selected');
+                    selectedDate = dateStr;
                 }
             }
-            html += `</div>`;
+
+            document.querySelectorAll('.calendar-time-slot.selected').forEach(s => s.classList.remove('selected'));
+            event.target.classList.add('selected');
+            selectedTime = time;
+            selectedDateTime = `${selectedDate} ${time}`;
+
+            document.getElementById('selectedDateTime').textContent = selectedDateTime;
+            document.getElementById('nextToFormBtn').textContent = 'Далее →';
+            document.getElementById('nextToFormBtn').style.background = '#08c';
         }
-        html += `</div>`;
-        html += `</div>`;
-    }
-    
-    html += '</div>';
-    container.innerHTML = html;
-}
 
-// =============================================================
-// ВЫБОР ДАТЫ И ВРЕМЕНИ
-// =============================================================
+        function toggleSlots(el) {
+            const container = el.parentElement;
+            const hiddenSlots = container.querySelectorAll('.calendar-time-slot.hidden');
+            if (hiddenSlots.length > 0) {
+                hiddenSlots.forEach(s => s.classList.remove('hidden'));
+                el.textContent = '− скрыть';
+            } else {
+                const allSlots = container.querySelectorAll('.calendar-time-slot');
+                allSlots.forEach((s, i) => {
+                    if (i >= 3) s.classList.add('hidden');
+                });
+                el.textContent = '+ еще';
+            }
+        }
 
-function selectDate(el, dateStr) {
-    document.querySelectorAll('.calendar-cell.available.selected').forEach(c => c.classList.remove('selected'));
-    el.classList.add('selected');
-    selectedDate = dateStr;
-    selectedTime = null;
-    document.querySelectorAll('.calendar-time-slot.selected').forEach(s => s.classList.remove('selected'));
-}
+        // =============================================================
+        // ПЕРЕХОД К ФОРМЕ
+        // =============================================================
 
-function selectTime(event, time, dateStr) {
-    event.stopPropagation();
-    
-    if (!selectedDate || selectedDate !== dateStr) {
-        const cell = document.querySelector(`.calendar-cell[data-date="${dateStr}"]`);
-        if (cell) {
+        function showBookingForm() {
+            if (!selectedDateTime) {
+                alert('Пожалуйста, выберите дату и время.');
+                return;
+            }
+
+            document.getElementById('calendarSection').style.display = 'none';
+            document.getElementById('bookingForm').classList.add('visible');
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            document.getElementById('selectedDateTime').textContent = selectedDateTime;
+        }
+
+        function backToCalendar() {
+            document.getElementById('bookingForm').classList.remove('visible');
+            document.getElementById('calendarSection').style.display = 'block';
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+        }
+
+        // =============================================================
+        // ОТПРАВКА ЗАЯВКИ + ГЕНЕРАЦИЯ QR И ШТРИХ-КОДА
+        // =============================================================
+
+        function submitBooking() {
+            const name = document.getElementById('formName').value.trim();
+            const phone = document.getElementById('formPhone').value.trim();
+            const email = document.getElementById('formEmail').value.trim();
+
+            let isValid = true;
+
+            if (!name) {
+                document.getElementById('formName').classList.add('error');
+                document.getElementById('formNameError').classList.add('visible');
+                isValid = false;
+            } else {
+                document.getElementById('formName').classList.remove('error');
+                document.getElementById('formNameError').classList.remove('visible');
+            }
+
+            if (!phone || phone.length < 10) {
+                document.getElementById('formPhone').classList.add('error');
+                document.getElementById('formPhoneError').classList.add('visible');
+                isValid = false;
+            } else {
+                document.getElementById('formPhone').classList.remove('error');
+                document.getElementById('formPhoneError').classList.remove('visible');
+            }
+
+            if (email && !email.includes('@')) {
+                document.getElementById('formEmail').classList.add('error');
+                document.getElementById('formEmailError').classList.add('visible');
+                isValid = false;
+            } else {
+                document.getElementById('formEmail').classList.remove('error');
+                document.getElementById('formEmailError').classList.remove('visible');
+            }
+
+            if (!isValid) return;
+
+            // Генерируем номер талона
+            const ticketNum = 'ЦБ-' + String(Math.floor(100000 + Math.random() * 900000));
+
+            document.getElementById('bookingForm').classList.remove('visible');
+            document.getElementById('bookingSuccess').classList.add('visible');
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+
+            document.getElementById('successDateTime').textContent = selectedDateTime;
+            document.getElementById('successName').textContent = name;
+            document.getElementById('successPhone').textContent = phone;
+            document.getElementById('successEmail').textContent = email || '—';
+            document.getElementById('ticketNumber').textContent = ticketNum;
+
+            // ===== ВСТАВЛЯЕМ QR-КОД ИЗ ФАЙЛА =====
+            const qrContainer = document.getElementById('qrContainer');
+            qrContainer.innerHTML = '';
+            const img = document.createElement('img');
+            img.src = 'qrcode.jpeg';
+            img.alt = 'QR-код';
+            img.style.width = '80px';
+            img.style.height = '80px';
+            img.style.display = 'block';
+            img.style.border = '1px solid #e8e9eb';
+            img.style.borderRadius = '4px';
+            img.style.padding = '4px';
+            img.onerror = function() {
+                this.style.display = 'none';
+                qrContainer.innerHTML = '<span style="font-size:12px;color:#a00;">QR-код не найден</span>';
+            };
+            qrContainer.appendChild(img);
+
+            // ===== ГЕНЕРИРУЕМ ШТРИХ-КОД =====
+            const barcodeContainer = document.getElementById('barcodeContainer');
+            barcodeContainer.innerHTML = '';
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.id = 'barcode';
+            barcodeContainer.appendChild(svg);
+
+            JsBarcode('#barcode', ticketNum, {
+                format: 'CODE128',
+                width: 2,
+                height: 50,
+                displayValue: true,
+                fontSize: 16,
+                font: 'monospace',
+                textAlign: 'center',
+                textPosition: 'bottom',
+                textMargin: 6,
+                margin: 8,
+                background: '#ffffff',
+                lineColor: '#111214'
+            });
+        }
+
+        // =============================================================
+        // СОХРАНЕНИЕ ПРОПУСКА КАК ИЗОБРАЖЕНИЯ
+        // =============================================================
+
+        function saveTicketAsImage() {
+            const element = document.getElementById('ticketToSave');
+
+            html2canvas(element, {
+                scale: 2,
+                backgroundColor: '#ffffff',
+                useCORS: true,
+                logging: false
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `Пропуск_${document.getElementById('ticketNumber').textContent}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }).catch(err => {
+                alert('Ошибка при сохранении: ' + err.message);
+            });
+        }
+
+        // =============================================================
+        // СБРОС
+        // =============================================================
+
+        function resetBooking() {
+            document.getElementById('bookingSuccess').classList.remove('visible');
+            document.getElementById('step3').classList.remove('active');
+
+            selectedDate = null;
+            selectedTime = null;
+            selectedDateTime = null;
+
+            document.getElementById('formName').value = '';
+            document.getElementById('formPhone').value = '';
+            document.getElementById('formEmail').value = '';
+            document.getElementById('formComment').value = '';
+            document.getElementById('selectedDateTime').textContent = '—';
+            document.getElementById('nextToFormBtn').textContent = 'Выбрать время →';
+            document.getElementById('nextToFormBtn').style.background = '#08c';
+            document.getElementById('qrContainer').innerHTML = '';
+            document.getElementById('barcodeContainer').innerHTML = '';
+
             document.querySelectorAll('.calendar-cell.available.selected').forEach(c => c.classList.remove('selected'));
-            cell.classList.add('selected');
-            selectedDate = dateStr;
+            document.querySelectorAll('.calendar-time-slot.selected').forEach(s => s.classList.remove('selected'));
+
+            document.getElementById('calendarSection').style.display = 'block';
+            document.getElementById('step1').classList.add('active');
         }
-    }
-    
-    document.querySelectorAll('.calendar-time-slot.selected').forEach(s => s.classList.remove('selected'));
-    event.target.classList.add('selected');
-    selectedTime = time;
-    selectedDateTime = `${selectedDate} ${time}`;
-    
-    document.getElementById('selectedDateTime').textContent = selectedDateTime;
-    document.getElementById('nextToFormBtn').textContent = 'Далее →';
-    document.getElementById('nextToFormBtn').style.background = '#08c';
-}
 
-function toggleSlots(el) {
-    const container = el.parentElement;
-    const hiddenSlots = container.querySelectorAll('.calendar-time-slot.hidden');
-    if (hiddenSlots.length > 0) {
-        hiddenSlots.forEach(s => s.classList.remove('hidden'));
-        el.textContent = '− скрыть';
-    } else {
-        const allSlots = container.querySelectorAll('.calendar-time-slot');
-        allSlots.forEach((s, i) => {
-            if (i >= 3) s.classList.add('hidden');
-        });
-        el.textContent = '+ еще';
-    }
-}
+        // =============================================================
+        // ИНИЦИАЛИЗАЦИЯ
+        // =============================================================
 
-// =============================================================
-// ПЕРЕХОД К ФОРМЕ
-// =============================================================
-
-function showBookingForm() {
-    if (!selectedDateTime) {
-        alert('Пожалуйста, выберите дату и время.');
-        return;
-    }
-    
-    document.getElementById('calendarSection').style.display = 'none';
-    document.getElementById('bookingForm').classList.add('visible');
-    document.getElementById('step1').classList.remove('active');
-    document.getElementById('step2').classList.add('active');
-    document.getElementById('selectedDateTime').textContent = selectedDateTime;
-}
-
-function backToCalendar() {
-    document.getElementById('bookingForm').classList.remove('visible');
-    document.getElementById('calendarSection').style.display = 'block';
-    document.getElementById('step2').classList.remove('active');
-    document.getElementById('step1').classList.add('active');
-}
-
-// =============================================================
-// ОТПРАВКА ЗАЯВКИ
-// =============================================================
-
-function submitBooking() {
-    const name = document.getElementById('formName').value.trim();
-    const phone = document.getElementById('formPhone').value.trim();
-    const email = document.getElementById('formEmail').value.trim();
-    
-    let isValid = true;
-    
-    if (!name) {
-        document.getElementById('formName').classList.add('error');
-        document.getElementById('formNameError').classList.add('visible');
-        isValid = false;
-    } else {
-        document.getElementById('formName').classList.remove('error');
-        document.getElementById('formNameError').classList.remove('visible');
-    }
-    
-    if (!phone || phone.length < 10) {
-        document.getElementById('formPhone').classList.add('error');
-        document.getElementById('formPhoneError').classList.add('visible');
-        isValid = false;
-    } else {
-        document.getElementById('formPhone').classList.remove('error');
-        document.getElementById('formPhoneError').classList.remove('visible');
-    }
-    
-    if (email && !email.includes('@')) {
-        document.getElementById('formEmail').classList.add('error');
-        document.getElementById('formEmailError').classList.add('visible');
-        isValid = false;
-    } else {
-        document.getElementById('formEmail').classList.remove('error');
-        document.getElementById('formEmailError').classList.remove('visible');
-    }
-    
-    if (!isValid) return;
-    
-    // Генерируем номер талона
-    const ticketNum = 'ЦБ-' + String(Math.floor(100000 + Math.random() * 900000));
-    
-    document.getElementById('bookingForm').classList.remove('visible');
-    document.getElementById('bookingSuccess').classList.add('visible');
-    document.getElementById('step2').classList.remove('active');
-    document.getElementById('step3').classList.add('active');
-    
-    document.getElementById('successDateTime').textContent = selectedDateTime;
-    document.getElementById('successName').textContent = name;
-    document.getElementById('successPhone').textContent = phone;
-    document.getElementById('successEmail').textContent = email || '—';
-    document.getElementById('ticketNumber').textContent = ticketNum;
-}
-
-// =============================================================
-// СБРОС
-// =============================================================
-
-function resetBooking() {
-    document.getElementById('bookingSuccess').classList.remove('visible');
-    document.getElementById('step3').classList.remove('active');
-    
-    selectedDate = null;
-    selectedTime = null;
-    selectedDateTime = null;
-    
-    document.getElementById('formName').value = '';
-    document.getElementById('formPhone').value = '';
-    document.getElementById('formEmail').value = '';
-    document.getElementById('formComment').value = '';
-    document.getElementById('selectedDateTime').textContent = '—';
-    document.getElementById('nextToFormBtn').textContent = 'Выбрать время →';
-    document.getElementById('nextToFormBtn').style.background = '#08c';
-    
-    document.querySelectorAll('.calendar-cell.available.selected').forEach(c => c.classList.remove('selected'));
-    document.querySelectorAll('.calendar-time-slot.selected').forEach(s => s.classList.remove('selected'));
-    
-    document.getElementById('calendarSection').style.display = 'block';
-    document.getElementById('step1').classList.add('active');
-}
-
-// =============================================================
-// ИНИЦИАЛИЗАЦИЯ
-// =============================================================
-
-document.addEventListener('DOMContentLoaded', generateCalendar);
-</script>
+        document.addEventListener('DOMContentLoaded', generateCalendar);
+    </script>
 
 </body>
 </html>
