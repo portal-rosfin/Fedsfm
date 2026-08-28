@@ -462,6 +462,98 @@
         }
 
         /* =============================================
+           ЗАГРУЗКА (LOADER)
+           ============================================= */
+        .loader-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: fadeIn 0.3s ease;
+        }
+        .loader-overlay.visible {
+            display: flex;
+        }
+
+        .loader-logo {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .loader-logo img {
+            height: 60px;
+            width: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .loader-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top: 4px solid #08c;
+            border-right: 4px solid #08c;
+            animation: spin 0.8s linear infinite;
+            z-index: 1;
+        }
+        .loader-ring:nth-child(2) {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            border-top-color: #2aa65e;
+            border-right-color: #2aa65e;
+            animation-duration: 1.2s;
+            animation-direction: reverse;
+        }
+        .loader-ring:nth-child(3) {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            border-top-color: #f5a623;
+            border-right-color: #f5a623;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #2b2e33;
+            animation: pulseText 1.2s ease-in-out infinite;
+        }
+        .loader-subtext {
+            font-size: 14px;
+            color: #8f96a3;
+            margin-top: 4px;
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* =============================================
            ПОДТВЕРЖДЕНИЕ - ЭЛЕКТРОННЫЙ ПРОПУСК
            ============================================= */
         .booking-success {
@@ -480,147 +572,214 @@
         }
 
         .booking-success-header {
-            background: #2b2e33;
-            padding: 24px 32px;
+            background: #0a1a2b;
+            padding: 20px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 4px solid #08c;
         }
-        .booking-success-header img { height: 36px; width: auto; }
+        .booking-success-header img { height: 40px; width: auto; }
         .booking-success-header-text {
             color: #fff;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
-            opacity: 0.7;
+            opacity: 0.8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .booking-success-body {
-            padding: 32px;
+            padding: 28px 32px 24px;
             position: relative;
+            background: #fbfcfe;
         }
 
-        /* Верхняя часть: статус + номер талона + QR */
-        .booking-success-top {
+        /* Статус */
+        .booking-success-status-block {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
+            background: #e8f5ed;
+            border-radius: 8px;
+            padding: 12px 20px;
             margin-bottom: 20px;
-            gap: 16px;
         }
-
-        .booking-success-status {
+        .booking-success-status-block .status-left {
             display: flex;
             align-items: center;
             gap: 12px;
-            flex: 1;
         }
-        .booking-success-status-icon {
-            width: 48px;
-            height: 48px;
+        .booking-success-status-block .status-icon {
+            width: 36px;
+            height: 36px;
             background: #2aa65e;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
             color: #fff;
+            font-size: 18px;
             flex-shrink: 0;
         }
-        .booking-success-status-text {
-            font-size: 18px;
+        .booking-success-status-block .status-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a7a3e;
+        }
+        .booking-success-status-block .status-sub {
+            font-size: 13px;
+            color: #2b6e3a;
+        }
+        .booking-success-status-block .status-badge {
+            background: #fff;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: 600;
             color: #2aa65e;
+            border: 1px solid #2aa65e;
+            letter-spacing: 0.5px;
         }
-        .booking-success-status-sub {
-            font-size: 14px;
+
+        /* Номер талона + QR */
+        .booking-success-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 16px;
+            padding: 16px 20px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e8e9eb;
+        }
+        .booking-success-main .ticket-info {
+            flex: 1;
+        }
+        .booking-success-main .ticket-label {
+            font-size: 11px;
+            color: #8f96a3;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        .booking-success-main .ticket-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0a1a2b;
+            letter-spacing: 2px;
+            margin: 2px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .booking-success-main .ticket-hint {
+            font-size: 12px;
             color: #676e7b;
         }
+        .booking-success-main .ticket-hint span {
+            color: #ed1a34;
+            font-weight: 600;
+        }
 
-        /* Номер талона + QR справа */
-        .booking-success-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+        .booking-success-main .qr-wrapper {
             flex-shrink: 0;
         }
-
-        .booking-success-ticket-number {
-            text-align: right;
-        }
-        .booking-success-ticket-number-label {
-            font-size: 12px;
-            color: #8f96a3;
-        }
-        .booking-success-ticket-number-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #111214;
-            letter-spacing: 2px;
-        }
-
-        /* QR-код */
-        .booking-success-qr {
-            flex-shrink: 0;
-        }
-        .booking-success-qr canvas,
-        .booking-success-qr img {
-            width: 80px;
-            height: 80px;
+        .booking-success-main .qr-wrapper img,
+        .booking-success-main .qr-wrapper canvas {
+            width: 90px;
+            height: 90px;
             display: block;
-            border: 1px solid #e8e9eb;
-            border-radius: 4px;
+            border-radius: 6px;
+            border: 2px solid #e8e9eb;
             padding: 4px;
-        }
-
-        .booking-success-divider {
-            border: none;
-            border-top: 2px dashed #e8e9eb;
-            margin: 16px 0 20px;
+            background: #fff;
         }
 
         /* Детали */
         .booking-success-details {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px 24px;
-            margin-bottom: 20px;
+            gap: 8px 20px;
+            padding: 16px 20px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e8e9eb;
+            margin-bottom: 16px;
         }
         .booking-success-details-item { display: flex; flex-direction: column; }
         .booking-success-details-item.full { grid-column: 1 / -1; }
         .booking-success-details-item-label {
-            font-size: 12px;
+            font-size: 11px;
             color: #8f96a3;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .booking-success-details-item-value {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 500;
-            color: #111214;
-            margin-top: 2px;
+            color: #0a1a2b;
+            margin-top: 1px;
         }
 
-        /* ===== ШТРИХ-КОД (внизу) ===== */
+        /* Для охраны */
+        .booking-success-guard {
+            background: #fef8e7;
+            border-left: 4px solid #f5a623;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #5a4a1a;
+        }
+        .booking-success-guard .guard-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        .booking-success-guard strong {
+            color: #0a1a2b;
+        }
+
+        /* Штрих-код */
         .booking-success-barcode {
             display: flex;
             justify-content: center;
-            padding: 12px 0 8px 0;
-            border-top: 1px solid #f0f0f0;
-            margin-top: 8px;
+            padding: 12px 0 6px 0;
+            border-top: 2px dashed #e8e9eb;
+            margin-top: 4px;
         }
         .booking-success-barcode svg {
             max-width: 100%;
             height: 60px;
         }
-
-        /* ===== ФУТЕР ПРОПУСКА ===== */
-        .booking-success-footer {
+        .booking-success-barcode .barcode-fallback {
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            letter-spacing: 4px;
+            color: #0a1a2b;
             background: #f5f5f5;
-            padding: 16px 32px;
+            padding: 8px 20px;
+            border-radius: 4px;
+            border: 1px solid #e8e9eb;
+        }
+
+        /* Футер */
+        .booking-success-footer {
+            background: #f5f6f8;
+            padding: 16px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 12px;
+            border-top: 1px solid #e8e9eb;
+        }
+        .booking-success-footer .footer-note {
+            font-size: 12px;
+            color: #8f96a3;
         }
         .booking-success-footer .btn-group {
             display: flex;
@@ -628,9 +787,9 @@
             flex-wrap: wrap;
         }
         .booking-success-footer button {
-            padding: 8px 20px;
+            padding: 8px 18px;
             border: 1px solid #c4c7cc;
-            border-radius: 4px;
+            border-radius: 6px;
             background: #fff;
             cursor: pointer;
             font-size: 14px;
@@ -652,27 +811,57 @@
         }
         .booking-success-footer button.primary:hover {
             background: #0099e6;
+            color: #fff;
+        }
+        .booking-success-footer button.save-btn {
+            background: #2aa65e;
+            color: #fff;
+            border: none;
+        }
+        .booking-success-footer button.save-btn:hover {
+            background: #1e8a4e;
+            color: #fff;
         }
 
         @media (max-width: 576px) {
-            .booking-success-body { padding: 20px; }
-            .booking-success-top {
+            .booking-success-body { padding: 16px; }
+            .booking-success-header { padding: 14px 16px; }
+            .booking-success-header img { height: 30px; }
+            .booking-success-header-text { font-size: 11px; }
+
+            .booking-success-status-block {
                 flex-direction: column;
                 align-items: stretch;
-                gap: 12px;
+                gap: 8px;
+                padding: 12px 16px;
             }
-            .booking-success-right {
-                justify-content: space-between;
-                width: 100%;
+            .booking-success-status-block .status-badge {
+                align-self: flex-start;
             }
-            .booking-success-ticket-number {
-                text-align: left;
+            .booking-success-main {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 16px;
+            }
+            .booking-success-main .ticket-number {
+                font-size: 26px;
+            }
+            .booking-success-main .qr-wrapper {
+                align-self: center;
+            }
+            .booking-success-main .qr-wrapper img,
+            .booking-success-main .qr-wrapper canvas {
+                width: 80px;
+                height: 80px;
             }
             .booking-success-details {
                 grid-template-columns: 1fr;
+                padding: 12px 16px;
+                gap: 6px 0;
             }
             .booking-success-footer {
                 flex-direction: column;
+                padding: 12px 16px;
             }
             .booking-success-footer .btn-group {
                 width: 100%;
@@ -680,16 +869,17 @@
             .booking-success-footer .btn-group button {
                 flex: 1;
                 justify-content: center;
+                font-size: 13px;
+                padding: 10px 12px;
             }
-            .booking-success-qr canvas,
-            .booking-success-qr img {
-                width: 64px;
-                height: 64px;
+            .booking-success-guard {
+                font-size: 12px;
+                padding: 10px 14px;
             }
         }
 
         /* =============================================
-           ПОДВАЛ (точная копия ЦБ)
+           ПОДВАЛ
            ============================================= */
         .footer {
             background: #2b2e33;
@@ -883,15 +1073,8 @@
             .footer_phone span { display: block; font-size: 12px; padding-left: 0; }
         }
 
-        /* =============================================
-           ПРИНТ
-           ============================================= */
         @media print {
-            .header,
-            .header-nav,
-            .footer,
-            .booking-form-submit,
-            .no-print {
+            .header, .header-nav, .footer, .booking-form-submit, .no-print, .loader-overlay {
                 display: none !important;
             }
             .booking-success {
@@ -899,6 +1082,7 @@
                 border: 1px solid #ddd !important;
             }
             body { background: #fff !important; }
+            .booking-success-footer { display: none !important; }
         }
     </style>
 </head>
@@ -1030,35 +1214,51 @@
             </div>
 
             <!-- ========================================== -->
-            <!-- ЭЛЕКТРОННЫЙ ПРОПУСК С QR И ШТРИХ-КОДОМ -->
+            <!-- ЗАГРУЗКА (LOADER) -->
+            <!-- ========================================== -->
+            <div class="loader-overlay" id="loaderOverlay">
+                <div class="loader-logo">
+                    <div class="loader-ring"></div>
+                    <div class="loader-ring"></div>
+                    <div class="loader-ring"></div>
+                    <img src="logo-v3.svg" alt="Банк России">
+                </div>
+                <div class="loader-text">Обработка заявки...</div>
+                <div class="loader-subtext">Пожалуйста, подождите</div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- ЭЛЕКТРОННЫЙ ПРОПУСК -->
             <!-- ========================================== -->
             <div class="booking-success" id="bookingSuccess">
                 <div class="booking-success-header">
                     <img src="logo-white.svg" alt="Банк России">
-                    <span class="booking-success-header-text">ЭЛЕКТРОННЫЙ ПРОПУСК</span>
+                    <span class="booking-success-header-text">Электронный пропуск</span>
                 </div>
 
                 <div class="booking-success-body" id="ticketToSave">
 
-                    <!-- Верхняя часть: статус + номер талона + QR -->
-                    <div class="booking-success-top">
-                        <div class="booking-success-status">
-                            <div class="booking-success-status-icon">✓</div>
+                    <!-- Статус -->
+                    <div class="booking-success-status-block">
+                        <div class="status-left">
+                            <div class="status-icon">✓</div>
                             <div>
-                                <div class="booking-success-status-text">Запись подтверждена</div>
-                                <div class="booking-success-status-sub">Ваш пропуск действителен</div>
+                                <div class="status-text">Запись подтверждена</div>
+                                <div class="status-sub">Пропуск действителен для входа</div>
                             </div>
                         </div>
-                        <div class="booking-success-right">
-                            <div class="booking-success-ticket-number">
-                                <div class="booking-success-ticket-number-label">Номер талона</div>
-                                <div class="booking-success-ticket-number-value" id="ticketNumber">—</div>
-                            </div>
-                            <div class="booking-success-qr" id="qrContainer"></div>
-                        </div>
+                        <div class="status-badge">АКТИВЕН</div>
                     </div>
 
-                    <hr class="booking-success-divider">
+                    <!-- Номер талона + QR -->
+                    <div class="booking-success-main">
+                        <div class="ticket-info">
+                            <div class="ticket-label">Номер талона</div>
+                            <div class="ticket-number" id="ticketNumber">—</div>
+                            <div class="ticket-hint">Предъявите <span>этот пропуск</span> на входе</div>
+                        </div>
+                        <div class="qr-wrapper" id="qrContainer"></div>
+                    </div>
 
                     <!-- Детали -->
                     <div class="booking-success-details">
@@ -1078,10 +1278,15 @@
                             <span class="booking-success-details-item-label">Email</span>
                             <span class="booking-success-details-item-value" id="successEmail">—</span>
                         </div>
-                        <div class="booking-success-details-item full">
-                            <span class="booking-success-details-item-label">Статус</span>
-                            <span class="booking-success-details-item-value" style="color:#2aa65e;">✓ Подтверждено</span>
-                        </div>
+                    </div>
+
+                    <!-- Для охраны -->
+                    <div class="booking-success-guard">
+                        <span class="guard-icon">🛡️</span>
+                        <span>
+                            <strong>Для охраны:</strong> проверьте номер талона, QR-код и паспорт посетителя.
+                            Пропуск действителен строго в указанное время.
+                        </span>
                     </div>
 
                     <!-- Штрих-код -->
@@ -1089,12 +1294,12 @@
 
                 </div>
 
-                <!-- Футер пропуска -->
+                <!-- Футер -->
                 <div class="booking-success-footer no-print">
-                    <span style="font-size:12px;color:#8f96a3;">Сохраните этот пропуск для входа</span>
+                    <span class="footer-note">Сохраните пропуск для входа</span>
                     <div class="btn-group">
                         <button onclick="window.print()">🖨️ Печать</button>
-                        <button onclick="saveTicketAsImage()">💾 Сохранить как фото</button>
+                        <button class="save-btn" onclick="saveTicketAsImage()">📱 Сохранить в галерею</button>
                         <button onclick="resetBooking()" class="primary">➕ Новая запись</button>
                     </div>
                 </div>
@@ -1104,7 +1309,7 @@
     </main>
 
     <!-- ========================================================== -->
-    <!-- ПОДВАЛ (точная копия ЦБ) -->
+    <!-- ПОДВАЛ -->
     <!-- ========================================================== -->
     <footer class="footer">
         <div class="footer_main">
@@ -1196,13 +1401,8 @@
 
         const DAYS_SHORT = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
 
-        // ===== ФИКСИРОВАННЫЙ СПИСОК ВРЕМЕНИ (6 слотов) =====
         const TIME_SLOTS = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00'];
 
-        // ===== ДАТА, С КОТОРОЙ ВСЁ ОТКРЫТО =====
-        const AVAILABLE_FROM = new Date(2026, 7, 25); // 25 августа 2026
-
-        // ===== ПЕРЕМЕННЫЕ =====
         let selectedDate = null;
         let selectedTime = null;
         let selectedDateTime = null;
@@ -1216,34 +1416,19 @@
             try {
                 const response = await fetch('schedule.json');
                 if (!response.ok) {
-                    console.warn('schedule.json не найден, все даты открыты');
+                    console.warn('schedule.json не найден');
                     return;
                 }
                 const data = await response.json();
                 if (data && data.closed_dates) {
                     closedDates = data.closed_dates;
-                    console.log('📅 Загружены закрытые даты:', closedDates);
                 }
             } catch (e) {
                 console.warn('Ошибка загрузки schedule.json:', e);
             }
         }
 
-        // =============================================================
-        // ПРОВЕРКА — ЗАКРЫТА ЛИ ДАТА
-        // =============================================================
-
         function isDateClosed(dateStr) {
-            // Если дата после 25 августа — всегда открыта
-            const parts = dateStr.split('-');
-            const year = parseInt(parts[0]);
-            const month = parseInt(parts[1]) - 1;
-            const day = parseInt(parts[2]);
-            const dateObj = new Date(year, month, day);
-            if (dateObj >= AVAILABLE_FROM) {
-                return false; // после 25 августа всё открыто
-            }
-            // Проверяем по списку закрытых
             return closedDates.includes(dateStr);
         }
 
@@ -1253,13 +1438,13 @@
 
         function generateCalendar() {
             const container = document.getElementById('calendarContainer');
-            const startMonth = 6; // Июнь
-            const endMonth = 8;   // Август
+            const startMonth = 8;
+            const endMonth = 10;
+            const year = 2026;
 
             let html = '<div class="calendar-months">';
 
             for (let m = startMonth; m <= endMonth; m++) {
-                const year = 2026;
                 const firstDay = new Date(year, m, 1).getDay();
                 const daysInMonth = new Date(year, m + 1, 0).getDate();
                 let firstDayIndex = (firstDay === 0) ? 6 : firstDay - 1;
@@ -1284,24 +1469,25 @@
                         } else if (day > daysInMonth) {
                             html += `<div class="calendar-cell empty"></div>`;
                         } else {
-                            const dateStr = `${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+                            const dateStr =
+                                `${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
                             const dateObj = new Date(year, m, day);
                             const isWeekend = (d === 5 || d === 6);
                             const isClosed = isDateClosed(dateStr);
-                            const isAvailable = !isWeekend && !isClosed && dateObj >= new Date(2026, 5, 27);
+                            const isFromOctober = dateObj >= new Date(2026, 9, 1);
+                            const isAvailable = !isWeekend && !isClosed && isFromOctober;
 
                             let cellClass = 'calendar-cell';
                             if (isWeekend) {
                                 cellClass += ' weekend disabled';
-                            } else if (isClosed) {
+                            } else if (isClosed || !isFromOctober) {
                                 cellClass += ' disabled';
-                            } else if (!isAvailable) {
-                                cellClass += ' disabled';
-                            } else {
+                            } else if (isAvailable) {
                                 cellClass += ' available';
+                            } else {
+                                cellClass += ' disabled';
                             }
 
-                            // Если дата открыта — показываем слоты времени
                             let timeSlotsHtml = '';
                             if (isAvailable && !isWeekend && !isClosed) {
                                 timeSlotsHtml += `<div class="calendar-time-slots">`;
@@ -1335,7 +1521,6 @@
         // =============================================================
 
         function selectDate(el, dateStr) {
-            // Если дата уже выбрана — снимаем выделение
             if (el.classList.contains('selected')) {
                 el.classList.remove('selected');
                 selectedDate = null;
@@ -1347,14 +1532,12 @@
                 return;
             }
 
-            // Снимаем выделение со всех дат
             document.querySelectorAll('.calendar-cell.available.selected').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
             selectedDate = dateStr;
             selectedTime = null;
             document.querySelectorAll('.calendar-time-slot.selected').forEach(s => s.classList.remove('selected'));
 
-            // Обновляем кнопку
             document.getElementById('selectedDateTime').textContent = dateStr;
             document.getElementById('nextToFormBtn').textContent = 'Выберите время';
             document.getElementById('nextToFormBtn').style.background = '#888';
@@ -1363,7 +1546,6 @@
         function selectTime(event, time, dateStr) {
             event.stopPropagation();
 
-            // Если дата не выбрана — выбираем её
             if (!selectedDate || selectedDate !== dateStr) {
                 const cell = document.querySelector(`.calendar-cell[data-date="${dateStr}"]`);
                 if (cell) {
@@ -1373,7 +1555,6 @@
                 }
             }
 
-            // Снимаем выделение с других слотов времени
             document.querySelectorAll('.calendar-time-slot.selected').forEach(s => s.classList.remove('selected'));
             event.target.classList.add('selected');
             selectedTime = time;
@@ -1383,13 +1564,9 @@
             document.getElementById('nextToFormBtn').textContent = 'Продолжить →';
             document.getElementById('nextToFormBtn').style.background = '#08c';
 
-            // ===== ПЛАВНЫЙ СКРОЛЛ К КНОПКЕ =====
             setTimeout(() => {
                 const button = document.getElementById('nextToFormBtn');
-                button.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
+                button.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 300);
         }
 
@@ -1418,7 +1595,7 @@
         }
 
         // =============================================================
-        // ОТПРАВКА ЗАЯВКИ + ГЕНЕРАЦИЯ QR И ШТРИХ-КОДА
+        // ОТПРАВКА ЗАЯВКИ + ЛОАДЕР
         // =============================================================
 
         function submitBooking() {
@@ -1457,7 +1634,22 @@
 
             if (!isValid) return;
 
-            // Генерируем номер талона
+            const loader = document.getElementById('loaderOverlay');
+            loader.classList.add('visible');
+
+            const delay = 3000 + Math.random() * 2000;
+
+            setTimeout(() => {
+                loader.classList.remove('visible');
+                generateTicket(name, phone, email);
+            }, delay);
+        }
+
+        // =============================================================
+        // ГЕНЕРАЦИЯ ПРОПУСКА
+        // =============================================================
+
+        function generateTicket(name, phone, email) {
             const ticketNum = 'ЦБ-' + String(Math.floor(100000 + Math.random() * 900000));
 
             document.getElementById('bookingForm').classList.remove('visible');
@@ -1471,66 +1663,72 @@
             document.getElementById('successEmail').textContent = email || '—';
             document.getElementById('ticketNumber').textContent = ticketNum;
 
-            // ===== ВСТАВЛЯЕМ QR-КОД ИЗ ФАЙЛА =====
+            // QR
             const qrContainer = document.getElementById('qrContainer');
             qrContainer.innerHTML = '';
             const img = document.createElement('img');
             img.src = 'qrcode.jpeg';
             img.alt = 'QR-код';
-            img.style.width = '80px';
-            img.style.height = '80px';
-            img.style.display = 'block';
-            img.style.border = '1px solid #e8e9eb';
-            img.style.borderRadius = '4px';
-            img.style.padding = '4px';
             img.onerror = function() {
                 this.style.display = 'none';
                 qrContainer.innerHTML = '<span style="font-size:12px;color:#a00;">QR-код не найден</span>';
             };
             qrContainer.appendChild(img);
 
-            // ===== ГЕНЕРИРУЕМ ШТРИХ-КОД =====
+            // Штрих-код
             const barcodeContainer = document.getElementById('barcodeContainer');
             barcodeContainer.innerHTML = '';
-            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            svg.id = 'barcode';
-            barcodeContainer.appendChild(svg);
 
-            JsBarcode('#barcode', ticketNum, {
-                format: 'CODE128',
-                width: 2,
-                height: 50,
-                displayValue: true,
-                fontSize: 16,
-                font: 'monospace',
-                textAlign: 'center',
-                textPosition: 'bottom',
-                textMargin: 6,
-                margin: 8,
-                background: '#ffffff',
-                lineColor: '#111214'
-            });
+            try {
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.id = 'barcode';
+                barcodeContainer.appendChild(svg);
+
+                JsBarcode('#barcode', ticketNum, {
+                    format: 'CODE128',
+                    width: 2,
+                    height: 50,
+                    displayValue: true,
+                    fontSize: 16,
+                    font: 'monospace',
+                    textAlign: 'center',
+                    textPosition: 'bottom',
+                    textMargin: 6,
+                    margin: 8,
+                    background: '#ffffff',
+                    lineColor: '#0a1a2b'
+                });
+            } catch (e) {
+                // Если библиотека не сработала — показываем текст
+                barcodeContainer.innerHTML =
+                    `<div class="barcode-fallback">${ticketNum}</div>`;
+                console.warn('Barcode generation failed, using fallback');
+            }
         }
 
         // =============================================================
-        // СОХРАНЕНИЕ ПРОПУСКА КАК ИЗОБРАЖЕНИЯ
+        // СОХРАНЕНИЕ ПРОПУСКА
         // =============================================================
 
         function saveTicketAsImage() {
             const element = document.getElementById('ticketToSave');
 
             html2canvas(element, {
-                scale: 2,
-                backgroundColor: '#ffffff',
+                scale: 2.5,
+                backgroundColor: '#fbfcfe',
                 useCORS: true,
-                logging: false
+                logging: false,
+                width: element.scrollWidth,
+                height: element.scrollHeight,
+                windowWidth: element.scrollWidth,
+                windowHeight: element.scrollHeight
             }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = `Пропуск_${document.getElementById('ticketNumber').textContent}.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             }).catch(err => {
-                alert('Ошибка при сохранении: ' + err.message);
+                alert('Ошибка при сохранении. Попробуйте использовать скриншот.\n' + err.message);
             });
         }
 
