@@ -18,20 +18,20 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #fff;
-            color: #2b2e33;
+            background: #f0f2f5;
+            color: #1a1a2e;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        a { text-decoration: none; color: #08c; }
-        a:hover { color: #0099e6; }
+        a { text-decoration: none; color: #0057b3; }
+        a:hover { color: #0077e6; }
 
         .container { max-width: 1216px; margin: 0 auto; padding: 0 20px; width: 100%; }
 
         /* =============================================
-           ХЕДЕР (как на ЦБ)
+           ХЕДЕР
            ============================================= */
         .header {
             background: #fff;
@@ -122,7 +122,7 @@
         }
 
         /* =============================================
-           НАВИГАЦИЯ (как на ЦБ)
+           НАВИГАЦИЯ
            ============================================= */
         .header-nav {
             background: #f5f5f5;
@@ -147,8 +147,8 @@
             border-bottom: 2px solid transparent;
             transition: 0.3s;
         }
-        .header-nav a:hover { border-bottom-color: #08c; }
-        .header-nav a.active { border-bottom-color: #08c; }
+        .header-nav a:hover { border-bottom-color: #0057b3; }
+        .header-nav a.active { border-bottom-color: #0057b3; }
 
         @media (max-width: 768px) {
             .header-nav-inner { gap: 16px; }
@@ -166,7 +166,7 @@
         .page-title {
             font-size: 32px;
             font-weight: 600;
-            color: #111214;
+            color: #1a1a2e;
             margin-bottom: 32px;
         }
 
@@ -212,14 +212,14 @@
             font-size: 14px;
             font-weight: 600;
         }
-        .form-step.active .form-step-number { background: #08c; }
-        .form-step.completed .form-step-number { background: #2aa65e; }
+        .form-step.active .form-step-number { background: #0057b3; }
+        .form-step.completed .form-step-number { background: #22a65e; }
 
         .form-step-title {
             font-size: 16px;
             font-weight: 500;
         }
-        .form-step.active .form-step-title { color: #111214; }
+        .form-step.active .form-step-title { color: #1a1a2e; }
         .form-step:not(.active):not(.completed) .form-step-title { color: #bcc1cc; }
 
         @media (max-width: 768px) {
@@ -245,6 +245,7 @@
             border: 1px solid #e8e9eb;
             border-radius: 8px;
             overflow: hidden;
+            background: #fff;
         }
 
         .calendar-months { display: flex; flex-direction: column; }
@@ -306,7 +307,7 @@
         }
         .calendar-cell.available:hover { background: #ebf3ff; }
         .calendar-cell.available.selected {
-            background: #08c;
+            background: #0057b3;
             color: #fff;
         }
         .calendar-cell.available.selected .calendar-day-title { color: #fff; }
@@ -335,10 +336,10 @@
             transition: all 0.2s;
             font-weight: 400;
         }
-        .calendar-time-slot:hover { border-color: #08c; }
+        .calendar-time-slot:hover { border-color: #0057b3; }
         .calendar-time-slot.selected {
-            border-color: #08c;
-            background: #08c;
+            border-color: #0057b3;
+            background: #0057b3;
             color: #fff;
         }
         .calendar-time-slot.disabled {
@@ -346,8 +347,8 @@
             cursor: not-allowed;
         }
         .calendar-time-slot.available {
-            border-color: #08c;
-            color: #08c;
+            border-color: #0057b3;
+            color: #0057b3;
         }
 
         @media (max-width: 768px) {
@@ -368,10 +369,12 @@
            ============================================= */
         .booking-form {
             display: none;
-            background: #f5f5f5;
-            border-radius: 8px;
+            background: #fff;
+            border-radius: 12px;
             padding: 32px;
             margin-top: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border: 1px solid #e8e9eb;
         }
         .booking-form.visible {
             display: block;
@@ -387,6 +390,7 @@
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 24px;
+            color: #1a1a2e;
         }
 
         .booking-form-row {
@@ -401,20 +405,23 @@
             font-size: 14px;
             font-weight: 500;
             margin-bottom: 6px;
+            color: #4a4a5a;
         }
 
         .booking-form-input {
             padding: 12px 16px;
-            border: 1px solid #c4c7cc;
-            border-radius: 4px;
+            border: 1px solid #d0d2d8;
+            border-radius: 8px;
             font-size: 16px;
             transition: border-color 0.3s;
             font-family: inherit;
             width: 100%;
+            background: #fafbfc;
         }
         .booking-form-input:focus {
-            border-color: #08c;
+            border-color: #0057b3;
             outline: none;
+            background: #fff;
         }
         .booking-form-input.error {
             border-color: #ed1a34;
@@ -430,25 +437,25 @@
 
         .booking-form-submit {
             padding: 12px 48px;
-            background: #08c;
+            background: #0057b3;
             color: #fff;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
             transition: background 0.3s;
             font-family: inherit;
         }
-        .booking-form-submit:hover { background: #0099e6; }
+        .booking-form-submit:hover { background: #0077e6; }
         .booking-form-submit.secondary {
             background: transparent;
             color: #8f96a3;
-            border: 1px solid #c4c7cc;
+            border: 1px solid #d0d2d8;
         }
         .booking-form-submit.secondary:hover {
             background: #f5f5f5;
-            color: #111214;
+            color: #1a1a2e;
         }
 
         @media (max-width: 768px) {
@@ -467,7 +474,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.94);
             z-index: 9999;
             justify-content: center;
             align-items: center;
@@ -501,8 +508,8 @@
             height: 100%;
             border-radius: 50%;
             border: 4px solid transparent;
-            border-top: 4px solid #08c;
-            border-right: 4px solid #08c;
+            border-top: 4px solid #0057b3;
+            border-right: 4px solid #0057b3;
             animation: spin 0.8s linear infinite;
             z-index: 1;
         }
@@ -511,8 +518,8 @@
             height: 80%;
             top: 10%;
             left: 10%;
-            border-top-color: #2aa65e;
-            border-right-color: #2aa65e;
+            border-top-color: #22a65e;
+            border-right-color: #22a65e;
             animation-duration: 1.2s;
             animation-direction: reverse;
         }
@@ -535,7 +542,7 @@
             margin-top: 30px;
             font-size: 18px;
             font-weight: 500;
-            color: #2b2e33;
+            color: #1a1a2e;
             animation: pulseText 1.2s ease-in-out infinite;
         }
         .loader-subtext {
@@ -550,348 +557,357 @@
         }
 
         /* =============================================
-           ПОДТВЕРЖДЕНИЕ - ЭЛЕКТРОННЫЙ ПРОПУСК (БЕЗ ШТРИХ-КОДА)
+           ПРОПУСК — НОВЫЙ ДИЗАЙН (как авиабилет)
            ============================================= */
         .booking-success {
             display: none;
-            max-width: 680px;
+            max-width: 560px;
             margin: 0 auto;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e8e9eb;
-            overflow: hidden;
         }
         .booking-success.visible {
             display: block;
             animation: fadeIn 0.5s ease;
         }
 
-        /* ===== ВЕРХНЯЯ ТЁМНО-СИНЯЯ ПЛАШКА ===== */
-        .booking-success-header {
-            background: #0a1a2b;
-            padding: 20px 28px;
+        /* Внешняя карточка */
+        .ticket-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.10);
+            border: 1px solid rgba(0, 87, 179, 0.12);
+        }
+
+        /* ===== ВЕРХНЯЯ ПЛАШКА (теперь точно сохраняется) ===== */
+        .ticket-header {
+            background: linear-gradient(135deg, #0a1628 0%, #1a2a4a 100%);
+            padding: 18px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 4px solid #08c;
+            border-bottom: 3px solid #0057b3;
         }
-        .booking-success-header .header-logo-img {
-            height: 40px;
+        .ticket-header .logo {
+            height: 32px;
             width: auto;
             display: block;
         }
-        .booking-success-header .header-title {
-            color: #fff;
-            font-size: 13px;
+        .ticket-header .title {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 11px;
             font-weight: 500;
-            opacity: 0.8;
-            letter-spacing: 2px;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
         }
 
-        .booking-success-body {
-            padding: 28px 32px 24px;
-            position: relative;
-            background: #fbfcfe;
+        /* ===== ТЕЛО ===== */
+        .ticket-body {
+            padding: 24px 24px 20px;
+            background: #ffffff;
         }
 
-        /* ===== СТАТУС ===== */
-        .booking-success-status-block {
+        /* Статус */
+        .ticket-status {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: #e8f5ed;
-            border-radius: 8px;
-            padding: 12px 20px;
-            margin-bottom: 20px;
+            border-radius: 10px;
+            padding: 10px 16px;
+            margin-bottom: 18px;
         }
-        .booking-success-status-block .status-left {
+        .ticket-status .left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
-        .booking-success-status-block .status-icon {
-            width: 36px;
-            height: 36px;
-            background: #2aa65e;
+        .ticket-status .check {
+            width: 28px;
+            height: 28px;
+            background: #22a65e;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            font-size: 18px;
+            font-size: 14px;
+            font-weight: 700;
             flex-shrink: 0;
         }
-        .booking-success-status-block .status-text {
-            font-size: 16px;
+        .ticket-status .status-text {
+            font-size: 14px;
             font-weight: 600;
-            color: #1a7a3e;
+            color: #1a6e3a;
         }
-        .booking-success-status-block .status-sub {
-            font-size: 13px;
+        .ticket-status .status-sub {
+            font-size: 12px;
             color: #2b6e3a;
         }
-        .booking-success-status-block .status-badge {
+        .ticket-status .badge {
             background: #fff;
-            padding: 4px 16px;
+            padding: 3px 14px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            color: #2aa65e;
-            border: 1px solid #2aa65e;
+            color: #22a65e;
+            border: 1px solid #22a65e;
             letter-spacing: 0.5px;
         }
 
-        /* ===== НОМЕР ТАЛОНА + QR ===== */
-        .booking-success-main {
+        /* QR + Номер */
+        .ticket-main {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
             gap: 20px;
-            padding: 16px 20px;
-            background: #fff;
-            border-radius: 8px;
-            border: 1px solid #e8e9eb;
+            padding: 14px 16px;
+            background: #f7f9fc;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            border: 1px solid #eef1f5;
         }
-        .booking-success-main .ticket-info {
+        .ticket-main .info {
             flex: 1;
         }
-        .booking-success-main .ticket-label {
-            font-size: 11px;
+        .ticket-main .info .label {
+            font-size: 10px;
             color: #8f96a3;
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 500;
         }
-        .booking-success-main .ticket-number {
-            font-size: 32px;
+        .ticket-main .info .number {
+            font-size: 26px;
             font-weight: 700;
-            color: #0a1a2b;
-            letter-spacing: 2px;
-            margin: 2px 0;
+            color: #0a1628;
             font-family: 'Courier New', monospace;
+            letter-spacing: 1.5px;
+            margin: 2px 0;
         }
-        .booking-success-main .ticket-hint {
-            font-size: 12px;
-            color: #676e7b;
+        .ticket-main .info .hint {
+            font-size: 11px;
+            color: #8f96a3;
         }
-        .booking-success-main .ticket-hint span {
-            color: #ed1a34;
-            font-weight: 600;
+        .ticket-main .info .hint strong {
+            color: #0057b3;
         }
-
-        .booking-success-main .qr-wrapper {
+        .ticket-main .qr {
             flex-shrink: 0;
-            width: 120px;
-            height: 120px;
-        }
-        .booking-success-main .qr-wrapper img,
-        .booking-success-main .qr-wrapper canvas {
-            width: 120px;
-            height: 120px;
-            display: block;
-            border-radius: 6px;
-            border: 2px solid #e8e9eb;
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            border: 2px solid #eef1f5;
             padding: 4px;
             background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ticket-main .qr img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 4px;
         }
 
-        /* ===== ДЕТАЛИ ===== */
-        .booking-success-details {
+        /* Детали (3 колонки) */
+        .ticket-details {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px 20px;
-            padding: 16px 20px;
-            background: #fff;
-            border-radius: 8px;
-            border: 1px solid #e8e9eb;
-            margin-bottom: 16px;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px 12px;
+            padding: 14px 16px;
+            background: #fafbfc;
+            border-radius: 10px;
+            margin-bottom: 14px;
+            border: 1px solid #eef1f5;
         }
-        .booking-success-details-item { display: flex; flex-direction: column; }
-        .booking-success-details-item.full { grid-column: 1 / -1; }
-        .booking-success-details-item-label {
-            font-size: 11px;
+        .ticket-details .item { display: flex; flex-direction: column; }
+        .ticket-details .item .label {
+            font-size: 10px;
             color: #8f96a3;
-            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-        }
-        .booking-success-details-item-value {
-            font-size: 15px;
             font-weight: 500;
-            color: #0a1a2b;
+        }
+        .ticket-details .item .value {
+            font-size: 14px;
+            font-weight: 500;
+            color: #0a1628;
             margin-top: 1px;
+            line-height: 1.3;
         }
 
-        /* ===== ДЛЯ ОХРАНЫ ===== */
-        .booking-success-guard {
+        /* Для охраны */
+        .ticket-guard {
             background: #fef8e7;
             border-left: 4px solid #f5a623;
-            padding: 12px 16px;
-            border-radius: 4px;
+            padding: 10px 14px;
+            border-radius: 6px;
             display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 13px;
-            color: #5a4a1a;
-        }
-        .booking-success-guard .guard-icon {
-            font-size: 22px;
-            flex-shrink: 0;
-        }
-        .booking-success-guard strong {
-            color: #0a1a2b;
-        }
-
-        /* ===== НОМЕР ТАЛОНА ВНИЗУ (ВМЕСТО ШТРИХ-КОДА) ===== */
-        .booking-success-footer-ticket {
-            margin-top: 16px;
-            padding: 12px 20px;
-            background: #f0f4f9;
-            border-radius: 8px;
-            border: 2px dashed #bcc1cc;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-        }
-        .booking-success-footer-ticket .label {
-            font-size: 11px;
-            color: #8f96a3;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 500;
-        }
-        .booking-success-footer-ticket .number {
-            font-size: 28px;
-            font-weight: 700;
-            color: #0a1a2b;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 3px;
-        }
-        .booking-success-footer-ticket .hint {
+            align-items: flex-start;
+            gap: 10px;
             font-size: 12px;
-            color: #676e7b;
+            color: #5a4a1a;
+            line-height: 1.4;
+        }
+        .ticket-guard .icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .ticket-guard strong {
+            color: #0a1628;
         }
 
-        /* ===== ФУТЕР КНОПКИ ===== */
-        .booking-success-footer {
-            background: #f5f6f8;
-            padding: 16px 28px;
+        /* Нижний колонтитул пропуска */
+        .ticket-footer {
+            margin-top: 14px;
+            padding: 10px 16px;
+            background: #f0f4fa;
+            border-radius: 8px;
+            border: 1px dashed #c8d0dd;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
-            border-top: 1px solid #e8e9eb;
+            gap: 8px;
         }
-        .booking-success-footer .footer-note {
+        .ticket-footer .serial {
             font-size: 12px;
+            color: #4a5a6a;
+        }
+        .ticket-footer .serial .num {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: #0a1628;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+        .ticket-footer .badge-small {
+            font-size: 10px;
+            color: #8f96a3;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== КНОПКИ ВНИЗУ ===== */
+        .ticket-actions {
+            padding: 14px 24px 20px;
+            background: #f7f9fc;
+            border-top: 1px solid #eef1f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .ticket-actions .note {
+            font-size: 11px;
             color: #8f96a3;
         }
-        .booking-success-footer .btn-group {
+        .ticket-actions .btn-group {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
         }
-        .booking-success-footer button {
-            padding: 8px 18px;
-            border: 1px solid #c4c7cc;
-            border-radius: 6px;
+        .ticket-actions button {
+            padding: 8px 16px;
+            border: 1px solid #d0d2d8;
+            border-radius: 8px;
             background: #fff;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
-            transition: all 0.3s;
+            transition: all 0.2s;
             font-family: inherit;
             display: flex;
             align-items: center;
             gap: 6px;
+            color: #1a1a2e;
         }
-        .booking-success-footer button:hover {
-            border-color: #08c;
-            color: #08c;
+        .ticket-actions button:hover {
+            border-color: #0057b3;
+            color: #0057b3;
         }
-        .booking-success-footer button.primary {
-            background: #08c;
+        .ticket-actions button.primary {
+            background: #0057b3;
             color: #fff;
             border: none;
         }
-        .booking-success-footer button.primary:hover {
-            background: #0099e6;
+        .ticket-actions button.primary:hover {
+            background: #0077e6;
             color: #fff;
         }
-        .booking-success-footer button.save-btn {
-            background: #2aa65e;
+        .ticket-actions button.save-btn {
+            background: #22a65e;
             color: #fff;
             border: none;
         }
-        .booking-success-footer button.save-btn:hover {
-            background: #1e8a4e;
+        .ticket-actions button.save-btn:hover {
+            background: #1a8a4e;
             color: #fff;
         }
 
         @media (max-width: 576px) {
-            .booking-success-body { padding: 16px; }
-            .booking-success-header { padding: 14px 16px; }
-            .booking-success-header .header-logo-img { height: 30px; }
-            .booking-success-header .header-title { font-size: 11px; }
+            .ticket-body { padding: 16px; }
+            .ticket-header { padding: 14px 16px; }
+            .ticket-header .logo { height: 26px; }
+            .ticket-header .title { font-size: 10px; }
 
-            .booking-success-status-block {
+            .ticket-main {
                 flex-direction: column;
                 align-items: stretch;
-                gap: 8px;
-                padding: 12px 16px;
+                gap: 12px;
             }
-            .booking-success-status-block .status-badge {
-                align-self: flex-start;
-            }
-            .booking-success-main {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 16px;
-            }
-            .booking-success-main .ticket-number {
-                font-size: 26px;
-            }
-            .booking-success-main .qr-wrapper {
+            .ticket-main .qr {
                 align-self: center;
-                width: 100px;
-                height: 100px;
+                width: 90px;
+                height: 90px;
             }
-            .booking-success-main .qr-wrapper img,
-            .booking-success-main .qr-wrapper canvas {
-                width: 100px;
-                height: 100px;
-            }
-            .booking-success-details {
-                grid-template-columns: 1fr;
-                padding: 12px 16px;
-                gap: 6px 0;
-            }
-            .booking-success-footer {
-                flex-direction: column;
-                padding: 12px 16px;
-            }
-            .booking-success-footer .btn-group {
-                width: 100%;
-            }
-            .booking-success-footer .btn-group button {
-                flex: 1;
-                justify-content: center;
-                font-size: 13px;
-                padding: 10px 12px;
-            }
-            .booking-success-guard {
-                font-size: 12px;
-                padding: 10px 14px;
-            }
-            .booking-success-footer-ticket .number {
+            .ticket-main .info .number {
                 font-size: 22px;
             }
+            .ticket-details {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px 10px;
+            }
+            .ticket-actions {
+                flex-direction: column;
+                padding: 12px 16px 16px;
+            }
+            .ticket-actions .btn-group {
+                width: 100%;
+            }
+            .ticket-actions .btn-group button {
+                flex: 1;
+                justify-content: center;
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+            .ticket-footer {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .ticket-status {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 6px;
+            }
+            .ticket-status .badge {
+                align-self: flex-start;
+            }
+        }
+
+        @media print {
+            .header, .header-nav, .footer, .booking-form-submit, .no-print, .loader-overlay,
+            .ticket-actions {
+                display: none !important;
+            }
+            .ticket-card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            body { background: #fff !important; }
         }
 
         /* =============================================
@@ -1088,18 +1104,6 @@
             .footer_phone_val { display: block; font-size: 16px; }
             .footer_phone span { display: block; font-size: 12px; padding-left: 0; }
         }
-
-        @media print {
-            .header, .header-nav, .footer, .booking-form-submit, .no-print, .loader-overlay {
-                display: none !important;
-            }
-            .booking-success {
-                box-shadow: none !important;
-                border: 1px solid #ddd !important;
-            }
-            body { background: #fff !important; }
-            .booking-success-footer { display: none !important; }
-        }
     </style>
 </head>
 <body>
@@ -1158,15 +1162,15 @@
             <div class="form-steps">
                 <div class="form-step active" id="step1">
                     <span class="form-step-number">1</span>
-                    <span class="form-step-title">Выбор времени посещения</span>
+                    <span class="form-step-title">Выбор времени</span>
                 </div>
                 <div class="form-step" id="step2">
                     <span class="form-step-number">2</span>
-                    <span class="form-step-title">Оформление заявки</span>
+                    <span class="form-step-title">Оформление</span>
                 </div>
                 <div class="form-step" id="step3">
                     <span class="form-step-number">3</span>
-                    <span class="form-step-title">Подтверждение</span>
+                    <span class="form-step-title">Пропуск</span>
                 </div>
             </div>
 
@@ -1188,12 +1192,12 @@
             </div>
 
             <!-- ========================================== -->
-            <!-- ФОРМА ЗАПИСИ -->
+            <!-- ФОРМА -->
             <!-- ========================================== -->
             <div class="booking-form" id="bookingForm">
                 <h2 class="booking-form-title">Оформление заявки</h2>
 
-                <div style="background:#e8f4ff;padding:12px 16px;border-radius:4px;margin-bottom:20px;font-size:14px;">
+                <div style="background:#e8f4ff;padding:12px 16px;border-radius:8px;margin-bottom:20px;font-size:14px;border:1px solid #d0e4ff;">
                     <strong>Выбрано:</strong> <span id="selectedDateTime">—</span>
                 </div>
 
@@ -1230,7 +1234,7 @@
             </div>
 
             <!-- ========================================== -->
-            <!-- ЗАГРУЗКА (LOADER) -->
+            <!-- ЗАГРУЗКА -->
             <!-- ========================================== -->
             <div class="loader-overlay" id="loaderOverlay">
                 <div class="loader-logo">
@@ -1244,86 +1248,94 @@
             </div>
 
             <!-- ========================================== -->
-            <!-- ЭЛЕКТРОННЫЙ ПРОПУСК (БЕЗ ШТРИХ-КОДА) -->
+            <!-- ПРОПУСК — НОВЫЙ ДИЗАЙН -->
             <!-- ========================================== -->
             <div class="booking-success" id="bookingSuccess">
-                <!-- Верхняя тёмно-синяя плашка -->
-                <div class="booking-success-header">
-                    <img class="header-logo-img" src="logo-white.svg" alt="Банк России">
-                    <span class="header-title">Электронный пропуск</span>
-                </div>
 
-                <div class="booking-success-body" id="ticketToSave">
+                <div class="ticket-card" id="ticketToSave">
 
-                    <!-- Статус -->
-                    <div class="booking-success-status-block">
-                        <div class="status-left">
-                            <div class="status-icon">✓</div>
-                            <div>
-                                <div class="status-text">Запись подтверждена</div>
-                                <div class="status-sub">Пропуск действителен для входа</div>
+                    <!-- Верхняя плашка -->
+                    <div class="ticket-header">
+                        <img class="logo" src="logo-white.svg" alt="Банк России">
+                        <span class="title">Электронный пропуск</span>
+                    </div>
+
+                    <!-- Тело -->
+                    <div class="ticket-body">
+
+                        <!-- Статус -->
+                        <div class="ticket-status">
+                            <div class="left">
+                                <div class="check">✓</div>
+                                <div>
+                                    <div class="status-text">Запись подтверждена</div>
+                                    <div class="status-sub">Пропуск действителен для входа</div>
+                                </div>
+                            </div>
+                            <div class="badge">АКТИВЕН</div>
+                        </div>
+
+                        <!-- QR + Номер -->
+                        <div class="ticket-main">
+                            <div class="info">
+                                <div class="label">Номер талона</div>
+                                <div class="number" id="ticketNumber">—</div>
+                                <div class="hint">Предъявите <strong>этот пропуск</strong> на входе</div>
+                            </div>
+                            <div class="qr" id="qrContainer"></div>
+                        </div>
+
+                        <!-- Детали 3 колонки -->
+                        <div class="ticket-details">
+                            <div class="item">
+                                <span class="label">Дата и время</span>
+                                <span class="value" id="successDateTime">—</span>
+                            </div>
+                            <div class="item">
+                                <span class="label">ФИО</span>
+                                <span class="value" id="successName">—</span>
+                            </div>
+                            <div class="item">
+                                <span class="label">Телефон</span>
+                                <span class="value" id="successPhone">—</span>
+                            </div>
+                            <div class="item" style="grid-column: 1 / -1;">
+                                <span class="label">Email</span>
+                                <span class="value" id="successEmail">—</span>
                             </div>
                         </div>
-                        <div class="status-badge">АКТИВЕН</div>
+
+                        <!-- Для охраны -->
+                        <div class="ticket-guard">
+                            <span class="icon">🛡️</span>
+                            <span>
+                                <strong>Для охраны:</strong> проверьте номер талона, QR-код и паспорт посетителя.
+                                Пропуск действителен строго в указанное время.
+                            </span>
+                        </div>
+
+                        <!-- Нижний колонтитул -->
+                        <div class="ticket-footer">
+                            <span class="serial">
+                                Серийный номер: <span class="num" id="ticketNumberFooter">—</span>
+                            </span>
+                            <span class="badge-small">Для сверки с базой данных</span>
+                        </div>
+
                     </div>
 
-                    <!-- Номер талона + QR -->
-                    <div class="booking-success-main">
-                        <div class="ticket-info">
-                            <div class="ticket-label">Номер талона</div>
-                            <div class="ticket-number" id="ticketNumber">—</div>
-                            <div class="ticket-hint">Предъявите <span>этот пропуск</span> на входе</div>
+                    <!-- Кнопки -->
+                    <div class="ticket-actions no-print">
+                        <span class="note">Сохраните пропуск для входа</span>
+                        <div class="btn-group">
+                            <button onclick="window.print()">🖨️ Печать</button>
+                            <button class="save-btn" onclick="saveTicketAsImage()">📱 Сохранить</button>
+                            <button onclick="resetBooking()" class="primary">➕ Новая запись</button>
                         </div>
-                        <div class="qr-wrapper" id="qrContainer"></div>
-                    </div>
-
-                    <!-- Детали -->
-                    <div class="booking-success-details">
-                        <div class="booking-success-details-item">
-                            <span class="booking-success-details-item-label">Дата и время</span>
-                            <span class="booking-success-details-item-value" id="successDateTime">—</span>
-                        </div>
-                        <div class="booking-success-details-item">
-                            <span class="booking-success-details-item-label">ФИО</span>
-                            <span class="booking-success-details-item-value" id="successName">—</span>
-                        </div>
-                        <div class="booking-success-details-item">
-                            <span class="booking-success-details-item-label">Телефон</span>
-                            <span class="booking-success-details-item-value" id="successPhone">—</span>
-                        </div>
-                        <div class="booking-success-details-item">
-                            <span class="booking-success-details-item-label">Email</span>
-                            <span class="booking-success-details-item-value" id="successEmail">—</span>
-                        </div>
-                    </div>
-
-                    <!-- Для охраны -->
-                    <div class="booking-success-guard">
-                        <span class="guard-icon">🛡️</span>
-                        <span>
-                            <strong>Для охраны:</strong> проверьте номер талона, QR-код и паспорт посетителя.
-                            Пропуск действителен строго в указанное время.
-                        </span>
-                    </div>
-
-                    <!-- ===== НОМЕР ТАЛОНА ВНИЗУ (ВМЕСТО ШТРИХ-КОДА) ===== -->
-                    <div class="booking-success-footer-ticket">
-                        <span class="label">Серийный номер пропуска</span>
-                        <span class="number" id="ticketNumberFooter">—</span>
-                        <span class="hint">Для сверки с базой данных охраны</span>
                     </div>
 
                 </div>
 
-                <!-- Футер -->
-                <div class="booking-success-footer no-print">
-                    <span class="footer-note">Сохраните пропуск для входа</span>
-                    <div class="btn-group">
-                        <button onclick="window.print()">🖨️ Печать</button>
-                        <button class="save-btn" onclick="saveTicketAsImage()">📱 Сохранить в галерею</button>
-                        <button onclick="resetBooking()" class="primary">➕ Новая запись</button>
-                    </div>
-                </div>
             </div>
 
         </div>
@@ -1549,7 +1561,7 @@
                 selectedDateTime = null;
                 document.getElementById('selectedDateTime').textContent = '—';
                 document.getElementById('nextToFormBtn').textContent = 'Продолжить →';
-                document.getElementById('nextToFormBtn').style.background = '#08c';
+                document.getElementById('nextToFormBtn').style.background = '#0057b3';
                 return;
             }
 
@@ -1561,7 +1573,7 @@
 
             document.getElementById('selectedDateTime').textContent = dateStr;
             document.getElementById('nextToFormBtn').textContent = 'Выберите время';
-            document.getElementById('nextToFormBtn').style.background = '#888';
+            document.getElementById('nextToFormBtn').style.background = '#8f96a3';
         }
 
         function selectTime(event, time, dateStr) {
@@ -1583,7 +1595,7 @@
 
             document.getElementById('selectedDateTime').textContent = selectedDateTime;
             document.getElementById('nextToFormBtn').textContent = 'Продолжить →';
-            document.getElementById('nextToFormBtn').style.background = '#08c';
+            document.getElementById('nextToFormBtn').style.background = '#0057b3';
 
             setTimeout(() => {
                 const button = document.getElementById('nextToFormBtn');
@@ -1616,7 +1628,7 @@
         }
 
         // =============================================================
-        // ОТПРАВКА ЗАЯВКИ + ЛОАДЕР
+        // ОТПРАВКА ЗАЯВКИ
         // =============================================================
 
         function submitBooking() {
@@ -1667,7 +1679,7 @@
         }
 
         // =============================================================
-        // ГЕНЕРАЦИЯ ПРОПУСКА (БЕЗ ШТРИХ-КОДА)
+        // ГЕНЕРАЦИЯ ПРОПУСКА
         // =============================================================
 
         function generateTicket(name, phone, email) {
@@ -1685,28 +1697,21 @@
             document.getElementById('ticketNumber').textContent = ticketNum;
             document.getElementById('ticketNumberFooter').textContent = ticketNum;
 
-            // ===== QR-код =====
+            // QR
             const qrContainer = document.getElementById('qrContainer');
             qrContainer.innerHTML = '';
             const img = document.createElement('img');
             img.src = 'qrcode.jpeg';
             img.alt = 'QR-код';
-            img.style.width = '120px';
-            img.style.height = '120px';
-            img.style.display = 'block';
-            img.style.borderRadius = '6px';
-            img.style.border = '2px solid #e8e9eb';
-            img.style.padding = '4px';
-            img.style.background = '#fff';
             img.onerror = function() {
                 this.style.display = 'none';
-                qrContainer.innerHTML = '<span style="font-size:12px;color:#a00;">QR-код не найден</span>';
+                qrContainer.innerHTML = '<span style="font-size:11px;color:#a00;">QR не найден</span>';
             };
             qrContainer.appendChild(img);
         }
 
         // =============================================================
-        // СОХРАНЕНИЕ ПРОПУСКА
+        // СОХРАНЕНИЕ
         // =============================================================
 
         function saveTicketAsImage() {
@@ -1714,26 +1719,20 @@
 
             html2canvas(element, {
                 scale: 2.5,
-                backgroundColor: '#fbfcfe',
+                backgroundColor: '#ffffff',
                 useCORS: true,
                 logging: false,
                 width: element.scrollWidth,
                 height: element.scrollHeight,
                 windowWidth: element.scrollWidth,
-                windowHeight: element.scrollHeight,
-                onclone: function(clonedDoc) {
-                    const clonedElement = clonedDoc.getElementById('ticketToSave');
-                    if (clonedElement) {
-                        clonedElement.style.display = 'block';
-                    }
-                }
+                windowHeight: element.scrollHeight
             }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = `Пропуск_${document.getElementById('ticketNumber').textContent}.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             }).catch(err => {
-                alert('Ошибка при сохранении. Попробуйте использовать скриншот.\n' + err.message);
+                alert('Ошибка при сохранении. Попробуйте скриншот.\n' + err.message);
             });
         }
 
@@ -1755,7 +1754,7 @@
             document.getElementById('formComment').value = '';
             document.getElementById('selectedDateTime').textContent = '—';
             document.getElementById('nextToFormBtn').textContent = 'Продолжить →';
-            document.getElementById('nextToFormBtn').style.background = '#08c';
+            document.getElementById('nextToFormBtn').style.background = '#0057b3';
             document.getElementById('qrContainer').innerHTML = '';
             document.getElementById('ticketNumberFooter').textContent = '—';
 
