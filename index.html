@@ -173,7 +173,7 @@
         }
 
         /* ======================================== */
-        /* ИНТЕРНЕТ-ПРИЕМНАЯ — ОТДЕЛЬНЫЙ БЛОК       */
+        /* ИНТЕРНЕТ-ПРИЕМНАЯ — НОВЫЙ ДИЗАЙН        */
         /* ======================================== */
         .priemnaya-banner-wrapper {
             width: 100%;
@@ -189,18 +189,41 @@
             display: flex;
             align-items: center;
             gap: 0;
-            background: #0a1f33;
+            background: linear-gradient(135deg, #0a1f33 0%, #1a3a5c 50%, #0a1f33 100%);
             border-radius: 16px;
             overflow: hidden;
-            border: 1px solid rgba(197, 160, 89, 0.15);
-            box-shadow: 0 6px 30px rgba(0,0,0,0.06);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.08);
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 200px;
+            position: relative;
+        }
+
+        .priemnaya-banner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 50%, rgba(197, 160, 89, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .priemnaya-banner-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #c5a059, #f0d080, #c5a059);
+            opacity: 0.6;
         }
 
         .priemnaya-banner-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 16px 50px rgba(0,0,0,0.12);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.15);
             border-color: #c5a059;
         }
 
@@ -209,31 +232,33 @@
             padding: 36px 40px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             position: relative;
             z-index: 2;
         }
 
         .priemnaya-banner-label {
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             color: #c5a059;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             margin-bottom: 2px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
         .priemnaya-banner-title {
-            font-size: 26px;
-            font-weight: 700;
+            font-size: 32px;
+            font-weight: 800;
             color: #ffffff;
             margin: 0;
-            line-height: 1.2;
+            line-height: 1.15;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .priemnaya-banner-desc {
             font-size: 15px;
-            color: rgba(255,255,255,0.7);
+            color: rgba(255,255,255,0.75);
             margin: 4px 0 8px 0;
             line-height: 1.5;
             max-width: 520px;
@@ -241,42 +266,43 @@
 
         .priemnaya-banner-features {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             flex-wrap: wrap;
-            margin: 4px 0 12px 0;
+            margin: 2px 0 10px 0;
         }
 
         .priemnaya-banner-features span {
             font-size: 12px;
-            color: rgba(255,255,255,0.5);
-            background: rgba(255,255,255,0.06);
-            padding: 4px 14px;
+            color: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.08);
+            padding: 4px 16px;
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.06);
             font-weight: 500;
+            backdrop-filter: blur(4px);
         }
 
         .priemnaya-banner-btn {
             display: inline-block;
-            padding: 12px 32px;
-            background: rgba(197, 160, 89, 0.15);
-            color: #ffffff;
+            padding: 12px 36px;
+            background: linear-gradient(135deg, #c5a059, #d4b06a);
+            color: #0a1f33;
             border-radius: 10px;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 14px;
             transition: all 0.3s ease;
-            border: 1px solid rgba(197, 160, 89, 0.2);
-            letter-spacing: 0.3px;
+            border: none;
+            letter-spacing: 0.5px;
             align-self: flex-start;
-            margin-top: 4px;
+            margin-top: 2px;
+            box-shadow: 0 4px 20px rgba(197, 160, 89, 0.25);
+            cursor: pointer;
         }
 
         .priemnaya-banner-card:hover .priemnaya-banner-btn {
-            background: #c5a059;
-            color: #0a1f33;
-            transform: translateX(4px);
-            border-color: #c5a059;
-            box-shadow: 0 4px 20px rgba(197, 160, 89, 0.3);
+            transform: translateX(4px) scale(1.02);
+            box-shadow: 0 6px 30px rgba(197, 160, 89, 0.4);
+            background: linear-gradient(135deg, #d4b06a, #e8c880);
         }
 
         .priemnaya-banner-image {
@@ -288,6 +314,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+        }
+
+        .priemnaya-banner-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(10,31,51,0.3) 0%, transparent 100%);
+            pointer-events: none;
         }
 
         .priemnaya-banner-image img {
@@ -299,11 +337,11 @@
         }
 
         .priemnaya-banner-card:hover .priemnaya-banner-image img {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
         /* ======================================== */
-        /* БАНК РОССИИ — ПЕРЕХОДНИК                */
+        /* БАНК РОССИИ — НОВЫЙ ДИЗАЙН              */
         /* ======================================== */
         .cbr-banner-wrapper {
             width: 100%;
@@ -319,19 +357,42 @@
             display: flex;
             align-items: center;
             gap: 0;
-            background: #0a1f33;
+            background: linear-gradient(135deg, #003366 0%, #1a5276 50%, #003366 100%);
             border-radius: 16px;
             overflow: hidden;
-            border: 1px solid rgba(197, 160, 89, 0.15);
-            box-shadow: 0 6px 30px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.08);
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 200px;
+            position: relative;
+        }
+
+        .cbr-banner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cbr-banner-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ffffff, #66aacc, #ffffff);
+            opacity: 0.4;
         }
 
         .cbr-banner-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 16px 50px rgba(0,0,0,0.12);
-            border-color: #c5a059;
+            box-shadow: 0 16px 50px rgba(0,0,0,0.15);
+            border-color: rgba(255,255,255,0.3);
         }
 
         .cbr-banner-content {
@@ -339,31 +400,32 @@
             padding: 36px 40px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             position: relative;
             z-index: 2;
         }
 
         .cbr-banner-label {
             font-size: 11px;
-            font-weight: 600;
-            color: #c5a059;
+            font-weight: 700;
+            color: rgba(255,255,255,0.6);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             margin-bottom: 2px;
         }
 
         .cbr-banner-title {
-            font-size: 26px;
-            font-weight: 700;
+            font-size: 32px;
+            font-weight: 800;
             color: #ffffff;
             margin: 0;
-            line-height: 1.2;
+            line-height: 1.15;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
 
         .cbr-banner-desc {
             font-size: 15px;
-            color: rgba(255,255,255,0.7);
+            color: rgba(255,255,255,0.75);
             margin: 4px 0 8px 0;
             line-height: 1.5;
             max-width: 480px;
@@ -371,42 +433,43 @@
 
         .cbr-banner-features {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             flex-wrap: wrap;
-            margin: 4px 0 12px 0;
+            margin: 2px 0 10px 0;
         }
 
         .cbr-banner-features span {
             font-size: 12px;
-            color: rgba(255,255,255,0.5);
-            background: rgba(255,255,255,0.06);
-            padding: 4px 14px;
+            color: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.08);
+            padding: 4px 16px;
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.06);
             font-weight: 500;
+            backdrop-filter: blur(4px);
         }
 
         .cbr-banner-btn {
             display: inline-block;
-            padding: 12px 32px;
-            background: rgba(197, 160, 89, 0.15);
-            color: #ffffff;
+            padding: 12px 36px;
+            background: linear-gradient(135deg, #ffffff, #e8eef4);
+            color: #003366;
             border-radius: 10px;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 14px;
             transition: all 0.3s ease;
-            border: 1px solid rgba(197, 160, 89, 0.2);
-            letter-spacing: 0.3px;
+            border: none;
+            letter-spacing: 0.5px;
             align-self: flex-start;
-            margin-top: 4px;
+            margin-top: 2px;
+            box-shadow: 0 4px 20px rgba(255,255,255,0.15);
+            cursor: pointer;
         }
 
         .cbr-banner-card:hover .cbr-banner-btn {
-            background: #c5a059;
-            color: #0a1f33;
-            transform: translateX(4px);
-            border-color: #c5a059;
-            box-shadow: 0 4px 20px rgba(197, 160, 89, 0.3);
+            transform: translateX(4px) scale(1.02);
+            box-shadow: 0 6px 30px rgba(255,255,255,0.25);
+            background: linear-gradient(135deg, #ffffff, #d4e4f0);
         }
 
         .cbr-banner-image {
@@ -418,6 +481,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+        }
+
+        .cbr-banner-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0,51,102,0.2) 0%, transparent 100%);
+            pointer-events: none;
         }
 
         .cbr-banner-image img {
@@ -429,7 +504,7 @@
         }
 
         .cbr-banner-card:hover .cbr-banner-image img {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
         /* ======================================== */
@@ -792,109 +867,21 @@
             border-bottom-color: #c5a059;
         }
 
-        /* ======================================== */
-        /* АДАПТИВ                                  */
+                /* ======================================== */
+        /* АДАПТАЦИЯ — НОВАЯ ВЕРСИЯ                */
         /* ======================================== */
         @media screen and (max-width: 992px) {
             .priemnaya-banner-content {
                 padding: 28px 30px;
             }
             .priemnaya-banner-title {
-                font-size: 22px;
+                font-size: 28px;
             }
             .cbr-banner-content {
                 padding: 28px 30px;
             }
             .cbr-banner-title {
-                font-size: 22px;
-            }
-        }
-
-        @media screen and (max-width: 900px) {
-            .priemnaya-banner-card {
-                flex-direction: column-reverse;
-                min-height: auto;
-            }
-            .priemnaya-banner-content {
-                padding: 28px 24px 32px 24px;
-                width: 100%;
-                flex: 1;
-            }
-            .priemnaya-banner-title {
-                font-size: 22px;
-            }
-            .priemnaya-banner-desc {
-                font-size: 14px;
-            }
-            .priemnaya-banner-image {
-                width: 100%;
-                min-height: 180px;
-                max-height: 240px;
-            }
-            .priemnaya-banner-image img {
-                object-fit: cover;
-                width: 100%;
-                height: 100%;
-            }
-            .priemnaya-banner-btn {
-                padding: 10px 24px;
-                font-size: 13px;
-                width: 100%;
-                text-align: center;
-                align-self: stretch;
-            }
-            .priemnaya-banner-card:hover .priemnaya-banner-btn {
-                transform: none;
-            }
-            .priemnaya-banner-features {
-                gap: 10px;
-            }
-            .priemnaya-banner-features span {
-                font-size: 11px;
-                padding: 3px 12px;
-            }
-
-            .cbr-banner-card {
-                flex-direction: column-reverse;
-                min-height: auto;
-            }
-            .cbr-banner-content {
-                padding: 28px 24px 32px 24px;
-                width: 100%;
-                flex: 1;
-            }
-            .cbr-banner-title {
-                font-size: 22px;
-            }
-            .cbr-banner-desc {
-                font-size: 14px;
-            }
-            .cbr-banner-image {
-                width: 100%;
-                min-height: 180px;
-                max-height: 240px;
-            }
-            .cbr-banner-image img {
-                object-fit: cover;
-                width: 100%;
-                height: 100%;
-            }
-            .cbr-banner-btn {
-                padding: 10px 24px;
-                font-size: 13px;
-                width: 100%;
-                text-align: center;
-                align-self: stretch;
-            }
-            .cbr-banner-card:hover .cbr-banner-btn {
-                transform: none;
-            }
-            .cbr-banner-features {
-                gap: 10px;
-            }
-            .cbr-banner-features span {
-                font-size: 11px;
-                padding: 3px 12px;
+                font-size: 28px;
             }
         }
 
@@ -907,51 +894,114 @@
             .hero-banner { margin-top: 70px; }
             .main-content-container { margin: 20px auto; padding: 0 15px; }
             .top-grid { grid-template-columns: 1fr; gap: 20px; }
-            
+
+            /* === ПРИЕМНАЯ === */
+            .priemnaya-banner-card {
+                flex-direction: column !important;
+                min-height: auto !important;
+                border-radius: 14px;
+            }
             .priemnaya-banner-content {
-                padding: 24px 20px 28px 20px;
+                padding: 24px 22px 28px 22px !important;
+                width: 100% !important;
+                flex: 1 !important;
+                gap: 4px;
             }
             .priemnaya-banner-title {
-                font-size: 20px;
+                font-size: 24px !important;
+                line-height: 1.2;
             }
             .priemnaya-banner-desc {
-                font-size: 14px;
+                font-size: 14px !important;
+                max-width: 100% !important;
             }
             .priemnaya-banner-image {
-                min-height: 150px;
-                max-height: 200px;
+                width: 100% !important;
+                min-height: 160px !important;
+                max-height: 200px !important;
+                order: -1;
             }
-            .priemnaya-banner-features span {
-                font-size: 11px;
-                padding: 3px 12px;
+            .priemnaya-banner-image img {
+                object-fit: cover !important;
+                width: 100% !important;
+                height: 100% !important;
+            }
+            .priemnaya-banner-image::after {
+                background: linear-gradient(0deg, rgba(10,31,51,0.3) 0%, transparent 100%) !important;
             }
             .priemnaya-banner-btn {
-                padding: 10px 20px;
-                font-size: 13px;
+                padding: 10px 24px !important;
+                font-size: 13px !important;
+                width: 100% !important;
+                text-align: center !important;
+                align-self: stretch !important;
+            }
+            .priemnaya-banner-card:hover .priemnaya-banner-btn {
+                transform: none !important;
+            }
+            .priemnaya-banner-features {
+                gap: 8px !important;
+                margin: 0 0 6px 0 !important;
+            }
+            .priemnaya-banner-features span {
+                font-size: 11px !important;
+                padding: 3px 12px !important;
             }
 
+            /* === БАНК РОССИИ === */
+            .cbr-banner-card {
+                flex-direction: column !important;
+                min-height: auto !important;
+                border-radius: 14px;
+            }
             .cbr-banner-content {
-                padding: 24px 20px 28px 20px;
+                padding: 24px 22px 28px 22px !important;
+                width: 100% !important;
+                flex: 1 !important;
+                gap: 4px;
             }
             .cbr-banner-title {
-                font-size: 20px;
+                font-size: 24px !important;
+                line-height: 1.2;
             }
             .cbr-banner-desc {
-                font-size: 14px;
+                font-size: 14px !important;
+                max-width: 100% !important;
             }
             .cbr-banner-image {
-                min-height: 150px;
-                max-height: 200px;
+                width: 100% !important;
+                min-height: 160px !important;
+                max-height: 200px !important;
+                order: -1;
             }
-            .cbr-banner-features span {
-                font-size: 11px;
-                padding: 3px 12px;
+            .cbr-banner-image img {
+                object-fit: cover !important;
+                width: 100% !important;
+                height: 100% !important;
+            }
+            .cbr-banner-image::after {
+                background: linear-gradient(0deg, rgba(0,51,102,0.3) 0%, transparent 100%) !important;
             }
             .cbr-banner-btn {
-                padding: 10px 20px;
-                font-size: 13px;
+                padding: 10px 24px !important;
+                font-size: 13px !important;
+                width: 100% !important;
+                text-align: center !important;
+                align-self: stretch !important;
             }
-            
+            .cbr-banner-card:hover .cbr-banner-btn {
+                transform: none !important;
+            }
+            .cbr-banner-features {
+                gap: 8px !important;
+                margin: 0 0 6px 0 !important;
+            }
+            .cbr-banner-features span {
+                font-size: 11px !important;
+                padding: 3px 12px !important;
+            }
+
+            /* === ОСТАЛЬНОЕ === */
             .faq-container {
                 padding: 25px 20px;
             }
@@ -964,7 +1014,6 @@
             .faq-item {
                 padding: 16px 18px;
             }
-            
             .cards-grid-container { grid-template-columns: 1fr; gap: 15px; }
             .coop-logo { height: 80px; }
             .footer-container { flex-direction: column; text-align: center; gap: 25px; }
@@ -977,59 +1026,55 @@
 
         @media screen and (max-width: 480px) {
             .priemnaya-banner-content {
-                padding: 20px 16px 24px 16px;
+                padding: 18px 16px 22px 16px !important;
             }
             .priemnaya-banner-title {
-                font-size: 18px;
+                font-size: 20px !important;
             }
             .priemnaya-banner-desc {
-                font-size: 13px;
+                font-size: 13px !important;
             }
             .priemnaya-banner-image {
-                min-height: 120px;
-                max-height: 160px;
+                min-height: 130px !important;
+                max-height: 160px !important;
             }
             .priemnaya-banner-label {
-                font-size: 10px;
-            }
-            .priemnaya-banner-features {
-                gap: 8px;
+                font-size: 10px !important;
+                letter-spacing: 1.5px !important;
             }
             .priemnaya-banner-features span {
-                font-size: 10px;
-                padding: 2px 10px;
+                font-size: 10px !important;
+                padding: 2px 10px !important;
             }
             .priemnaya-banner-btn {
-                padding: 10px 16px;
-                font-size: 12px;
+                padding: 10px 16px !important;
+                font-size: 12px !important;
             }
 
             .cbr-banner-content {
-                padding: 20px 16px 24px 16px;
+                padding: 18px 16px 22px 16px !important;
             }
             .cbr-banner-title {
-                font-size: 18px;
+                font-size: 20px !important;
             }
             .cbr-banner-desc {
-                font-size: 13px;
+                font-size: 13px !important;
             }
             .cbr-banner-image {
-                min-height: 120px;
-                max-height: 160px;
+                min-height: 130px !important;
+                max-height: 160px !important;
             }
             .cbr-banner-label {
-                font-size: 10px;
-            }
-            .cbr-banner-features {
-                gap: 8px;
+                font-size: 10px !important;
+                letter-spacing: 1.5px !important;
             }
             .cbr-banner-features span {
-                font-size: 10px;
-                padding: 2px 10px;
+                font-size: 10px !important;
+                padding: 2px 10px !important;
             }
             .cbr-banner-btn {
-                padding: 10px 16px;
-                font-size: 12px;
+                padding: 10px 16px !important;
+                font-size: 12px !important;
             }
 
             #dynamic-news-wrapper .news-item {
@@ -1114,14 +1159,14 @@
             </div>
         </div>
 
-        <!-- ======================================== -->
-        <!-- БЛОК 2: ИНТЕРНЕТ-ПРИЕМНАЯ               -->
+                <!-- ======================================== -->
+        <!-- БЛОК: ИНТЕРНЕТ-ПРИЕМНАЯ — НОВЫЙ ДИЗАЙН  -->
         <!-- ======================================== -->
         <div class="priemnaya-banner-wrapper">
             <a href="appeal.html" class="priemnaya-banner-link">
                 <div class="priemnaya-banner-card">
                     <div class="priemnaya-banner-content">
-                        <div class="priemnaya-banner-label">Официальный портал</div>
+                        <div class="priemnaya-banner-label">ОФИЦИАЛЬНЫЙ ПОРТАЛ</div>
                         <h2 class="priemnaya-banner-title">Интернет-приемная</h2>
                         <p class="priemnaya-banner-desc">Направьте обращение в Росфинмониторинг онлайн. Оперативное рассмотрение по всем вопросам, входящим в компетенцию ведомства.</p>
                         <div class="priemnaya-banner-features">
@@ -1139,13 +1184,13 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- БЛОК 3: БАНК РОССИИ — ПЕРЕХОДНИК       -->
+        <!-- БЛОК: БАНК РОССИИ — НОВЫЙ ДИЗАЙН       -->
         <!-- ======================================== -->
         <div class="cbr-banner-wrapper">
             <a href="cb.html" target="_blank" class="cbr-banner-link">
                 <div class="cbr-banner-card">
                     <div class="cbr-banner-content">
-                        <div class="cbr-banner-label">Официальный портал</div>
+                        <div class="cbr-banner-label">ОФИЦИАЛЬНЫЙ ПОРТАЛ</div>
                         <h2 class="cbr-banner-title">Банк России</h2>
                         <p class="cbr-banner-desc">Запись в Общественную приемную — личный прием граждан в центральном аппарате</p>
                         <div class="cbr-banner-features">
