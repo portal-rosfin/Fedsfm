@@ -870,30 +870,8 @@
                 /* ======================================== */
         /* АДАПТАЦИЯ — НОВАЯ ВЕРСИЯ                */
         /* ======================================== */
-        @media screen and (max-width: 992px) {
-            .priemnaya-banner-content {
-                padding: 28px 30px;
-            }
-            .priemnaya-banner-title {
-                font-size: 28px;
-            }
-            .cbr-banner-content {
-                padding: 28px 30px;
-            }
-            .cbr-banner-title {
-                font-size: 28px;
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            .navbar-custom { padding: 0 15px; height: 70px; }
-            .emblem-img { height: 40px; }
-            .logo-text h1 { font-size: 13px; line-height: 1.2; }
-            .logo-text p { font-size: 7.5px; line-height: 1.2; }
-            .portal-status { display: none; }
-            .hero-banner { margin-top: 70px; }
-            .main-content-container { margin: 20px auto; padding: 0 15px; }
-            .top-grid { grid-template-columns: 1fr; gap: 20px; }
+                @media screen and (max-width: 768px) {
+            /* ... остальное ... */
 
             /* === ПРИЕМНАЯ === */
             .priemnaya-banner-card {
@@ -902,23 +880,25 @@
                 border-radius: 14px;
             }
             .priemnaya-banner-content {
-                padding: 24px 22px 28px 22px !important;
+                padding: 20px 18px 24px 18px !important;
                 width: 100% !important;
                 flex: 1 !important;
                 gap: 4px;
             }
             .priemnaya-banner-title {
-                font-size: 24px !important;
+                font-size: 22px !important;
                 line-height: 1.2;
+                word-break: break-word;
             }
             .priemnaya-banner-desc {
-                font-size: 14px !important;
+                font-size: 13px !important;
                 max-width: 100% !important;
+                word-break: break-word;
             }
             .priemnaya-banner-image {
                 width: 100% !important;
-                min-height: 160px !important;
-                max-height: 200px !important;
+                min-height: 140px !important;
+                max-height: 180px !important;
                 order: -1;
             }
             .priemnaya-banner-image img {
@@ -927,25 +907,32 @@
                 height: 100% !important;
             }
             .priemnaya-banner-image::after {
-                background: linear-gradient(0deg, rgba(10,31,51,0.3) 0%, transparent 100%) !important;
+                background: linear-gradient(0deg, rgba(10,31,51,0.4) 0%, transparent 100%) !important;
             }
             .priemnaya-banner-btn {
-                padding: 10px 24px !important;
+                padding: 10px 20px !important;
                 font-size: 13px !important;
                 width: 100% !important;
                 text-align: center !important;
                 align-self: stretch !important;
+                animation: pulse-glow 2.5s ease-in-out infinite !important;
             }
             .priemnaya-banner-card:hover .priemnaya-banner-btn {
                 transform: none !important;
             }
             .priemnaya-banner-features {
-                gap: 8px !important;
-                margin: 0 0 6px 0 !important;
+                gap: 6px !important;
+                margin: 0 0 4px 0 !important;
+                flex-wrap: wrap;
             }
             .priemnaya-banner-features span {
                 font-size: 11px !important;
                 padding: 3px 12px !important;
+                white-space: nowrap;
+            }
+            .priemnaya-banner-label {
+                font-size: 10px !important;
+                letter-spacing: 1.5px !important;
             }
 
             /* === БАНК РОССИИ === */
@@ -955,23 +942,25 @@
                 border-radius: 14px;
             }
             .cbr-banner-content {
-                padding: 24px 22px 28px 22px !important;
+                padding: 20px 18px 24px 18px !important;
                 width: 100% !important;
                 flex: 1 !important;
                 gap: 4px;
             }
             .cbr-banner-title {
-                font-size: 24px !important;
+                font-size: 22px !important;
                 line-height: 1.2;
+                word-break: break-word;
             }
             .cbr-banner-desc {
-                font-size: 14px !important;
+                font-size: 13px !important;
                 max-width: 100% !important;
+                word-break: break-word;
             }
             .cbr-banner-image {
                 width: 100% !important;
-                min-height: 160px !important;
-                max-height: 200px !important;
+                min-height: 140px !important;
+                max-height: 180px !important;
                 order: -1;
             }
             .cbr-banner-image img {
@@ -980,114 +969,80 @@
                 height: 100% !important;
             }
             .cbr-banner-image::after {
-                background: linear-gradient(0deg, rgba(0,51,102,0.3) 0%, transparent 100%) !important;
+                background: linear-gradient(0deg, rgba(0,51,102,0.4) 0%, transparent 100%) !important;
             }
             .cbr-banner-btn {
-                padding: 10px 24px !important;
+                padding: 10px 20px !important;
                 font-size: 13px !important;
                 width: 100% !important;
                 text-align: center !important;
                 align-self: stretch !important;
+                animation: pulse-glow-white 2.5s ease-in-out infinite !important;
             }
             .cbr-banner-card:hover .cbr-banner-btn {
                 transform: none !important;
             }
             .cbr-banner-features {
-                gap: 8px !important;
-                margin: 0 0 6px 0 !important;
+                gap: 6px !important;
+                margin: 0 0 4px 0 !important;
+                flex-wrap: wrap;
             }
             .cbr-banner-features span {
                 font-size: 11px !important;
                 padding: 3px 12px !important;
+                white-space: nowrap;
             }
-
-            /* === ОСТАЛЬНОЕ === */
-            .faq-container {
-                padding: 25px 20px;
+            .cbr-banner-label {
+                font-size: 10px !important;
+                letter-spacing: 1.5px !important;
             }
-            .faq-grid {
-                grid-template-columns: 1fr;
-            }
-            .faq-header h2 {
-                font-size: 20px;
-            }
-            .faq-item {
-                padding: 16px 18px;
-            }
-            .cards-grid-container { grid-template-columns: 1fr; gap: 15px; }
-            .coop-logo { height: 80px; }
-            .footer-container { flex-direction: column; text-align: center; gap: 25px; }
-            .footer-logo-block { flex-direction: column; text-align: center; }
-            .footer-logo-block div { text-align: center !important; }
-            .footer-text-block { text-align: center; max-width: 100%; }
-            .footer-copyright { text-align: center; }
-            .contacts-map-box { grid-template-columns: 1fr; }
         }
 
         @media screen and (max-width: 480px) {
             .priemnaya-banner-content {
-                padding: 18px 16px 22px 16px !important;
+                padding: 16px 14px 20px 14px !important;
             }
             .priemnaya-banner-title {
-                font-size: 20px !important;
+                font-size: 19px !important;
             }
             .priemnaya-banner-desc {
-                font-size: 13px !important;
+                font-size: 12.5px !important;
+                line-height: 1.4;
             }
             .priemnaya-banner-image {
-                min-height: 130px !important;
-                max-height: 160px !important;
-            }
-            .priemnaya-banner-label {
-                font-size: 10px !important;
-                letter-spacing: 1.5px !important;
+                min-height: 110px !important;
+                max-height: 140px !important;
             }
             .priemnaya-banner-features span {
                 font-size: 10px !important;
                 padding: 2px 10px !important;
             }
             .priemnaya-banner-btn {
-                padding: 10px 16px !important;
+                padding: 9px 14px !important;
                 font-size: 12px !important;
             }
 
             .cbr-banner-content {
-                padding: 18px 16px 22px 16px !important;
+                padding: 16px 14px 20px 14px !important;
             }
             .cbr-banner-title {
-                font-size: 20px !important;
+                font-size: 19px !important;
             }
             .cbr-banner-desc {
-                font-size: 13px !important;
+                font-size: 12.5px !important;
+                line-height: 1.4;
             }
             .cbr-banner-image {
-                min-height: 130px !important;
-                max-height: 160px !important;
-            }
-            .cbr-banner-label {
-                font-size: 10px !important;
-                letter-spacing: 1.5px !important;
+                min-height: 110px !important;
+                max-height: 140px !important;
             }
             .cbr-banner-features span {
                 font-size: 10px !important;
                 padding: 2px 10px !important;
             }
             .cbr-banner-btn {
-                padding: 10px 16px !important;
+                padding: 9px 14px !important;
                 font-size: 12px !important;
-            }
-
-            #dynamic-news-wrapper .news-item {
-                flex-direction: column;
-                gap: 10px;
-                padding: 12px;
-            }
-            #dynamic-news-wrapper .news-item img {
-                width: 100%;
-                height: 150px;
-            }
-            #dynamic-news-wrapper .news-info h4 {
-                font-size: 15px;
             }
         }
     </style>
