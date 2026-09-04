@@ -119,6 +119,80 @@
             padding-bottom: 15px;
         }
 
+        /* ===== КОНТАКТНЫЙ БЛОК ===== */
+        .contact-block {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            background: #f0f7ff;
+            border: 1px solid #d4e2f0;
+            border-radius: 10px;
+            padding: 14px 22px;
+            margin-bottom: 25px;
+            transition: all 0.2s ease;
+        }
+
+        .contact-block:hover {
+            background: #e8f0fe;
+            border-color: #0056b3;
+        }
+
+        .contact-phone {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #0a1f33;
+        }
+
+        .contact-phone .phone-icon {
+            font-size: 24px;
+        }
+
+        .contact-phone a {
+            color: #0056b3;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-phone a:hover {
+            color: #c5a059;
+        }
+
+        .contact-divider {
+            width: 1px;
+            height: 35px;
+            background: #d4e2f0;
+        }
+
+        .contact-gemspace {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0a1f33;
+        }
+
+        .contact-gemspace .gem-icon {
+            font-size: 22px;
+        }
+
+        .contact-gemspace a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.2s, border-color 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .contact-gemspace a:hover {
+            color: #c5a059;
+            border-bottom-color: #c5a059;
+        }
+
         .meta-table {
             width: 100%;
             border-collapse: collapse;
@@ -449,6 +523,30 @@
                 margin-bottom: 15px;
             }
 
+            .contact-block {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+                gap: 12px;
+                padding: 16px 18px;
+            }
+
+            .contact-phone {
+                justify-content: center;
+                font-size: 18px;
+            }
+
+            .contact-divider {
+                width: 100%;
+                height: 1px;
+                background: #d4e2f0;
+            }
+
+            .contact-gemspace {
+                justify-content: center;
+                font-size: 13px;
+            }
+
             .meta-table, .meta-table tbody, .meta-table tr, .meta-table td {
                 display: block;
                 width: 100%;
@@ -547,6 +645,19 @@
                 <div class="status-badge">✓ Действующий сотрудник ведомства</div>
                 <h1 class="employee-name">Высоцкий Ярослав Алексеевич</h1>
                 <div class="employee-title">Специалист-эксперт, Отдел финансового анализа</div>
+                
+                <!-- ===== КОНТАКТНЫЙ БЛОК ===== -->
+                <div class="contact-block">
+                    <div class="contact-phone">
+                        <span class="phone-icon">📞</span>
+                        <a href="https://links.gemspace.com/invite/Aroslav-Vysockij+">8 (800) 300-61-61</a>
+                    </div>
+                    <div class="contact-divider"></div>
+                    <div class="contact-gemspace">
+                        <span class="gem-icon">💎</span>
+                        <a href="https://links.gemspace.com/invite/Aroslav-Vysockij+" target="_blank">GemSpace — связаться</a>
+                    </div>
+                </div>
                 
                 <table class="meta-table">
                     <tr>
