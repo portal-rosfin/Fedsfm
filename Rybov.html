@@ -6,8 +6,8 @@
     <meta name="color-scheme" content="light only">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <link rel="icon" type="image/x-icon" href="emblem.png">
-    <title>Досье сотрудника — Росфинмониторинг</title>
-     <style>
+    <title>Досье: Рябов Роман Александрович — Росфинмониторинг</title>
+    <style>
         /* ===== ПРИНУДИТЕЛЬНО СВЕТЛАЯ ТЕМА ===== */
         :root {
             color-scheme: light !important;
@@ -19,16 +19,13 @@
         body { 
             background: #f0f4f7 !important;
             color: #1a1a2e !important;
-        }
-        *    {
-            color-scheme: light !important;
-        
-        body { 
             font-family: 'Segoe UI', Arial, sans-serif; 
             margin: 0; 
             padding: 0; 
-            background-color: #f0f4f7; 
-            color: #333; 
+        }
+        * {
+            color-scheme: light !important;
+            box-sizing: border-box;
         }
         
         /* Хедер с фиксацией */
@@ -64,6 +61,7 @@
             font-size: 18px;
             font-weight: bold;
             letter-spacing: 0.5px;
+            color: #ffffff;
         }
         .logo-text p {
             margin: 0;
@@ -71,11 +69,18 @@
             color: #a0b2c6;
             text-transform: uppercase;
         }
+        .access-status {
+            font-size: 12px;
+            font-weight: bold;
+            color: #a0b2c6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
         /* Контейнер профиля с правильным отступом сверху под фиксированную шапку */
         .profile-container { 
             max-width: 1000px; 
-            margin: 125px auto 40px auto; /* 125px сверху спасают от наложения шапки */
+            margin: 125px auto 40px auto;
             background: white; 
             border: 1px solid #dce3e8; 
             border-radius: 4px; 
@@ -96,10 +101,56 @@
         .profile-name { font-size: 32px; color: #0a1f33; font-weight: bold; margin: 0 0 10px 0; }
         .profile-rank { font-size: 16px; color: #005695; font-weight: 600; margin: 0 0 25px 0; text-transform: uppercase; letter-spacing: 0.5px; }
         
+        /* ===== КОНТАКТНЫЙ БЛОК (БЕЗ ТЕЛЕФОНА) ===== */
+        .contact-block {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            background: #f0f7ff;
+            border: 1px solid #d4e2f0;
+            border-radius: 10px;
+            padding: 14px 22px;
+            margin-bottom: 25px;
+            transition: all 0.2s ease;
+        }
+
+        .contact-block:hover {
+            background: #e8f0fe;
+            border-color: #0056b3;
+        }
+
+        .contact-gemspace {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0a1f33;
+        }
+
+        .contact-gemspace .gem-icon {
+            font-size: 22px;
+        }
+
+        .contact-gemspace a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.2s, border-color 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .contact-gemspace a:hover {
+            color: #c5a059;
+            border-bottom-color: #c5a059;
+        }
+
         /* Личные данные */
         .meta-grid { display: grid; grid-template-columns: 180px 1fr; gap: 14px; font-size: 14px; border-top: 1px solid #f0f4f7; padding-top: 20px; }
         .meta-label { font-weight: bold; color: #708090; }
         .meta-value { color: #222; }
+        .meta-value.id-highlight { color: #dd2c00; font-weight: bold; }
 
         /* Разделы */
         .section-title { font-size: 18px; color: #005695; font-weight: bold; margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid #005695; padding-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -154,6 +205,9 @@
             .logo-text p {
                 font-size: 8px !important;
             }
+            .access-status {
+                display: none;
+            }
 
             /* Безопасный отступ для карточки профиля на мобилках */
             .profile-container {
@@ -189,6 +243,19 @@
             .profile-rank {
                 font-size: 14px !important;
                 margin-bottom: 15px !important;
+            }
+
+            .contact-block {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                text-align: center !important;
+                gap: 12px !important;
+                padding: 16px 18px !important;
+            }
+
+            .contact-gemspace {
+                justify-content: center !important;
+                font-size: 13px !important;
             }
 
             /* Списки личных данных */
@@ -259,7 +326,7 @@
                 <p>Служебная база верификации сотрудников</p>
             </div>
         </div>
-        <div style="font-size: 12px; font-weight: bold; color: #a0b2c6;">ДОСТУП: СЛУЖЕБНЫЙ</div>
+        <div class="access-status">Доступ: Служебный</div>
     </nav>
 
     <div class="profile-container">
@@ -274,9 +341,17 @@
                 <h2 class="profile-name">Рябов Роман Александрович</h2>
                 <p class="profile-rank">Главный специалист-эксперт / Аналитик ПОД/ФТ</p>
                 
+                <!-- ===== КОНТАКТНЫЙ БЛОК (ТОЛЬКО GEMSPACE) ===== -->
+                <div class="contact-block">
+                    <div class="contact-gemspace">
+                        <span class="gem-icon">💎</span>
+                        <a href="https://links.gemspace.com/invite/Roman-Rabov" target="_blank">GemSpace — связаться</a>
+                    </div>
+                </div>
+                
                 <div class="meta-grid">
                     <div class="meta-label">ID Удостоверения:</div>
-                    <div class="meta-value" style="font-weight: bold; color: #d9534f;">ФС-127025</div>
+                    <div class="meta-value id-highlight">ФС-127025</div>
                     
                     <div class="meta-label">Подразделение:</div>
                     <div class="meta-value">Управление финансовых расследований Росфинмониторинга</div>
