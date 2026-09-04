@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <link rel="icon" type="image/x-icon" href="emblem.png">
+    <title>Досье: Баутин Евгений Алексеевич — Росфинмониторинг</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f4f7f9; 
+            color: #333; 
+        }
+
+        /* Хедер с фиксацией */
+        .navbar-custom { 
+            background-color: #0a1f33; 
+            height: 85px; 
+            display: flex; 
+            align-items: center; 
+            padding: 0 30px; 
+            color: #fff; 
+            border-bottom: 4px solid #c5a059; 
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        
+        .logo-area { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            cursor: pointer;
+        }
+        .emblem-img { 
+            height: 55px; 
+            width: auto; 
+        }
+        .logo-text h1 { 
+            margin: 0; 
+            font-size: 20px; 
+            font-weight: bold; 
+            letter-spacing: 0.5px; 
+            color: #ffffff;
+        }
+        .logo-text p { 
+            margin: 3px 0 0 0; 
+            font-size: 10px; 
+            color: #8fa2b5; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
+        .access-status {
+            font-size: 12px; 
+            font-weight: bold; 
+            color: #8fa2b5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* ГЛАВНЫЙ КОНТЕЙНЕР */
+        .profile-card {
+            max-width: 750px;
+            margin: 125px auto 40px auto;
+            background: #ffffff;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            box-sizing: border-box;
+        }
+
+        /* ВЕРХНИЙ БЛОК */
+        .header-block {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: start;
+        }
+
+        .main-photo {
+            width: 240px;
+            height: 300px;
+            border: 1px solid #cbd5e1;
+            object-fit: cover;
+            display: block;
+            background-color: #e5eef5; 
+        }
+
+        .status-badge {
+            display: inline-block;
+            background-color: #e6f4ea;
+            color: #137333;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 6px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            border: 1px solid #ceead6;
+            width: fit-content;
+        }
+
+        .employee-name {
+            font-size: 26px;
+            color: #0c2340;
+            margin: 0 0 8px 0;
+            font-weight: bold;
+        }
+        .employee-title {
+            font-size: 13px;
+            color: #0066cc;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+
+        /* ===== КОНТАКТНЫЙ БЛОК ===== */
+        .contact-block {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            background: #f0f7ff;
+            border: 1px solid #d4e2f0;
+            border-radius: 10px;
+            padding: 14px 22px;
+            margin-bottom: 25px;
+            transition: all 0.2s ease;
+        }
+
+        .contact-block:hover {
+            background: #e8f0fe;
+            border-color: #0056b3;
+        }
+
+        .contact-phone {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #0a1f33;
+        }
+
+        .contact-phone .phone-icon {
+            font-size: 24px;
+        }
+
+        .contact-phone a {
+            color: #0056b3;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-phone a:hover {
+            color: #c5a059;
+        }
+
+        .contact-divider {
+            width: 1px;
+            height: 35px;
+            background: #d4e2f0;
+        }
+
+        .contact-gemspace {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0a1f33;
+        }
+
+        .contact-gemspace .gem-icon {
+            font-size: 22px;
+        }
+
+        .contact-gemspace a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.2s, border-color 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .contact-gemspace a:hover {
+            color: #c5a059;
+            border-bottom-color: #c5a059;
+        }
+
+        /* ТАБЛИЦА */
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .meta-table td {
+            padding: 8px 0;
+            font-size: 13px;
+            vertical-align: top;
+        }
+        .meta-table td.label {
+            color: #64748b;
+            width: 140px;
+            font-weight: bold;
+        }
+        .meta-table td.value {
+            color: #1e293b;
+            font-weight: 500;
+        }
+        .meta-table td.value.id-highlight {
+            color: #dd2c00;
+            font-weight: bold;
+        }
+
+        /* ЗАГОЛОВКИ */
+        .section-headline {
+            font-size: 15px;
+            color: #0056b3;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+        }
+
+        .section-text {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            text-align: justify;
+            margin: 0 0 20px 0;
+        }
+
+        .bullet-list {
+            margin: 0 0 25px 0;
+            padding-left: 20px;
+        }
+        .bullet-list li {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+        .bullet-list strong {
+            color: #0056b3;
+        }
+
+        /* БЛОК МЕДИА */
+        .media-container {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 20px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            margin-bottom: 25px;
+            align-items: start;
+            box-sizing: border-box;
+        }
+        .quote-text {
+            font-style: italic;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #475569;
+            margin: 0;
+        }
+        .quote-source {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #0056b3;
+            font-weight: bold;
+            margin-top: 12px;
+            display: block;
+            letter-spacing: 0.5px;
+        }
+        .forum-photo {
+            width: 280px;
+            height: auto;
+            border: 1px solid #cbd5e1;
+            display: block;
+            background-color: #e5eef5; 
+        }
+
+        .awards-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 40px 0;
+        }
+        .awards-list li {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: start;
+            gap: 8px;
+        }
+
+        .btn-back-main {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #0c2340;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .btn-back-main:hover {
+            background-color: #0056b3;
+        }
+
+        /* ПОДВАЛ */
+        .footer-profile {
+            background-color: #0a1f33; 
+            color: #ffffff; 
+            padding: 30px 20px; 
+            border-top: 4px solid #c5a059; 
+            margin-top: 50px;
+        }
+        .footer-container {
+            max-width: 750px; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-logo-block {
+            display: flex; 
+            align-items: center; 
+            gap: 15px;
+        }
+        .footer-logo-block img {
+            height: 45px; 
+            width: auto;
+        }
+        .footer-text-left {
+            text-align: left;
+        }
+        .footer-title-ru {
+            font-size: 13px; 
+            font-weight: bold; 
+            letter-spacing: 0.5px; 
+            color: #ffffff;
+        }
+        .footer-subtitle-ru {
+            font-size: 9px; 
+            color: #8fa2b5; 
+            text-transform: uppercase;
+        }
+        .footer-text-right {
+            text-align: right; 
+            font-size: 11px; 
+            color: #8fa2b5;
+        }
+
+        /* АДАПТИВ */
+        @media screen and (max-width: 768px) {
+            .navbar-custom {
+                height: auto !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                padding: 10px 15px !important;
+            }
+            .logo-area {
+                gap: 10px !important;
+            }
+            .emblem-img {
+                height: 45px !important;
+            }
+            .logo-text h1 {
+                font-size: 13px !important;
+            }
+            .logo-text p {
+                font-size: 8px !important;
+            }
+            .access-status {
+                display: none;
+            }
+
+            .profile-card {
+                padding: 20px 15px !important;
+                margin: 110px 10px 20px 10px !important;
+                width: auto !important;
+            }
+
+            .header-block {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+                text-align: center !important;
+            }
+            .main-photo {
+                margin: 0 auto !important;
+                max-width: 100% !important;
+                height: auto !important;
+                max-height: 280px !important;
+            }
+            .status-badge {
+                margin: 0 auto 15px auto !important;
+            }
+            .employee-name {
+                font-size: 22px !important;
+            }
+            .employee-title {
+                font-size: 11px !important;
+                padding-bottom: 12px !important;
+                margin-bottom: 15px !important;
+            }
+
+            .contact-block {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                text-align: center !important;
+                gap: 12px !important;
+                padding: 16px 18px !important;
+            }
+
+            .contact-phone {
+                justify-content: center !important;
+                font-size: 18px !important;
+            }
+
+            .contact-divider {
+                width: 100% !important;
+                height: 1px !important;
+                background: #d4e2f0 !important;
+            }
+
+            .contact-gemspace {
+                justify-content: center !important;
+                font-size: 13px !important;
+            }
+
+            .meta-table, .meta-table tbody, .meta-table tr, .meta-table td {
+                display: block !important;
+                width: 100% !important;
+            }
+            .meta-table td.label {
+                width: 100% !important;
+                padding-bottom: 2px !important;
+                padding-top: 10px !important;
+                text-align: left !important;
+            }
+            .meta-table td.value {
+                padding-top: 0 !important;
+                padding-bottom: 8px !important;
+                text-align: left !important;
+            }
+
+            .media-container {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+                padding: 15px !important;
+            }
+            .forum-photo {
+                width: 100% !important;
+                height: auto !important;
+                max-height: 220px !important;
+                object-fit: cover !important;
+                margin: 0 auto !important;
+            }
+
+            .section-text {
+                text-align: left !important;
+            }
+
+            .footer-container {
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 15px !important;
+            }
+            .footer-logo-block {
+                flex-direction: column !important;
+                gap: 10px !important;
+            }
+            .footer-text-left {
+                text-align: center !important;
+            }
+            .footer-text-right {
+                text-align: center !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ШАПКА -->
+    <nav class="navbar-custom">
+        <div class="logo-area" onclick="window.location.href='index.html'">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Служебная база верификации сотрудников</p>
+            </div>
+        </div>
+        <div class="access-status">Доступ: Служебный</div>
+    </nav>
+
+    <!-- КАРТОЧКА -->
+    <div class="profile-card">
+        
+        <!-- ВЕРХНИЙ БЛОК -->
+        <div class="header-block">
+            <img src="bautin.png" class="main-photo" alt="Фото: Баутин Е. А.">
+            
+            <div>
+                <div class="status-badge">✓ Действующий сотрудник ведомства</div>
+                <h1 class="employee-name">Баутин Евгений Алексеевич</h1>
+                <div class="employee-title">Специалист-эксперт, Отдел противодействия дропперству</div>
+                
+                <!-- КОНТАКТЫ -->
+                <div class="contact-block">
+                    <div class="contact-phone">
+                        <span class="phone-icon">📞</span>
+                    </div>
+                    <div class="contact-divider"></div>
+                    <div class="contact-gemspace">
+                        <span class="gem-icon">💎</span>
+                        <a href="https://links.gemspace.com/invite/Evgenij-Bautin" target="_blank">GemSpace — связаться</a>
+                    </div>
+                </div>
+
+                <table class="meta-table">
+                    <tr>
+                        <td class="label">ID Удостоверения:</td>
+                        <td class="value id-highlight">ФС-125004</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Подразделение:</td>
+                        <td class="value">Отдел противодействия дропперству, Управление анализа и методологии</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Специализация:</td>
+                        <td class="value">Выявление фиктивных кредитных заявок, противодействие дропперству, финансовый мониторинг, аналитика подозрительных транзакций</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===== ОСОБАЯ ВЫДЕЛЕННАЯ СЕКЦИЯ ===== -->
+        <div class="highlight-box" style="background: #f0f7ff; border-left: 4px solid #0056b3; padding: 20px 25px; margin: 25px 0 30px 0; border-radius: 0 8px 8px 0;">
+            <div class="label" style="font-size: 12px; font-weight: bold; color: #0056b3; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">🎯 Ключевая специализация</div>
+            <p class="text" style="font-size: 14px; line-height: 1.6; color: #1e293b; margin: 0;">
+                <strong>Борьба с дропперством и фиктивными кредитными заявками.</strong> 
+                Евгений Алексеевич — один из немногих специалистов, прошедший путь с самых низов в сфере противодействия дропперству. Он досконально знает механизмы вовлечения граждан в преступные схемы, методы вербовки дропперов и способы вывода средств через подставных лиц. Его опыт позволяет эффективно выявлять фиктивные кредитные заявки и пресекать деятельность преступных групп на ранних стадиях.
+            </p>
+        </div>
+
+        <!-- РАЗДЕЛ 1 -->
+        <div class="section-headline">От низов к экспертизе: путь в борьбе с дропперством</div>
+        <p class="section-text">
+            Евгений Алексеевич начал свою карьеру в Росфинмониторинге с оперативной работы, погружаясь в детали механизмов дропперства — одного из самых опасных явлений в современной финансовой системе. Проработав на передовой, он изучил все уловки мошенников: от поиска «дропов» через соцсети и мессенджеры до использования их банковских карт для обналичивания похищенных средств.
+        </p>
+        <p class="section-text">
+            Сегодня Евгений Алексеевич — признанный эксперт в своей области. Он разрабатывает методики раннего выявления подозрительных транзакций, координирует работу с кредитными организациями и участвует в межведомственных операциях по ликвидации дропперских сетей. Его знание «кухни» преступников позволяет эффективно блокировать схемы на этапе их зарождения.
+        </p>
+
+        <!-- РАЗДЕЛ 2 -->
+        <div class="section-headline">Образование и профессиональный путь</div>
+        <ul class="bullet-list">
+            <li>Окончил профильный факультет Финансового университета при Правительстве РФ по специальности «Финансовый мониторинг и экономическая безопасность».</li>
+            <li>Прошел дополнительные курсы по кибербезопасности и противодействию легализации доходов в Академии ФСБ России.</li>
+            <li>С 2018 года занимается вопросами противодействия дропперству и выявлением фиктивных кредитных заявок.</li>
+            <li>За годы работы в Росфинмониторинге провел сотни аналитических расследований, результатом которых стало возбуждение десятков уголовных дел в отношении организаторов дропперских схем.</li>
+        </ul>
+
+        <!-- РАЗДЕЛ 3 -->
+        <div class="section-headline">Основные направления работы</div>
+        <ul class="bullet-list">
+            <li><strong>Противодействие дропперству:</strong> Выявление и блокировка дропперских сетей, работа с банками по заморозке подозрительных счетов.</li>
+            <li><strong>Аналитика фиктивных кредитных заявок:</strong> Выявление мошеннических схем получения кредитов по поддельным документам.</li>
+            <li><strong>Работа с подозрительными транзакциями:</strong> Отслеживание аномальных денежных потоков и их блокировка.</li>
+            <li><strong>Взаимодействие с кредитными организациями:</strong> Сопровождение банков в вопросах выявления дропперских операций.</li>
+            <li><strong>Профилактика и просвещение:</strong> Разработка рекомендаций для банков по борьбе с дропперством, участие в просветительских мероприятиях.</li>
+        </ul>
+
+        <!-- БЛОК С МЕРОПРИЯТИЕМ -->
+        <div class="section-headline">Ключевое событие в работе</div>
+        <div class="media-container">
+            <div>
+                <div class="forum-description" style="font-size: 13.5px; line-height: 1.6; color: #334155; margin: 0;">
+                    <strong style="color: #0056b3; font-weight: bold; display: block; margin-bottom: 12px;">29 апреля 2026 — Рабочая встреча в Элисте</strong>
+                    В Элисте прошла рабочая встреча Главы Республики Калмыкия Бату Хасикова и руководителя Межрегионального управления Росфинмониторинга по ЮФО Алексея Хорунина. В рамках встречи обсуждались вопросы противодействия дропперству и вовлечения граждан, в том числе несовершеннолетних, в преступные схемы. Евгений Алексеевич выступил с докладом о механизмах выявления фиктивных кредитных заявок и методах блокировки дропперских сетей на ранних стадиях. По итогам встречи были согласованы меры по укреплению сотрудничества и подведены итоги реализации двухстороннего соглашения об информационном взаимодействии в 2025 году.
+                </div>
+            </div>
+            <img src="bautin_forum.png" class="forum-photo" alt="Баутин Е. А. на рабочей встрече в Элисте">
+        </div>
+
+        <!-- НАГРАДЫ -->
+        <div class="section-headline">Ведомственные поощрения и заслуги</div>
+        <ul class="awards-list">
+            <li>🎖️ Благодарность Директора Росфинмониторинга за успешное пресечение деятельности крупной дропперской сети (2025).</li>
+            <li>🎖️ Почётная грамота Росфинмониторинга за выдающиеся результаты в противодействии фиктивным кредитным заявкам (2024).</li>
+            <li>🎖️ Нагрудный знак «За заслуги в финансовом мониторинге» (2023).</li>
+        </ul>
+
+        <!-- БЛОК КОНФИДЕНЦИАЛЬНОСТИ -->
+        <div style="background-color: #fff9e6; border-left: 4px solid #ffcc00; padding: 15px; margin: 30px 0; border-radius: 0 4px 4px 0;">
+            <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #665200; font-style: italic;">
+                * Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга.
+            </p>
+        </div>
+
+        <!-- КНОПКА ВОЗВРАТА -->
+        <div style="margin-bottom: 10px;">
+            <a href="index.html" class="btn-back-main">← На главную страницу</a>
+        </div>
+
+    </div>
+
+    <!-- ПОДВАЛ -->
+    <footer class="footer-profile">
+        <div class="footer-container">
+            <div class="footer-logo-block">
+                <img src="emblem.png" alt="Герб">
+                <div class="footer-text-left">
+                    <div class="footer-title-ru">РОСФИНМОНИТОРИНГ</div>
+                    <div class="footer-subtitle-ru">Федеральная служба по финансовому мониторингу</div>
+                </div>
+            </div>
+            <div class="footer-text-right">
+                <div>Центральный аппарат Росфинмониторинга</div>
+                <div style="margin-top: 4px;">© 2001-2026 Все права защищены.</div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
