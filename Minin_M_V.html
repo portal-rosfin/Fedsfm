@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <link rel="icon" type="image/x-icon" href="emblem.png">
-    <title>Досье сотрудника — Росфинмониторинг</title>
+    <title>Досье: Минин Максим Викторович — Росфинмониторинг</title>
     <style>
         body { 
             font-family: 'Segoe UI', Arial, sans-serif; 
@@ -48,6 +48,7 @@
             font-size: 18px;
             font-weight: bold;
             letter-spacing: 0.5px;
+            color: #ffffff;
         }
         .logo-text p {
             margin: 0;
@@ -55,11 +56,18 @@
             color: #a0b2c6;
             text-transform: uppercase;
         }
+        .access-status {
+            font-size: 12px;
+            font-weight: bold;
+            color: #a0b2c6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
         /* Контейнер профиля с правильным отступом сверху под шапку */
         .profile-container { 
             max-width: 1000px; 
-            margin: 125px auto 40px auto; /* 125px сверху спасают от наложения шапки */
+            margin: 125px auto 40px auto;
             background: white; 
             border: 1px solid #dce3e8; 
             border-radius: 4px; 
@@ -80,10 +88,56 @@
         .profile-name { font-size: 32px; color: #0a1f33; font-weight: bold; margin: 0 0 10px 0; }
         .profile-rank { font-size: 16px; color: #005695; font-weight: 600; margin: 0 0 25px 0; text-transform: uppercase; letter-spacing: 0.5px; }
         
+        /* ===== КОНТАКТНЫЙ БЛОК (ТОЛЬКО GEMSPACE) ===== */
+        .contact-block {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            background: #f0f7ff;
+            border: 1px solid #d4e2f0;
+            border-radius: 10px;
+            padding: 14px 22px;
+            margin-bottom: 25px;
+            transition: all 0.2s ease;
+        }
+
+        .contact-block:hover {
+            background: #e8f0fe;
+            border-color: #0056b3;
+        }
+
+        .contact-gemspace {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0a1f33;
+        }
+
+        .contact-gemspace .gem-icon {
+            font-size: 22px;
+        }
+
+        .contact-gemspace a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.2s, border-color 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .contact-gemspace a:hover {
+            color: #c5a059;
+            border-bottom-color: #c5a059;
+        }
+
         /* Личные данные */
         .meta-grid { display: grid; grid-template-columns: 180px 1fr; gap: 14px; font-size: 14px; border-top: 1px solid #f0f4f7; padding-top: 20px; }
         .meta-label { font-weight: bold; color: #708090; }
         .meta-value { color: #222; }
+        .meta-value.id-highlight { color: #dd2c00; font-weight: bold; }
 
         /* Разделы */
         .section-title { font-size: 18px; color: #005695; font-weight: bold; margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid #005695; padding-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -113,7 +167,7 @@
 
         /* Подвал */
         .footer-profile { background-color: #0a1f33; color: #fff; padding: 30px 0; margin-top: 60px; font-size: 12px; border-top: 4px solid #c5a059; }
-        .footer-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; box-sizing: border-box; }
+        .footer-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; box-sizing: border-box; flex-wrap: wrap; }
         .footer-emblem { height: 60px; width: auto; object-fit: contain; flex-shrink: 0; }
         .footer-disclaimer { color: #cedbe7; line-height: 1.6; text-align: justify; font-style: italic; max-width: 600px; }
         .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; white-space: nowrap; flex-shrink: 0; }
@@ -140,10 +194,13 @@
             .logo-text p {
                 font-size: 8px !important;
             }
+            .access-status {
+                display: none;
+            }
 
             /* Контейнер страницы с учетом высоты шапки на мобилках */
             .profile-container {
-                margin: 110px 10px 20px 10px !important; /* Безопасный отступ сверху на телефонах */
+                margin: 110px 10px 20px 10px !important;
                 padding: 15px !important;
                 width: auto !important;
             }
@@ -177,6 +234,19 @@
                 margin: 0 auto 15px auto !important;
             }
 
+            .contact-block {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                text-align: center !important;
+                gap: 12px !important;
+                padding: 16px 18px !important;
+            }
+
+            .contact-gemspace {
+                justify-content: center !important;
+                font-size: 13px !important;
+            }
+
             /* Личные данные списком */
             .meta-grid {
                 display: flex !important;
@@ -202,16 +272,31 @@
             .press-photo-box {
                 width: 100% !important;
                 height: auto !important;
+                max-height: 250px !important;
+            }
+            .press-photo-box img {
+                width: 100% !important;
+                height: auto !important;
+                object-fit: contain !important;
+            }
+
+            /* Текст био */
+            .bio-text {
+                text-align: left !important;
             }
 
             /* Подвал */
-            .footer-profile .footer-container {
+            .footer-container {
                 display: flex !important;
                 flex-direction: column !important;
-                gap: 15px !important;
                 text-align: center !important;
+                gap: 15px !important;
             }
-            .footer-disclaimer, .footer-copyright {
+            .footer-disclaimer {
+                text-align: center !important;
+                font-size: 11px !important;
+            }
+            .footer-copyright {
                 text-align: center !important;
                 white-space: normal !important;
             }
@@ -229,7 +314,7 @@
                 <p>Служебная база верификации сотрудников</p>
             </div>
         </div>
-        <div style="font-size: 12px; font-weight: bold; color: #a0b2c6;">ДОСТУП: СЛУЖЕБНЫЙ</div>
+        <div class="access-status">Доступ: Служебный</div>
     </nav>
 
     <!-- КАРТОЧКА ПРОФИЛЯ -->
@@ -245,9 +330,17 @@
                 <h2 class="profile-name">Минин Максим Викторович</h2>
                 <p class="profile-rank">Инспектор ПОД/ФТ / Финансовый специалист</p>
                 
+                <!-- ===== КОНТАКТНЫЙ БЛОК (ТОЛЬКО GEMSPACE) ===== -->
+                <div class="contact-block">
+                    <div class="contact-gemspace">
+                        <span class="gem-icon">💎</span>
+                        <a href="https://links.gemspace.com/invite/Maksim-Viktorovic-Minin" target="_blank">GemSpace — связаться</a>
+                    </div>
+                </div>
+
                 <div class="meta-grid">
                     <div class="meta-label">ID Удостоверения:</div>
-                    <div class="meta-value" style="font-weight: bold; color: #d9534f;">ФС-125066</div>
+                    <div class="meta-value id-highlight">ФС-125066</div>
                     
                     <div class="meta-label">Подразделение:</div>
                     <div class="meta-value">Управление безопасности и защиты информации Росфинмониторинга</div>
