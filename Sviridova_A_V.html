@@ -126,6 +126,80 @@
             padding-bottom: 15px;
         }
 
+        /* ===== КОНТАКТНЫЙ БЛОК ===== */
+        .contact-block {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            background: #f0f7ff;
+            border: 1px solid #d4e2f0;
+            border-radius: 10px;
+            padding: 14px 22px;
+            margin-bottom: 25px;
+            transition: all 0.2s ease;
+        }
+
+        .contact-block:hover {
+            background: #e8f0fe;
+            border-color: #0056b3;
+        }
+
+        .contact-phone {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #0a1f33;
+        }
+
+        .contact-phone .phone-icon {
+            font-size: 24px;
+        }
+
+        .contact-phone a {
+            color: #0056b3;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-phone a:hover {
+            color: #c5a059;
+        }
+
+        .contact-divider {
+            width: 1px;
+            height: 35px;
+            background: #d4e2f0;
+        }
+
+        .contact-gemspace {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0a1f33;
+        }
+
+        .contact-gemspace .gem-icon {
+            font-size: 22px;
+        }
+
+        .contact-gemspace a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.2s, border-color 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .contact-gemspace a:hover {
+            color: #c5a059;
+            border-bottom-color: #c5a059;
+        }
+
         /* ТАБЛИЦА С ХАРАКТЕРИСТИКАМИ */
         .meta-table {
             width: 100%;
@@ -320,7 +394,7 @@
                 font-size: 8px !important;
             }
             .access-status {
-                display: none; /* Скрываем статус на мобилках для экономии места */
+                display: none;
             }
 
             .profile-card {
@@ -350,6 +424,30 @@
                 font-size: 11px !important;
                 padding-bottom: 12px !important;
                 margin-bottom: 15px !important;
+            }
+
+            .contact-block {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                text-align: center !important;
+                gap: 12px !important;
+                padding: 16px 18px !important;
+            }
+
+            .contact-phone {
+                justify-content: center !important;
+                font-size: 18px !important;
+            }
+
+            .contact-divider {
+                width: 100% !important;
+                height: 1px !important;
+                background: #d4e2f0 !important;
+            }
+
+            .contact-gemspace {
+                justify-content: center !important;
+                font-size: 13px !important;
             }
 
             .meta-table, .meta-table tbody, .meta-table tr, .meta-table td {
@@ -429,6 +527,18 @@
                 <h1 class="employee-name">Свиридова Анастасия Викторовна</h1>
                 <div class="employee-title">Главный специалист-эксперт</div>
                 
+                <!-- ===== КОНТАКТНЫЙ БЛОК ===== -->
+                <div class="contact-block">
+                    <div class="contact-phone">
+                        <span class="phone-icon">📞</span>
+                    </div>
+                    <div class="contact-divider"></div>
+                    <div class="contact-gemspace">
+                        <span class="gem-icon">💎</span>
+                        <a href="https://links.gemspace.com/invite/ssviridova_a" target="_blank">GemSpace — связаться</a>
+                    </div>
+                </div>
+
                 <table class="meta-table">
                     <tr>
                         <td class="label">ID Удостоверения:</td>
