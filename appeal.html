@@ -23,6 +23,9 @@
             --gold: #c5a059;
             --blue: #005695;
             --success: #22c55e;
+            --danger: #dc2626;
+            --gray: #6b7a8a;
+            --light: #f0f4f7;
         }
         html, body {
             background: #f0f4f7 !important;
@@ -39,6 +42,7 @@
             background: #f0f4f7;
             color: #1a1a2e;
             min-height: 100vh;
+            line-height: 1.5;
         }
 
         /* ===== HEADER ===== */
@@ -86,6 +90,11 @@
             letter-spacing: 1.5px;
             font-weight: 300;
         }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
         .header-status {
             font-size: 11px;
             font-weight: 600;
@@ -95,6 +104,30 @@
             border-radius: 20px;
             border: 1px solid rgba(74, 222, 128, 0.25);
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+        .header-time {
+            font-size: 11px;
+            color: #8fa8c9;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            background: rgba(255,255,255,0.05);
+            padding: 6px 12px;
+            border-radius: 6px;
         }
 
         @media (max-width: 768px) {
@@ -115,6 +148,9 @@
             .header-status {
                 font-size: 9px;
                 padding: 4px 10px;
+            }
+            .header-time {
+                display: none;
             }
         }
 
@@ -179,8 +215,46 @@
             color: #b45309;
         }
 
-        .form-group {
+        /* ===== БЛОКИ ФОРМЫ ===== */
+        .form-section {
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px dashed #e8edf2;
+        }
+        .form-section:last-of-type {
+            border-bottom: none;
+            padding-bottom: 0;
             margin-bottom: 24px;
+        }
+        .form-section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #005695;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .form-section-title .num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            background: #005695;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group:last-child {
+            margin-bottom: 0;
         }
         .form-group label {
             display: block;
@@ -194,6 +268,14 @@
         .form-group label .required {
             color: #dc2626;
             margin-left: 2px;
+        }
+        .form-group label .optional {
+            color: #8fa8c9;
+            font-weight: 500;
+            font-size: 11px;
+            margin-left: 6px;
+            text-transform: none;
+            letter-spacing: 0;
         }
         .form-control {
             width: 100%;
@@ -252,59 +334,125 @@
             background: #d0d9e0;
             transform: translateY(-1px);
         }
+
+        /* ===== СПИСОК ФАЙЛОВ — КРАСИВЫЕ КАРТОЧКИ ===== */
         .file-list {
-            margin-top: 12px;
+            margin-top: 14px;
             display: none;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
         }
         .file-list.active {
-            display: block;
+            display: grid;
         }
-        .file-item {
+
+        .file-card {
+            background: #ffffff;
+            border: 1px solid #e8edf2;
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+            animation: cardIn 0.3s ease;
+            overflow: hidden;
+        }
+        .file-card:hover {
+            border-color: #005695;
+            box-shadow: 0 4px 12px rgba(0, 86, 149, 0.12);
+            transform: translateY(-2px);
+        }
+        @keyframes cardIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .file-card .preview {
+            width: 100%;
+            height: 80px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 8px 14px;
+            justify-content: center;
             background: #f8fafc;
-            border-radius: 6px;
-            margin-bottom: 6px;
-            border: 1px solid #e8edf2;
-            font-size: 13px;
-            animation: slideIn 0.3s ease;
+            overflow: hidden;
         }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .file-card .preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        .file-name {
+        .file-card .preview .icon-big {
+            font-size: 36px;
+        }
+        .file-card .file-info {
+            width: 100%;
+            text-align: center;
+        }
+        .file-card .file-name {
+            font-size: 11px;
+            font-weight: 600;
             color: #0a1f33;
-            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
         }
-        .file-size {
-            color: #6b7a8a;
-            font-size: 12px;
-            margin-left: 8px;
+        .file-card .file-size {
+            font-size: 10px;
+            color: #8fa8c9;
+            margin-top: 2px;
+            display: block;
         }
-        .file-remove {
+        .file-card .file-remove {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(220, 38, 38, 0.1);
             color: #dc2626;
-            cursor: pointer;
-            font-weight: bold;
-            padding: 0 8px;
             border: none;
-            background: none;
-            font-size: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
             line-height: 1;
-            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            opacity: 0;
         }
-        .file-remove:hover {
-            transform: scale(1.3) rotate(90deg);
+        .file-card:hover .file-remove {
+            opacity: 1;
         }
+        .file-card .file-remove:hover {
+            background: #dc2626;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        /* Цвета для типов файлов */
+        .file-card[data-type="image"] .preview { background: #f0f9ff; }
+        .file-card[data-type="pdf"] .preview { background: #fef2f2; }
+        .file-card[data-type="word"] .preview { background: #eff6ff; }
+        .file-card[data-type="excel"] .preview { background: #f0fdf4; }
+        .file-card[data-type="text"] .preview { background: #f8fafc; }
+        .file-card[data-type="other"] .preview { background: #f8fafc; }
 
         .checkbox-wrapper {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
             margin: 6px 0 10px;
-            padding: 10px 0;
+            padding: 14px 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e8edf2;
         }
         .checkbox-wrapper input[type="checkbox"] {
             width: 18px;
@@ -312,17 +460,19 @@
             accent-color: #005695;
             cursor: pointer;
             flex-shrink: 0;
+            margin-top: 2px;
         }
         .checkbox-wrapper label {
-            font-size: 14px;
+            font-size: 13px;
             color: #2d3f54;
             cursor: pointer;
+            line-height: 1.5;
         }
 
         .btn-submit {
             background: linear-gradient(135deg, #005695 0%, #0a1f33 100%);
             color: white;
-            padding: 16px 30px;
+            padding: 18px 30px;
             border: none;
             border-radius: 8px;
             font-size: 15px;
@@ -368,9 +518,7 @@
             box-shadow: none !important;
         }
 
-        /* =============================================
-           КРАСИВАЯ МОДАЛКА ЗАГРУЗКИ
-           ============================================= */
+        /* ===== МОДАЛКА ЗАГРУЗКИ ===== */
         .modal-loading {
             display: none;
             position: fixed;
@@ -658,6 +806,12 @@
             .loading-logo-wrap img {
                 height: 38px;
             }
+            .file-list {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            }
+            .file-card .preview {
+                height: 60px;
+            }
         }
     </style>
 </head>
@@ -672,7 +826,10 @@
                 <p>Официальный модуль отправки обращений</p>
             </div>
         </div>
-        <div class="header-status">🔒 УЗЕЛ СВЯЗИ: ЗАЩИЩЕН</div>
+        <div class="header-right">
+            <div class="header-time" id="headerTime">--:--:--</div>
+            <div class="header-status">УЗЕЛ СВЯЗИ: ЗАЩИЩЕН</div>
+        </div>
     </nav>
 
     <!-- ===== FORM ===== -->
@@ -685,49 +842,73 @@
         </div>
 
         <form id="appealForm">
-            <div class="form-group">
-                <label for="fullName">ФИО заявителя / Наименование организации <span class="required">*</span></label>
-                <input type="text" id="fullName" class="form-control" placeholder="Иванов Иван Иванович" required>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Электронная почта для ответа <span class="required">*</span></label>
-                <input type="email" id="email" class="form-control" placeholder="example@mail.ru" required>
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Номер телефона для связи <span class="required">*</span></label>
-                <input type="tel" id="phone" class="form-control" placeholder="+7 (999) 123-45-67" required>
-            </div>
-
-            <div class="form-group">
-                <label for="subject">Тема обращения <span class="required">*</span></label>
-                <select id="subject" class="form-control" required>
-                    <option value="" disabled selected>Выберите тему...</option>
-                    <option value="Сообщение о сомнительных операциях">Сообщение о сомнительных операциях</option>
-                    <option value="Вопросы №-115">Вопросы исполнения требований ФЗ №-115</option>
-                    <option value="Техподдержка">Запрос техподдержки</option>
-                    <option value="Факт мошенничества">Факт мошенничества</option>
-                    <option value="Другой вопрос">Другой вопрос</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="message">Текст обращения <span class="required">*</span></label>
-                <textarea id="message" class="form-control" rows="6" placeholder="Подробно изложите суть вашего вопроса..." required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Прикрепить документы</label>
-                <div class="file-upload-wrapper">
-                    <input type="file" id="fileInput" class="form-control" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.txt,.gif,.bmp,.xls,.xlsx,.webp">
+            <!-- ===== БЛОК 1: КОНТАКТЫ ===== -->
+            <div class="form-section">
+                <div class="form-section-title">
+                    <span class="num">1</span>
+                    Контактные данные
                 </div>
-                <div id="fileList" class="file-list"></div>
+
+                <div class="form-group">
+                    <label for="fullName">ФИО заявителя / Наименование организации <span class="required">*</span></label>
+                    <input type="text" id="fullName" class="form-control" placeholder="Иванов Иван Иванович" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Номер телефона для связи <span class="required">*</span></label>
+                    <input type="tel" id="phone" class="form-control" placeholder="+7 (999) 123-45-67" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Электронная почта для ответа <span class="optional">— необязательно</span></label>
+                    <input type="email" id="email" class="form-control" placeholder="example@mail.ru">
+                </div>
+            </div>
+
+            <!-- ===== БЛОК 2: ОБРАЩЕНИЕ ===== -->
+            <div class="form-section">
+                <div class="form-section-title">
+                    <span class="num">2</span>
+                    Суть обращения
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Тема обращения <span class="required">*</span></label>
+                    <select id="subject" class="form-control" required>
+                        <option value="" disabled selected>Выберите тему...</option>
+                        <option value="Сообщение о сомнительных операциях">Сообщение о сомнительных операциях</option>
+                        <option value="Вопросы №-115">Вопросы исполнения требований ФЗ №-115</option>
+                        <option value="Техподдержка">Запрос техподдержки</option>
+                        <option value="Факт мошенничества">Факт мошенничества</option>
+                        <option value="Другой вопрос">Другой вопрос</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Текст обращения <span class="required">*</span></label>
+                    <textarea id="message" class="form-control" rows="6" placeholder="Подробно изложите суть вашего вопроса..." required></textarea>
+                </div>
+            </div>
+
+            <!-- ===== БЛОК 3: ФАЙЛЫ ===== -->
+            <div class="form-section">
+                <div class="form-section-title">
+                    <span class="num">3</span>
+                    Прикрепление документов
+                </div>
+
+                <div class="form-group">
+                    <label>Прикрепить документы <span class="optional">— до 5 файлов, до 20 МБ каждый</span></label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="fileInput" class="form-control" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.txt,.gif,.bmp,.xls,.xlsx,.webp">
+                    </div>
+                    <div id="fileList" class="file-list"></div>
+                </div>
             </div>
 
             <div class="checkbox-wrapper">
                 <input type="checkbox" id="agreement" required>
-                <label for="agreement">Я подтверждаю согласие на обработку персональных данных</label>
+                <label for="agreement">Я подтверждаю согласие на обработку персональных данных в соответствии с Федеральным законом № 152-ФЗ «О персональных данных»</label>
             </div>
 
             <button type="submit" class="btn-submit" id="submitBtn">
@@ -736,7 +917,7 @@
         </form>
     </div>
 
-    <!-- ===== КРАСИВАЯ МОДАЛКА ЗАГРУЗКИ ===== -->
+    <!-- ===== МОДАЛКА ЗАГРУЗКИ ===== -->
     <div id="loadingModal" class="modal-loading">
         <div class="loading-card">
             <div class="loading-logo-wrap">
@@ -794,6 +975,46 @@
             const progressText = document.getElementById('progressText');
             let selectedFiles = [];
 
+            // ===== ЧАСЫ В ХЕДЕРЕ =====
+            function updateClock() {
+                const now = new Date();
+                const time = now.toLocaleTimeString('ru-RU', { hour12: false });
+                const el = document.getElementById('headerTime');
+                if (el) el.textContent = time;
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            // ===== ОПРЕДЕЛЕНИЕ ТИПА ФАЙЛА =====
+            function getFileType(file) {
+                const type = file.type;
+                const name = file.name.toLowerCase();
+
+                if (type.startsWith('image/')) return 'image';
+                if (type === 'application/pdf' || name.endsWith('.pdf')) return 'pdf';
+                if (type.includes('word') || name.endsWith('.doc') || name.endsWith('.docx')) return 'word';
+                if (type.includes('excel') || name.endsWith('.xls') || name.endsWith('.xlsx')) return 'excel';
+                if (type.includes('text') || name.endsWith('.txt')) return 'text';
+                return 'other';
+            }
+
+            function getFileIcon(type) {
+                switch(type) {
+                    case 'image': return '🖼️';
+                    case 'pdf': return '📕';
+                    case 'word': return '📘';
+                    case 'excel': return '📗';
+                    case 'text': return '📄';
+                    default: return '📎';
+                }
+            }
+
+            function formatSize(bytes) {
+                if (bytes < 1024) return bytes + ' B';
+                if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+                return (bytes / 1024 / 1024).toFixed(2) + ' MB';
+            }
+
             // ===== ФАЙЛЫ =====
             fileInput.addEventListener('change', function(e) {
                 const files = Array.from(this.files);
@@ -825,15 +1046,31 @@
                     return;
                 }
                 fileList.classList.add('active');
-                fileList.innerHTML = selectedFiles.map((file, index) => `
-                    <div class="file-item">
-                        <span>
-                            <span class="file-name">📎 ${file.name}</span>
-                            <span class="file-size">(${(file.size / 1024 / 1024).toFixed(2)} MB)</span>
-                        </span>
-                        <button class="file-remove" data-index="${index}" title="Удалить файл">×</button>
-                    </div>
-                `).join('');
+
+                fileList.innerHTML = selectedFiles.map((file, index) => {
+                    const type = getFileType(file);
+                    const icon = getFileIcon(type);
+                    const size = formatSize(file.size);
+                    const isImage = type === 'image';
+
+                    // Превью для картинок
+                    let previewHTML = `<span class="icon-big">${icon}</span>`;
+                    if (isImage) {
+                        const url = URL.createObjectURL(file);
+                        previewHTML = `<img src="${url}" alt="${file.name}" onload="URL.revokeObjectURL(this.src)">`;
+                    }
+
+                    return `
+                        <div class="file-card" data-type="${type}">
+                            <div class="preview">${previewHTML}</div>
+                            <div class="file-info">
+                                <span class="file-name" title="${file.name}">${file.name}</span>
+                                <span class="file-size">${size}</span>
+                            </div>
+                            <button class="file-remove" data-index="${index}" title="Удалить файл">×</button>
+                        </div>
+                    `;
+                }).join('');
 
                 fileList.querySelectorAll('.file-remove').forEach(btn => {
                     btn.addEventListener('click', function() {
@@ -847,7 +1084,7 @@
                 });
             }
 
-            // ===== ПОКАЗ ЗАГРУЗКИ С ПРОГРЕССОМ 7-10 СЕКУНД =====
+            // ===== ПОКАЗ ЗАГРУЗКИ =====
             function showLoading() {
                 loadingModal.classList.add('active');
                 let progress = 0;
@@ -900,7 +1137,7 @@
                 }
             }
 
-            // ===== ОТПРАВКА ФАЙЛА С ПОВТОРАМИ =====
+            // ===== ОТПРАВКА ФАЙЛА =====
             async function sendFileWithRetry(file, ticketNumber, fullName) {
                 const formData = new FormData();
                 formData.append('file', file);
@@ -932,13 +1169,14 @@
                 event.preventDefault();
 
                 const fullName = document.getElementById('fullName').value.trim();
-                const email = document.getElementById('email').value.trim();
                 const phone = document.getElementById('phone').value.trim();
+                const email = document.getElementById('email').value.trim();
                 const subject = document.getElementById('subject').value;
                 const message = document.getElementById('message').value.trim();
                 const agreement = document.getElementById('agreement').checked;
 
-                if (!fullName || !email || !phone || !subject || !message) {
+                // Валидация обязательных полей
+                if (!fullName || !phone || !subject || !message) {
                     alert('⚠️ Заполните все обязательные поля!');
                     return;
                 }
@@ -946,12 +1184,12 @@
                     alert('⚠️ Подтвердите согласие на обработку данных!');
                     return;
                 }
-                if (!email.includes('@')) {
+                // Email — необязательный, но если указан — проверяем
+                if (email && !email.includes('@')) {
                     alert('⚠️ Введите корректный email адрес!');
                     return;
                 }
 
-                // ⚠️ СОХРАНЯЕМ КОПИЮ ФАЙЛОВ ДЛЯ ФОНОВОЙ ОТПРАВКИ
                 const filesToSend = [...selectedFiles];
                 const ticketNumber = Math.floor(100000 + Math.random() * 900000);
                 const dateStr = new Date().toLocaleString('ru-RU');
@@ -959,15 +1197,12 @@
                 submitBtn.disabled = true;
                 btnText.textContent = '⏳ Отправка...';
 
-                // 1. ЗАГРУЗКА 7-10 СЕКУНД
                 await showLoading();
 
-                // 2. ПОКАЗЫВАЕМ НОМЕР
                 document.getElementById('ticketNumber').innerText = ticketNumber;
                 successModal.classList.add('active');
                 hideLoading();
 
-                // 3. ОЧИЩАЕМ ФОРМУ (НО НЕ ТРОГАЕМ filesToSend!)
                 form.reset();
                 selectedFiles = [];
                 fileInput.value = '';
@@ -976,15 +1211,17 @@
                 btnText.textContent = '📩 Отправить официальное обращение';
                 submitBtn.disabled = false;
 
-                // 4. ОТПРАВКА В ФОНЕ С ИСПОЛЬЗОВАНИЕМ filesToSend
+                // ===== ОТПРАВКА В ФОНЕ =====
                 (async function sendInBackground() {
                     try {
                         let text = `📩 НОВОЕ ОБРАЩЕНИЕ В РОСФИНМОНИТОРИНГ\n`;
                         text += `━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
                         text += `📋 Номер: РФМ-ОБ-${ticketNumber}\n\n`;
                         text += `👤 Заявитель: ${fullName}\n`;
-                        text += `📧 Email: ${email}\n`;
                         text += `📞 Телефон: ${phone}\n`;
+                        if (email) {
+                            text += `📧 Email: ${email}\n`;
+                        }
                         text += `📌 Тема: ${subject}\n\n`;
                         text += `━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
                         text += `📝 Текст обращения:\n`;
@@ -999,11 +1236,9 @@
                         }
                         text += `\n🕐 Дата и время: ${dateStr}`;
 
-                        // Отправка текста
                         await sendWithRetry(`${WORKER_URL}/telegram`, { text: text });
                         console.log('✅ Текст отправлен');
 
-                        // Отправка файлов (используем filesToSend)
                         if (filesToSend.length > 0) {
                             for (let file of filesToSend) {
                                 await sendFileWithRetry(file, ticketNumber, fullName);
@@ -1059,7 +1294,9 @@
                         text += `━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
                         text += `📋 Номер: РФМ-ОБ-${appeal.ticketNumber || '---'}\n\n`;
                         text += `👤 Заявитель: ${appeal.fullName}\n`;
-                        text += `📧 Email: ${appeal.email}\n`;
+                        if (appeal.email) {
+                            text += `📧 Email: ${appeal.email}\n`;
+                        }
                         text += `📞 Телефон: ${appeal.phone}\n`;
                         text += `📌 Тема: ${appeal.subject}\n\n`;
                         text += `📝 Текст:\n${appeal.message}\n\n`;
