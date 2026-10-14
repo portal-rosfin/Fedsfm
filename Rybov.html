@@ -77,7 +77,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* Контейнер профиля с правильным отступом сверху под фиксированную шапку */
+        /* Контейнер профиля */
         .profile-container { 
             max-width: 1000px; 
             margin: 125px auto 40px auto;
@@ -90,102 +90,343 @@
         }
         
         /* Главный блок: Фото + Имя */
-        .profile-header { display: grid; grid-template-columns: 280px 1fr; gap: 40px; border-bottom: 2px solid #edf1f4; padding-bottom: 35px; margin-bottom: 30px; }
+        .profile-header { 
+            display: grid; 
+            grid-template-columns: 280px 1fr; 
+            gap: 40px; 
+            border-bottom: 2px solid #edf1f4; 
+            padding-bottom: 35px; 
+            margin-bottom: 30px; 
+        }
         
-        /* Контейнер для главного фото */
-        .photo-box { width: 280px; height: 350px; background: #e5eef5; border: 1px solid #dce3e8; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .photo-box img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        .photo-box { 
+            width: 280px; 
+            height: 350px; 
+            background: #e5eef5; 
+            border: 1px solid #dce3e8; 
+            border-radius: 4px; 
+            overflow: hidden; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+        }
+        .photo-box img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: center; 
+        }
         
-        .info-box { display: flex; flex-direction: column; justify-content: center; }
-        .status-badge { background: #e2f6ea; color: #28a745; padding: 6px 14px; font-size: 12px; font-weight: bold; border-radius: 20px; width: fit-content; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #c3e6cb; }
-        .profile-name { font-size: 32px; color: #0a1f33; font-weight: bold; margin: 0 0 10px 0; }
-        .profile-rank { font-size: 16px; color: #005695; font-weight: 600; margin: 0 0 25px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-box { 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+        }
+        .status-badge { 
+            background: #e2f6ea; 
+            color: #28a745; 
+            padding: 6px 14px; 
+            font-size: 12px; 
+            font-weight: bold; 
+            border-radius: 20px; 
+            width: fit-content; 
+            margin-bottom: 20px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            border: 1px solid #c3e6cb; 
+        }
+        .profile-name { 
+            font-size: 32px; 
+            color: #0a1f33; 
+            font-weight: bold; 
+            margin: 0 0 10px 0; 
+        }
+        .profile-rank { 
+            font-size: 16px; 
+            color: #005695; 
+            font-weight: 600; 
+            margin: 0 0 25px 0; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
         
-        /* ===== КОНТАКТНЫЙ БЛОК (БЕЗ ТЕЛЕФОНА) ===== */
-        .contact-block {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            flex-wrap: wrap;
-            background: #f0f7ff;
-            border: 1px solid #d4e2f0;
-            border-radius: 10px;
-            padding: 14px 22px;
-            margin-bottom: 25px;
-            transition: all 0.2s ease;
+        /* ===== БЛОК МЕТА-ДАННЫХ ===== */
+        .meta-grid { 
+            display: grid; 
+            grid-template-columns: 180px 1fr; 
+            gap: 14px; 
+            font-size: 14px; 
+            border-top: 1px solid #f0f4f7; 
+            padding-top: 20px; 
+        }
+        .meta-label { 
+            font-weight: bold; 
+            color: #708090; 
+        }
+        .meta-value { 
+            color: #222; 
+        }
+        .meta-value.id-highlight { 
+            color: #dd2c00; 
+            font-weight: bold; 
         }
 
-        .contact-block:hover {
-            background: #e8f0fe;
-            border-color: #0056b3;
+        /* Разделы */
+        .section-title { 
+            font-size: 18px; 
+            color: #005695; 
+            font-weight: bold; 
+            margin-top: 40px; 
+            margin-bottom: 20px; 
+            border-bottom: 2px solid #005695; 
+            padding-bottom: 6px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+        .bio-text { 
+            font-size: 15px; 
+            line-height: 1.6; 
+            color: #444; 
+            text-align: justify; 
+            margin: 0 0 15px 0; 
         }
 
-        .contact-gemspace {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
+        /* Списки блоков */
+        .features-list { 
+            padding-left: 20px; 
+            margin: 15px 0; 
+            font-size: 15px; 
+            line-height: 1.6; 
+            color: #444; 
+        }
+        .features-list li { 
+            margin-bottom: 12px; 
+        }
+        .features-list strong { 
+            color: #005695; 
+        }
+
+        /* ===== ТАЙМЛАЙН КАРЬЕРЫ ===== */
+        .career-timeline {
+            margin: 20px 0 10px;
+            padding: 0;
+            list-style: none;
+            position: relative;
+        }
+        .career-timeline::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: linear-gradient(180deg, #005695, #c5a059);
+        }
+        .career-timeline li {
+            position: relative;
+            padding: 0 0 24px 55px;
+            font-size: 14.5px;
+            line-height: 1.5;
+            color: #444;
+        }
+        .career-timeline li:last-child {
+            padding-bottom: 0;
+        }
+        .career-timeline li::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #005695;
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 0 2px #005695;
+            z-index: 1;
+        }
+        .career-timeline li:first-child::before {
+            background: #c5a059;
+            box-shadow: 0 0 0 2px #c5a059;
+        }
+        .career-timeline li:last-child::before {
+            background: #28a745;
+            box-shadow: 0 0 0 2px #28a745;
+        }
+        .career-year {
+            display: inline-block;
+            font-weight: bold;
+            color: #005695;
+            font-size: 13px;
+            background: #eef4f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+        .career-timeline li:first-child .career-year {
+            background: #fef8e7;
+            color: #b45309;
+        }
+        .career-timeline li:last-child .career-year {
+            background: #e2f6ea;
+            color: #1a6e3a;
+        }
+        .career-title {
             font-weight: 600;
             color: #0a1f33;
         }
-
-        .contact-gemspace .gem-icon {
-            font-size: 22px;
+        .career-desc {
+            color: #5a6b7a;
+            font-size: 13.5px;
+            margin-top: 2px;
         }
 
-        .contact-gemspace a {
-            color: #0056b3;
-            text-decoration: none;
-            font-weight: 700;
-            transition: color 0.2s, border-color 0.2s;
-            border-bottom: 2px solid transparent;
+        /* Двухколоночный блок */
+        .media-block { 
+            display: grid; 
+            grid-template-columns: 1fr 320px; 
+            gap: 30px; 
+            margin-top: 15px; 
+            align-items: start; 
         }
-
-        .contact-gemspace a:hover {
-            color: #c5a059;
-            border-bottom-color: #c5a059;
-        }
-
-        /* Личные данные */
-        .meta-grid { display: grid; grid-template-columns: 180px 1fr; gap: 14px; font-size: 14px; border-top: 1px solid #f0f4f7; padding-top: 20px; }
-        .meta-label { font-weight: bold; color: #708090; }
-        .meta-value { color: #222; }
-        .meta-value.id-highlight { color: #dd2c00; font-weight: bold; }
-
-        /* Разделы */
-        .section-title { font-size: 18px; color: #005695; font-weight: bold; margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid #005695; padding-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .bio-text { font-size: 15px; line-height: 1.6; color: #444; text-align: justify; margin: 0 0 15px 0; }
-
-        /* Списки блоков */
-        .features-list { padding-left: 20px; margin: 15px 0; font-size: 15px; line-height: 1.6; color: #444; }
-        .features-list li { margin-bottom: 12px; }
-        .features-list strong { color: #005695; }
-
-        /* Двухколоночный блок: Интервью + Пресс-фото */
-        .media-block { display: grid; grid-template-columns: 1fr 320px; gap: 30px; margin-top: 15px; align-items: start; }
         
-        .quote-block { background: #f4f7fa; border-left: 5px solid #c5a059; padding: 25px; border-radius: 0 4px 4px 0; font-style: italic; font-size: 15px; line-height: 1.6; color: #4b5768; margin: 0; }
-        .quote-source { font-style: normal; font-weight: bold; color: #005695; margin-top: 15px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .quote-block { 
+            background: #f4f7fa; 
+            border-left: 5px solid #c5a059; 
+            padding: 25px; 
+            border-radius: 0 4px 4px 0; 
+            font-style: italic; 
+            font-size: 15px; 
+            line-height: 1.6; 
+            color: #4b5768; 
+            margin: 0; 
+        }
+        .quote-source { 
+            font-style: normal; 
+            font-weight: bold; 
+            color: #005695; 
+            margin-top: 15px; 
+            font-size: 12px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
         
-        .press-photo-box { width: 100%; height: 210px; background: #e5eef5; border: 1px solid #dce3e8; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-        .press-photo-box img { width: 100%; height: 100%; object-fit: cover; }
+        .press-photo-box { 
+            width: 100%; 
+            height: 210px; 
+            background: #e5eef5; 
+            border: 1px solid #dce3e8; 
+            border-radius: 4px; 
+            overflow: hidden; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05); 
+        }
+        .press-photo-box img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
 
         /* Награды */
-        .awards-list { list-style-type: none; padding: 0; margin: 0; font-size: 15px; line-height: 1.8; color: #444; }
-        .awards-list li { padding-left: 25px; position: relative; margin-bottom: 8px; }
-        .awards-list li::before { content: '🏆'; position: absolute; left: 0; top: -1px; font-size: 14px; }
+        .awards-list { 
+            list-style-type: none; 
+            padding: 0; 
+            margin: 0; 
+            font-size: 15px; 
+            line-height: 1.8; 
+            color: #444; 
+        }
+        .awards-list li { 
+            padding-left: 30px; 
+            position: relative; 
+            margin-bottom: 10px; 
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+        .awards-list li::before { 
+            content: '🏆'; 
+            position: absolute; 
+            left: 0; 
+            top: 1px; 
+            font-size: 16px; 
+        }
 
-        .btn-back { display: inline-block; background: #0a1f33; color: white; padding: 12px 24px; border-radius: 4px; font-size: 13px; font-weight: bold; text-decoration: none; margin-top: 40px; transition: background 0.2s; text-transform: uppercase; letter-spacing: 0.5px; }
-        .btn-back:hover { background: #004070; }
+        /* Дисклеймер */
+        .disclaimer-box {
+            background: linear-gradient(135deg, #fff9e6, #fef8e0);
+            border-left: 4px solid #ffcc00;
+            padding: 16px 20px;
+            margin: 30px 0;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 2px 8px rgba(255, 204, 0, 0.08);
+        }
+        .disclaimer-box p {
+            margin: 0;
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: #665200;
+            font-style: italic;
+        }
+
+        .btn-back { 
+            display: inline-block; 
+            background: #0a1f33; 
+            color: white; 
+            padding: 12px 24px; 
+            border-radius: 4px; 
+            font-size: 13px; 
+            font-weight: bold; 
+            text-decoration: none; 
+            margin-top: 30px; 
+            transition: all 0.3s; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+        .btn-back:hover { 
+            background: #004070; 
+            transform: translateX(-3px);
+        }
 
         /* Подвал */
-        .footer-profile { background-color: #0a1f33; color: #fff; padding: 30px 0; margin-top: 60px; font-size: 12px; border-top: 4px solid #c5a059; }
-        .footer-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; box-sizing: border-box; flex-wrap: wrap; }
-        .footer-emblem { height: 60px; width: auto; object-fit: contain; flex-shrink: 0; }
-        .footer-disclaimer { color: #cedbe7; line-height: 1.6; text-align: justify; font-style: italic; max-width: 600px; }
-        .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; white-space: nowrap; flex-shrink: 0; }
+        .footer-profile { 
+            background-color: #0a1f33; 
+            color: #fff; 
+            padding: 30px 0; 
+            margin-top: 60px; 
+            font-size: 12px; 
+            border-top: 4px solid #c5a059; 
+        }
+        .footer-container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 30px; 
+            box-sizing: border-box; 
+            flex-wrap: wrap; 
+        }
+        .footer-emblem { 
+            height: 60px; 
+            width: auto; 
+            object-fit: contain; 
+            flex-shrink: 0; 
+        }
+        .footer-disclaimer { 
+            color: #cedbe7; 
+            line-height: 1.6; 
+            text-align: justify; 
+            font-style: italic; 
+            max-width: 600px; 
+        }
+        .footer-copyright { 
+            color: #8fa2b5; 
+            font-size: 11px; 
+            font-weight: bold; 
+            text-align: right; 
+            white-space: nowrap; 
+            flex-shrink: 0; 
+        }
 
-        /* АДАПТИВНАЯ ВЕРСТКА ДЛЯ СМАРТФОНОВ */
+        /* АДАПТИВ */
         @media screen and (max-width: 768px) {
             .navbar-custom {
                 height: auto !important;
@@ -193,30 +434,18 @@
                 justify-content: space-between !important;
                 padding: 10px 15px !important;
             }
-            .logo-area {
-                gap: 10px !important;
-            }
-            .emblem-img {
-                height: 45px !important;
-            }
-            .logo-text h1 {
-                font-size: 13px !important;
-            }
-            .logo-text p {
-                font-size: 8px !important;
-            }
-            .access-status {
-                display: none;
-            }
+            .logo-area { gap: 10px !important; }
+            .emblem-img { height: 45px !important; }
+            .logo-text h1 { font-size: 13px !important; }
+            .logo-text p { font-size: 8px !important; }
+            .access-status { display: none; }
 
-            /* Безопасный отступ для карточки профиля на мобилках */
             .profile-container {
                 padding: 15px !important;
                 margin: 110px 10px 20px 10px !important;
                 width: auto !important;
             }
 
-            /* Перестраиваем Фото + ФИО в одну колонку */
             .profile-header {
                 display: flex !important;
                 flex-direction: column !important;
@@ -231,34 +460,11 @@
                 width: 200px !important;
                 height: 250px !important;
             }
-            .info-box {
-                align-items: center !important;
-            }
-            .status-badge {
-                margin: 0 auto 15px auto !important;
-            }
-            .profile-name {
-                font-size: 24px !important;
-            }
-            .profile-rank {
-                font-size: 14px !important;
-                margin-bottom: 15px !important;
-            }
+            .info-box { align-items: center !important; }
+            .status-badge { margin: 0 auto 15px auto !important; }
+            .profile-name { font-size: 24px !important; }
+            .profile-rank { font-size: 14px !important; margin-bottom: 15px !important; }
 
-            .contact-block {
-                flex-direction: column !important;
-                align-items: stretch !important;
-                text-align: center !important;
-                gap: 12px !important;
-                padding: 16px 18px !important;
-            }
-
-            .contact-gemspace {
-                justify-content: center !important;
-                font-size: 13px !important;
-            }
-
-            /* Списки личных данных */
             .meta-grid {
                 display: flex !important;
                 flex-direction: column !important;
@@ -276,7 +482,6 @@
                 padding-left: 5px !important;
             }
 
-            /* Цитата + фото СМИ */
             .media-block {
                 display: flex !important;
                 flex-direction: column !important;
@@ -293,12 +498,19 @@
                 object-fit: contain !important;
             }
 
-            /* Текст био */
-            .bio-text {
-                text-align: left !important;
+            .bio-text { text-align: left !important; }
+
+            .career-timeline li {
+                padding-left: 45px;
+                font-size: 13.5px;
+            }
+            .career-timeline::before { left: 15px; }
+            .career-timeline li::before {
+                left: 8px;
+                width: 14px;
+                height: 14px;
             }
 
-            /* Подвал */
             .footer-container {
                 display: flex !important;
                 flex-direction: column !important;
@@ -331,6 +543,7 @@
 
     <div class="profile-container">
         
+        <!-- ===== ГЛАВНЫЙ БЛОК ===== -->
         <div class="profile-header">
             <div class="photo-box">
                 <img src="kas.png" alt="Рябов Р. А. — Рабочая обстановка">
@@ -340,14 +553,6 @@
                 <div class="status-badge">✓ Действующий сотрудник ведомства</div>
                 <h2 class="profile-name">Рябов Роман Александрович</h2>
                 <p class="profile-rank">Главный специалист-эксперт / Аналитик ПОД/ФТ</p>
-                
-                <!-- ===== КОНТАКТНЫЙ БЛОК (ТОЛЬКО GEMSPACE) ===== -->
-                <div class="contact-block">
-                    <div class="contact-gemspace">
-                        <span class="gem-icon">💎</span>
-                        <a href="https://links.gemspace.com/invite/Roman-Rabov" target="_blank">GemSpace — связаться</a>
-                    </div>
-                </div>
                 
                 <div class="meta-grid">
                     <div class="meta-label">ID Удостоверения:</div>
@@ -362,16 +567,68 @@
             </div>
         </div>
 
-        <div class="section-title">На страже финансовой безопасности</div>
+        <!-- ===== БИОГРАФИЯ ===== -->
+        <div class="section-title">Биография</div>
         <p class="bio-text">
-            Профессиональная деятельность Романа Александровича Рябова неразрывно связанна с аналитическим сопровождением масштабных мероприятий по противодействию легализации преступных доходов. В рамках работы в центральном аппарате ведомства он зарекомендовал себя как высококлассный специалист, способный эффективно распутывать самые сложные и скрытые цепочки финансовых транзакций.
+            Рябов Роман Александрович родился в 1997 году в городе Калининграде Калининградской области. В 2014 году окончил Специализированную школу с углублённым изучением экономики и права № 49, где проявил интерес к экономическим и правовым дисциплинам, принимал участие в профильных учебных мероприятиях.
+        </p>
+        <p class="bio-text">
+            В том же году поступил в Калининградский государственный технический университет на направление подготовки «Экономика», профиль «Финансы и кредит», который окончил в 2018 году, получив высшее экономическое образование.
         </p>
 
+        <!-- ===== ОБРАЗОВАНИЕ И СТАНОВЛЕНИЕ ===== -->
         <div class="section-title">Образование и становление</div>
         <p class="bio-text">
-            Роман Александрович получил профильное высшее экономическое образование по направлению <strong>«Финансы и кредит»</strong> со специальной подготовкой в сфере экономической безопасности. В рамках последующего профессионального развития он успешно завершил циклы специализированного обучения, сфокусированные на международных стандартах финансовой разведки, банковском комплаенсе и передовых методах детекции теневых финансовых процессов.
+            Профессиональное становление Романа Александровича началось с практической работы в банковском секторе Калининградской области. С 2018 по 2020 год он занимал должности специалиста, а затем ведущего специалиста отдела финансового контроля в ПАО «Балтийский коммерческий банк». В его обязанности входили анализ банковских операций, работа с финансовой документацией, проверка клиентских операций и подготовка аналитических материалов.
+        </p>
+        <p class="bio-text">
+            В 2020 году продолжил профессиональную деятельность в системе Банка России, в подразделении, связанном с банковским надзором и финансовым мониторингом. В этот период занимался анализом финансовой информации, изучением деятельности кредитных организаций и вопросами соблюдения требований законодательства в финансовой сфере.
+        </p>
+        <p class="bio-text">
+            В 2022 году прошёл повышение квалификации по программе «Финансовый мониторинг и противодействие легализации доходов, полученных преступным путём, и финансированию терроризма». С 2023 года продолжил профессиональное развитие в сфере финансового контроля, банковского надзора и финансовой аналитики.
         </p>
 
+        <!-- ===== КАРЬЕРНЫЙ ПУТЬ (ТАЙМЛАЙН) ===== -->
+        <div class="section-title">Путь к Росфинмониторингу</div>
+        <ul class="career-timeline">
+            <li>
+                <span class="career-year">1997</span>
+                <span class="career-title">Рождение, г. Калининград</span>
+            </li>
+            <li>
+                <span class="career-year">2014–2018</span>
+                <span class="career-title">Калининградский государственный технический университет</span>
+                <div class="career-desc">Направление «Экономика», профиль «Финансы и кредит»</div>
+            </li>
+            <li>
+                <span class="career-year">2018–2020</span>
+                <span class="career-title">Банковский сектор Калининграда</span>
+                <div class="career-desc">Специалист → ведущий специалист отдела финансового контроля, ПАО «Балтийский коммерческий банк»</div>
+            </li>
+            <li>
+                <span class="career-year">2020–2024</span>
+                <span class="career-title">Банк России</span>
+                <div class="career-desc">Направление банковского надзора и финансового мониторинга</div>
+            </li>
+            <li>
+                <span class="career-year">2022</span>
+                <span class="career-title">Повышение квалификации</span>
+                <div class="career-desc">Программа «Финансовый мониторинг и ПОД/ФТ»</div>
+            </li>
+            <li>
+                <span class="career-year">2024 — н.в.</span>
+                <span class="career-title">Росфинмониторинг</span>
+                <div class="career-desc">Направление финансового мониторинга и аналитической работы</div>
+            </li>
+        </ul>
+
+        <!-- ===== НА СТРАЖЕ ===== -->
+        <div class="section-title">На страже финансовой безопасности</div>
+        <p class="bio-text">
+            Профессиональная деятельность Романа Александровича неразрывно связана с аналитическим сопровождением масштабных мероприятий по противодействию легализации преступных доходов. В рамках работы в центральном аппарате ведомства он зарекомендовал себя как высококлассный специалист, способный эффективно распутывать самые сложные и скрытые цепочки финансовых транзакций.
+        </p>
+
+        <!-- ===== КЛЮЧЕВЫЕ НАПРАВЛЕНИЯ ===== -->
         <div class="section-title">Ключевые направления экспертизы</div>
         <p class="bio-text">
             Ежедневные обязанности Романа Александровича охватывают стратегически важные направления работы Управления финансовых расследований, требующие ювелирной точности и системного мышления:
@@ -383,6 +640,7 @@
             <li><strong>Моделирование рисков:</strong> Участие в проектировании современных аналитических моделей оценки рисков и совершенствовании механизмов национального финансового мониторинга.</li>
         </ul>
 
+        <!-- ===== ПРОФЕССИОНАЛЬНЫЙ ИТОГ ===== -->
         <div class="section-title">Профессиональный итог и международный трек</div>
         <div class="media-block">
             <div class="quote-block">
@@ -394,6 +652,7 @@
             </div>
         </div>
 
+        <!-- ===== НАГРАДЫ ===== -->
         <div class="section-title">Государственные и ведомственные награды</div>
         <ul class="awards-list">
             <li>Благодарность руководства Росфинмониторинга за высокий профессионализм и развитие аналитических инструментов.</li>
@@ -401,8 +660,9 @@
             <li>Почетная грамота за вклад в совершенствование механизмов противодействия легализации преступных доходов.</li>
         </ul>
 
-            <div style="background-color: #fff9e6; border-left: 4px solid #ffcc00; padding: 15px; margin: 30px 0; border-radius: 0 4px 4px 0;">
-            <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #665200; font-style: italic;">
+        <!-- ===== ДИСКЛЕЙМЕР ===== -->
+        <div class="disclaimer-box">
+            <p>
                 * Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга.
             </p>
         </div>
@@ -411,18 +671,15 @@
 
     </div>
 
+    <!-- ===== ПОДВАЛ ===== -->
     <footer class="footer-profile">
         <div class="footer-container">
-            <div class="footer-logo-block">
-                <img src="emblem.png" alt="Герб">
-                <div class="footer-text-left">
-                    <div class="footer-title-ru">РОСФИНМОНИТОРИНГ</div>
-                    <div class="footer-subtitle-ru">Федеральная служба по финансовому мониторингу</div>
-                </div>
+            <img src="emblem.png" class="footer-emblem" alt="Герб">
+            <div class="footer-disclaimer">
+                «Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга».
             </div>
-            <div class="footer-text-right">
-                <div>Центральный аппарат Росфинмониторинга</div>
-                <div style="margin-top: 4px;">© 2001-2026 Все права защищены.</div>
+            <div class="footer-copyright">
+                © 2001-2026 Федеральная служба<br>по финансовому мониторингу
             </div>
         </div>
     </footer>
