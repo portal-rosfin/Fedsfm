@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="color-scheme" content="light only">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <link rel="icon" type="image/x-icon" href="emblem.png">
+    <title>Досье: Зуев Евгений Викторович — Росфинмониторинг</title>
+    <style>
+        /* ===== ПРИНУДИТЕЛЬНО СВЕТЛАЯ ТЕМА ===== */
+        :root {
+            color-scheme: light !important;
+        }
+        html {
+            background: #f0f4f7 !important;
+            color: #1a1a2e !important;
+        }
+        body { 
+            background: #f0f4f7 !important;
+            color: #1a1a2e !important;
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+        }
+        * {
+            color-scheme: light !important;
+            box-sizing: border-box;
+        }
+        
+        /* Хедер с фиксацией */
+        .navbar-custom { 
+            background-color: #0a1f33; 
+            height: 85px; 
+            display: flex; 
+            align-items: center; 
+            padding: 0 30px; 
+            color: #fff; 
+            border-bottom: 4px solid #c5a059; 
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+        .emblem-img {
+            height: 60px;
+            width: auto;
+        }
+        .logo-text h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+        .logo-text p {
+            margin: 0;
+            font-size: 10px;
+            color: #a0b2c6;
+            text-transform: uppercase;
+        }
+        .access-status {
+            font-size: 12px;
+            font-weight: bold;
+            color: #a0b2c6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Контейнер профиля */
+        .profile-container { 
+            max-width: 1000px; 
+            margin: 125px auto 40px auto;
+            background: white; 
+            border: 1px solid #dce3e8; 
+            border-radius: 4px; 
+            padding: 40px; 
+            box-sizing: border-box; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02); 
+        }
+        
+        /* Главный блок: Фото + Имя */
+        .profile-header { 
+            display: grid; 
+            grid-template-columns: 280px 1fr; 
+            gap: 40px; 
+            border-bottom: 2px solid #edf1f4; 
+            padding-bottom: 35px; 
+            margin-bottom: 30px; 
+        }
+        
+        .photo-box { 
+            width: 280px; 
+            height: 350px; 
+            background: #e5eef5; 
+            border: 1px solid #dce3e8; 
+            border-radius: 4px; 
+            overflow: hidden; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+        }
+        .photo-box img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: center; 
+        }
+        
+        .info-box { 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+        }
+        .status-badge { 
+            background: #e2f6ea; 
+            color: #28a745; 
+            padding: 6px 14px; 
+            font-size: 12px; 
+            font-weight: bold; 
+            border-radius: 20px; 
+            width: fit-content; 
+            margin-bottom: 20px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            border: 1px solid #c3e6cb; 
+        }
+        .profile-name { 
+            font-size: 32px; 
+            color: #0a1f33; 
+            font-weight: bold; 
+            margin: 0 0 10px 0; 
+        }
+        .profile-rank { 
+            font-size: 16px; 
+            color: #005695; 
+            font-weight: 600; 
+            margin: 0 0 25px 0; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+        
+        /* ===== БЛОК МЕТА-ДАННЫХ ===== */
+        .meta-grid { 
+            display: grid; 
+            grid-template-columns: 180px 1fr; 
+            gap: 14px; 
+            font-size: 14px; 
+            border-top: 1px solid #f0f4f7; 
+            padding-top: 20px; 
+        }
+        .meta-label { 
+            font-weight: bold; 
+            color: #708090; 
+        }
+        .meta-value { 
+            color: #222; 
+        }
+        .meta-value.id-highlight { 
+            color: #dd2c00; 
+            font-weight: bold; 
+        }
+
+        /* Разделы */
+        .section-title { 
+            font-size: 18px; 
+            color: #005695; 
+            font-weight: bold; 
+            margin-top: 40px; 
+            margin-bottom: 20px; 
+            border-bottom: 2px solid #005695; 
+            padding-bottom: 6px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+        .bio-text { 
+            font-size: 15px; 
+            line-height: 1.6; 
+            color: #444; 
+            text-align: justify; 
+            margin: 0 0 15px 0; 
+        }
+
+        /* Списки блоков */
+        .features-list { 
+            padding-left: 20px; 
+            margin: 15px 0; 
+            font-size: 15px; 
+            line-height: 1.6; 
+            color: #444; 
+        }
+        .features-list li { 
+            margin-bottom: 12px; 
+        }
+        .features-list strong { 
+            color: #005695; 
+        }
+
+        /* ===== ТАЙМЛАЙН КАРЬЕРЫ ===== */
+        .career-timeline {
+            margin: 20px 0 10px;
+            padding: 0;
+            list-style: none;
+            position: relative;
+        }
+        .career-timeline::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: linear-gradient(180deg, #005695, #c5a059);
+        }
+        .career-timeline li {
+            position: relative;
+            padding: 0 0 24px 55px;
+            font-size: 14.5px;
+            line-height: 1.5;
+            color: #444;
+        }
+        .career-timeline li:last-child {
+            padding-bottom: 0;
+        }
+        .career-timeline li::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #005695;
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 0 2px #005695;
+            z-index: 1;
+        }
+        .career-timeline li:first-child::before {
+            background: #c5a059;
+            box-shadow: 0 0 0 2px #c5a059;
+        }
+        .career-timeline li:last-child::before {
+            background: #28a745;
+            box-shadow: 0 0 0 2px #28a745;
+        }
+        .career-year {
+            display: inline-block;
+            font-weight: bold;
+            color: #005695;
+            font-size: 13px;
+            background: #eef4f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+        .career-timeline li:first-child .career-year {
+            background: #fef8e7;
+            color: #b45309;
+        }
+        .career-timeline li:last-child .career-year {
+            background: #e2f6ea;
+            color: #1a6e3a;
+        }
+        .career-title {
+            font-weight: 600;
+            color: #0a1f33;
+        }
+        .career-desc {
+            color: #5a6b7a;
+            font-size: 13.5px;
+            margin-top: 2px;
+        }
+
+        /* Двухколоночный блок */
+        .media-block { 
+            display: grid; 
+            grid-template-columns: 1fr 320px; 
+            gap: 30px; 
+            margin-top: 15px; 
+            align-items: start; 
+        }
+        
+        .quote-block { 
+            background: #f4f7fa; 
+            border-left: 5px solid #c5a059; 
+            padding: 25px; 
+            border-radius: 0 4px 4px 0; 
+            font-style: italic; 
+            font-size: 15px; 
+            line-height: 1.6; 
+            color: #4b5768; 
+            margin: 0; 
+        }
+        .quote-source { 
+            font-style: normal; 
+            font-weight: bold; 
+            color: #005695; 
+            margin-top: 15px; 
+            font-size: 12px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+        
+        .press-photo-box { 
+            width: 100%; 
+            height: 210px; 
+            background: #e5eef5; 
+            border: 1px solid #dce3e8; 
+            border-radius: 4px; 
+            overflow: hidden; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05); 
+        }
+        .press-photo-box img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+
+        /* Награды */
+        .awards-list { 
+            list-style-type: none; 
+            padding: 0; 
+            margin: 0; 
+            font-size: 15px; 
+            line-height: 1.8; 
+            color: #444; 
+        }
+        .awards-list li { 
+            padding-left: 30px; 
+            position: relative; 
+            margin-bottom: 10px; 
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+        .awards-list li::before { 
+            content: '🏆'; 
+            position: absolute; 
+            left: 0; 
+            top: 1px; 
+            font-size: 16px; 
+        }
+
+        /* Дисклеймер */
+        .disclaimer-box {
+            background: linear-gradient(135deg, #fff9e6, #fef8e0);
+            border-left: 4px solid #ffcc00;
+            padding: 16px 20px;
+            margin: 30px 0;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 2px 8px rgba(255, 204, 0, 0.08);
+        }
+        .disclaimer-box p {
+            margin: 0;
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: #665200;
+            font-style: italic;
+        }
+
+        .btn-back { 
+            display: inline-block; 
+            background: #0a1f33; 
+            color: white; 
+            padding: 12px 24px; 
+            border-radius: 4px; 
+            font-size: 13px; 
+            font-weight: bold; 
+            text-decoration: none; 
+            margin-top: 30px; 
+            transition: all 0.3s; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+        .btn-back:hover { 
+            background: #004070; 
+            transform: translateX(-3px);
+        }
+
+        /* Подвал */
+        .footer-profile { 
+            background-color: #0a1f33; 
+            color: #fff; 
+            padding: 30px 0; 
+            margin-top: 60px; 
+            font-size: 12px; 
+            border-top: 4px solid #c5a059; 
+        }
+        .footer-container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 30px; 
+            box-sizing: border-box; 
+            flex-wrap: wrap; 
+        }
+        .footer-emblem { 
+            height: 60px; 
+            width: auto; 
+            object-fit: contain; 
+            flex-shrink: 0; 
+        }
+        .footer-disclaimer { 
+            color: #cedbe7; 
+            line-height: 1.6; 
+            text-align: justify; 
+            font-style: italic; 
+            max-width: 600px; 
+        }
+        .footer-copyright { 
+            color: #8fa2b5; 
+            font-size: 11px; 
+            font-weight: bold; 
+            text-align: right; 
+            white-space: nowrap; 
+            flex-shrink: 0; 
+        }
+
+        /* АДАПТИВ */
+        @media screen and (max-width: 768px) {
+            .navbar-custom {
+                height: auto !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                padding: 10px 15px !important;
+            }
+            .logo-area { gap: 10px !important; }
+            .emblem-img { height: 45px !important; }
+            .logo-text h1 { font-size: 13px !important; }
+            .logo-text p { font-size: 8px !important; }
+            .access-status { display: none; }
+
+            .profile-container {
+                padding: 15px !important;
+                margin: 110px 10px 20px 10px !important;
+                width: auto !important;
+            }
+
+            .profile-header {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 20px !important;
+                text-align: center !important;
+                padding-bottom: 20px !important;
+                margin-bottom: 20px !important;
+            }
+            .photo-box {
+                margin: 0 auto;
+                width: 200px !important;
+                height: 250px !important;
+            }
+            .info-box { align-items: center !important; }
+            .status-badge { margin: 0 auto 15px auto !important; }
+            .profile-name { font-size: 24px !important; }
+            .profile-rank { font-size: 14px !important; margin-bottom: 15px !important; }
+
+            .meta-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 12px !important;
+                text-align: left !important;
+                padding-top: 15px !important;
+            }
+            .meta-label {
+                margin-top: 0 !important;
+                margin-bottom: 2px !important;
+                color: #708090 !important;
+            }
+            .meta-value {
+                margin-bottom: 10px !important;
+                padding-left: 5px !important;
+            }
+
+            .media-block {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+            .press-photo-box {
+                width: 100% !important;
+                height: auto !important;
+                max-height: 250px !important;
+            }
+            .press-photo-box img {
+                width: 100% !important;
+                height: auto !important;
+                object-fit: contain !important;
+            }
+
+            .bio-text { text-align: left !important; }
+
+            .career-timeline li {
+                padding-left: 45px;
+                font-size: 13.5px;
+            }
+            .career-timeline::before { left: 15px; }
+            .career-timeline li::before {
+                left: 8px;
+                width: 14px;
+                height: 14px;
+            }
+
+            .footer-container {
+                display: flex !important;
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 15px !important;
+            }
+            .footer-disclaimer {
+                text-align: center !important;
+                font-size: 11px !important;
+            }
+            .footer-copyright {
+                text-align: center !important;
+                white-space: normal !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-custom">
+        <div class="logo-area" onclick="window.location.href='index.html'">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Служебная база верификации сотрудников</p>
+            </div>
+        </div>
+        <div class="access-status">Доступ: Служебный</div>
+    </nav>
+
+    <div class="profile-container">
+        
+        <!-- ===== ГЛАВНЫЙ БЛОК ===== -->
+        <div class="profile-header">
+            <div class="photo-box">
+                <img src="zuev.png" alt="Зуев Е. В. — Рабочая обстановка">
+            </div>
+            
+            <div class="info-box">
+                <div class="status-badge">✓ Действующий сотрудник ведомства</div>
+                <h2 class="profile-name">Зуев Евгений Викторович</h2>
+                <p class="profile-rank">Ведущий специалист / Эксперт по финансовому мониторингу и ПОД/ФТ</p>
+                
+                <div class="meta-grid">
+                    <div class="meta-label">ID Удостоверения:</div>
+                    <div class="meta-value id-highlight">ФС-125202</div>
+                    
+                    <div class="meta-label">Подразделение:</div>
+                    <div class="meta-value">Управление финансовых расследований Росфинмониторинга</div>
+                    
+                    <div class="meta-label">Специализация:</div>
+                    <div class="meta-value">Выявление схем обналичивания, анализ криптовалютных потоков и противодействие дропам</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== БИОГРАФИЯ ===== -->
+        <div class="section-title">Биография</div>
+        <p class="bio-text">
+            Зуев Евгений Викторович родился в 1995 году в городе Нижнем Новгороде. В 2013 году с отличием окончил лицей с углублённым изучением математики и информатики, где проявил способности к аналитической работе и точным наукам.
+        </p>
+        <p class="bio-text">
+            В том же году поступил в Нижегородский государственный университет им. Н. И. Лобачевского на экономический факультет, направление «Экономика», профиль «Финансы и кредит». В 2017 году получил диплом бакалавра, а в 2019 году завершил магистратуру по направлению «Финансы и кредит» с диссертацией по теме противодействия легализации доходов.
+        </p>
+
+        <!-- ===== ОБРАЗОВАНИЕ И СТАНОВЛЕНИЕ ===== -->
+        <div class="section-title">Образование и становление</div>
+        <p class="bio-text">
+            Профессиональный путь Евгения Викторовича начался в Приволжском банке, где с 2019 по 2021 год он работал в отделе финансового мониторинга и комплаенса. В его обязанности входил анализ подозрительных операций клиентов, подготовка сообщений в Росфинмониторинг и взаимодействие с правоохранительными органами по вопросам финансовых расследований.
+        </p>
+        <p class="bio-text">
+            С 2021 по 2023 год продолжил карьеру в крупной микрофинансовой организации, где занимался построением системы внутреннего контроля в сфере ПОД/ФТ, разработкой методик выявления дроп-счетов и анализом криптовалютных транзакций. За это время подготовил ряд внутренних методических материалов, которые впоследствии были использованы в отрасли.
+        </p>
+        <p class="bio-text">
+            В 2023 году прошёл профессиональную переподготовку по программе «Финансовый мониторинг и противодействие легализации доходов, полученных преступным путём, и финансированию терроризма», а также повышение квалификации по направлению «Анализ цифровых финансовых активов».
+        </p>
+
+        <!-- ===== КАРЬЕРНЫЙ ПУТЬ (ТАЙМЛАЙН) ===== -->
+        <div class="section-title">Путь к Росфинмониторингу</div>
+        <ul class="career-timeline">
+            <li>
+                <span class="career-year">1995</span>
+                <span class="career-title">Рождение, г. Нижний Новгород</span>
+            </li>
+            <li>
+                <span class="career-year">2013–2019</span>
+                <span class="career-title">Нижегородский государственный университет им. Н. И. Лобачевского</span>
+                <div class="career-desc">Бакалавриат и магистратура, направление «Экономика», профиль «Финансы и кредит»</div>
+            </li>
+            <li>
+                <span class="career-year">2019–2021</span>
+                <span class="career-title">Приволжский банк</span>
+                <div class="career-desc">Отдел финансового мониторинга и комплаенса, анализ подозрительных операций</div>
+            </li>
+            <li>
+                <span class="career-year">2021–2023</span>
+                <span class="career-title">Микрофинансовая организация</span>
+                <div class="career-desc">Построение системы внутреннего контроля ПОД/ФТ, работа с дроп-счетами</div>
+            </li>
+            <li>
+                <span class="career-year">2023</span>
+                <span class="career-title">Профессиональная переподготовка</span>
+                <div class="career-desc">Программы «Финансовый мониторинг и ПОД/ФТ» и «Анализ цифровых финансовых активов»</div>
+            </li>
+            <li>
+                <span class="career-year">2024 — н.в.</span>
+                <span class="career-title">Росфинмониторинг</span>
+                <div class="career-desc">Управление финансовых расследований, направление финансового мониторинга</div>
+            </li>
+        </ul>
+
+        <!-- ===== НА СТРАЖЕ ===== -->
+        <div class="section-title">На страже финансовой безопасности</div>
+        <p class="bio-text">
+            Деятельность Евгения Викторовича сосредоточена на выявлении и пресечении сложных схем легализации преступных доходов, в том числе с использованием цифровых финансовых активов. Благодаря аналитическому складу ума и глубокому пониманию банковских процессов он эффективно выявляет цепочки транзакций, которые злоумышленники пытаются скрыть за множеством подставных лиц.
+        </p>
+
+        <!-- ===== КЛЮЧЕВЫЕ НАПРАВЛЕНИЯ ===== -->
+        <div class="section-title">Ключевые направления экспертизы</div>
+        <p class="bio-text">
+            Профессиональные задачи Евгения Викторовича охватывают ключевые направления работы Управления финансовых расследований, требующие системного подхода и внимания к деталям:
+        </p>
+        <ul class="features-list">
+            <li><strong>Анализ схем обналичивания:</strong> Выявление и документирование схем вывода денежных средств через подставные организации, транзитные счета и фирмы-однодневки.</li>
+            <li><strong>Противодействие дропам:</strong> Выявление счетов-дропов и цепочек транзакций, используемых для дробления и обналичивания преступных доходов.</li>
+            <li><strong>Мониторинг криптовалютных потоков:</strong> Анализ операций с цифровыми финансовыми активами и выявление признаков их использования в противоправных целях.</li>
+            <li><strong>Методическая работа:</strong> Участие в разработке внутренних методик и рекомендаций для кредитных организаций по выявлению подозрительных операций.</li>
+        </ul>
+
+        <!-- ===== ПРОФЕССИОНАЛЬНЫЙ ИТОГ ===== -->
+        <div class="section-title">Профессиональный итог и международный трек</div>
+        <div class="media-block">
+            <div class="quote-block">
+                «Цифровые активы и дроп-счета — это современный инструмент теневой экономики. Только системный анализ и взаимодействие всех участников финансового рынка позволяют эффективно противостоять этим угрозам и защищать интересы государства и граждан.»
+                <div class="quote-source">Из выступления на межведомственном семинаре, 2026 г.</div>
+            </div>
+            <div class="press-photo-box">
+                <img src="zuev2.png" alt="Зуев Е. В. — Выступление с докладом">
+            </div>
+        </div>
+
+        <!-- ===== НАГРАДЫ ===== -->
+        <div class="section-title">Государственные и ведомственные награды</div>
+        <ul class="awards-list">
+            <li>Благодарность директора Росфинмониторинга за вклад в выявление схем обналичивания денежных средств.</li>
+            <li>Ведомственная медаль «За укрепление финансовой безопасности» за добросовестную службу.</li>
+            <li>Почетная грамота за активное участие в разработке методических материалов по противодействию дропам.</li>
+        </ul>
+
+        <!-- ===== ДИСКЛЕЙМЕР ===== -->
+        <div class="disclaimer-box">
+            <p>
+                * Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга.
+            </p>
+        </div>
+
+        <a href="index.html" class="btn-back">← На главную страницу</a>
+
+    </div>
+
+    <!-- ===== ПОДВАЛ ===== -->
+    <footer class="footer-profile">
+        <div class="footer-container">
+            <img src="emblem.png" class="footer-emblem" alt="Герб">
+            <div class="footer-disclaimer">
+                «Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга».
+            </div>
+            <div class="footer-copyright">
+                © 2001-2026 Федеральная служба<br>по финансовому мониторингу
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
